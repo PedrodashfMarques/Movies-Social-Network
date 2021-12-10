@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../shared/auth.service.service';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +14,7 @@ export class HeaderComponent implements OnInit {
 
   userFezLogout: boolean;
 
-  constructor(private myAuthService: AuthService, private myRouter: Router) { }
+  constructor(private myRouter: Router) { }
 
   ngOnInit(): void {
     
@@ -24,12 +23,7 @@ export class HeaderComponent implements OnInit {
     this.userFezLogin = true;
 
     this.userFezLogout = false;
-
-    this.myAuthService.userLoggedIn.subscribe((data: boolean) => {
-      this.userFezLogin = data;
-    })
     
-
   }
 
   abreMenu(): void{
@@ -43,8 +37,6 @@ export class HeaderComponent implements OnInit {
   
   onLogout(){
     this.userFezLogout = true;
-    
-    this.myAuthService.userLoggedOut.next(this.userFezLogout);
     
     setTimeout(() => {
       this.userFezLogin = false;

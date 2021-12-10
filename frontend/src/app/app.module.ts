@@ -5,13 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 
-import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { FooterComponent } from './footer/footer.component';
-import { MyListComponent } from './my-list/my-list.component';
-import { moviesService } from './movies.service';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TrailerModalComponent } from './shared/trailer-modal/trailer-modal.component';
+
 import { SafePipe } from './shared/safe.pipe';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -31,11 +28,8 @@ import { PostsFilterComponent } from './world/posts-filter/posts-filter.componen
   declarations: [
     AppComponent,
     HeaderComponent,
-    MovieDetailComponent,
     FooterComponent,
-    MyListComponent,
     ErrorPageComponent,
-    TrailerModalComponent,
     SafePipe,
     RegisterComponent,
     LoginComponent,
@@ -58,7 +52,7 @@ import { PostsFilterComponent } from './world/posts-filter/posts-filter.componen
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [moviesService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

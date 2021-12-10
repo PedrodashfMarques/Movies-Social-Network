@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { LoginComponent } from './login/login.component';
-import { MyListComponent } from './my-list/my-list.component';
 import { NewsfeedComponent } from './newsfeed/newsfeed.component';
 import { AboutComponent } from './profile-page/about/about.component';
 import { GroupsComponent } from './profile-page/groups/groups.component';

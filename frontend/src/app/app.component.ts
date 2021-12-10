@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './shared/auth.service.service';
 
 @Component({
   selector: 'app-root',
@@ -10,16 +9,10 @@ export class AppComponent implements OnInit{
 
   estaAutenticado: boolean = false;
 
-  constructor(private myAuthService: AuthService){}
+  constructor(){}
 
-  userLogado: boolean;
 
   ngOnInit(){
-    this.userLogado = false;
-    
-    this.myAuthService.userLoggedIn.subscribe((data: boolean) => {
-      this.userLogado = data;
-    })
 
   }
 
