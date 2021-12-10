@@ -1,0 +1,87 @@
+@import 'var&mixin.scss';
+
+main{
+    max-width: 1600px;
+    height: 861px;
+    margin: 8px auto;
+    background-color: #202020;
+    display: flex;
+    justify-content: space-around;
+
+    section.area_filters{
+        width: 42%;
+        background-color: dodgerblue;
+        margin: 10px;
+
+        div.caixa_child_routes{
+            width: 85%;
+            background: white;
+            height: 150px;
+            margin: 15px auto;
+            border-radius: 8px;
+
+            ul{
+                width: 100%;
+                height: 150px;
+
+                li{
+                    width: 100%;
+                    height: 75px;
+                    text-align: center;
+                    font-size: 1.2em;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 8px;
+
+
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+
+    }
+    
+    section.area_world{
+        width: 100%;
+        background-color: white;
+        margin: 10px;
+
+        .caixa_filters{
+            width: 100%;
+            height: 90px;
+            background-color: orchid;
+        }
+
+        .area_child_routing{
+            width: 100%;
+            height: 751px;
+            // background-color: orange;
+            display: flex;
+            justify-content: center;
+            // align-items: center;
+
+            .area_resultados{
+                width: 100%;
+                // height: 400px;
+                margin: 35px auto;
+                background-color: green;
+
+            }
+        }
+    }
+
+
+}
+
+
+// Classes li's
+
+.usersClicked{
+    background-color: rgb(207, 207, 207);
+    // border: 1px solid grey;
+
+}

@@ -1,0 +1,36 @@
+<app-header> </app-header>
+
+<main>
+
+    <section class="area_filters">
+
+        <div class="caixa_child_routes">
+            <ul>
+                <li (click)="showUsersFilter()" [ngClass]="{usersClicked: usersRouteClicked === true}"> <span> Users </span>  </li>
+                <li (click)="showPostsFilter()" [ngClass]="{usersClicked: postsRouteClicked === true}"> <span> Posts </span> </li>
+            </ul>
+
+        </div>
+
+    </section>
+
+    <section class="area_world">
+
+        <div class="caixa_filters">
+
+
+        </div>
+
+        <div class="area_child_routing">
+            
+            <div class="area_resultados">
+
+                <router-outlet></router-outlet>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>

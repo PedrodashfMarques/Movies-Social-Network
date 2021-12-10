@@ -1,0 +1,454 @@
+@import 'var&mixin.scss';
+
+main{
+    max-width: 1600px;
+    height: 861px;
+    margin: 8px auto;
+    background-color: #202020;
+    display: flex;
+    justify-content: space-around;
+
+
+    section.area_perfil_shortcuts{
+        width: 75%;
+        background-color: dodgerblue;
+        margin: 10px;
+
+        div.area_perfil{
+            width: 90%;
+            background: white;
+            // height: 270px;
+            margin: 15px auto;
+            border-radius: 8px;
+
+            .background_picture{
+                width: 100%;
+                border-radius: 6px 6px 0px 0px;
+                height: 150px;
+                // border-radius: 8px;
+
+                .area_background_pic{
+                    width: 100%;
+                    height: 150px;
+                    // background: rgb(75, 58, 114);
+                    overflow: hidden;
+                    border-radius: 8px;
+
+                    img{
+                       width: 100%;
+                       height: 150px;
+                       background-size: cover ;
+                       background-repeat: no-repeat;
+                    }
+                }
+                
+                
+                .area_profile_picture{
+                    width: 118px;
+                    height: 100px;
+                    position: relative;
+                    bottom: 70%;
+                    border-radius: 50% ;
+                    margin: 0 auto;
+                    // background: orange;
+
+                    img{
+                        width: 100%;
+                        background-size: cover;
+                        border-radius: 50%;
+                        // margin-top: -75px;
+
+                        &:hover{
+                            cursor: pointer;
+                            transform: scale(1.07);
+                        }
+                    }
+                }
+            }
+
+            .username_and_followers{
+                width: 100%;
+                // background: rgb(199, 196, 24);
+                border-radius: 0px 0px 6px 6px;
+                height: 145px;
+
+                .name_and_username{
+                    width: 100%;
+                    height: 70px;
+                    // background-color: #202020;
+                    // background-color: white;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: $themeColor;
+
+                    p{
+                        text-align: center;
+                        font-weight: lighter;
+                        margin-top: 10px;
+                        font-family: $LDFont;
+                        font-size: 1.2rem;
+
+                        span{
+                            font-weight: bold;
+                        }
+                    }
+                }
+
+                .followers_and_followings{
+                    width: 100%;
+                    height: 75px;
+                    margin-top: -10px;
+                    background-color: white;
+                    border-radius: 0px 0px 6px 6px;
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    text-align: center;
+
+                    p{
+                        font-size: 17px;;
+                    }
+                }
+            }
+
+        }
+
+        .area_shortcuts{
+            width: 80%;
+            background-color: #202020;
+            height: 300px;
+            margin: 65px auto;
+            border-radius: 8px;
+
+            .area_titulo_shortcuts{
+                width: 100%;
+                height: 50px;
+                display: flex;
+                align-items: center; // Verticalmente
+                justify-content: left ; // Horizontalmente
+                h2{
+                    border-bottom: 1px solid;
+                    // border-bottom-width: 5px;
+                    color: white;
+                    margin-top: 12px;
+                    font-weight: 500;
+                    margin-left: 15px;
+                    font-size: 1.25em;
+                }
+            }
+
+            ul{
+                width: 100%;
+                // background: orange;
+
+                li{
+                    width: calc(100% - 30px);
+                    line-height: 32px;
+                    // background-color: orchid;
+                    margin: 15px;
+                    margin-left: 10px;
+                    font-size: 1.2em;
+                    color: white;
+                    
+                    &:hover{
+                        color: $themeColor;
+                        cursor: pointer;
+                    }
+
+                    i{
+                        font-size: 1.1em;
+                        width: 7%;
+                        color: rgb(44, 96, 100);
+                    }
+
+                }
+            }
+        }
+
+
+
+    }
+
+    section.area_posts{
+        width: 100%;
+        background-color: dodgerblue;
+        margin: 10px;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+            width: 0;
+            display: none;  /* Remove scrollbar space */
+        }
+
+        .area_novo_post{
+            width: 92%;
+            height: 170px;
+            background-color: white;
+            margin: 20px auto;
+            border-radius: 3px;
+
+            textarea{
+                width: 99%;
+                height: 125px;
+                background-color: white;
+                margin: 0 auto;
+                resize: none;
+                border: 0;
+                outline: 0;
+                font-family: $LDFont;
+                overflow: hidden;
+
+            }
+
+            .area_botao_post{
+                width: 100%;
+                height: 38px;
+                // background: green;
+                border-radius: 0px 0px 3px 3px;
+                margin-top: -2px;
+
+                ul{
+                    width: 40%;
+                    height: 38px;
+                    // background: red;
+                    display: flex;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    float: right;
+
+                    i{
+                        font-size: 27px;
+                        color: $themeColor;
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }
+
+                    input{
+                        display:none;
+                        
+                    }
+
+                    button{
+                        width: 30%;
+                        height: 25px;
+                        background-color: $themeColor;
+                        border: 0;
+                        border-radius: 3px;
+                        color: white;
+                        font-size: 1.07em;
+
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        article.posts_carregados{
+            width: 92%;
+            // height: 170px;
+            background-color: white;
+            margin: 20px auto;
+            border-radius: 3px;
+
+            div.area_quem_postou{
+                width: 100%;
+                height: 55px;
+                // background: green;
+                display: flex;
+                justify-content: left;
+                align-items: center;
+
+                div.imagem_user_post{
+                    width: 55px;
+                    // height: 65px;
+                    margin: 8px;
+                    // background-color: blue;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+
+                    img{
+                       width: 100%;
+                       height: 50px;
+                       border-radius: 50%;
+                         object-fit: fill;
+                         border: 1px solid $themeColor;
+                    }
+                }
+
+                div.nome_user_post{
+                    width: 50%;
+                    height: 55px;
+                    text-align: center;
+                    display: flex;
+                    align-items: center;
+                    // background-color: orange;   
+
+                    h3{
+                        color: $themeColor;
+                        font-weight: 500;
+                        margin-top: 12px;
+                        display: flex;
+                        align-items: center; 
+
+                        span{
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
+
+            div.area_conteudo_desse_post{
+                width: 100%;
+                // display: flex;
+                display: block;
+
+
+                .area_post_created{
+                    width: 90%;
+                    // height: 200px;
+                    margin: 5px auto;
+                    // background-color: orchid;
+
+                    p{
+                        font-size: 0.85em;
+                    }
+                }
+
+                .area_content_post{
+                    width: 90%;
+                    margin: 15px auto;
+                    line-height: 23px;
+                    margin-bottom: 1px;
+                    // margin
+                    // Perguntar ao Ivo como manter os parágrafos originalmente adicionados pelo user
+                    // background-color: green;
+                }
+                       
+            }
+
+            div.area_likes_comments{
+                width: 90%;
+                // height: 50px;
+                margin: 10px auto;
+                // background-color: orchid;
+
+                ul{
+                    width: 100%;
+                    display: flex;
+                    justify-content: left;
+
+                    li{
+                        margin: 15px 0px;
+                        margin-left: 5px;
+                        margin-right: 70px;
+                        font-size: 22px;
+                        color: $themeColor;
+
+                        span{
+                            font-size: 12px;
+                        
+                        }
+
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }
+
+                    
+                }
+            }
+        }
+        
+    }
+
+    section.area_recent_activity_and_trendings{
+        width: 75%;
+        background-color: dodgerblue;
+        margin: 10px;
+
+        .area_recent_activity{
+            width: 70%;
+            height: 150px; // Este height depois sai quando tiver informação para meter aqui
+            background-color: #202020;
+            margin: 15px auto;
+            border-radius: 8px;
+
+            .area_titulo_Ractivity{
+                width: 100%;
+                border-radius: 8px;
+                display: flex;
+                justify-content: left;
+                // background-color: white;
+
+                h2{
+                    border-bottom: 1px solid;
+                    // border-bottom-width: 5px;
+                    color: white;
+                    margin-top: 12px;
+                    font-weight: 500;
+                    margin-left: 15px;
+                    font-size: 1.25em;
+                }
+            }
+
+        }
+
+        .area_trending_tags{
+            width: 70%;
+            // height: 150px;
+            background-color: #202020;
+            height: 270px; // Este height depois sai quando tiver informação para meter aqui
+            margin: 65px auto;
+            margin-bottom: 30px;
+            border-radius: 8px;
+
+            .area_titulo_trending_tags{
+                width: 100%;
+                border-radius: 8px;
+                display: flex;
+                justify-content: left;
+                // background-color: white;
+
+                h2{
+                    border-bottom: 1px solid;
+                    // border-bottom-width: 5px;
+                    color: white;
+                    margin-top: 12px;
+                    font-weight: 500;
+                    margin-left: 15px;
+                    font-size: 1.25em;
+                }
+            }
+        }
+
+        .area_terms_conditions_privacy{
+            width: 70%;
+            background-color: #202020;
+            height: 60px;
+            margin: 10px auto;
+            border-radius: 8px;
+            color: $themeColor;
+            font-weight: lighter;
+
+            .atcp1{
+                margin-top: 5px;
+                // padding: 5px auto;
+                display: flex;
+                justify-content: space-evenly;
+            }
+
+            .atcp2{
+                display: flex;
+                justify-content: space-evenly;
+            }
+            
+        }
+    }
+
+}

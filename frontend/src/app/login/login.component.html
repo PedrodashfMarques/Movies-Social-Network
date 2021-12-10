@@ -1,0 +1,58 @@
+<main>
+
+    <section class="area_logotipo">
+        
+
+        <div class="nome_da_redeSocial">
+            Loading Cinema
+        </div>
+
+        <div class="slogan_da_redeSocial">
+           <span> What drives your passion </span>
+        </div>
+
+    </section>
+
+    <section class="area_formulario">
+        
+        <div class="area_div_formulario">
+
+            <form [formGroup]="loginForm" (ngSubmit)="submitLogin(loginForm.value)">
+
+                <div class="cadaForm">
+                    <label for="emailId"> Email </label>
+                    <input 
+                    type="text" 
+                    id="emailId"
+                    formControlName="email"
+                    required>
+                </div>
+
+                <div class="cadaForm">
+                    <label for="passwordId"> Password </label>
+                    <input 
+                    type="text" 
+                    id="passwordId"
+                    formControlName="password">
+                </div>
+
+                <!-- Botão do type submit, disabled se os campos não forem todos válidos é o !ngForm.valid -->
+                <div class="botao_submit">
+                    <button type="submit"> Login </button>
+
+                </div>
+
+                <div class="botao_submit">
+                    <p> If you don't have an account, sign up now</p>
+                    <!-- Routerlink para Register page -->
+                    <button type="button" routerLink="/register"> Sign up</button>
+                </div>
+
+            </form>
+            
+        </div>
+
+    </section>
+
+   
+</main>

@@ -1,0 +1,148 @@
+@import 'var&mixin.scss';
+
+main{
+    max-width: 1725px;
+    // width: 90%;
+    // height: 100vh;
+    margin: 0 auto;
+    // background: rgb(166, 202, 166);
+    display: flex;
+    // justify-content: center;
+    font-family: $LDFont;
+
+
+    section.area_logotipo{
+        width: 60%;
+        height: 100vh;
+        // margin: 0 auto;
+        // background: rgb(191, 166, 202);
+        background: white;
+        // font-family: $LDFont;
+
+        div.nome_da_redeSocial{
+            width: 50%;
+            // height: 70px;
+            position: relative;
+            top: 26%;
+            margin: 15px auto;
+            // background: rgb(154, 74, 189);
+            color: #1D3B3E;
+            font-family: $LDFont;
+            text-align: center;
+            font-size: 3.5em;
+
+        }
+
+        div.slogan_da_redeSocial{
+            width: 50%;
+            height: 50px;
+            position: relative;
+            top: 25%;
+            left: 23%;
+            margin: 15px auto;
+            // background: rgb(211, 173, 90);
+            color: #202020; 
+            float: left;
+            font-family: $LDFont;
+            font-size: 1.6em;
+            // text-decoration: underline;
+        }
+    }
+
+
+    section.area_formulario{
+        width: 40%;
+        // height: 1000px;
+        background: #202020;
+        float: left;
+        font-family: $LDFont;
+        display: flex;
+        align-items: center;
+        // justify-content: center;
+
+        div.area_div_formulario{
+            width: 93%;
+            // height: 100px;
+            // background: red;
+            margin: 30px auto;
+            
+            form{
+                width: 93%;
+                margin: 0 auto;
+                // height: 700px;
+                background: #dbdada;
+                // display: flex;
+                // justify-content: center;
+                padding-top: 3px;
+                position: relative;
+                border-radius: 10px;
+
+
+                div.cadaForm{
+                    width: 80%;
+                    // background: green;
+                    margin: 22px auto;
+                    color: #202020; 
+
+                    .formErrors{
+                        width: 90%;
+                        margin: 10px auto;
+                        // background-color: orange;
+                    }
+
+
+                    label{
+                        width: 100%;
+                        float: left;
+                        // text-align: left;
+                        margin: 12px 0px 12px 30px;
+                    }
+                    
+                    input{
+                        width: 90%;
+                        height: 25px;
+                        margin: auto;
+                        display: block;
+                        border-radius: 2px;
+                        border: 0;
+                    }
+                
+
+                }
+
+                div.botao_submit{
+                    width: 100%;
+                    // background: blue;
+                    margin: 20px auto;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    p{
+                        margin-right: 20px;
+                        color: #202020; 
+                        // font-weight: bold;
+                        
+                    }
+
+                    button{
+                        // width: 12%;
+                        height: 34px;
+                        font-size: 1.1em;
+
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+             
+        }
+
+        }
+        
+        
+    }
+
+
+}

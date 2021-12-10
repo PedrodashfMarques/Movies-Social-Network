@@ -1,0 +1,335 @@
+@import 'var&mixin.scss';
+
+main{
+    max-width: 1600px;
+    height: 861px;
+    margin: 8px auto;
+    // background-color: white;
+    background-color: dodgerblue;
+    display: flex;
+    justify-content: space-around;
+
+    .area_grupos_equipas{
+        width: 55%;
+        height: 700px;
+        background-color: orange;
+        margin: 10px;
+        border: 1px solid grey;
+
+        .area_grupos{
+            width: 80%;
+            height: 250px; // Este height depois sai quando tiver informação para meter aqui
+            background-color: #202020;
+            margin: 15px auto;
+            border-radius: 8px;
+
+            .area_titulo_area_grupo{
+                width: 100%;
+                border-radius: 8px;
+                display: flex;
+                justify-content: left;
+
+                h2{
+                    border-bottom: 1px solid;
+                    color: white;
+                    margin-top: 12px;
+                    font-weight: 500;
+                    margin-left: 15px;
+                    font-size: 1.25em;
+                }
+            }
+        }
+
+        ul{
+            width: 100%;
+            height: 50px;
+            margin: 5px auto;
+            // padding: 5px;
+            background: green;
+
+            li{
+                line-height: 25px;
+            }
+        
+        }
+
+    }
+
+    .area_central{
+        width: 100%;
+        // height: 700px;
+        margin: 10px;
+
+
+        .abpetimeline{
+            width: 100%;
+            height: 300px;
+            // background-color: red;
+
+            .area_background_perfil{
+                width: calc(100% - 2px);
+                height: 200px;
+                border: 1px solid grey;
+                // background-color: aquamarine;
+
+                .bPitself{
+                    width: 100%;
+                    height: 200px;
+                    // background-color: darkgreen;
+                    overflow: hidden;
+
+                    img{
+                        width: 100%;
+                        height: auto;
+                        background-size: cover;
+                        background-repeat: no-repeat;
+                    }
+                }
+
+                .pPicItself{
+                    width: 129px;
+                    height: 115px;
+                    position: relative;
+                    // background-color: green;
+                    bottom: 58%;
+                    border-radius: 50%;
+                    margin: 0 auto;
+
+                    img{
+                        width: 100%;
+                        height: 125px;
+                        background-size: cover;
+                        border-radius: 50%;
+                        
+                        &:hover{
+                            cursor: pointer;
+                            transform: scale(1.07);
+                        }
+
+                    }
+                }
+            }
+            
+            .aUsernameBioFollowers{
+                width: calc(100% - 2px);
+                height: 100px;
+                background-color: white;
+                border: 1px solid grey;
+
+                .aUsernameh2{
+                    width: 100%;
+                    margin: 12px auto;
+                    margin-bottom: 5px;
+                    height: 30px;
+                    // background: green;
+                    text-align: center;
+
+                    h2{
+                        font-size: 1.2em;
+                        font-weight: lighter;
+
+                        span{
+                            font-weight: 500;
+
+                        }
+                    }
+                }
+
+                .aFf{
+                    width: 100%;
+                    // height: 55px;
+                    // background: aquamarine;
+                    display: flex;
+                    justify-content: space-around;
+                    text-align: center;
+                    p{
+                        font-weight: 500;
+                        font-size: 1.2em;
+
+                        span{
+                        font-weight: lighter;
+
+                        }
+                    }
+                }
+            }
+        }
+
+        .atimeline_about_groups_images{
+            width: calc(100% - 2px);
+            // height: 490px;
+            margin: 20px auto;
+            // background-color: red;
+            border: 1px solid grey;
+            
+
+
+            .area_header{
+                width: 100%;
+                height: 65px;
+                background-color: white;
+
+                ul{
+                    width: 100%;
+                    height: 65px;
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+
+                    li{
+                        font-size: 1.1em;
+                        // font-weight: 500;
+
+                        &:hover{
+                            cursor: pointer;
+                            color: $themeColor;
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+
+            .area_informacao_childRouting{
+                width: 100%;
+                height: 425px;
+                margin: 10px auto;
+                overflow-y: scroll;
+
+                &::-webkit-scrollbar {
+                    width: 0;
+                    display: none;  /* Removes scrollbar space but keeps functionality */
+                }
+            }
+        }
+
+    }
+
+    .area_similar_and_users{
+        width: 55%;
+        height: 700px;
+        background-color: orange;
+        margin: 10px;
+        border: 1px solid grey;
+
+        .asagSimilar{
+            width: 80%;
+            height: 220px; // Este height depois sai quando tiver informação para meter aqui
+            background-color: #202020;
+            margin: 15px auto;
+            border-radius: 8px;
+
+            .area_titulo_asagSimilar{
+                width: 100%;
+                border-radius: 8px;
+                display: flex;
+                justify-content: left;
+                
+                h2{
+                    border-bottom: 1px solid;
+                    color: white;
+                    margin-top: 12px;
+                    font-weight: 500;
+                    margin-left: 15px;
+                    font-size: 1.25em;
+                }
+            }
+
+        }
+
+        .asagUsers{
+            width: 80%;
+            height: 400px; // Este height depois sai quando tiver informação para meter aqui
+            background-color: #202020;
+            margin: 15px auto;
+            margin-top: 40px;
+            border-radius: 8px;
+
+            article.area_quem_postou{
+                width: 100%;
+                height: 55px;
+                margin: 5px auto;
+                background: green;
+                display: flex;
+                justify-content: left;
+                align-items: center;
+
+                div.imagem_user_post{
+                    width: 45px;
+                    // height: 65px;
+                    margin: 8px;
+                    // background-color: blue;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+
+                    img{
+                       width: 100%;
+                       height: 40px;
+                       border-radius: 50%;
+                       object-fit: fill;
+                       border: 1px solid $themeColor;
+                    }
+                }
+
+                div.nome_user_post{
+                    width: calc(90% - 40px);
+                    height: 55px;
+                    text-align: center;
+                    display: flex;
+                    align-items: center;
+                    // background-color: orange;   
+
+                    h3{
+                        color: white;
+                        font-size: 1.03em;
+                        font-weight: 500;
+                        margin-top: 12px;
+                        display: flex;
+                        align-items: center; 
+
+                        span{
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
+
+            .area_titulo_asagUsers{
+                width: 100%;
+                border-radius: 8px;
+                display: flex;
+                justify-content: left;
+                
+                h2{
+                    border-bottom: 1px solid;
+                    color: white;
+                    margin-top: 12px;
+                    font-weight: 500;
+                    margin-left: 15px;
+                    font-size: 1.25em;
+                }
+            }
+
+        }
+
+        ul{
+            width: 100%;
+            height: 50px;
+            margin: 5px auto;
+            background: green;
+
+            li{
+                line-height: 25px;
+            }
+        
+        }
+
+
+    }
+}
+
+
+.rotaClickada{
+    // background-color: rgba(255,255,255, 0.3);
+    border-bottom: 2px solid $themeColor;
+}

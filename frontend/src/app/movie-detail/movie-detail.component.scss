@@ -1,0 +1,500 @@
+@import 'var&mixin.scss';
+
+*{
+    font-family: $LDFont;
+}
+
+main{
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    max-width: 1250px;
+    margin: 15px auto;
+    border-radius: 7px;
+ 
+    section.imagemDoFilme{
+        display: grid;
+        grid-auto-rows: minmax(150px, auto);
+        grid-template-columns: 32% 67%;
+        grid-gap: 0.5em;
+
+        div{
+            position: relative;
+            border-radius: 7px;
+            top: 7.2%;
+            margin: 14px 15px;
+
+            .arrow_zone{
+                position: absolute;
+                top: -11%;
+
+                i{
+                    font-size: 40px;
+                    color: rgba(56, 56, 56, 0.877);
+              
+                    &:hover{
+                        transform: scale(1.15);
+                        cursor: pointer;
+                    }
+                }
+
+            }
+
+            img{
+                width: 100%;
+                min-width: 300px;
+                height: 550px;
+                background-size: cover;
+                border-radius: 7px;
+            }
+
+        }
+
+        div.infoDoFilme{
+            display: grid;
+            grid-row-gap: 1.7em;
+            justify-items: center;
+            align-items: center;
+
+            font-size: 1.6em;
+
+
+
+            h2{
+                width: 100%;
+                color: white;
+                font-size: 1.3em;
+                font-weight: 500;
+                display: flex;
+         
+            }
+
+            p{
+                width: 100%;
+                color: white;
+            }
+
+            span{
+                color: white;
+                width: 100%;
+            }
+
+            button{
+                font-size: 0.8em;
+                background-color: rgba(56, 56, 56, 0.877);
+                border-radius: 7px;
+                border-color: #28979b;
+                border: 1px solid transparent;
+                color: white;
+                margin-top: -8px;
+
+                &:hover{
+                    cursor: pointer;
+                }
+
+            }
+
+
+        }
+
+    }
+    
+    section.similarMoviesSection{
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.5);
+        margin: 80px auto;
+        border-radius: 0px 0px 7px 7px ;
+
+        h2{
+            padding-top: 10px;
+            font-size: 1.7em;
+            font-weight: 500;
+            text-align: center;
+        }
+
+
+        .filmes_semelhantes{
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(5, 20%);
+            grid-auto-rows: minmax(150px, auto);
+            justify-items: center;
+
+            article{
+                width: calc(74% - 20px);
+                height: 240px;
+                min-width: 170px;
+                margin: 18px 10px;
+                border-radius: 7px;
+
+                img{
+                    width: 100%;
+                    height: 240px;
+                    background-size: cover;
+                    border-radius: 7px;
+
+                    &:hover{
+                        cursor: pointer;
+                        transform: scale(1.08);
+                        transition: ease-in 1;
+                    }
+                }
+
+            }
+        }
+
+
+    }
+
+    
+    section.comments_section{
+        width: 100%;
+        margin: 80px auto;
+        border-radius: 0px 0px 7px 7px ;
+        overflow-y: auto;
+        padding-bottom: 150px; 
+
+        h2{
+            padding-top: 10px;
+            font-size: 1.7em; 
+            font-weight: 500;
+            text-align: center;
+        }
+
+        div.infoDoUser{
+            width: 50%;
+            margin-left: 15px;
+            display: flex;
+            align-items: left;
+
+                img{
+                    width: 15%;
+                    height: 70px;
+                    border-radius: 100%;
+                    object-fit: cover; 
+                }
+
+                h4{
+                    color: $themeColor;
+                    display: flex;
+                    align-items: center;
+                    font-size: 1.1em;
+                    margin-left: 10px;
+                }
+              
+
+        }
+
+        form{
+            width: 80%;
+            margin: 50px auto;
+            border-radius: 5px;
+
+            input{
+                width: 25%;
+                height: 25px;
+                margin: 7px 15px;
+                font-size: 18px;
+                border-radius: 3px;
+            }
+
+            input.ng-invalid.ng-touched{
+                border: 1px solid red;
+                border-radius: 3px;
+            }
+
+            .area_comment_title{
+                margin-left: 15px;
+                font-size: 1.1em;
+            }
+
+            textarea{
+                width: calc(100% - 30px);
+                height: 75px;
+                margin: 7px 15px;
+                resize: none;
+                font-size: 1.1em;
+            }
+
+            textarea.ng-invalid.ng-touched{
+                border: 1px solid red;
+                border-radius: 3px;
+            }
+
+            button{
+                margin: 0 8px;
+                margin-bottom: 5px;
+                background-color: rgba(56, 56, 56, 0.877);
+
+                border-radius: 7px;
+                border: 0.5;
+                font-size: 1.2em;
+                float: right;
+                color: white;
+
+                &:hover{
+                    cursor: pointer;
+                }
+
+            }
+        }
+
+        article{
+            width: calc(80% - 16px);
+            background-color: rgba(255, 255, 255, 0.603);
+            margin: 15px auto;
+            padding: 8px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+
+            .profile_pic{
+                width: 50%;
+                display: flex;
+                align-items: left;
+
+                img{
+                    width: 15%;
+                    height: 70px;
+                    border-radius: 100%;
+                    object-fit: cover;
+                }
+
+                span{
+                    color: $themeColor;
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                    font-size: 1.1em;
+                    margin-left: 10px;
+                }
+            }
+
+
+            .profile_comment{
+                width: calc(100% - 5px);
+                margin: 15px auto;
+                padding-top: 5px;
+                padding-left: 5px;
+
+                h4{
+                    font-size: 1.1em;
+                    font-weight: bold;
+
+                }
+
+                p{
+                    font-size: 1.1em;
+                    margin-top: 10px;
+                }
+
+            }
+
+            button{
+                background-color: rgba(56, 56, 56, 0.877);
+                color: white;
+                border-radius: 5px;
+                float: right;
+                font-size: 1.2em;
+                margin-right: 5px;
+                padding: 2px;
+
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+
+        }
+
+    }
+
+
+    // ------------ TABLET RESPONSIVE ------------ //
+
+    @include responsive (tablet) {
+        font-size: 82.5%;
+
+        section.imagemDoFilme{
+            grid-template-columns: repeat(2, 50%);
+            grid-auto-rows: minmax(150px, auto);
+            grid-gap: 0.4em;
+
+        }
+
+        div.infoDoFilme{
+            display: grid;
+            grid-auto-rows: minmax(70px, auto);
+            grid-row-gap: 1.8em;
+            justify-items: left;
+            align-items: center;
+        }
+
+        section.similarMoviesSection{
+            
+            .filmes_semelhantes{
+                grid-template-columns: repeat(3, 33.33%);
+
+                grid-auto-rows: minmax(100px, auto);
+                justify-content: center;
+    
+                article{
+                    width: calc(33.33% - 20px);
+                    height: 240px;
+                    min-width: 170px;
+                    margin: 18px 10px;
+                    border-radius: 7px;
+                    transition: ease 1.1s;
+
+    
+                    img{
+                        width: 100%;
+                        background-size: cover;
+                        border-radius: 7px;
+    
+                        &:hover{
+                            cursor: pointer;
+                            transform: scale(1.08);
+                            transition: ease-in 1;
+                        }
+                    }
+    
+                }
+            }
+        }
+
+        
+        section.comments_section{
+
+            div.infoDoUser{
+                font-size: 62.5%;
+
+                h4{
+                    font-size: 1.9em;
+                }
+                
+                p{
+                    font-size: 0.85em;
+                }
+
+
+                img{
+                    min-width: 65px;
+                }
+                
+            }
+
+            .profile_pic{
+
+                img{
+                    min-width: 60px;
+                }
+            }
+
+        }
+           
+    }
+
+    // ------------ TABLET RESPONSIVE ------------ //
+
+
+    // ------------ MOBILE RESPONSIVE ------------ //
+
+     @include responsive (mobile){
+        font-size: 62.5%;
+
+        section.imagemDoFilme{
+            grid-template-columns: repeat(1, 100%);
+            justify-content: center;
+            grid-auto-rows: minmax(150px, auto);
+            grid-gap: 0.5em;
+
+        }
+
+        div{
+            width: calc(100% - 30px);
+            position: relative;
+            border-radius: 7px;
+            top: 7.2%;
+            margin: 14px 15px;
+
+            img{
+                width: 100%;
+                height: 550px;
+                background-size: cover;
+                border-radius: 7px;
+            }
+        }
+
+        div.infoDoFilme{
+            display: grid;
+            grid-row-gap: 1.2em;
+            justify-items: left;
+            align-items: center;
+        }
+
+        section.similarMoviesSection{
+            font-size: 85.5%;
+
+            .filmes_semelhantes{
+                grid-template-columns: repeat(1, 100%);
+                grid-auto-rows: minmax(150px, auto);
+    
+                article{
+                    width: calc(25% - 20px);
+                    min-width: 170px;
+                    height: 330px;
+                    margin: 20px 10px;
+                    border-radius: 7px;
+                    font-size: 1.5em;
+                    transition: ease 1.1s;
+
+    
+                    img{
+                        width: 100%;
+                        height: 240px;
+
+                        &:hover{
+                            cursor: pointer;
+                            transform: scale(1.08);
+                            transition: ease-in 1;
+                        }
+                    }
+    
+                }
+            }
+        }
+
+    } 
+
+    // ------------ MOBILE RESPONSIVE ------------ //
+
+
+    // ------------ SPINNER ANIMATION ------------ //
+
+    .lds-ring {
+        @include ldsRing-settings
+      }
+
+      .lds-ring div {
+        @include ldsRingDiv-Settings
+      }
+      .lds-ring div:nth-child(1) {
+        animation-delay: -0.45s;
+      }
+      .lds-ring div:nth-child(2) {
+        animation-delay: -0.3s;
+      }
+      .lds-ring div:nth-child(3) {
+        animation-delay: -0.15s;
+      }
+
+
+    @keyframes lds-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    // ------------ SPINNER ANIMATION ------------ //
+}

@@ -1,0 +1,160 @@
+@import 'var&mixin.scss';
+
+header{
+    width: 100%;
+    height: 60px;
+    background: $themeColor;
+    position: sticky;
+    z-index: 2;
+    top: 0;
+    font-size: 100%;
+
+    .area_logotipo{
+        width: 40%;
+        height: 65px;
+        float: left;
+        
+        i{
+            font-size: 1.23em;
+            color: rgb(48, 48, 48);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            float: left;
+            padding-left: 15px;
+
+            &:hover{
+                cursor: pointer;
+                transform: scale(1.15)
+            }
+        }
+
+        p{
+            @include h1-settings;
+            font-size: 1.1em;
+            padding-left: 15px;
+
+        }
+    }
+
+    
+    nav{
+        width: 20%;
+        float: right;
+
+        ul{
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: space-around;
+            align-items:center;
+
+            li{
+                border: 0;
+                @include li-settings;
+            }
+        }
+
+        #menu_responsive{
+            width: 100%;
+            height: 65px;
+            margin: 0 auto;
+            display: none;
+
+            div{
+                width: calc(100% - 30px);
+                height: 65px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 auto;
+                float: left;
+                margin-left: 30px;
+
+                i{
+                    font-size: 3.2em;
+                    margin-left: -25px;
+                    box-sizing: border-box;
+                    color: rgb(48, 48, 48);
+
+                    &:hover{
+                        cursor: pointer;
+                    }
+    
+                }
+
+                .desapareceIcon{
+                    display: none;
+                    opacity: 0;
+                    position: relative;     
+                }
+                
+                .menuAbriu{
+                    display: block;
+                    position: relative;
+
+                }
+            }
+      
+            li{
+                width: 100%;
+                margin: 0px auto;
+                display: flex;
+
+                .dropdownArea{
+                    width: 100%;
+                    height: auto;
+                    transform: translateY(5px);
+                    border-radius: 8px;
+                    background-color: rgb(255, 255, 255);
+                    z-index: 99;
+
+                    li{
+                        width: 80%;
+                        height: 40px;
+                        margin: 5px auto;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        &:hover{
+                        transform: scale(1.1);
+                        cursor: pointer;
+
+                        }
+                    }
+                }
+
+
+                .menuAbriu{
+                    display: block;
+                }
+
+            }
+
+        }
+            
+        @include responsive (tablet) {
+            font-size: 62.5%;
+ 
+
+            .area_logotipo{
+                display:  none;
+            }
+
+            
+            #menu_responsive {
+                display: block;
+            }
+
+            ul{
+                display: none;
+            }
+          }
+
+        @include responsive (mobile) {
+            font-size: 42.5%;
+          }
+        
+    }
+}

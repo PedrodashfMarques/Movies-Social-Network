@@ -1,0 +1,24 @@
+<main class="animation_area">
+
+<!-- <app-header *ngIf="userLogado"> </app-header> -->
+
+<!-- <header *ngIf="!userLogado"> 
+
+    <div class="area_logotipo">
+        <i class="fa fa-film" routerLink="/lounge" title="Loading Screen"></i>
+
+    </div>
+
+    <nav> 
+        <ul>
+            <li routerLink="/"> Login </li>
+        </ul>      
+    </nav>
+
+</header> -->
+
+<router-outlet> </router-outlet>
+
+<app-footer *ngIf="estaAutenticado"> </app-footer>
+
+</main>

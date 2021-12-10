@@ -1,0 +1,13 @@
+@import 'var&mixin.scss';
+
+main{
+
+    .overview{
+        width: 92%;
+        background-color: white;
+        margin: 20px auto;
+        border-radius: 3px;
+        border: 1px solid $themeColor;
+    }
+
+}

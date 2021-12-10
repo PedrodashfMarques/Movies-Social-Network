@@ -1,0 +1,44 @@
+<header>
+
+    <div class="area_logotipo">
+        <p> L </p>
+        <i class="fa fa-film" routerLink="/newsfeed" title="Loading Screen"></i>
+        <p> C </p>
+
+
+    </div>
+
+
+    <nav>
+        
+        <ul>
+            <li routerLink="/profile/1" [routerLinkActive]="['is-active']"> Profile </li>
+            <li routerLink="/world" [routerLinkActive]="['is-active']"> World</li>
+            <li routerLink="/newsfeed" [routerLinkActive]="['is-active']"> Newsfeed </li>   
+            <!-- <li *ngIf="userFezLogin" (click)="onLogout()" [routerLink]="['/lounge'] ['/my-list']"> Logout </li> -->
+
+        </ul>
+        
+        <ul id="menu_responsive"> 
+
+            <div>
+
+                <i class="fa fa-bars" (click)="abreMenu()" [ngClass]="{desapareceIcon: menuAberto == true}"> </i>
+      
+                <i class="fa fa-times" (click)="abreMenu()" [ngClass]="menuAberto == true ? 'menuAbriu' : 'desapareceIcon'" ></i>
+
+            </div>
+
+            <li class="liDoMenu"> 
+                <ul class="dropdownArea" [ngClass]="{menuAbriu: menuAberto == true}">
+                        <li routerLink="/lounge" (click)="escondeMenu()" [routerLinkActive]="['is-active-dropdown-menu']"> Lounge </li>    
+
+                        <li routerLink="/my-list" (click)="escondeMenu()" [routerLinkActive]="['is-active-dropdown-menu']"> My List </li>
+                        
+                        <li *ngIf="userFezLogin" (click)="onLogout()" (click)="escondeMenu()" [routerLink]="['/lounge'] ['/my-list']"> Logout </li>
+                </ul>
+            </li>
+        </ul>
+
+    </nav>
+</header>

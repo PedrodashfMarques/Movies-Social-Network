@@ -1,0 +1,160 @@
+<main>
+    
+    <section class="area_logotipo">
+        
+        <div class="nome_da_redeSocial">
+            Loading Cinema
+        </div>
+
+        <div class="slogan_da_redeSocial">
+           <span> What drives your passion </span>
+        </div>
+
+    </section>
+
+    <section class="area_formulario">
+
+        <div class="area_div_formulario">
+
+            <form [formGroup]="registerForm" (ngSubmit)="submitRegister(registerForm.value)">
+
+                <div class="cadaForm">
+                    <label for="firstNameId"> First Name </label>
+                    <input 
+                    type="text" 
+                    id="firstNameId"
+                    formControlName="firstName"
+                    required>
+
+                    <div 
+                    class="formErrors"
+                    role="alert"
+                    *ngIf="registerForm.controls['firstName'].errors && registerForm.controls['firstName'].touched">
+                    <p *ngIf="registerForm.controls['firstName'].errors?.required"> First Name is required </p>
+                    <p *ngIf="registerForm.controls['firstName'].errors?.minlength"> First Name must contain at least 3 char length </p>
+                    <p *ngIf="registerForm.controls['firstName'].errors?.maxlength"> First Name must not exceed 25 char length </p>
+                    </div>
+
+                </div>
+
+
+                <div class="cadaForm">
+                    <label for="usernameId"> Username </label>
+                    <input 
+                    type="text" 
+                    id="usernameId"
+                    formControlName="userName">
+
+                    <div 
+                    class="formErrors"
+                    role="alert"
+                    *ngIf="registerForm.controls['userName'].errors && registerForm.controls['userName'].touched">
+                    <p *ngIf="registerForm.controls['userName'].errors?.required"> Username is required </p>
+                    <p *ngIf="registerForm.controls['userName'].errors?.minlength"> Username must contain at least 2 char length </p>
+                    <p *ngIf="registerForm.controls['userName'].errors?.maxlength"> Username must not exceed 25 char length </p>
+                    </div>
+
+                </div>
+
+
+                <div class="cadaForm">
+                    <label for="lastNameId"> Last Name </label>
+                    <input 
+                    type="text" 
+                    id="lastNameId"
+                    formControlName="lastName">
+
+                    <div 
+                    class="formErrors"
+                    role="alert"
+                    *ngIf="registerForm.controls['lastName'].errors && registerForm.controls['lastName'].touched">
+                    <p *ngIf="registerForm.controls['lastName'].errors?.required"> Last Name is required </p>
+                    <p *ngIf="registerForm.controls['lastName'].errors?.minlength"> Last Name must contain at least 3 char length </p>
+                    <p *ngIf="registerForm.controls['lastName'].errors?.maxlength"> Last Name must not exceed 25 char length </p>
+                    </div>
+
+                </div>
+                
+
+                <div class="cadaForm">
+                    <label for="emailId"> Email </label>
+                    <input 
+                    type="email" 
+                    id="emailId"
+                    formControlName="email">
+
+                    <div 
+                    class="formErrors"
+                    role="alert"
+                    *ngIf="registerForm.controls['email'].errors && registerForm.controls['email'].touched">
+                    <p *ngIf="registerForm.controls['email'].errors?.required"> Email is required </p>
+                    <p *ngIf="registerForm.controls['email'].errors?.minlength"> Email must contain at least 5 char length </p>
+                    <p *ngIf="registerForm.controls['email'].errors?.maxlength"> Email must not exceed 252 char length </p>
+                    </div>
+
+                </div>
+
+
+                <!-- <div class="cadaForm">
+                    <label for="confirmEmailId"> Confirm Email </label>
+                    <input type="text" id="confirmEmailId">
+                </div> -->
+
+
+                <div class="cadaForm">
+                    <label for="passwordId"> Password </label>
+                    <input 
+                    type="password" 
+                    id="passwordId"
+                    formControlName="password">
+
+                    <div 
+                    class="formErrors"
+                    role="alert"
+                    *ngIf="registerForm.controls['password'].errors && registerForm.controls['password'].touched">
+                    <p *ngIf="registerForm.controls['password'].errors?.required"> Password is required </p>
+                    <p *ngIf="registerForm.controls['password'].errors?.minlength"> Password must contain at least 6 char length </p>
+                    </div>
+
+                </div>
+
+
+                <div class="cadaForm">
+                    <label for="confirmPasswordId"> Confirm Password </label>
+                    <input 
+                    type="password" 
+                    id="confirmPasswordId"
+                    formControlName="confirmPassword">
+
+                    <div 
+                    class="formErrors"
+                    role="alert"
+                    *ngIf="registerForm.controls['confirmPassword'].errors && registerForm.controls['confirmPassword'].touched">
+                    <p *ngIf="registerForm.controls['confirmPassword'].errors?.required"> Confirm Password is required </p>
+                    <p *ngIf="registerForm.controls['confirmPassword'].errors?.passwordMatch"> Passwords must match </p>
+                    </div>
+
+                </div>
+
+
+                <!-- Botão do type submit, disabled se os campos não forem todos válidos é o !ngForm.valid -->
+                <div class="botao_submit">
+                    <button type="submit" [disabled]="!registerForm.valid"> Register </button>
+                </div>
+
+
+                <div class="botao_submit">
+                    <p> If you already have an account, sign in</p>
+                    <!-- Routerlink para login-page -->
+                    <button type="button" routerLink="/"> Sign in</button>
+                </div>
+
+
+            </form>
+            
+        </div>
+
+    </section>
+
+   
+</main>

@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
+
+// ------ Variáveis ------ //
+
+$LDFont: 'Noto Sans', sans-serif;
+$themeColor: #24524a;
+$themeColorBackground: -webkit-linear-gradient( #1ea4a8, #2e6892);
+$iconsColor: #1ea4a8;
+
+$loadingCinemaFontColor: #1e474b;
+
+
+// ------ Variáveis ------ //
+
+
+// ------ Header Mixins ------ //
+
+@mixin h1-settings {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        float: left;
+        font-family: $LDFont;
+        font-weight: 500;
+
+}
+
+
+@mixin li-settings {
+    width: 33.33%;
+    font-family: $LDFont;
+    font-weight: 500;
+
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+// ------ Header Mixins ------ //
+
+
+// ------ Form Filters Mixins ------ //
+
+@mixin main-filters-settings{
+    height: 150px;
+    background-color: rgba(255, 255, 255, 0.5);
+    max-width: 1000px;
+    margin: 5px auto;
+    border: 1px solid rgba(128, 128, 128, 0);
+    border-radius: 7px;
+}
+
+@mixin form-filters-settings{
+    width: 85%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 15px auto;
+    position: relative;
+    top: 30%;
+}
+
+
+// ------ Form Filters Mixins ------ //
+
+
+
+// ------ RESPONSIVE ------ //
+
+@mixin responsive ($device) {
+    
+    @if $device == mobile {
+        @media screen and (max-width: 650px) { @content };
+    }
+  
+    @if $device == tablet {
+        @media screen and (max-width: 1024px) { @content }; 
+
+    }
+  }
+  
+// ------ RESPONSIVE ------ //
+
+
+// ------ Variados ------ //
+
+.is-active{
+    font-size: 17px;
+    color: rgb(56, 140, 143);
+    transition: ease-in 0.1s;
+    font-weight: bold;
+}
+
+.is-active-dropdown-menu{
+    font-size: 17px;
+    color: $themeColor;
+    background: #c0c0c0;
+    transition: ease-in 0.17s;
+    border-radius: 7px;
+}
+
+
+// ANIMAÇÕES 
+
+@mixin ldsRing-settings{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 150px;
+    margin: 25px auto;
+}
+
+
+@mixin ldsRingDiv-Settings{
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid #fff;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+}
+
+// ANIMAÇÕES
+
+// ------ Variados ------ //

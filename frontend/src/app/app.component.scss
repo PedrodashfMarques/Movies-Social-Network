@@ -1,0 +1,114 @@
+@import 'var&mixin.scss';
+
+main{
+    width: 100%;
+    min-height: 100vh;
+    margin: 0 auto;
+    position: absolute;
+    // top: 0;
+    padding: 0;
+}
+
+
+// main.animation_area{
+//     // min-height: 100vh;
+//     // position: relative;
+//     // background: linear-gradient(272deg, #c33764,  #1d2671, #df6824,  #009245, #764ba2, #fcee21, #138f7e, #09203f);
+//     // background-size: 1150% 1150%;
+//     // animation: blink 80s infinite;
+
+
+//     // header{
+//     //     width: 100%;
+//     //     height: 65px;
+//     //     background: white;
+//     //     position: sticky;
+//     //     z-index: 2;
+//     //     top: 0;
+
+//     //     .area_logotipo{
+//     //         width: 50%;
+//     //         height: 65px;
+//     //         float: left;
+//     //         overflow: hidden;
+            
+//     //         i{
+//     //             font-size: 35px;
+//     //             color: rgb(48, 48, 48);
+//     //             height: 60px;
+//     //             display: flex;
+//     //             align-items: center;
+//     //             float: left;
+//     //             padding-left: 15px;
+    
+//     //             &:hover{
+//     //                 cursor: pointer;
+//     //                 transform: scale(1.15)
+//     //             }
+//     //         }
+    
+//     //         p{
+//     //             @include h1-settings;
+//     //             font-size: 1.1em;
+//     //             padding-left: 15px;
+    
+//     //         }
+//     //     }
+
+//     //     nav{
+//     //         width: 50%;
+//     //         height: 65px;
+//     //         float: right;
+//     //         overflow: hidden;
+    
+//     //         ul{
+//     //             width: 100%;
+//     //             height: 60px;
+//     //             display: flex;
+//     //             align-items:center;
+    
+//     //             li{
+//     //                 width: 100%;
+//     //                 margin-right: 35px;
+//     //                 text-align: right;
+//     //                 font-family: $LDFont;
+//     //                 font-size: 1.2em;
+//     //                 font-weight: 500;
+
+//     //                 &:hover{
+//     //                     cursor: pointer;
+//     //                 }
+//     //             }
+//     //         }
+    
+            
+           
+//     //         @include responsive (tablet) {
+//     //             font-size: 80.5%;
+            
+//     //           }
+    
+//     //         @include responsive (mobile) {
+//     //             font-size: 55.5%;
+    
+            
+//     //           }
+            
+//     //     }
+//     // }
+// }
+
+// @keyframes blink{
+//     0%{
+//         background-position: 2% 0%
+//     }
+
+//     50%{
+//         background-position: 99% 100%
+//     }
+
+//     100%{
+//         background-position: 2% 0%
+//     } 
+    
+// }

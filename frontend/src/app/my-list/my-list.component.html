@@ -1,0 +1,28 @@
+<main>
+
+    <div *ngIf="isLoading" class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <section *ngIf="!isLoading" class="areaTitulo">
+        <h3> My Movies List </h3>    
+    </section>
+    
+    <section *ngIf="!isLoading" class="myMoviesList">
+        <article *ngFor="let filme of minhaListaDeFilmes; index as i" [@loungeMovies]>
+            <img
+             src="{{filme.image}}" 
+             alt="{{filme.title}}" 
+             title="{{filme.title}}"
+             routerLink="/movie/id/{{filme.id}}">
+        </article>
+    </section>
+
+</main>
+
+            
+    
+
