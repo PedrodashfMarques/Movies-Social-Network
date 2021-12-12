@@ -6,7 +6,7 @@
         public function getAllPosts(){
             $query = $this->dataBase->prepare("
             SELECT *
-            FROM posts AS p1
+            FROM posts
             ");
 
             $query->execute();
@@ -67,6 +67,23 @@
             return $query->execute([
                 $id
             ]);
+        }
+
+        public function getItemByUser($id, $userId){
+            $query = $this->dataBase->prepare("
+            SELECT id
+            FROM posts
+            WHERE id = ?
+            AND user_id = ?
+            ");
+
+            $query->execute([
+                $id,
+                $userId
+            ]);
+
+            return $query->fetch( PDO::FETCH_ASSOC );
+
         }
 
 

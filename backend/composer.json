@@ -1,0 +1,5 @@
+{
+    "require": {
+        "rbdwllr/reallysimplejwt": "^4.0"
+    }
+}

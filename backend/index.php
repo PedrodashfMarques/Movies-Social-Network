@@ -1,6 +1,8 @@
 <?php
-
 header("Content-Type: application/json");
+
+require("vendor/autoload.php");
+
 
 define("CONFIG", parse_ini_file(".env"));
 

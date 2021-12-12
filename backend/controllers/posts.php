@@ -4,6 +4,25 @@
   
     $postModel = new Post();
 
+
+    if(in_array($_SERVER["REQUEST_METHOD"], ["POST", "PUT", "DELETE"]) ) {
+
+        $userId = $postModel->routeRequiresValidation();
+
+        if(empty($userId)){
+            header("HTTP/1.1 401 Unauthorized");
+            die('{"message":"Wrong or missing Auth Token"}');
+        }
+
+        
+
+    }
+
+
+
+
+
+
     function validator($data){
         if(
             isset($data["user_id"]) &&
