@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth-service/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +16,11 @@ export class HeaderComponent implements OnInit {
 
   userFezLogout: boolean;
 
-  constructor(private myRouter: Router) { }
+  constructor(
+    private myFormBuilder: FormBuilder, 
+    private myAuthService: AuthService,
+    private myRouter: Router
+    ) { }
 
   ngOnInit(): void {
     
@@ -36,12 +42,8 @@ export class HeaderComponent implements OnInit {
 
   
   onLogout(){
-    this.userFezLogout = true;
-    
-    setTimeout(() => {
-      this.userFezLogin = false;
+      this.myAuthService.logoutUser();
       this.myRouter.navigate(['']);
-    }, 1200);
  
   }
 

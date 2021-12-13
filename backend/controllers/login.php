@@ -33,7 +33,7 @@ use ReallySimpleJWT\Token;
                 "username" => $userInfo["username"],
                 "firstName" => $userInfo["first_name"],
                 "lastName" => $userInfo["last_name"],
-                "expiryTime" => time()
+                "expiryTime" => 3600
             ];
 
             $secret = CONFIG["SECRET_KEY"];

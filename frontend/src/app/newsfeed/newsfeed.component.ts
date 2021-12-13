@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth-service/auth.service';
 import { User } from '../shared/user.model';
 
@@ -25,12 +27,17 @@ export class NewsfeedComponent implements OnInit {
     firstName: '',
     username: '',
     lastName: ''
-
   };
 
-  constructor(private myAuthService: AuthService) {}
+  constructor(
+    private myFormBuilder: FormBuilder, 
+    private myAuthService: AuthService,
+    private myRouter: Router
+  ) {}
 
   ngOnInit(): void {
+
+    this.myAuthService.autologin();
     this.myAuthService.userSubject.subscribe((data: User) => {
       this.connectedUserInfo.userId = data.userId;
       this.connectedUserInfo.firstName = data.firstName;
@@ -43,7 +50,6 @@ export class NewsfeedComponent implements OnInit {
   daLike(){
     console.log("hello")
   }
-
 
 
 

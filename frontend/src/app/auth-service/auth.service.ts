@@ -15,6 +15,8 @@ interface AuthResponseData {
 })
 export class AuthService {
 
+  private tokenExpirationTimer: any;
+
   userSubject = new BehaviorSubject<User>(null);
   // Ia agora tentar enviar as informações contidas neste userSubject para outros componentes
   
@@ -31,7 +33,7 @@ export class AuthService {
 
     let jsonConverted = JSON.stringify(object);
 
-    console.log(jsonConverted);
+    // console.log(jsonConverted);
 
     return this.myHttp.post<AuthResponseData>(url, jsonConverted).pipe(catchError(this.handleError), 
     tap( resData => {
@@ -40,35 +42,94 @@ export class AuthService {
   }
 
 
-  logoutUser(){}
+  autologin(){
+
+    let JWToken = localStorage.getItem('authToken');
+
+    // let JWTdecoded = this.jwtHelper.decodeToken(localStorage.getItem('authToken'));
+
+    let userData: {
+      userId: number,
+      firstName: string,
+      username: string
+      lastName: string
+      JWToken: string,
+      expiryTime: Date
+    } = this.jwtHelper.decodeToken(localStorage.getItem('authToken'));
+
+    console.log(userData.expiryTime);
+
+    // if no userData (nothing on the localStorage) return
+    if(!userData){
+        return
+    }
+
+    let loadedUser = new User(
+      userData.userId,
+      userData.firstName,
+      userData.username,
+      userData.lastName,
+      JWToken,
+      userData.expiryTime
+    );
+
+    // if there is a token
+    // if(loadedUser.Token) {
+    //   const expirationDuration = new Date(userData.expiryTime).getTime() - new Date().getTime();
+    //   this.autologout(expirationDuration);
+    // }
+    this.userSubject.next(loadedUser);
+    
+    console.log(loadedUser);
+  }
+
+
+  logoutUser(){
+    this.userSubject.next(null);
+    localStorage.removeItem('authToken');
+    
+    if(this.tokenExpirationTimer){
+      clearTimeout(this.tokenExpirationTimer); 
+    }
+
+    this.tokenExpirationTimer = null;
+  }
+
+  // autologout(expirationDuration: number){
+  //   console.log(expirationDuration);
+  //   this.tokenExpirationTimer = setTimeout(() => {
+  //     this.logoutUser();
+  //   }, 2000);
+
+  // }
 
 
 
-  autologin(){}
-
-
-  autologout(){}
-
-
-  private handleAuthentication(JWT: AuthResponseData){
-    // const newUser = new User(
-    //   userId,
-    //   fname,
-    //   uname,
-    //   lname,
-    //   token
-    // );
-
-    // this.userSubject.next(newUser);
-
-    localStorage.setItem("authToken", JSON.stringify(JWT));
-
-
+  private handleAuthentication(JWToken: any){
+    localStorage.setItem("authToken", JSON.stringify(JWToken));
 
     // Decode the JWT using jwtHelper
     const JWTdecoded = this.jwtHelper.decodeToken(localStorage.getItem('authToken'));
 
-    console.log(JWTdecoded);
+    //  1 hour until auto-logout
+    const expirationDate = new Date(new Date().getTime() + JWTdecoded.expiryTime * 1000);
+
+        const newUser = new User(
+        JWTdecoded.userId,
+        JWTdecoded.firstName,
+        JWTdecoded.username,
+        JWTdecoded.lastName,
+        JWToken,
+        expirationDate,
+
+    );
+
+    this.userSubject.next(newUser);
+
+    // console.log(newUser);
+    // console.log(JWTdecoded);
+
+    this.autologin();
 
   }
 
