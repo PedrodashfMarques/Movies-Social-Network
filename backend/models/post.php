@@ -14,6 +14,9 @@
             return $query->fetchAll( PDO:: FETCH_ASSOC );
         }
 
+
+        public function getConnectedUserPost(){}
+
         public function getPost($id){
             $query = $this->dataBase->prepare("
             SELECT *
@@ -85,6 +88,13 @@
             return $query->fetch( PDO::FETCH_ASSOC );
 
         }
+
+
+        public function likePost(){}
+
+        public function dislikePost(){}
+
+        public function commentPost(){}
 
 
     }

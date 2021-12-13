@@ -78,6 +78,7 @@ export class AuthService {
     //   const expirationDuration = new Date(userData.expiryTime).getTime() - new Date().getTime();
     //   this.autologout(expirationDuration);
     // }
+    
     this.userSubject.next(loadedUser);
     
     console.log(loadedUser);

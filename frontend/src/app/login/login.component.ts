@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
       // this.myRouter.navigate(['/newsfeed']);
     },
       error => {
-        console.log(error);
+        // console.log(error);
         this.errorMessage = error;
       }
     ); 

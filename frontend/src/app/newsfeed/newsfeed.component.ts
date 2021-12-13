@@ -36,8 +36,8 @@ export class NewsfeedComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.myAuthService.autologin();
+    
     this.myAuthService.userSubject.subscribe((data: User) => {
       this.connectedUserInfo.userId = data.userId;
       this.connectedUserInfo.firstName = data.firstName;

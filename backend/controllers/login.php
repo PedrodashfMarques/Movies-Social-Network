@@ -47,6 +47,7 @@ use ReallySimpleJWT\Token;
 
         
         } else {
+            // http_response_code();
             header("HTTP/1.1 400 Bad Request");
             echo '{"message": "Wrong information"}';
         }

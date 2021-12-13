@@ -28,6 +28,16 @@
 
         }
 
+        public function registerUser(){
+            
+        }
+
+        public function getUserFollowers(){}
+
+        public function getFollowingUsers(){}
+
+        public function getSimilarUsers(){}
+
     }
     
     
