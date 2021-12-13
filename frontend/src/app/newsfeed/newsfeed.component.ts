@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth-service/auth.service';
+import { User } from '../shared/user.model';
 
 @Component({
   selector: 'app-newsfeed',
@@ -18,15 +20,31 @@ export class NewsfeedComponent implements OnInit {
   contentPost: string ="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis alias magni, iusto quo vel id nam. Deleniti blanditiis eius at earum, enim incidunt, expedita tenetur impedit illum, molestias ab porro?"
   
 
-  constructor() {}
+  connectedUserInfo = {
+    userId: 0,
+    firstName: '',
+    username: '',
+    lastName: ''
+
+  };
+
+  constructor(private myAuthService: AuthService) {}
 
   ngOnInit(): void {
+    this.myAuthService.userSubject.subscribe((data: User) => {
+      this.connectedUserInfo.userId = data.userId;
+      this.connectedUserInfo.firstName = data.firstName;
+      this.connectedUserInfo.username = data.username;
+      this.connectedUserInfo.lastName = data.lastName;
+    })
     console.log("Este é o newsfeed component a funcionar");
   }
 
   daLike(){
     console.log("hello")
   }
+
+
 
 
 }

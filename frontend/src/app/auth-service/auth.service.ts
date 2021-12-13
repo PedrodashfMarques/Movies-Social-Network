@@ -19,6 +19,7 @@ interface AuthResponseData {
 export class AuthService {
 
   userSubject = new BehaviorSubject<User>(null);
+  // Ia agora tentar enviar as informações contidas neste userSubject para outros componentes
   
   api: string = environment.API_Endpoint;
 
@@ -45,6 +46,10 @@ export class AuthService {
   logoutUser(){}
 
 
+
+  autologin(){}
+
+
   private handleAuthentication(userId: number,fname: string, uname: string, lname: string, token: string){
 
     const newUser = new User(
@@ -58,7 +63,6 @@ export class AuthService {
     this.userSubject.next(newUser);
 
     localStorage.setItem("userData", JSON.stringify(newUser));
-
 
   }
 
