@@ -23,6 +23,8 @@ import { TimelineComponent } from './profile-page/timeline/timeline.component';
 import { WorldComponent } from './world/world.component';
 import { UsersFilterComponent } from './world/users-filter/users-filter.component';
 import { PostsFilterComponent } from './world/posts-filter/posts-filter.component';
+import { AuthService } from './auth-service/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -51,8 +53,9 @@ import { PostsFilterComponent } from './world/posts-filter/posts-filter.componen
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

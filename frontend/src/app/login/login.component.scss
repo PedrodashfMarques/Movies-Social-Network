@@ -82,6 +82,11 @@ main{
                     margin: 22px auto;
                     color: #202020; 
 
+                    .formErrors{
+                        width: 90%;
+                        margin: 10px auto;
+                        // background-color: orange;
+                    }
 
                     label{
                         width: 100%;

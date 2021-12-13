@@ -71,9 +71,9 @@
 
         public function getItemByUser($id, $userId){
             $query = $this->dataBase->prepare("
-            SELECT id
+            SELECT post_id
             FROM posts
-            WHERE id = ?
+            WHERE post_id = ?
             AND user_id = ?
             ");
 

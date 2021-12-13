@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
   // Injetar service de Auth e enviar os dados para a API
   
   submitRegister(values: any){
-    let formData = new FormData;
+    let formData = new FormData();
     formData.append('firstName', values.firstName);
     formData.append('userName', values.userName);
     formData.append('lastname', values.lastName);

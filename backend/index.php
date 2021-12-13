@@ -1,4 +1,7 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: PUT, GET, POST");
+
 header("Content-Type: application/json");
 
 require("vendor/autoload.php");
@@ -19,7 +22,8 @@ define("ROOT",
 $controllers = [
     "login",
     "users",
-    "posts"
+    "posts",
+    "comments"
 ];
 
     $url_parts = explode("/", $_SERVER["REQUEST_URI"]);
