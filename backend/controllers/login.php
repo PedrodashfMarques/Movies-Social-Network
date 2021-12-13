@@ -42,13 +42,7 @@ use ReallySimpleJWT\Token;
 
             header("X-Auth-Token: " . $token);
 
-            echo '{
-                "X-Auth-Token" : "'. $token .'",
-                "userId" : "'. $payload["userId"] .'",
-                "firstName" : "'. $payload["firstName"] .'",
-                "username" : "'. $payload["username"] .'",
-                "lastName" : "'. $payload["lastName"] .'"
-            }';
+            echo '{"X-Auth-Token" : "'. $token .'"}';
 
 
         

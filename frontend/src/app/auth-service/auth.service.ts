@@ -1,15 +1,12 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../shared/user.model';
 
 interface AuthResponseData {
-  userId: number;
-  firstName: string;
-  username: string;
-  lastName: string;
   JWToken: string;
 }
 
@@ -24,7 +21,7 @@ export class AuthService {
   api: string = environment.API_Endpoint;
 
 
-  constructor(private myHttp: HttpClient) { }
+  constructor(private myHttp: HttpClient, private jwtHelper: JwtHelperService ) { }
 
   loginUser(data: any){
     const url = this.api + 'login';
@@ -38,7 +35,7 @@ export class AuthService {
 
     return this.myHttp.post<AuthResponseData>(url, jsonConverted).pipe(catchError(this.handleError), 
     tap( resData => {
-      this.handleAuthentication(resData.userId, resData.firstName, resData.username, resData.lastName, resData.JWToken)
+      this.handleAuthentication(resData)
     }));
   }
 
@@ -50,19 +47,28 @@ export class AuthService {
   autologin(){}
 
 
-  private handleAuthentication(userId: number,fname: string, uname: string, lname: string, token: string){
+  autologout(){}
 
-    const newUser = new User(
-      userId,
-      fname,
-      uname,
-      lname,
-      token
-    );
 
-    this.userSubject.next(newUser);
+  private handleAuthentication(JWT: AuthResponseData){
+    // const newUser = new User(
+    //   userId,
+    //   fname,
+    //   uname,
+    //   lname,
+    //   token
+    // );
 
-    localStorage.setItem("userData", JSON.stringify(newUser));
+    // this.userSubject.next(newUser);
+
+    localStorage.setItem("authToken", JSON.stringify(JWT));
+
+
+
+    // Decode the JWT using jwtHelper
+    const JWTdecoded = this.jwtHelper.decodeToken(localStorage.getItem('authToken'));
+
+    console.log(JWTdecoded);
 
   }
 

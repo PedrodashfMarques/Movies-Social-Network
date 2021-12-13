@@ -26,6 +26,8 @@ import { PostsFilterComponent } from './world/posts-filter/posts-filter.componen
 import { AuthService } from './auth-service/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 
+import { JwtModule } from "@auth0/angular-jwt";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,8 +55,16 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+
+    JwtModule.forRoot({
+      config: {
+        tokenGetter:  () => localStorage.getItem('access_token')
+      }
+    })
   ],
+
+  
   providers: [AuthService],
   bootstrap: [AppComponent]
 })
