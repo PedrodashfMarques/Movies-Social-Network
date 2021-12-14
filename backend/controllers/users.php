@@ -47,6 +47,10 @@ use ReallySimpleJWT\Token;
 
     if($_SERVER["REQUEST_METHOD"] === "GET"){
 
+        if(isset($id)){
+            
+        }
+
         // Get connected user info so it can load it on the front end
         
     }

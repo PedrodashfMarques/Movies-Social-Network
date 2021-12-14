@@ -43,7 +43,7 @@ use ReallySimpleJWT\Token;
 
             if(empty($userInfo)){
                 http_response_code(400);
-                die( '{"message": "Email already exists"}');
+                die( '{"message": "Email or Username already exists"}');
             }
 
             if(!empty($userInfo)){

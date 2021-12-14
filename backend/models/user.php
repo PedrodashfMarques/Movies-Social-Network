@@ -35,7 +35,7 @@
                 $queryForEmails = $this->dataBase->prepare("
                     SELECT email
                     FROM users
-                    WHERE email = ? 
+                    WHERE email = ?
                 ");
 
                 $queryForEmails->execute([
@@ -43,6 +43,26 @@
                 ]);
 
                 $result = $queryForEmails->fetch( PDO:: FETCH_ASSOC );
+
+                if(!empty($result)){
+                    return [];
+                }
+
+            } 
+
+            if($data["userName"]){
+
+                $queryForUsername = $this->dataBase->prepare("
+                    SELECT username
+                    FROM users
+                    WHERE username = ?
+                ");
+
+                $queryForUsername->execute([
+                    $data["userName"]
+                ]);
+
+                $result = $queryForUsername->fetch( PDO:: FETCH_ASSOC );
 
                 if(!empty($result)){
                     return [];
@@ -74,10 +94,10 @@
 
         public function getSimilarUsers(){}
 
-
+        // Do I need 2 functions or just a if control
         public function followUser(){}
-
         public function unfollowUser(){}
+
 
         public function getCountries(){
             $query = $this->dataBase->prepare("
