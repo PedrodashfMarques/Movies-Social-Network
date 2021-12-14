@@ -38,6 +38,12 @@
 
         public function getSimilarUsers(){}
 
+
+        public function followUser(){}
+
+        public function unfollowUser(){}
+
+
     }
     
     

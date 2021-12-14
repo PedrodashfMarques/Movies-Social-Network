@@ -18,12 +18,13 @@ export class AuthService {
   private tokenExpirationTimer: any;
 
   userSubject = new BehaviorSubject<User>(null);
-  // Ia agora tentar enviar as informações contidas neste userSubject para outros componentes
+  // Send the information inside to other components
+  
   
   api: string = environment.API_Endpoint;
 
 
-  constructor(private myHttp: HttpClient, private jwtHelper: JwtHelperService ) { }
+  constructor(private myHttp: HttpClient, private jwtHelper: JwtHelperService) { }
 
   loginUser(data: any){
     const url = this.api + 'login';
@@ -43,10 +44,7 @@ export class AuthService {
 
 
   autologin(){
-
     let JWToken = localStorage.getItem('authToken');
-
-    // let JWTdecoded = this.jwtHelper.decodeToken(localStorage.getItem('authToken'));
 
     let userData: {
       userId: number,

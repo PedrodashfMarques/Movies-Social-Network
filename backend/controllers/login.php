@@ -44,7 +44,6 @@ use ReallySimpleJWT\Token;
 
             echo '{"X-Auth-Token" : "'. $token .'"}';
 
-
         
         } else {
             // http_response_code();
