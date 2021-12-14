@@ -34,7 +34,7 @@ export class NewsfeedComponent implements OnInit {
     private myAuthService: AuthService,
     private myRouter: Router
   ) {}
-
+  
   ngOnInit(): void {
     this.myAuthService.autologin();
     

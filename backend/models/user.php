@@ -28,7 +28,43 @@
 
         }
 
-        public function registerUser(){
+        public function registerUser($data){
+
+            if($data["email"]){
+
+                $queryForEmails = $this->dataBase->prepare("
+                    SELECT email
+                    FROM users
+                    WHERE email = ? 
+                ");
+
+                $queryForEmails->execute([
+                    $data["email"]
+                ]);
+
+                $result = $queryForEmails->fetch( PDO:: FETCH_ASSOC );
+
+                if(!empty($result)){
+                    return [];
+                }
+
+            } 
+
+            $query = $this->dataBase->prepare("
+            INSERT INTO users
+            (first_name, username, last_name, email, password)
+            VALUES(?, ?, ? , ? , ?)
+            ");
+
+            $query->execute([
+                $data["firstName"],
+                $data["userName"],
+                $data["lastName"],
+                $data["email"],
+                password_hash($data["password"], PASSWORD_DEFAULT)
+            ]);
+
+            return $this->dataBase->lastInsertId();
             
         }
 
@@ -42,6 +78,17 @@
         public function followUser(){}
 
         public function unfollowUser(){}
+
+        public function getCountries(){
+            $query = $this->dataBase->prepare("
+            SELECT nicename
+            FROM countries
+            ");
+
+            $query->execute();
+
+            return $query->fetchAll( PDO:: FETCH_ASSOC );
+        }
 
 
     }

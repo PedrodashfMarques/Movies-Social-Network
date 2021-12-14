@@ -42,7 +42,6 @@ export class AuthService {
     }));
   }
 
-
   autologin(){
     let JWToken = localStorage.getItem('authToken');
 
@@ -132,7 +131,7 @@ export class AuthService {
 
   }
 
-
+  
   private handleError(responseError: HttpErrorResponse){
     let errorMessage = "An unknow error occurred";
 

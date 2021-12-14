@@ -21,9 +21,11 @@ define("ROOT",
 
 $controllers = [
     "login",
+    "register",
     "users",
     "posts",
-    "comments"
+    "comments",
+    "countries"
 ];
 
     $url_parts = explode("/", $_SERVER["REQUEST_URI"]);
