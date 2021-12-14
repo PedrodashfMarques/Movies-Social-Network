@@ -50,6 +50,13 @@ export class AuthService {
       firstName: string,
       username: string
       lastName: string
+      location: string
+      smallBio: string
+      bigBio: string
+      userImage: string
+      backgroundImage: string
+      isAdmin: number
+      isVerified: number
       JWToken: string,
       expiryTime: Date
     } = this.jwtHelper.decodeToken(localStorage.getItem('authToken'));
@@ -66,6 +73,13 @@ export class AuthService {
       userData.firstName,
       userData.username,
       userData.lastName,
+      userData.location,
+      userData.smallBio,
+      userData.bigBio,
+      userData.userImage,
+      userData.backgroundImage,
+      userData.isAdmin,
+      userData.isVerified,
       JWToken,
       userData.expiryTime
     );
@@ -77,8 +91,10 @@ export class AuthService {
     // }
     
     this.userSubject.next(loadedUser);
+
     
     console.log(loadedUser);
+    return loadedUser;
   }
 
 
@@ -117,6 +133,13 @@ export class AuthService {
         JWTdecoded.firstName,
         JWTdecoded.username,
         JWTdecoded.lastName,
+        JWTdecoded.location,
+        JWTdecoded.smallBio,
+        JWTdecoded.bigBio,
+        JWTdecoded.userImage,
+        JWTdecoded.backgroundImage,
+        JWTdecoded.isAdmin,
+        JWTdecoded.isVerified,
         JWToken,
         expirationDate,
 

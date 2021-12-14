@@ -33,6 +33,13 @@ use ReallySimpleJWT\Token;
                 "username" => $userInfo["username"],
                 "firstName" => $userInfo["first_name"],
                 "lastName" => $userInfo["last_name"],
+                "location" => $userInfo["location"],
+                "smallBio" => $userInfo["small_bio"],
+                "bigBio" => $userInfo["big_bio"],
+                "userImage" => $userInfo["user_image"],
+                "backgroundImage" => $userInfo["background_image"],
+                "isAdmin" => $userInfo["is_admin"],
+                "isVerified" => $userInfo["is_verified"],
                 "expiryTime" => 3600
             ];
 

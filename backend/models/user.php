@@ -5,7 +5,19 @@
     class User extends Base{
         public function login($data){
             $query = $this->dataBase->prepare("
-            SELECT user_id, email, first_name, username, last_name, password
+            SELECT 
+            user_id, 
+            email, 
+            first_name, 
+            username, last_name, 
+            password, 
+            location, 
+            small_bio, 
+            big_bio, 
+            user_image, 
+            background_image,
+            is_admin,
+            is_verified
             FROM users
             WHERE email = ?  
             ");
@@ -88,15 +100,66 @@
             
         }
 
-        public function getUserFollowers(){}
+
+        public function getUserFollowers(){
+
+        }
 
         public function getFollowingUsers(){}
 
         public function getSimilarUsers(){}
 
         // Do I need 2 functions or just a if control
-        public function followUser(){}
-        public function unfollowUser(){}
+
+        public function followUnfollow($id, $connectedUserId){
+
+            // Check if user is already following
+
+            $alreadyFollowingQuery = $this->dataBase->prepare("
+            SELECT user_following, user_followed
+            FROM follows
+            WHERE user_following = ?
+            AND user_followed = ?
+            ");
+
+            $alreadyFollowingQuery->execute([
+                $connectedUserId["userId"],
+                $id
+            ]);
+
+            $result = $alreadyFollowingQuery->fetch(PDO:: FETCH_ASSOC);
+
+
+            if(!empty($result)){
+                $deleteFollowQuery = $this->dataBase->prepare("
+                DELETE FROM follows
+                WHERE user_following = ?
+                AND user_followed = ?
+                ");
+
+                $deleteFollowQuery->execute([
+                    $connectedUserId["userId"],
+                    $id
+                ]);
+
+                return $this->dataBase->lastInsertId();
+
+            }
+
+            $query = $this->dataBase->prepare("
+            INSERT INTO follows
+            (user_following, user_followed)
+            VALUES(? , ?)
+            ");
+
+            $query->execute([
+                $connectedUserId["userId"],
+                $id
+            ]);
+
+            return $this->dataBase->lastInsertId();
+        }
+
 
 
         public function getCountries(){

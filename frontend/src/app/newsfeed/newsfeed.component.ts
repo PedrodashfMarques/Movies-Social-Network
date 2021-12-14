@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth-service/auth.service';
 import { User } from '../shared/user.model';
+import { UserActionsService } from '../user-actions/user-actions.service';
 
 @Component({
   selector: 'app-newsfeed',
@@ -32,7 +33,8 @@ export class NewsfeedComponent implements OnInit {
   constructor(
     private myFormBuilder: FormBuilder, 
     private myAuthService: AuthService,
-    private myRouter: Router
+    private myRouter: Router,
+    private myUserActions: UserActionsService
   ) {}
   
   ngOnInit(): void {
@@ -45,12 +47,12 @@ export class NewsfeedComponent implements OnInit {
       this.connectedUserInfo.lastName = data.lastName;
     })
     console.log("Este é o newsfeed component a funcionar");
+
   }
 
   daLike(){
     console.log("hello")
   }
-
 
 
 }
