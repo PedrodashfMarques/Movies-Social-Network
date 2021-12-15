@@ -63,7 +63,6 @@ export class UserActionsService {
   }
 
 
-
   followUser(connectedUser: number, userFollowed: number){
 
     const url = this.api + 'users' + userFollowed;
@@ -71,8 +70,6 @@ export class UserActionsService {
     JSON.stringify(connectedUser);
 
   }
-
-
 
   messageUser(){
 

@@ -66,8 +66,8 @@
                     <!-- Child Routing -->
                     <li (click)="showTimeline()" [ngClass]="{rotaClickada: timelineClicked === true}"> Timeline </li> 
                     <li (click)="showAboutComponent()" [ngClass]="{rotaClickada: aboutClicked === true}"> About </li> 
-                    <li (click)="showGroupsComponent()" [ngClass]="{rotaClickada: groupsClicked === true}"> Groups </li> 
-                    <li (click)="showImagesComponent()" [ngClass]="{rotaClickada: imagesClicked === true}"> Images </li> 
+                    <li (click)="showGroupsComponent()" [ngClass]="{rotaClickada: groupsClicked === true}"> Followers </li> 
+                    <li (click)="showImagesComponent()" [ngClass]="{rotaClickada: imagesClicked === true}"> Following </li> 
 
                 </ul>
                 
@@ -111,6 +111,7 @@
                 <div class="imagem_user_post">
                     <img src="{{imagemTeste}}" alt="">
                 </div>
+
                 
                 <div class="nome_user_post">
                     <h3> Pedro "@movieLover" Marques <span *ngIf="userIsVerified"> <i class="fas fa-check"></i> </span>  </h3>

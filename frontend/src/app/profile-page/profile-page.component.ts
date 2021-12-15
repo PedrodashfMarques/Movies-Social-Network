@@ -14,7 +14,18 @@ export class ProfilePageComponent implements OnInit {
 
   idDoUser: number;
 
-  bootcamp: string = "https://images8.alphacoders.com/926/thumb-1920-926492.jpg";
+  userData: {
+
+  };
+
+  userFollowers: Array<{
+    user_following: number,
+    first_name: string,
+    username: string,
+    last_name: string,
+    user_image: string,
+    is_verified: number,
+  }>;
 
   userIsVerified: boolean = true;
   
@@ -37,9 +48,13 @@ export class ProfilePageComponent implements OnInit {
     console.log(this.idDoUser);
 
     this.myUserActions.getUserData(this.idDoUser).subscribe(response => {
-      console.log(response);
-    });
 
+      this.userFollowers = response[0].userFollowers;
+
+
+
+      console.log(this.userFollowers[0]);
+    });
 
     this.showTimeline();
     // no iniciar do componente, vai ter que ter aqui uma property do tipo connectedUser que contém vários dados vindos de um service, de um subject (Auth.service.ts)
@@ -52,6 +67,8 @@ export class ProfilePageComponent implements OnInit {
     this.aboutClicked = false;
     this.groupsClicked = false;
     this.imagesClicked = false;
+
+
   }
   
   showAboutComponent(){
