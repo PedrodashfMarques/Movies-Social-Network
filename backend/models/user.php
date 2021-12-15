@@ -101,6 +101,28 @@
         }
 
 
+        public function getUserData($id){
+            $query = $this->dataBase->prepare("
+            SELECT
+            first_name,
+            username,
+            last_name,
+            location,
+            small_bio,
+            big_bio,
+            user_image,
+            background_image,
+            is_verified
+            FROM users
+            WHERE user_id = ?     
+            ");
+
+            $query->execute([$id]);
+
+            return $query->fetch(PDO:: FETCH_ASSOC );
+        }
+
+
         public function getConnectedUserFollowers($id){
             $query = $this->dataBase->prepare("
             SELECT 

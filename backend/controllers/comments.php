@@ -17,6 +17,7 @@
         foreach ($data as $key => $value) {
             $data[$key] = trim(htmlspecialchars(strip_tags($value)));
         }
+
         if(
             isset($data["postId"]) &&
             isset($data["userId"]) &&
@@ -44,7 +45,21 @@
 
     }
 
-    if($_SERVER["REQUEST_METHOD"] === "PUT"){}
+    if($_SERVER["REQUEST_METHOD"] === "PUT"){
+
+        if(isset($id)){
+
+            $data = json_decode(file_get_contents("php://input"), true);
+            foreach ($data as $key => $value) {
+                $data[$key] = trim(htmlspecialchars(strip_tags($value)));
+            }
+
+            // Fiquei aqui
+
+
+        }
+
+    }
 
 
     if($_SERVER["REQUEST_METHOD"] === "DELETE"){}

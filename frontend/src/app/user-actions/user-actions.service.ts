@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth-service/auth.service';
 
@@ -11,7 +10,7 @@ export class UserActionsService {
   api: string = environment.API_Endpoint;
 
 
-  constructor(private myAuthService: AuthService, private jwtHelper: JwtHelperService) { }
+  constructor(private myAuthService: AuthService) { }
 
   // This will be the id's of the users 
   followUser(connectedUser: number, userFollowed: number){
@@ -22,7 +21,10 @@ export class UserActionsService {
 
   }
 
-  unfollowUser(){}
+  loadUser(){
+    
+  }
+
 
   messageUser(){
 

@@ -28,34 +28,52 @@ use ReallySimpleJWT\Token;
     // }
 
 
-    function usersValidator($data){
-        if(
-            isset($data["user_id"]) &&
-            isset($data["content"]) &&
-            is_numeric($data["user_id"]) &&
-            mb_strlen($data["content"]) >= 4 &&
-            mb_strlen($data["content"]) <= 120
+    // function usersValidator($data){
+    //     if(
+    //         isset($data["user_id"]) &&
+    //         isset($data["content"]) &&
+    //         is_numeric($data["user_id"]) &&
+    //         mb_strlen($data["content"]) >= 4 &&
+    //         mb_strlen($data["content"]) <= 120
         
-        ){
-            foreach ($data as $key => $value) {
-                $data[$key] = trim(htmlspecialchars(strip_tags($value)));
-            }
-            return true;
-        } 
-        return false;
-    }
+    //     ){
+    //         foreach ($data as $key => $value) {
+    //             $data[$key] = trim(htmlspecialchars(strip_tags($value)));
+    //         }
+    //         return true;
+    //     } 
+    //     return false;
+    // }
 
     if($_SERVER["REQUEST_METHOD"] === "GET"){
         // The id here is the user that is connected aka userId
-        if(isset($id) && is_numeric($id)){   
+        if(isset($id)){  
 
-            $conUserFollowers = $userModel->getConnectedUserFollowers($id);
+            $userInfo = $userModel->getUserData($id);
 
-            $conUserFollowing = $userModel->getConnectedUserFollowing($id);
+            $userFollowersData = $userModel->getConnectedUserFollowers($id);
 
-            // Aqui faltam os controlos de dados e envio
+            $userFollowingData = $userModel->getConnectedUserFollowing($id);
 
-            // $userFollowersData = $userModel->getUserData($id);
+
+
+            $userDataArray = array(
+                'UserData' => $userInfo,
+                'userFollowers' => $userFollowersData,
+                'userFollowing' => $userFollowingData
+            );
+
+            if(!empty($userInfo)){
+                http_response_code(202);
+                echo json_encode(array($userDataArray));
+            }
+
+            
+            if(empty($userInfo && empty($conUserFollowers) && empty($conUserFollowing))){
+                http_response_code(400);
+                echo '{"message": "This user does not exist"}';
+            }
+
 
         }
         

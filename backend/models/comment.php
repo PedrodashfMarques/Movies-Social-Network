@@ -3,7 +3,7 @@
 require_once("base.php");
 
     class Comment extends Base {
-        
+
         public function commentPost($data){
             $query = $this->dataBase->prepare("
             INSERT INTO comments
@@ -19,9 +19,13 @@ require_once("base.php");
             
             return $this->dataBase->lastInsertId();
         
+        }
+
+        public function updatePost(){
+            
+        }
+
+
     }
-
-
-}
 
 ?>
