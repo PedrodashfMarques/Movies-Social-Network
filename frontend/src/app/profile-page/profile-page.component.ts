@@ -32,8 +32,8 @@ export class ProfilePageComponent implements OnInit {
   // Rotas Ativas
   timelineClicked: boolean = false;
   aboutClicked: boolean = false;
-  groupsClicked: boolean = false;
-  imagesClicked: boolean = false;
+  followersClicked: boolean = false;
+  followingClicked: boolean = false;
 
   constructor(
     private myRouter: Router, 
@@ -65,10 +65,8 @@ export class ProfilePageComponent implements OnInit {
 
     this.timelineClicked = true;
     this.aboutClicked = false;
-    this.groupsClicked = false;
-    this.imagesClicked = false;
-
-
+    this.followersClicked = false;
+    this.followingClicked = false;
   }
   
   showAboutComponent(){
@@ -76,26 +74,26 @@ export class ProfilePageComponent implements OnInit {
 
     this.timelineClicked = false;
     this.aboutClicked = true;
-    this.groupsClicked = false;
-    this.imagesClicked = false;
+    this.followersClicked = false;
+    this.followingClicked = false;
   }
 
-  showGroupsComponent(){
-    this.myRouter.navigate(['groups'], {relativeTo: this.myActiveRoute});
+  showFollowersComponent(){
+    this.myRouter.navigate(['followers'], {relativeTo: this.myActiveRoute});
 
     this.timelineClicked = false;
     this.aboutClicked = false;
-    this.groupsClicked = true;
-    this.imagesClicked = false;
+    this.followersClicked = true;
+    this.followingClicked = false;
   }
 
-  showImagesComponent(){
-    this.myRouter.navigate(['images'], {relativeTo: this.myActiveRoute});
+  showFollowingComponent(){
+    this.myRouter.navigate(['following'], {relativeTo: this.myActiveRoute});
 
     this.timelineClicked = false;
     this.aboutClicked = false;
-    this.groupsClicked = false;
-    this.imagesClicked = true;
+    this.followersClicked = false;
+    this.followingClicked = true;
   }
 
   fetchConnectedUserData(){

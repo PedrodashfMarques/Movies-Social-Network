@@ -4,6 +4,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { LoginComponent } from './login/login.component';
 import { NewsfeedComponent } from './newsfeed/newsfeed.component';
 import { AboutComponent } from './profile-page/about/about.component';
+import { FollowersComponent } from './profile-page/followers/followers.component';
+import { FollowingComponent } from './profile-page/following/following.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { TimelineComponent } from './profile-page/timeline/timeline.component';
 import { RegisterComponent } from './register/register.component';
@@ -27,8 +29,8 @@ const routes: Routes = [
   {path: 'profile/:id', component: ProfilePageComponent, children: [
     {path: 'timeline', component: TimelineComponent},
     {path: 'about', component: AboutComponent},
-    // {path: 'groups', component: GroupsComponent},
-    // {path: 'images', component: ImagesComponent},
+    {path: 'followers', component: FollowersComponent},
+    {path: 'following', component: FollowingComponent},
   ]},
 
 
