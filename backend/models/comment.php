@@ -21,14 +21,14 @@ require_once("base.php");
         
         }
 
-        public function updateComment($id, $data){
+        public function updateComment($commentId, $data){
             $commentExistsQuery = $this->dataBase->prepare("
             SELECT comment_id
             FROM comments
             WHERE comment_id = ?
             ");
 
-            $commentExistsQuery->execute([$id]);
+            $commentExistsQuery->execute([$commentId]);
 
             $result = $commentExistsQuery->fetch(PDO:: FETCH_ASSOC );
 
@@ -45,11 +45,40 @@ require_once("base.php");
 
             return $query->execute([
                 $data["content"],
-                $id
+                $commentId,
 
             ]);
 
             
+        }
+
+        public function deleteComment($idComment){
+            $checkCommentExistence = $this->dataBase->prepare("
+            SELECT comment_id
+            FROM comments
+            WHERE comment_id = ?
+            ");
+
+            $checkCommentExistence->execute([
+                $idComment
+            ]);
+
+            $result = $checkCommentExistence->fetch();
+
+            if(empty($result)){
+                return [];
+            }
+
+
+            $deleteQuery = $this->dataBase->prepare("
+            DELETE FROM comments
+            WHERE comment_id = ?
+            ");
+
+            return $deleteQuery->execute([
+                $idComment
+            ]);
+
         }
 
 

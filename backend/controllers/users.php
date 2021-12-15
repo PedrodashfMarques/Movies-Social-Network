@@ -56,12 +56,18 @@ use ReallySimpleJWT\Token;
 
             $userFollowingData = $userModel->getConnectedUserFollowing($id);
 
+            $followersCount =$userModel->followersCount($id);
+
+            $followingCount =$userModel->followingCount($id);
+
 
 
             $userDataArray = array(
                 'UserData' => $userInfo,
                 'userFollowers' => $userFollowersData,
-                'userFollowing' => $userFollowingData
+                'userFollowing' => $userFollowingData,
+                'followersCount' => $followersCount,
+                'followingCount' => $followingCount
             );
 
             if(!empty($userInfo)){

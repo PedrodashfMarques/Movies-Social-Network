@@ -246,6 +246,31 @@
             return $query->fetchAll( PDO:: FETCH_ASSOC );
         }
 
+        public function followersCount($userId){
+            $query = $this->dataBase->prepare("
+            SELECT COUNT(*) AS total
+            FROM follows
+            INNER JOIN users ON(users.user_id = follows.user_following)
+            WHERE user_followed = ?
+            ");
+            $query->execute([$userId]);
+
+            return $query->fetch(PDO:: FETCH_ASSOC);
+
+        }
+
+        public function followingCount($userId){
+            $query = $this->dataBase->prepare("
+            SELECT COUNT(*) AS total
+            FROM follows
+            INNER JOIN users ON(users.user_id = follows.user_followed)
+            WHERE user_following = ?
+            ");
+            $query->execute([$userId]);
+
+            return $query->fetch(PDO:: FETCH_ASSOC);
+        }
+
 
     }
     

@@ -33,6 +33,9 @@
                 http_response_code(202);
                 echo '{"message": "Comment posted!" }';
 
+            } else{
+                http_response_code(400);
+                echo '{"message": "Information not provided" }';
             }
 
 
@@ -67,12 +70,10 @@
             }
 
             if(empty($result)){
-                http_response_code(400);
-                echo '{"message": "Post does not exist" }';
+                http_response_code(404);
+                echo '{"message": "Comment does not exist" }';
                 
             }
-
-                
 
 
         } else{
@@ -83,7 +84,27 @@
     }
 
 
-    if($_SERVER["REQUEST_METHOD"] === "DELETE"){}
+    if($_SERVER["REQUEST_METHOD"] === "DELETE"){
+
+        if(!empty($id)){
+            $result = $commentModel->deleteComment($id);
+
+            if($result){
+                header("HTTP/1.1 202 Accepted");
+                echo '{"message": "Deleted comment ' .$id. '"}';
+
+            }
+            if(empty($result)){
+                http_response_code(404);
+                echo '{"message": "Comment does not exist"}';
+            }
+        } else {
+            http_response_code(400);
+                echo '{"message": "Bad Request"}';
+        }
+
+
+    }
 
 
         // Comment Delete Functionality

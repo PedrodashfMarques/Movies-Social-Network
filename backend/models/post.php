@@ -141,7 +141,22 @@
             return $this->dataBase->lastInsertId();
         }
 
-        // public function dislikePost(){}
+        public function getPostComments($postId){
+            $query = $this->dataBase->prepare("
+            SELECT comment_id, comments.content
+            FROM comments
+            INNER JOIN posts USING(post_id)
+            WHERE post_id = ?
+            
+            ");
+
+            $query->execute([
+                $postId
+            ]);
+
+            return $query->fetchAll(PDO:: FETCH_ASSOC);
+        }
+
 
 
     }

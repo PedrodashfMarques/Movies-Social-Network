@@ -30,8 +30,17 @@
             // $id variable from index.php
             $data = $postModel->getPost($id);
 
+            $postCommentsArray = $postModel->getPostComments($id);
+
+            $postDataArray = array(
+                'postData' => $data,
+                'postComments' => $postCommentsArray
+            );
+
+            // Associar os comments aos posts tb , criar Array associativo
+
             if(!empty($data)){
-                echo json_encode($data);
+                echo json_encode($postDataArray);
                 header("HTTP/1.1 202 Accepted");
             } else {
                 header("HTTP/1.1 404 Not Found");
