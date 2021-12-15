@@ -15,7 +15,7 @@
         }
 
 
-        public function getConnectedUserPost(){}
+        public function getConnectedUserPosts(){}
 
         public function getPost($id){
             $query = $this->dataBase->prepare("
@@ -142,8 +142,6 @@
         }
 
         // public function dislikePost(){}
-
-        public function commentPost(){}
 
 
     }

@@ -4,7 +4,6 @@
 
     $postModel = new Post();
 
-
     if($_SERVER["REQUEST_METHOD"] === "POST"){
 
         $data = json_decode(file_get_contents("php://input"), true);
@@ -13,7 +12,6 @@
         if(!empty($data) && intval($data["userId"]) && intval($data["postId"])){
 
             $userId = $data["userId"];
-
             $postId = $data["postId"];
 
             $result = $postModel->likeDislikePost($postId, $userId);
@@ -29,7 +27,6 @@
             }
 
         }
-      
 
     }
 
