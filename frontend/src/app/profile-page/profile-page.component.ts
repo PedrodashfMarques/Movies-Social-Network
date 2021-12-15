@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserActionsService } from '../user-actions/user-actions.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -16,12 +17,7 @@ export class ProfilePageComponent implements OnInit {
   bootcamp: string = "https://images8.alphacoders.com/926/thumb-1920-926492.jpg";
 
   userIsVerified: boolean = true;
-
-  mensagem: string = "Posted November 8th, 2021 at 17h28";
-
-  contentPost: string ="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis alias magni, iusto quo vel id nam. Deleniti blanditiis eius at earum, enim incidunt, expedita tenetur impedit illum, molestias ab porro?"
-
-
+  
   // Rotas Ativas
   timelineClicked: boolean = false;
   aboutClicked: boolean = false;
@@ -30,7 +26,8 @@ export class ProfilePageComponent implements OnInit {
 
   constructor(
     private myRouter: Router, 
-    private myActiveRoute: ActivatedRoute
+    private myActiveRoute: ActivatedRoute,
+    private myUserActions: UserActionsService
     ) {}
 
 
@@ -38,7 +35,11 @@ export class ProfilePageComponent implements OnInit {
      this.idDoUser = +this.myActiveRoute.snapshot.params['id'];
 
     console.log(this.idDoUser);
-    console.log("Este é o profile page component a funcionar");
+
+    this.myUserActions.getUserData(this.idDoUser).subscribe(response => {
+      console.log(response);
+    });
+
 
     this.showTimeline();
     // no iniciar do componente, vai ter que ter aqui uma property do tipo connectedUser que contém vários dados vindos de um service, de um subject (Auth.service.ts)

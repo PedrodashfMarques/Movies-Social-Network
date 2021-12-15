@@ -22,22 +22,24 @@
     //     }
 
     // }
-
-   
-
+    
     if($_SERVER["REQUEST_METHOD"] === "GET"){
+
         if(isset($id)){
             // $id variable from index.php
             $data = $postModel->getPost($id);
 
             $postCommentsArray = $postModel->getPostComments($id);
 
+            // countPostComments MAYBE DO
+
+            $postLikesCount = $postModel->countPostLikes($id);
+
             $postDataArray = array(
                 'postData' => $data,
-                'postComments' => $postCommentsArray
+                'postComments' => $postCommentsArray,
+                'numberLikes' => $postLikesCount
             );
-
-            // Associar os comments aos posts tb , criar Array associativo
 
             if(!empty($data)){
                 echo json_encode($postDataArray);
@@ -59,6 +61,8 @@
         $data = json_decode(file_get_contents("php://input"), true);
 
         if(postValidation($data)){
+            $data["content"] = nl2br($data["content"]);
+            
             $id = $postModel->createPost($data);
 
             header("HTTP/1.1 202 Accepted");

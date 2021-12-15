@@ -4,10 +4,7 @@
 
     $commentModel = new Comment();
 
-    if($_SERVER["REQUEST_METHOD"] === "GET"){
-        // GET para ir buscar todos os comments relativos ao post $id
-
-    }
+    if($_SERVER["REQUEST_METHOD"] === "GET"){}
 
 
     if($_SERVER["REQUEST_METHOD"] === "POST"){
@@ -44,8 +41,6 @@
             echo '{"message": "Bad Request" }';
         }
         
-        
-
     }
 
     if($_SERVER["REQUEST_METHOD"] === "PUT"){

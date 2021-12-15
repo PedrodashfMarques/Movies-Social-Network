@@ -46,7 +46,6 @@ use ReallySimpleJWT\Token;
     // }
 
     if($_SERVER["REQUEST_METHOD"] === "GET"){
-
         // The id here is the user that is connected aka userId
         if(isset($id)){  
 
@@ -57,10 +56,7 @@ use ReallySimpleJWT\Token;
             $userFollowingData = $userModel->getConnectedUserFollowing($id);
 
             $followersCount =$userModel->followersCount($id);
-
             $followingCount =$userModel->followingCount($id);
-
-
 
             $userDataArray = array(
                 'UserData' => $userInfo,
@@ -115,6 +111,10 @@ use ReallySimpleJWT\Token;
 
         }
     
+    }
+
+    else if($_SERVER["REQUEST_METHOD"] === "PUT"){
+        // Código que vai editar as informações do utilizador logado
     }
 
 

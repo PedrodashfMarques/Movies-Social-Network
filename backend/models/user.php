@@ -126,7 +126,6 @@
         public function getConnectedUserFollowers($id){
             $query = $this->dataBase->prepare("
             SELECT 
-            follow_id,
             user_following,
             users.first_name,
             users.username,
@@ -150,7 +149,6 @@
         public function getConnectedUserFollowing($id){
             $query = $this->dataBase->prepare("
             SELECT 
-            follow_id,
             user_followed,
             users.first_name,
             users.username,
@@ -170,17 +168,17 @@
             return $query->fetchAll( PDO:: FETCH_ASSOC );
         }
 
-        public function getSimilarUsersToThis($id){
-            // Perguntar ao Ivo como fazer este
-            $query = $this->dataBase->prepare("");
+        // public function getSimilarUsersToThis($id){
+        //     // Perguntar ao Ivo como fazer este
+        //     $query = $this->dataBase->prepare("");
 
-            $query->execute([
-                $id
-            ]);
+        //     $query->execute([
+        //         $id
+        //     ]);
 
-            return $query->fetchAll( PDO:: FETCH_ASSOC );
+        //     return $query->fetchAll( PDO:: FETCH_ASSOC );
 
-        }
+        // }
 
 
 
@@ -248,7 +246,7 @@
 
         public function followersCount($userId){
             $query = $this->dataBase->prepare("
-            SELECT COUNT(*) AS total
+            SELECT COUNT(*) AS Total
             FROM follows
             INNER JOIN users ON(users.user_id = follows.user_following)
             WHERE user_followed = ?
@@ -261,7 +259,7 @@
 
         public function followingCount($userId){
             $query = $this->dataBase->prepare("
-            SELECT COUNT(*) AS total
+            SELECT COUNT(*) AS Total
             FROM follows
             INNER JOIN users ON(users.user_id = follows.user_followed)
             WHERE user_following = ?
@@ -271,8 +269,35 @@
             return $query->fetch(PDO:: FETCH_ASSOC);
         }
 
+        public function getUserPosts($userId){
+            $query = $this->dataBase->prepare("
+               
+                SELECT users.first_name,
+                users.username,
+                users.last_name,
+                users.user_image,
+                users.is_verified,
+                posts.post_id,
+                posts.created_at,
+                posts.content,
+                (SELECT COUNT(*)
+                FROM likes
+                WHERE likes.post_id = posts.post_id
+                ) AS likes
+                FROM posts
+                INNER JOIN users USING(user_id)
+                WHERE users.user_id = 1
+            ");
+
+            $query->execute([
+                $userId
+            ]);
+
+            return $query->fetchAll( PDO:: FETCH_ASSOC );
+
+        }
 
     }
-    
+  
     
 ?>

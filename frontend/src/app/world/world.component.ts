@@ -7,9 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./world.component.scss']
 })
 export class WorldComponent implements OnInit {
-
   
-
   usersRouteClicked: boolean = false;
 
   postsRouteClicked: boolean = false;
