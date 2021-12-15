@@ -1,40 +1,29 @@
 <?php
 
     require("models/post.php");
+    
+    require_once("validators/postValidator.php");
   
     $postModel = new Post();
 
 
-    if(in_array($_SERVER["REQUEST_METHOD"], ["POST", "PUT", "DELETE"]) ) {
+    // if(in_array($_SERVER["REQUEST_METHOD"], ["POST", "PUT", "DELETE"]) ) {
 
-        $userId = $postModel->routeRequiresValidation();
+    //     $userId = $postModel->routeRequiresValidation();
 
-        if(empty($userId)){
-            header("HTTP/1.1 401 Unauthorized");
-            die('{"message":"Wrong or missing Auth Token"}');
-        }
+    //     if(empty($userId)){
+    //         header("HTTP/1.1 401 Unauthorized");
+    //         die('{"message":"Wrong or missing Auth Token"}');
+    //     }
 
-        if(!empty($id) && empty($postModel->getItemByUser($id, $userId))){
-            header("HTTP/1.1 403 Forbidden");
-            die('{"message": "You do not have permission to perform this action "}');
-        }
+    //     if(!empty($id) && empty($postModel->getItemByUser($id, $userId))){
+    //         header("HTTP/1.1 403 Forbidden");
+    //         die('{"message": "You do not have permission to perform this action "}');
+    //     }
 
+    // }
 
-    }
-
-    function validator($data){
-        if(
-            isset($data["user_id"]) &&
-            isset($data["content"]) &&
-            is_numeric($data["user_id"]) &&
-            mb_strlen($data["content"]) >= 4 &&
-            mb_strlen($data["content"]) <= 120
-        
-        ){
-            return true;
-        } 
-        return false;
-    }
+   
 
     if($_SERVER["REQUEST_METHOD"] === "GET"){
         if(isset($id)){
@@ -60,7 +49,7 @@
         
         $data = json_decode(file_get_contents("php://input"), true);
 
-        if(validator($data)){
+        if(postValidation($data)){
             $id = $postModel->createPost($data);
 
             header("HTTP/1.1 202 Accepted");
@@ -79,7 +68,7 @@
 
         $data = json_decode(file_get_contents("php://input"), true);
 
-        if(!empty($id) && validator($data)){
+        if(!empty($id) && postValidation($data)){
             
             $result = $postModel->updatePost($id, $data);
 

@@ -28,7 +28,7 @@ use ReallySimpleJWT\Token;
     // }
 
 
-    function registerValidator($data){
+    function usersValidator($data){
         if(
             isset($data["user_id"]) &&
             isset($data["content"]) &&
@@ -46,16 +46,18 @@ use ReallySimpleJWT\Token;
     }
 
     if($_SERVER["REQUEST_METHOD"] === "GET"){
-        // The id here is userId
-        if(isset($id)){
+        // The id here is the user that is connected aka userId
+        if(isset($id) && is_numeric($id)){   
+
+            $conUserFollowers = $userModel->getConnectedUserFollowers($id);
+
+            $conUserFollowing = $userModel->getConnectedUserFollowing($id);
+
             // $userFollowersData = $userModel->getUserData($id);
 
         }
-
-        // Get connected user info so it can load it on the front end
         
     }
-
 
 
     else if($_SERVER["REQUEST_METHOD"] === "POST"){
@@ -66,9 +68,15 @@ use ReallySimpleJWT\Token;
             !empty($connectedUserId) && 
             is_numeric($id) && 
             is_numeric($connectedUserId["userId"])){
-                
+
+            if($id === intval($connectedUserId["userId"])){
+                http_response_code(400);
+                die('{"message":"Bad Request"}');
+            }
+            
             $result = $userModel->followUnfollow($id, $connectedUserId);
 
+         
             if(empty($result)){
                 http_response_code(202);
                 echo '{"message": "Unfollowed!"}';

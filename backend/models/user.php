@@ -101,15 +101,66 @@
         }
 
 
-        public function getUserFollowers(){
+        public function getConnectedUserFollowers($id){
+            $query = $this->dataBase->prepare("
+            SELECT 
+            follow_id,
+            user_following,
+            users.first_name,
+            users.username,
+            users.last_name,
+            users.user_image,
+            users.is_verified
+            FROM follows
+            INNER JOIN users ON(users.user_id = follows.user_following)
+            WHERE user_followed = ?
+            ORDER BY follow_id
+            ");
+
+            $query->execute([
+                $id
+            ]);
+
+            return $query->fetchAll( PDO:: FETCH_ASSOC );
 
         }
 
-        public function getFollowingUsers(){}
+        public function getConnectedUserFollowing($id){
+            $query = $this->dataBase->prepare("
+            SELECT 
+            follow_id,
+            user_followed,
+            users.first_name,
+            users.username,
+            users.last_name,
+            users.user_image,
+            users.is_verified
+            FROM follows
+            INNER JOIN users ON(users.user_id = follows.user_followed)
+            WHERE user_following = ?
+            ORDER BY follow_id
+            ");
 
-        public function getSimilarUsers(){}
+            $query->execute([
+                $id
+            ]);
 
-        // Do I need 2 functions or just a if control
+            return $query->fetchAll( PDO:: FETCH_ASSOC );
+        }
+
+        public function getSimilarUsersToThis($id){
+            // Perguntar ao Ivo como fazer este
+            $query = $this->dataBase->prepare("");
+
+            $query->execute([
+                $id
+            ]);
+
+            return $query->fetchAll( PDO:: FETCH_ASSOC );
+
+        }
+
+
 
         public function followUnfollow($id, $connectedUserId){
 

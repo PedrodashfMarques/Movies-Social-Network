@@ -90,9 +90,11 @@
         }
 
 
-        public function likePost(){}
+        public function likeDislikePost($userId, $postId){
 
-        public function dislikePost(){}
+        }
+
+        // public function dislikePost(){}
 
         public function commentPost(){}
 
