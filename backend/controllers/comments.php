@@ -47,16 +47,37 @@
 
     if($_SERVER["REQUEST_METHOD"] === "PUT"){
 
-        if(isset($id)){
+        $data = json_decode(file_get_contents("php://input"), true);
+        
+        foreach ($data as $key => $value) {
+            $data[$key] = trim(htmlspecialchars(strip_tags($value)));
+        }
 
-            $data = json_decode(file_get_contents("php://input"), true);
-            foreach ($data as $key => $value) {
-                $data[$key] = trim(htmlspecialchars(strip_tags($value)));
+        if(
+            !empty($id) && 
+            isset($data["content"]) &&
+            mb_strlen($data["content"]) >= 2 &&
+            mb_strlen($data["content"]) <= 1000){
+     
+            $result = $commentModel->updateComment($id, $data);
+
+            if($result){
+                http_response_code(202);
+                echo json_encode($data);
             }
 
-            // Fiquei aqui
+            if(empty($result)){
+                http_response_code(400);
+                echo '{"message": "Post does not exist" }';
+                
+            }
+
+                
 
 
+        } else{
+            http_response_code(400);
+            echo '{"message": "Bad Request" }';
         }
 
     }
@@ -65,7 +86,7 @@
     if($_SERVER["REQUEST_METHOD"] === "DELETE"){}
 
 
-        // Comment Functionality
+        // Comment Delete Functionality
     
 
 ?>

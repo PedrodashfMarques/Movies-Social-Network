@@ -46,6 +46,7 @@ use ReallySimpleJWT\Token;
     // }
 
     if($_SERVER["REQUEST_METHOD"] === "GET"){
+
         // The id here is the user that is connected aka userId
         if(isset($id)){  
 
@@ -73,8 +74,6 @@ use ReallySimpleJWT\Token;
                 http_response_code(400);
                 echo '{"message": "This user does not exist"}';
             }
-
-
         }
         
     }

@@ -21,7 +21,34 @@ require_once("base.php");
         
         }
 
-        public function updatePost(){
+        public function updateComment($id, $data){
+            $commentExistsQuery = $this->dataBase->prepare("
+            SELECT comment_id
+            FROM comments
+            WHERE comment_id = ?
+            ");
+
+            $commentExistsQuery->execute([$id]);
+
+            $result = $commentExistsQuery->fetch(PDO:: FETCH_ASSOC );
+
+            if(empty($result)){
+                return [];
+            }
+
+            $query = $this->dataBase->prepare("
+                UPDATE comments
+                SET content = ?
+                WHERE comment_id = ?
+            
+            ");
+
+            return $query->execute([
+                $data["content"],
+                $id
+
+            ]);
+
             
         }
 
