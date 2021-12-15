@@ -53,6 +53,8 @@ use ReallySimpleJWT\Token;
 
             $conUserFollowing = $userModel->getConnectedUserFollowing($id);
 
+            // Aqui faltam os controlos de dados e envio
+
             // $userFollowersData = $userModel->getUserData($id);
 
         }

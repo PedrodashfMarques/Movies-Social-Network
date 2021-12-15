@@ -90,8 +90,55 @@
         }
 
 
-        public function likeDislikePost($userId, $postId){
+        public function likeDislikePost($postId, $userId){
 
+            $postAlreadyLikedQuery = $this->dataBase->prepare("
+            SELECT post_id, user_id
+            FROM likes
+            WHERE post_id = ?
+            AND user_id = ?
+            
+            ");
+
+            $postAlreadyLikedQuery->execute([
+                $postId,
+                $userId
+            ]);
+
+            $result = $postAlreadyLikedQuery->fetch(PDO:: FETCH_ASSOC);
+
+
+            if(!empty($result)){
+                $dislikePostQuery = $this->dataBase->prepare("
+                    DELETE FROM likes
+                    WHERE post_id = ?
+                    AND user_id = ?
+                ");
+
+                $dislikePostQuery->execute([
+                    $postId,
+                    $userId
+
+                ]);
+
+                // return $dislikePostQuery->fetch();
+                return $this->dataBase->lastInsertId();
+
+
+            }
+
+            $query = $this->dataBase->prepare("
+            INSERT INTO likes
+            (post_id, user_id)
+            VALUES(?, ?)
+            ");
+
+            $query->execute([
+                $postId,
+                $userId
+            ]);
+
+            return $this->dataBase->lastInsertId();
         }
 
         // public function dislikePost(){}

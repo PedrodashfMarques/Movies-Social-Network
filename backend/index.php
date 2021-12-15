@@ -24,6 +24,7 @@ $controllers = [
     "register",
     "users",
     "posts",
+    "postsActions",
     "comments",
     "countries"
 ];

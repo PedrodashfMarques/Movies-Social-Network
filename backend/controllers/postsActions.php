@@ -16,7 +16,17 @@
 
             $postId = $data["postId"];
 
-            $result = $postModel->likeDislikePost($userId, $postId);
+            $result = $postModel->likeDislikePost($postId, $userId);
+
+            if(empty($result)){
+                http_response_code(202);
+                echo '{"message": "Post '. $result .' disliked!"}';
+            }
+
+            if(!empty($result)){
+                http_response_code(202);
+                echo '{"message": "Post '. $result .' liked!"}';
+            }
 
         }
       
