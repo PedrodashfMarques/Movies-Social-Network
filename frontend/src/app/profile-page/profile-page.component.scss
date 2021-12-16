@@ -108,6 +108,27 @@ main{
 
                     }
                 }
+
+                div.botao_follow{
+                    width: 129px;
+                    height: 115px;
+                    position: relative;
+                    bottom: 74%;
+                    left: 46%;
+                    margin: 0 auto;
+
+                    button{
+                        width: 58%;
+                        font-size: 1.1em ;
+                        background-color: rgb(59, 181, 230);
+                        border-radius: 8px;
+                        border: 1;
+                        font-family: $LDFont;
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }
+                }
             }
             
             .aUsernameBioFollowers{
@@ -115,10 +136,9 @@ main{
                 height: 100px;
                 background-color: white;
                 border: 1px solid grey;
-                
-
+           
                 .aUsernameh2{
-                    width: 50%;
+                    width: 100%;
                     margin: 12px auto;
                     margin-bottom: 5px;
                     height: 30px;
@@ -127,29 +147,41 @@ main{
                     display: flex;
                     justify-content: center;
 
-                    div.area_verified{
-                        width: 10%;
-                        height: 30px;
-                        margin: 5px 0px 0px 0px;
-                        // background-color: orchid;
-                        float: left;
+                    .aUserNameAndVerified{
+                        width: 100%;
+                        margin: 0 auto;
+                        display: flex;
+                        justify-content: center;
+                        h2{
+                            font-size: 1.2em;
+                            font-weight: lighter;
+    
+                            span{
+                                font-weight: 500;
+    
+                            }
+                        }
 
-                        i{
-                            font-size: 18px;
-                            color: #0048BA;
+                        div.area_verified{
+                            width: 5%;
+                            height: 30px;
+                            margin: 5px 0px 0px 0px;
+                            // background-color: orchid;
+                            float: left;
+    
+                            i{
+                                font-size: 18px;
+                                color: #0048BA;
+                            }
                         }
                     }
 
-                    h2{
-                        font-size: 1.2em;
-                        font-weight: lighter;
+                   
 
-                        span{
-                            font-weight: 500;
-
-                        }
-                    }
+                   
                 }
+
+               
 
                 .aFf{
                     width: 100%;

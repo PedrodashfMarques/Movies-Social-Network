@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth-service/auth.service';
 import { UserActionsService } from '../user-actions/user-actions.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class ProfilePageComponent implements OnInit {
   imagemBackground: string = "https://steamuserimages-a.akamaihd.net/ugc/448490901519563018/1DBA511F88594E8E29FA8F1B56329CFD7B2DEC4E/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false";
   imagemTeste: string = "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/33/33fc65586f9b4615f95209a03398d8c8b2729f0b_full.jpg";
 
-  idDoUser: number;
+  idDoUser: number ;
 
   // USER DATA
     firstName: string
@@ -26,12 +27,15 @@ export class ProfilePageComponent implements OnInit {
 
   
   // Connected User id
-  connectedUserId: number;
+  connectedUserId: number = 0;
   // Connected User id
+
+  // CantFollowMyself
+  CantFollowMyself: boolean;
+  // CantFollowMyself
 
 
   userIsVerified: boolean = false;
-  
   // Rotas Ativas
   timelineClicked: boolean = false;
   aboutClicked: boolean = false;
@@ -41,11 +45,22 @@ export class ProfilePageComponent implements OnInit {
   constructor(
     private myRouter: Router, 
     private myActiveRoute: ActivatedRoute,
-    private myUserActions: UserActionsService
+    private myUserActions: UserActionsService,
+    private myAuthService: AuthService
     ) {}
 
   ngOnInit(): void {
-     this.idDoUser = +this.myActiveRoute.snapshot.params['id'];
+    this.idDoUser = this.myActiveRoute.snapshot.params['id'];
+
+    this.myAuthService.userSubject.subscribe(data => {
+      this.connectedUserId = data.userId;
+      if(this.connectedUserId === this.idDoUser){
+        this.CantFollowMyself = false;
+      } else{
+        this.CantFollowMyself = true;
+
+      }
+    })
 
     this.myUserActions.getUserData(this.idDoUser).subscribe(data => {
       this.firstName = data[0].userData.first_name;
@@ -66,13 +81,7 @@ export class ProfilePageComponent implements OnInit {
      
     });
 
-
-    // this.myUserActions.allUserData.subscribe(responseData => {
-    //   console.log(responseData); 
-    // })
-
     this.showTimeline();
-    // no iniciar do componente, vai ter que ter aqui uma property do tipo connectedUser que contém vários dados vindos de um service, de um subject (Auth.service.ts)
   }
 
   showTimeline(){
@@ -109,6 +118,10 @@ export class ProfilePageComponent implements OnInit {
     this.aboutClicked = false;
     this.followersClicked = false;
     this.followingClicked = true;
+  }
+
+  followUser(){
+    console.log("banana")
   }
 
 }

@@ -57,8 +57,6 @@ export class TimelineComponent implements OnInit {
   }
 
   likePost(postId:number){
-    this.checkPostId = postId;
-
     let connectedUserId: number;
     this.myAuthService.userSubject.subscribe(response => {
       // console.log(response.userId)
@@ -66,15 +64,14 @@ export class TimelineComponent implements OnInit {
     })
     
     this.myUserActions.likeDislikePost(postId, connectedUserId).subscribe(responseData => {
-      
       console.log(responseData['message']);
-      // console.log(postId);
 
       for (let index = 0; index < this.userPostsArray.length; index++) {
 
         let posicaoIndex = this.userPostsArray[index];
         
         if(posicaoIndex['post_id'] === postId){
+          
           if(responseData['message'] === 'Post liked!'){
             posicaoIndex["likesNumber"]++
             this.postIsLiked = true;

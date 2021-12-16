@@ -32,19 +32,28 @@
             <div class="area_background_perfil">
                 <div class="bPitself">
                     <img src="{{imagemBackground}}">
+                    
                 </div>
     
                 <div class="pPicItself">
                     <img src="{{imagemTeste}}">
-                </div>     
+                </div>    
+                
+                <div class="botao_follow">
+                    <button *ngIf="CantFollowMyself" (click)="followUser()"> Follow </button>
+                </div>
             </div>
 
             <div class="aUsernameBioFollowers">
                 <div class="aUsernameh2">
-                    <h2> {{firstName}} <span> @{{username}} </span> {{lastName}}  </h2>
-                    <div class="area_verified" *ngIf="userIsVerified"> <i class="fas fa-check"></i> </div>
-
+                    <div class="aUserNameAndVerified">
+                        <h2> {{firstName}} <span> @{{username}} </span> {{lastName}}  </h2>
+                        <div class="area_verified" *ngIf="userIsVerified"> <i class="fas fa-check"></i> </div>
+                    </div>
+                    
                 </div>
+                
+
 
                 <!-- Area onde esta os followers e followings e bio -->
                 <div class="aFf">
