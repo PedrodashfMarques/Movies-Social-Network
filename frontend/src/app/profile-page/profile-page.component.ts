@@ -15,8 +15,6 @@ export class ProfilePageComponent implements OnInit {
   idDoUser: number;
 
   // USER DATA
-
-
     firstName: string
     username: string
     lastName: string
@@ -24,8 +22,12 @@ export class ProfilePageComponent implements OnInit {
     smallBio: string
     numFollowers: number
     numFollowing: number
- 
   // USER DATA
+
+  
+  // Connected User id
+  connectedUserId: number;
+  // Connected User id
 
 
   userIsVerified: boolean = false;

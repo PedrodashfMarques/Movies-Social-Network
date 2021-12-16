@@ -51,9 +51,11 @@ export class UserActionsService {
     return this.myHttp.post(url, {
       userId: connectedUserId,
       postId: postId
-    }).pipe()
+    })
 
   }
+
+  followUnfollowUser(){}
 
 
 

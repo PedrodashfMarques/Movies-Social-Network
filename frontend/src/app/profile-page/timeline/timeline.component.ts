@@ -17,26 +17,18 @@ export class TimelineComponent implements OnInit {
 
   // Post Likes and Dislikes
     postIsLiked: boolean;
-
     postIsDisliked: boolean;
-
   // Post Likes and Dislikes
 
 
   // Post Content
-
   userPostsArray: [];
-
-    // firstName: string
-    // username: string
-    // lastName: string
-    // userImage: string
-    // isVerified: number
-    // postId: number
-    // createdAt: Date
-    // postContent
   // Post Content
 
+
+  // Post id to checkIfLikeExists
+  checkPostId: number;
+  // Post id to checkIfLikeExists
 
   constructor(
     private myUserActions: UserActionsService, 
@@ -65,18 +57,23 @@ export class TimelineComponent implements OnInit {
   }
 
   likePost(postId:number){
-    let connectedUserId: number;
+    this.checkPostId = postId;
 
+    let connectedUserId: number;
     this.myAuthService.userSubject.subscribe(response => {
       // console.log(response.userId)
       connectedUserId = response.userId;
     })
     
     this.myUserActions.likeDislikePost(postId, connectedUserId).subscribe(responseData => {
+      
       console.log(responseData['message']);
-      console.log(postId)
+      // console.log(postId);
+
       for (let index = 0; index < this.userPostsArray.length; index++) {
+
         let posicaoIndex = this.userPostsArray[index];
+        
         if(posicaoIndex['post_id'] === postId){
           if(responseData['message'] === 'Post liked!'){
             posicaoIndex["likesNumber"]++
