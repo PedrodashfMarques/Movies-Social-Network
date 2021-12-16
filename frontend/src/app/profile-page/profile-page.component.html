@@ -41,8 +41,9 @@
 
             <div class="aUsernameBioFollowers">
                 <div class="aUsernameh2">
-                    <h2> {{firstName}} <span> @{{username}} </span> {{lastName}} </h2>
-                    
+                    <h2> {{firstName}} <span> @{{username}} </span> {{lastName}}  </h2>
+                    <div class="area_verified" *ngIf="userIsVerified"> <i class="fas fa-check"></i> </div>
+
                 </div>
 
                 <!-- Area onde esta os followers e followings e bio -->

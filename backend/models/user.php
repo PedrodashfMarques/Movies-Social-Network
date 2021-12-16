@@ -269,13 +269,11 @@
         }
 
         public function getUserPosts($userId){
-            
             $query = $this->dataBase->prepare("  
                 SELECT users.first_name,
                 users.username,
                 users.last_name,
                 users.user_image,
-                users.is_verified,
                 posts.post_id,
                 posts.created_at,
                 posts.content,
@@ -286,6 +284,7 @@
                 FROM posts
                 INNER JOIN users USING(user_id)
                 WHERE users.user_id = ?
+                ORDER BY posts.created_at DESC
             ");
 
             $query->execute([

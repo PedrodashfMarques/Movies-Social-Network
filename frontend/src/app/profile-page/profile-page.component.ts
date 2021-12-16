@@ -28,7 +28,7 @@ export class ProfilePageComponent implements OnInit {
   // USER DATA
 
 
-  userIsVerified: boolean = true;
+  userIsVerified: boolean = false;
   
   // Rotas Ativas
   timelineClicked: boolean = false;
@@ -42,7 +42,6 @@ export class ProfilePageComponent implements OnInit {
     private myUserActions: UserActionsService
     ) {}
 
-
   ngOnInit(): void {
      this.idDoUser = +this.myActiveRoute.snapshot.params['id'];
 
@@ -54,6 +53,14 @@ export class ProfilePageComponent implements OnInit {
       this.smallBio = data[0].userData.small_bio;
       this.numFollowers = data[0].followersCount.Total;
       this.numFollowing = data[0].followingCount.Total;
+
+      let userVerification = data[0].userData.is_verified;
+
+      if(userVerification === 1 || userVerification === "1"){
+        this.userIsVerified = true;
+      } else {
+        this.userIsVerified = false
+      }
      
     });
 

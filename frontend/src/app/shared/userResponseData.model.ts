@@ -40,7 +40,6 @@ export interface UserResponseData {
         username: string,
         last_name: string,
         user_image: string,
-        is_verified: string | number,
         post_id: number
         created_at : Date,
         content: string,

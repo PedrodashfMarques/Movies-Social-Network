@@ -5,23 +5,21 @@
     class Post extends Base {
         public function getAllPosts(){
             $query = $this->dataBase->prepare("
-            SELECT *
+            SELECT posts.user_id, 
+            posts.post_id, 
+            posts.content, 
+            posts.created_at, 
+            (SELECT COUNT(*) 
+            FROM likes 
+            WHERE likes.post_id = posts.post_id) AS likes 
             FROM posts
-            ORDER BY created_at DESC
             ");
 
             $query->execute();
 
             return $query->fetchAll( PDO:: FETCH_ASSOC );
         }
-            // SELECT posts.user_id, 
-            // posts.post_id, 
-            // posts.content, 
-            // posts.created_at, 
-            // (SELECT COUNT(*) 
-            // FROM likes 
-            // WHERE likes.post_id = posts.post_id) AS likes 
-            // FROM posts
+            
 
 
         public function getConnectedUserPosts(){}

@@ -79,6 +79,8 @@ use ReallySimpleJWT\Token;
                 http_response_code(404);
                 echo '{"message": "This user does not exist"}';
             }
+        } else {
+            // Aplicar lógica para ir buscar todos os utilizadores para listar no World Component
         }
         
     }
