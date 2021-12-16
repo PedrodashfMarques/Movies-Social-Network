@@ -1,45 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { tap } from "rxjs/operators";
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth-service/auth.service';
+import { UserResponseData } from '../shared/userResponseData.model';
 
-interface UserResponseData {
-  userData: {
-    first_name: string,
-    username: string,
-    last_name: string,
-    location: string,
-    small_bio: string,
-    big_bio: string,
-    user_image: string,
-    background_image: string,
-    is_verified: string | number,
-
-  },
-  userFollowers: Array<{
-    user_following: number,
-    first_name: string,
-    username: string,
-    last_name: string,
-    user_image: string,
-    is_verified: number,
-  }>,
-  userFollowing: Array<{
-    user_followed: number,
-    first_name: string,
-    username: string,
-    last_name: string,
-    user_image: string,
-    is_verified: number,
-  }>,
-
-  followersCount: {
-    Total: number
-  },
-  followingCount: {
-    Total: number
-  }
-}
 
 @Injectable({
   providedIn: 'root'
@@ -48,17 +14,18 @@ export class UserActionsService {
 
   api: string = environment.API_Endpoint;
 
+  allUserData = new BehaviorSubject<UserResponseData>(null);
 
   constructor(private myAuthService: AuthService, private myHttp: HttpClient) { }
 
   // This will be the id's of the users 
 
-
   getUserData(userId: number){
-
     const url = this.api + 'users' + "/" + userId;
 
-    return this.myHttp.get<UserResponseData>(url);
+    return this.myHttp.get<UserResponseData>(url).pipe(tap(resData => {
+      this.handleUserData(resData)
+    }));
 
   }
 
@@ -71,7 +38,10 @@ export class UserActionsService {
 
   }
 
-  messageUser(){
+
+  private handleUserData(resData){
+    this.allUserData.next(resData);
+    console.log(this.allUserData.value);
 
   }
 

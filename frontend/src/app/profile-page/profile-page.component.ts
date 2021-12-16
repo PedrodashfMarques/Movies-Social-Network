@@ -14,18 +14,19 @@ export class ProfilePageComponent implements OnInit {
 
   idDoUser: number;
 
-  userData: {
+  // USER DATA
 
-  };
 
-  userFollowers: Array<{
-    user_following: number,
-    first_name: string,
-    username: string,
-    last_name: string,
-    user_image: string,
-    is_verified: number,
-  }>;
+    firstName: string
+    username: string
+    lastName: string
+    location: string
+    smallBio: string
+    numFollowers: number
+    numFollowing: number
+ 
+  // USER DATA
+
 
   userIsVerified: boolean = true;
   
@@ -45,16 +46,21 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit(): void {
      this.idDoUser = +this.myActiveRoute.snapshot.params['id'];
 
-    console.log(this.idDoUser);
-
-    this.myUserActions.getUserData(this.idDoUser).subscribe(response => {
-
-      this.userFollowers = response[0].userFollowers;
-
-
-
-      console.log(this.userFollowers[0]);
+    this.myUserActions.getUserData(this.idDoUser).subscribe(data => {
+      this.firstName = data[0].userData.first_name;
+      this.username = data[0].userData.username;
+      this.lastName = data[0].userData.last_name;
+      this.location = data[0].userData.location;
+      this.smallBio = data[0].userData.small_bio;
+      this.numFollowers = data[0].followersCount.Total;
+      this.numFollowing = data[0].followingCount.Total;
+     
     });
+
+
+    // this.myUserActions.allUserData.subscribe(responseData => {
+    //   console.log(responseData); 
+    // })
 
     this.showTimeline();
     // no iniciar do componente, vai ter que ter aqui uma property do tipo connectedUser que contém vários dados vindos de um service, de um subject (Auth.service.ts)
@@ -95,14 +101,5 @@ export class ProfilePageComponent implements OnInit {
     this.followersClicked = false;
     this.followingClicked = true;
   }
-
-  fetchConnectedUserData(){
-    // ..........
-    console.log("Hello");
-
-  }
-
-
-
 
 }

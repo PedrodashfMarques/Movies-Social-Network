@@ -55,15 +55,18 @@ use ReallySimpleJWT\Token;
 
             $userFollowingData = $userModel->getConnectedUserFollowing($id);
 
-            $followersCount =$userModel->followersCount($id);
-            $followingCount =$userModel->followingCount($id);
+            $followersCount = $userModel->followersCount($id);
+            $followingCount = $userModel->followingCount($id);
+
+            $userPostsData = $userModel->getUserPosts($id);
 
             $userDataArray = array(
-                'UserData' => $userInfo,
+                'userData' => $userInfo,
                 'userFollowers' => $userFollowersData,
                 'userFollowing' => $userFollowingData,
                 'followersCount' => $followersCount,
-                'followingCount' => $followingCount
+                'followingCount' => $followingCount,
+                'userPosts' => $userPostsData
             );
 
             if(!empty($userInfo)){
@@ -73,7 +76,7 @@ use ReallySimpleJWT\Token;
 
             
             if(empty($userInfo && empty($conUserFollowers) && empty($conUserFollowing))){
-                http_response_code(400);
+                http_response_code(404);
                 echo '{"message": "This user does not exist"}';
             }
         }

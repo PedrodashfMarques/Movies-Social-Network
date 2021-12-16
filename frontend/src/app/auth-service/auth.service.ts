@@ -20,7 +20,6 @@ export class AuthService {
   userSubject = new BehaviorSubject<User>(null);
   // Send the information inside to other components
   
-  
   api: string = environment.API_Endpoint;
 
 
@@ -44,7 +43,7 @@ export class AuthService {
 
   autologin(){
     let JWToken = localStorage.getItem('authToken');
-
+    
     let userData: {
       userId: number,
       firstName: string,

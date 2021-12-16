@@ -49,7 +49,6 @@
                 echo '{"message": "Not Found"}';
             }
         } else {
-            // JSON Output
             echo json_encode($postModel->getAllPosts());
 
         }
@@ -59,6 +58,10 @@
     else if($_SERVER["REQUEST_METHOD"] === "POST"){
         
         $data = json_decode(file_get_contents("php://input"), true);
+
+        foreach ($data as $key => $value) {
+            $data[$key] = trim(htmlspecialchars(strip_tags($value)));
+        }
 
         if(postValidation($data)){
             $data["content"] = nl2br($data["content"]);

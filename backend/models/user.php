@@ -269,8 +269,8 @@
         }
 
         public function getUserPosts($userId){
-            $query = $this->dataBase->prepare("
-               
+            
+            $query = $this->dataBase->prepare("  
                 SELECT users.first_name,
                 users.username,
                 users.last_name,
@@ -282,10 +282,10 @@
                 (SELECT COUNT(*)
                 FROM likes
                 WHERE likes.post_id = posts.post_id
-                ) AS likes
+                ) AS likesNumber
                 FROM posts
                 INNER JOIN users USING(user_id)
-                WHERE users.user_id = 1
+                WHERE users.user_id = ?
             ");
 
             $query->execute([
