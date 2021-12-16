@@ -1,5 +1,5 @@
 <main>
-    <article class="posts_carregados" *ngFor="let eachPost of userPostsArray; let i = index">
+    <article class="posts_carregados" *ngFor="let eachPost of userPostsArray">
 
             <div class="area_quem_postou">
                 <!-- Imagem do user que fez o post, firstname, username e last name , um *ngIf para mostrar se é verificado ou não   e a data do post que foi criado -->
@@ -23,12 +23,8 @@
                 </div>
 
                 <div class="area_content_post">
-                    <!-- {{contentPost}} -->
-                    Yesterday I showed my dog Luke how the PS5 looks like, he immediatelly started licking me like no tomorrow.
-
-                    Today, I showed him how the Xbox X looks like, he started coughing.
-                    Signals?
-                    #gamermotion #whatdrivesyourmotion
+                    {{eachPost.content}}
+                    
                 </div>
 
             </div>
@@ -36,7 +32,10 @@
             <div class="area_likes_comments">
                 <ul>
 
-                    <li> <i class="fas fa-trophy"></i> <span> {{likes}} </span>  </li>
+                    <li (click)="likePost(eachPost.post_id)">
+                            <i class="fas fa-heart"></i>
+                        <span> {{eachPost.likesNumber}} </span>
+                    </li>
                     
                     <li> <i class="far fa-comment"></i> <span> 0 </span> </li>
                     <!-- Este li tb vai ter um routerLink para o post/:id do post-->

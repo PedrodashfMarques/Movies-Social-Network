@@ -1,8 +1,18 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: PUT, GET, POST");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+
     require("models/post.php");
 
     $postModel = new Post();
+
+    if($_SERVER["REQUEST_METHOD"] === "GET"){
+
+        // Verificar se o utilizador logado já tem um like em determinado post
+    }
+
 
     if($_SERVER["REQUEST_METHOD"] === "POST"){
 
@@ -17,12 +27,12 @@
 
             if(empty($result)){
                 http_response_code(202);
-                echo '{"message": "Post '. $result .' disliked!"}';
+                echo '{"message": "Post disliked!"}';
             }
 
             if(!empty($result)){
                 http_response_code(202);
-                echo '{"message": "Post '. $result .' liked!"}';
+                echo '{"message": "Post liked!"}';
             }
 
         }

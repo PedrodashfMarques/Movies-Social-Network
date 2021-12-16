@@ -29,20 +29,32 @@ export class UserActionsService {
 
   }
 
-
-  followUser(connectedUser: number, userFollowed: number){
-
-    const url = this.api + 'users' + userFollowed;
-
-    JSON.stringify(connectedUser);
-
-  }
-
-
   private handleUserData(resData){
     this.allUserData.next(resData);
     console.log(this.allUserData.value);
 
   }
+
+  // followUser(connectedUser: number, userFollowed: number){
+
+  //   const url = this.api + 'users' + userFollowed;
+
+  //   JSON.stringify(connectedUser);
+
+  // }
+
+
+  likeDislikePost(postId, connectedUserId){
+
+    const url = this.api + 'postsActions';
+
+    return this.myHttp.post(url, {
+      userId: connectedUserId,
+      postId: postId
+    }).pipe()
+
+  }
+
+
 
 }
