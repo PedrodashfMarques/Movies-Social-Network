@@ -36,9 +36,9 @@ export class ProfilePageComponent implements OnInit {
    connectedUsername: string;
    // Connected Username
 
-  // CantFollowMyself
+  // Botão Follow Unfollow
   CantFollowMyself: boolean;
-  // CantFollowMyself
+  // Botão Follow Unfollow
 
   // Follow or Unfollow message
   followUnfollowMessage: string;
@@ -92,7 +92,7 @@ export class ProfilePageComponent implements OnInit {
           this.followUnfollowMessage = 'Follow';
 
         }
-    })
+      })
 
       let userVerification = data[0].userData.is_verified;
 

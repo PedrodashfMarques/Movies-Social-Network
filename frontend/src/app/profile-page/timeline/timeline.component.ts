@@ -33,8 +33,7 @@ export class TimelineComponent implements OnInit {
   constructor(
     private myUserActions: UserActionsService, 
     private myAuthService: AuthService,
-    private myRouter: Router,
-    private myActiveRoute: ActivatedRoute
+    private myRouter: Router
     ) {}
 
   ngOnInit(): void {
