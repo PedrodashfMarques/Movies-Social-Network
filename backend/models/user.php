@@ -122,6 +122,20 @@
             return $query->fetch(PDO:: FETCH_ASSOC );
         }
 
+        // Estava aqui
+
+        public function updateUserData($id){
+            $query = $this->dataBase->prepare("");
+            
+            $query->execute([
+                $id
+            ]);
+
+            return $this->dataBase->lastInsertId();
+        }
+
+        // Estava aqui
+
 
         public function getConnectedUserFollowers($id){
             $query = $this->dataBase->prepare("

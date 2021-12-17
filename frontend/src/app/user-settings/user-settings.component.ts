@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth-service/auth.service';
 import { UserActionsService } from '../user-actions/user-actions.service';
@@ -11,10 +11,18 @@ import { UserActionsService } from '../user-actions/user-actions.service';
 })
 export class UserSettingsComponent implements OnInit {
 
-  userInformation: FormGroup
-  allCountriesArray: [];
-
+  userInformationForm: FormGroup;
+  allCountriesArray: any;
   connectedUserId: number;
+  userLocation: string;
+
+  // Image Upload
+
+  fileToUpload;
+
+  base64textString: string
+
+  // Image Upload
 
   constructor(
     private myFormBuilder: FormBuilder, 
@@ -24,27 +32,112 @@ export class UserSettingsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // Ter atenção à ordem
+    this.myAuthService.autologin();
+    this.updateUserForm();
+
+    // this.loadUserInformation();
+
     this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
     })
-    
+
+    this.myUserActions.getUserData(this.connectedUserId).subscribe(data => {
+      this.userInformationForm.controls.smallBio.setValue(data[0].userData.small_bio);
+      this.userInformationForm.controls.bigBio.setValue(data[0].userData.big_bio);
+      this.userInformationForm.controls.location.setValue(data[0].userData.location);
+      this.userInformationForm.controls.userImage.setValue(data[0].userData.user_image);
+      this.userInformationForm.controls.bgUserImage.setValue(data[0].userData.background_image);
+
+      this.userLocation = data[0].userData.location;
+
+    })
+
     this.getCountries();
   }
 
   getCountries(){
     this.myUserActions.getAllCountries().subscribe(data => {
-      console.log(data);
+      this.allCountriesArray = data;
+
     })
-
   }
 
-  showUserInformation(){
+
+  updateUserForm(){
+    this.userInformationForm = this.myFormBuilder.group({
+      'smallBio' : ['', Validators.compose([
+        Validators.required, 
+        Validators.minLength(3), 
+        Validators.maxLength(25)])],
+      'bigBio' : ['', Validators.compose([
+        Validators.required, 
+        Validators.minLength(3), 
+        Validators.maxLength(1000)])], 
+      'location' : ['', Validators.compose([
+        Validators.required, 
+        Validators.minLength(3), 
+        Validators.maxLength(60)])],
+      'userImage' : ['', Validators.compose([
+        Validators.required, 
+        Validators.minLength(1), 
+        Validators.maxLength(1000)])],
+      'bgUserImage' : ['', Validators.compose([
+        Validators.required, 
+        Validators.minLength(1), 
+        Validators.maxLength(1000)])],
+
+    })
+  }
+
+  updateUserInformation(form: any){
+
+    let values = form.value;
+    console.log(values)
+
+    // let userImage = this.imageUpload(form.userImage);
+    // console.log(userImage)
     
+    let formData = new FormData();
+
+    formData.append('small_bio', values.smallBio);
+    formData.append('big_bio', values.bigBio);
+    formData.append('location', values.location);
+    formData.append('userImage', this.fileToUpload);
+    formData.append('backgroundImage', values.bgUserImage);
+
+    console.log(this.fileToUpload);
+
+
+    // Pesquisar FileReader Angular for image upload
+
+    this.myUserActions.updateUserData(formData, this.connectedUserId);
+
   }
 
-  updateUserInformation(){
+  
+  imageUpload(fileInput: any){
+    // Fazer validações do tamanho da imagem
+
+    let file = fileInput[0];
+
+    // If the image is valid
+    if(file){
+      let reader = new FileReader();
+
+      reader.onload = this.encodeFileImage.bind(this);
+      reader.readAsBinaryString(file);
+    }
 
   }
+
+
+  encodeFileImage(readerEvt) {
+    var binaryString = readerEvt.target.result;
+
+    this.fileToUpload= btoa(binaryString);
+    console.log(this.fileToUpload);
+   }
 
 
 

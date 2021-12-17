@@ -70,10 +70,20 @@ export class UserActionsService {
 
   getAllCountries(){
     const url = this.api + 'countries';
+  
+    return this.myHttp.get(url);   
+  }
 
-    return this.myHttp.get(url);
+  updateUserData(data: any, connectedUserId){
+    const url = this.api + 'users' + "/" + connectedUserId;
+    let object = {};
+    data.forEach((value, key) => object[key] = value);
 
-    
+    let jsonConverted = JSON.stringify(object);
+
+    console.log(jsonConverted);
+
+    // return this.myHttp.put(url, )
   }
 
 }

@@ -7,50 +7,58 @@
 
         <div class="area_div_formulario">
 
-            <form>
+            <form [formGroup]="userInformationForm" (ngSubmit)="updateUserInformation(userInformationForm)">
 
                 <div class="cadaForm">
                     <label for="smallBio"> Short Bio </label>
                     <input
                     type="text" 
                     id="smallBio"
-                    required>
+                    required
+                    formControlName="smallBio"
+                    maxlength="25">
                 </div>
 
                 <div class="cadaForm">
                     <label for="bigBio"> Big Bio </label>
-                    <textarea 
-                    name="" 
-                    id="bigBio" 
-                    cols="30" 
-                    rows="10">
+                    <textarea  
+                    id="bigBio"
+                    placeholder="Placeholder memo"
+                    formControlName="bigBio"
+                    maxlength="1000">
                     </textarea>
                 </div>
 
                 <div class="cadaForm">
-                    <label for="location"> Location </label>
+                    <label for="locationId"> Location </label>
                         <select 
                         type="text" 
-                        id="location"
-                        required>
-                        <option value=""> cada país </option>
+                        id="locationId"
+                        required
+                        formControlName="location">
+                        <option value="{{userLocation}}"> {{userLocation}} </option>
+                        <option *ngFor="let eachCountry of allCountriesArray"> {{eachCountry.nicename}} </option>
                         </select>
                 </div>
 
                 <div class="cadaForm">
-                    <label for="userImage"> Profile Image </label>
+                    <label for="userImageId"> Profile Image </label>
                         <input 
-                        type="file" 
-                        id="userImage"
-                        required>
+                        type="file"
+                        (change)="imageUpload($event.target.files)"
+                        id="userImageId"
+                        required
+                        formControlName="userImage">
                 </div>
 
                 <div class="cadaForm">
-                    <label for="bgUserImage"> Background Image </label>
+                    <label for="bgUserImageId"> Background Image </label>
                         <input 
-                        type="file" 
-                        id="bgUserImage"
-                        required>
+                        type="file"
+                        (change)="imageUpload($event.target.files)"
+                        id="bgUserImageId"
+                        required
+                        formControlName="bgUserImage">
                 </div>
 
                 <div class="cadaForm">

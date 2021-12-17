@@ -1,0 +1,12 @@
+<FilesMatch "\.(htm|html|css|js|php)$">
+AddDefaultCharset UTF-8
+</FilesMatch>
+Options +FollowSymLinks -MultiViews
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /ModuloPHP/Exercicios/virtual/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /ModuloPHP/Exercicios/virtual/index.php [L]
+</IfModule>
