@@ -60,8 +60,6 @@ export class AuthService {
       expiryTime: Date
     } = this.jwtHelper.decodeToken(localStorage.getItem('authToken'));
 
-    console.log(userData.expiryTime);
-
     // if no userData (nothing on the localStorage) return
     if(!userData){
         return
@@ -90,9 +88,7 @@ export class AuthService {
     // }
     
     this.userSubject.next(loadedUser);
-
-    
-    console.log(loadedUser);
+    // console.log(loadedUser);
     return loadedUser;
   }
 
@@ -108,6 +104,8 @@ export class AuthService {
     this.tokenExpirationTimer = null;
   }
 
+  // Test again
+  
   // autologout(expirationDuration: number){
   //   console.log(expirationDuration);
   //   this.tokenExpirationTimer = setTimeout(() => {
