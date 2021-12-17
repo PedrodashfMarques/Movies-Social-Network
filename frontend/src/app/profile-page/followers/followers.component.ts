@@ -24,6 +24,12 @@ export class FollowersComponent implements OnInit {
 
   userFollowersArray: [];
 
+  // Follower Id
+
+    followerId: any;
+
+  // Follower Id
+
   userIsVerified: boolean;
 
   imagemTeste: string = "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/33/33fc65586f9b4615f95209a03398d8c8b2729f0b_full.jpg";
@@ -37,8 +43,6 @@ export class FollowersComponent implements OnInit {
 
     this.myUserActions.allUserData.subscribe(data => {
       this.userFollowersArray = data[0].userFollowers;
-
-      let idDoUser = data[0].userFollowers;
 
       console.log(data[0].userFollowers)
 
@@ -59,8 +63,12 @@ export class FollowersComponent implements OnInit {
 
   }
 
-  checkUserVerification(){
+  goToFollowerProfile(followerId: any){
 
+    this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
+    .then(()=>{
+        this.myRouter.navigate(['/profile/',followerId, 'timeline']);
+    })
   }
 
 }

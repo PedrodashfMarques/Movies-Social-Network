@@ -3,14 +3,14 @@
     <section class="overview" *ngFor="let eachFollower of userFollowersArray">
         <div class="asagUsers">
 
-            <article class="area_follower">
+            <article class="area_follower" (click)="goToFollowerProfile(eachFollower.user_following)">
                 <div class="imagem_user_follower">
                     <img src="{{imagemTeste}}" alt="">
                 </div>
 
                 
                 <div class="nome_user_follower">
-                    <h3> {{eachFollower.first_name}} @{{eachFollower.username}} {{eachFollower.last_name}} <span *ngIf="userIsVerified"> <i class="fas fa-check"></i> </span>  </h3>
+                    <h3> {{eachFollower.first_name}} @{{eachFollower.username}} {{eachFollower.last_name}} </h3>
                 </div>
                 
             </article>  
