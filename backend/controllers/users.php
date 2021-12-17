@@ -1,5 +1,9 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: PUT, GET, POST");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+
 use ReallySimpleJWT\Token;
 
     require_once("models/user.php");
@@ -114,6 +118,9 @@ use ReallySimpleJWT\Token;
             }
 
 
+        } else{
+            http_response_code(400);
+            echo '{"message": "Bad Request"}';
         }
     
     }

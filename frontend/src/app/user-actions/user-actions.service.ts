@@ -55,8 +55,13 @@ export class UserActionsService {
 
   }
 
-  followUnfollowUser(){}
+  followUnfollowUser(idDoUser, connectedUserId){
+    const url = this.api + 'users' + "/" + idDoUser;
 
+    return this.myHttp.post(url, {
+      userId: connectedUserId
+    })
 
+  }
 
 }

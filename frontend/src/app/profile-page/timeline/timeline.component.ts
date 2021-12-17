@@ -59,7 +59,7 @@ export class TimelineComponent implements OnInit {
   likePost(postId:number){
     let connectedUserId: number;
     this.myAuthService.userSubject.subscribe(response => {
-      // console.log(response.userId)
+
       connectedUserId = response.userId;
     })
     

@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
     this.myAuthService.loginUser(formData).subscribe(response => {
       // console.log(response);
       
-      // this.myRouter.navigate(['/newsfeed']);
+      this.myRouter.navigate(['/newsfeed']);
     },
       error => {
         // console.log(error);
