@@ -37,7 +37,7 @@ export class TimelineComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    this.myAuthService.autologin();
+    // this.myAuthService.autologin();
 
     this.myUserActions.allUserData.subscribe(data => {
       this.userPostsArray = data[0].userPosts;

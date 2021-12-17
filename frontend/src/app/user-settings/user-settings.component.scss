@@ -1,0 +1,120 @@
+@import 'var&mixin.scss';
+
+main{
+    max-width: 1100px;
+    height: 861px;
+    margin: 8px auto;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+
+    section.form_area{
+        width: 90%;
+        // background-color: dodgerblue;
+        margin: 10px;
+
+        div.area_div_formulario{
+            width: 93%;
+            // height: 100px;
+            // background: red;
+            margin: 30px auto;
+            
+            form{
+                width: 93%;
+                margin: 0 auto;
+                height: 700px;
+                background: #dbdada;
+                // display: flex;
+                // justify-content: center;
+                padding-top: 3px;
+                position: relative;
+                border-radius: 10px;
+
+
+                div.cadaForm{
+                    width: 80%;
+                    // background: green;
+                    margin: 22px auto;
+                    color: #202020; 
+
+                    input#smallBio{
+                        height: 30px;
+                    }
+
+                    .formErrors{
+                        width: 90%;
+                        margin: 10px auto;
+                        // background-color: orange;
+                    }
+
+                    label{
+                        width: 100%;
+                        float: left;
+                        // text-align: left;
+                        margin: 12px 0px 12px 30px;
+                    }
+                    
+                    input{
+                        width: 90%;
+                        height: 25px;
+                        margin: auto;
+                        display: block;
+                        border-radius: 2px;
+                        border: 0;
+                    }
+
+                    textarea{
+                        width: 90%;
+                        height: 100px;
+                        margin: auto;
+                        display: block;
+                        border-radius: 2px;
+                        border: 0;
+                        resize: none;
+                    }
+
+                    select{
+                        width: 30%;
+                        height: 25px;
+                        margin: 0 30px;
+                        display: block;
+                        border-radius: 2px;
+                        border: 0;
+                    }
+                
+
+                }
+
+                div.botao_submit{
+                    width: 100%;
+                    // background: blue;
+                    margin: 20px auto;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    p{
+                        margin-right: 20px;
+                        color: #202020; 
+                        // font-weight: bold;
+                        
+                    }
+
+                    button{
+                        // width: 12%;
+                        height: 34px;
+                        font-size: 1.1em;
+
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }
+                }
+
+             
+            }
+
+        }
+    }
+
+}

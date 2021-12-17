@@ -16,6 +16,10 @@ main{
             display: flex;
             justify-content: left;
             align-items: center;
+            
+            &:hover{
+                cursor: pointer;
+            }
 
             h4{
                 text-align: center;

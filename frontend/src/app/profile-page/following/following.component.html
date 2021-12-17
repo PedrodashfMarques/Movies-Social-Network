@@ -1,8 +1,8 @@
 <main>
 
-    <section class="overview">
+    <section class="overview" *ngFor="let eachFollowing of followingUsersArray">
 
-        <article class="area_following" *ngFor="let eachFollowing of followingUsersArray">
+        <article class="area_following" (click)="goToFollowingUserPage(eachFollowing.user_followed)">
             <div class="imagem_user_following">
                 <img src="{{imagemTeste}}" alt="">
             </div>

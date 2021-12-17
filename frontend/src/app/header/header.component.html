@@ -12,11 +12,12 @@
     <nav>
         
         <ul>
+            <li (click)="goToConnectedUserPage()"> Profile </li>
+            <li routerLink="/world/users" [routerLinkActive]="['is-active']"> World</li>
+            <li routerLink="/newsfeed" [routerLinkActive]="['is-active']"> Newsfeed </li>
+            <li routerLink="/settings" [routerLinkActive]="['is-active']"> Settings </li>
             <li (click)="onLogout()"> Logout </li>   
 
-            <li (click)="goToConnectedUserPage()" [routerLinkActive]="['is-active']"> Profile </li>
-            <li routerLink="/world" [routerLinkActive]="['is-active']"> World</li>
-            <li routerLink="/newsfeed" [routerLinkActive]="['is-active']"> Newsfeed </li>
             <!-- <li *ngIf="userFezLogin" (click)="onLogout()" [routerLink]="['/lounge'] ['/my-list']"> Logout </li> -->
 
         </ul>

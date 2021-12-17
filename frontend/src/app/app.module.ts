@@ -4,8 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-
-import { FooterComponent } from './footer/footer.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -26,12 +24,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from "@auth0/angular-jwt";
 import { FollowersComponent } from './profile-page/followers/followers.component';
 import { FollowingComponent } from './profile-page/following/following.component';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent,
     ErrorPageComponent,
     SafePipe,
     RegisterComponent,
@@ -45,6 +43,7 @@ import { FollowingComponent } from './profile-page/following/following.component
     PostsFilterComponent,
     FollowersComponent,
     FollowingComponent,
+    UserSettingsComponent,
   ],
   imports: [
     BrowserModule,

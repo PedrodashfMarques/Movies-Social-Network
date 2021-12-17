@@ -9,6 +9,7 @@ import { FollowingComponent } from './profile-page/following/following.component
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { TimelineComponent } from './profile-page/timeline/timeline.component';
 import { RegisterComponent } from './register/register.component';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { PostsFilterComponent } from './world/posts-filter/posts-filter.component';
 import { UsersFilterComponent } from './world/users-filter/users-filter.component';
 import { WorldComponent } from './world/world.component';
@@ -33,9 +34,8 @@ const routes: Routes = [
     {path: 'following', component: FollowingComponent},
   ]},
 
+  {path: 'settings', component: UserSettingsComponent},
 
-  // {path: 'my-list', component: MyListComponent},
-  
 
   {path: 'not-found', component: ErrorPageComponent}, // Aqui defino uma nova rota que irá existir.
   {path: '**', redirectTo: '/not-found', pathMatch: 'full'},

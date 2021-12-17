@@ -13,6 +13,7 @@ import { UserResponseData } from '../shared/userResponseData.model';
 export class UserActionsService {
 
   api: string = environment.API_Endpoint;
+  // 'src/environments/environment'
 
   allUserData = new BehaviorSubject<UserResponseData>(null);
 
@@ -65,6 +66,14 @@ export class UserActionsService {
       userId: connectedUserId
     })
 
+  }
+
+  getAllCountries(){
+    const url = this.api + 'countries';
+
+    return this.myHttp.get(url);
+
+    
   }
 
 }

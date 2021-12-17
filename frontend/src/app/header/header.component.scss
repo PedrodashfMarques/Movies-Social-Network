@@ -47,11 +47,16 @@ header{
             height: 60px;
             display: flex;
             justify-content: space-around;
-            align-items:center;
+            align-items: center;
+            // background: orange;
+
 
             li{
+                // width: 25%;
                 border: 0;
                 @include li-settings;
+                // background: aquamarine;
+                margin: 0 10px;
             }
         }
 
@@ -80,7 +85,7 @@ header{
                     &:hover{
                         cursor: pointer;
                     }
-    
+                    
                 }
 
                 .desapareceIcon{

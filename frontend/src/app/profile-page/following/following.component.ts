@@ -29,4 +29,12 @@ export class FollowingComponent implements OnInit {
     })
   }
 
+  goToFollowingUserPage(followingUserId: number){
+
+    this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
+    .then(()=>{
+        this.myRouter.navigate(['/profile/',followingUserId, 'timeline']);
+    })
+  }
+
 }

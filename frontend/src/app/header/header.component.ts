@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   userFezLogout: boolean;
 
-  connectedUserId: number;
+  connectedUserId;
 
   constructor(
     private myFormBuilder: FormBuilder, 

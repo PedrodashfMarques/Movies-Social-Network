@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -23,7 +24,10 @@ export class AuthService {
   api: string = environment.API_Endpoint;
 
 
-  constructor(private myHttp: HttpClient, private jwtHelper: JwtHelperService) { }
+  constructor(
+    private myHttp: HttpClient, 
+    private jwtHelper: JwtHelperService,
+    private myRouter: Router) { }
 
   loginUser(data: any){
     const url = this.api + 'login';
@@ -43,6 +47,10 @@ export class AuthService {
 
   autologin(){
     let JWToken = localStorage.getItem('authToken');
+
+    if(JWToken.length <= 0){
+      this.myRouter.navigate(['']);
+    }
     
     let userData: {
       userId: number,

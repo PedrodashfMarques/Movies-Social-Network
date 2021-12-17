@@ -106,7 +106,7 @@ export class ProfilePageComponent implements OnInit {
 
     
 
-    this.showTimeline();
+    // this.showTimeline();
   }
 
   showTimeline(){

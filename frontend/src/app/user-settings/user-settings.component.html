@@ -1,0 +1,76 @@
+<app-header> </app-header>
+
+
+<main>
+
+    <section class="form_area"> 
+
+        <div class="area_div_formulario">
+
+            <form>
+
+                <div class="cadaForm">
+                    <label for="smallBio"> Short Bio </label>
+                    <input
+                    type="text" 
+                    id="smallBio"
+                    required>
+                </div>
+
+                <div class="cadaForm">
+                    <label for="bigBio"> Big Bio </label>
+                    <textarea 
+                    name="" 
+                    id="bigBio" 
+                    cols="30" 
+                    rows="10">
+                    </textarea>
+                </div>
+
+                <div class="cadaForm">
+                    <label for="location"> Location </label>
+                        <select 
+                        type="text" 
+                        id="location"
+                        required>
+                        <option value=""> cada país </option>
+                        </select>
+                </div>
+
+                <div class="cadaForm">
+                    <label for="userImage"> Profile Image </label>
+                        <input 
+                        type="file" 
+                        id="userImage"
+                        required>
+                </div>
+
+                <div class="cadaForm">
+                    <label for="bgUserImage"> Background Image </label>
+                        <input 
+                        type="file" 
+                        id="bgUserImage"
+                        required>
+                </div>
+
+                <div class="cadaForm">
+                    <p> My account was created on </p>
+                </div>
+
+
+                <!-- Botão do type submit, disabled se os campos não forem todos válidos é o !ngForm.valid -->
+                
+                <div class="botao_submit">
+                    <button type="submit"> Update my information </button>
+
+                </div>
+
+            </form>
+            
+        </div>
+
+
+    </section>
+  
+
+</main>
