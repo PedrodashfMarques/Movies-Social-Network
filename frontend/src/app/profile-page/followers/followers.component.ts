@@ -10,6 +10,7 @@ import { UserActionsService } from 'src/app/user-actions/user-actions.service';
   styleUrls: ['./followers.component.scss']
 })
 export class FollowersComponent implements OnInit {
+  userFollowersArray: [] = [];
 
   idDoUser: number | any;
 
@@ -22,7 +23,6 @@ export class FollowersComponent implements OnInit {
   //   is_verified: number,
   // }>;
 
-  userFollowersArray: [];
 
   // Follower Id
 
@@ -44,20 +44,8 @@ export class FollowersComponent implements OnInit {
     this.myUserActions.allUserData.subscribe(data => {
       this.userFollowersArray = data[0].userFollowers;
 
-      console.log(data[0].userFollowers)
+      console.log(this.userFollowersArray)
 
-      // for (let index = 0; index < userFollowersArray.length; index++) {
-
-      //   let posicaoDoIndex = userFollowersArray[index];
-
-      //   if(posicaoDoIndex.is_verified === "1" || posicaoDoIndex.is_verified === 1){
-      //     this.userIsVerified = true;
-
-      //   } else {
-      //     this.userIsVerified = false;
-      //   }
-        
-      // }
 
     })
 

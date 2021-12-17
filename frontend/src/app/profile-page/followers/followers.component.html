@@ -1,22 +1,28 @@
 <main>
 
     <section class="overview" *ngFor="let eachFollower of userFollowersArray">
-        <div class="asagUsers">
 
-            <article class="area_follower" (click)="goToFollowerProfile(eachFollower.user_following)">
-                <div class="imagem_user_follower">
-                    <img src="{{imagemTeste}}" alt="">
-                </div>
+        <article class="area_follower" (click)="goToFollowerProfile(eachFollower.user_following)">
+            <div class="imagem_user_follower">
+                <img src="{{imagemTeste}}" alt="">
+            </div>
 
-                
-                <div class="nome_user_follower">
-                    <h3> {{eachFollower.first_name}} @{{eachFollower.username}} {{eachFollower.last_name}} </h3>
-                </div>
-                
-            </article>  
+            
+            <div class="nome_user_follower">
+                <h3> {{eachFollower.first_name}} @{{eachFollower.username}} {{eachFollower.last_name}} </h3>
+            </div>
+            
+        </article>
+        
+       
 
-        </div>
+        
 
     </section>
+
+    <article class="noFollowers" *ngIf="userFollowersArray.length <= 0">
+        <h4> No Users to display </h4>
+    </article>
+   
 
 </main>

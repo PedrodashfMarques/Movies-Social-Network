@@ -1,22 +1,23 @@
 <main>
 
     <section class="overview">
-        <div class="asagUsers">
 
-            <article class="area_follower">
-                <div class="imagem_user_following">
-                    <img src="" alt="">
-                </div>
+        <article class="area_following" *ngFor="let eachFollowing of followingUsersArray">
+            <div class="imagem_user_following">
+                <img src="{{imagemTeste}}" alt="">
+            </div>
 
-                
-                <div class="nome_user_following">
-                    <h3> Pedro "@movieLover" Marques <span> <i class="fas fa-check"></i> </span>  </h3>
-                </div>
-                
-            </article>  
-
-        </div>
-
+            
+            <div class="nome_user_followed">
+                <h3> {{eachFollowing.first_name}} @{{eachFollowing.username}} {{eachFollowing.last_name}} </h3>
+            </div>
+            
+        </article>
+    
     </section>
+
+    <article class="noFollowing" *ngIf="followingUsersArray.length <= 0">
+        <h4> No Users to display </h4>
+    </article>
 
 </main>

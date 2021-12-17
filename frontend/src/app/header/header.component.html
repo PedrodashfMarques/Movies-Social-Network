@@ -14,7 +14,7 @@
         <ul>
             <li (click)="onLogout()"> Logout </li>   
 
-            <li routerLink="/profile/1" [routerLinkActive]="['is-active']"> Profile </li>
+            <li (click)="goToConnectedUserPage()" [routerLinkActive]="['is-active']"> Profile </li>
             <li routerLink="/world" [routerLinkActive]="['is-active']"> World</li>
             <li routerLink="/newsfeed" [routerLinkActive]="['is-active']"> Newsfeed </li>
             <!-- <li *ngIf="userFezLogin" (click)="onLogout()" [routerLink]="['/lounge'] ['/my-list']"> Logout </li> -->

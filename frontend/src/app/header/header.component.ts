@@ -16,6 +16,8 @@ export class HeaderComponent implements OnInit {
 
   userFezLogout: boolean;
 
+  connectedUserId: number;
+
   constructor(
     private myFormBuilder: FormBuilder, 
     private myAuthService: AuthService,
@@ -23,13 +25,10 @@ export class HeaderComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    
-    console.log("Este é o header component a funcionar");
+    this.myAuthService.userSubject.subscribe(data => {
+      this.connectedUserId = data.userId;
+    })
 
-    this.userFezLogin = true;
-
-    this.userFezLogout = false;
-    
   }
 
   abreMenu(): void{
@@ -45,6 +44,13 @@ export class HeaderComponent implements OnInit {
       this.myAuthService.logoutUser();
       this.myRouter.navigate(['']);
  
+  }
+
+  goToConnectedUserPage(){
+    this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
+    .then(()=>{
+        this.myRouter.navigate(['/profile/',this.connectedUserId, 'timeline']);
+    })
   }
 
 }

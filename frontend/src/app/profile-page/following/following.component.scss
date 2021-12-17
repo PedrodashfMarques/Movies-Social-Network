@@ -2,48 +2,51 @@
 
 main{
 
-    .overview{
+    section.overview{
         width: 92%;
         background-color: white;
         margin: 20px auto;
         border-radius: 3px;
-        border: 1px solid $themeColor;
 
-        article.area_follower{
+        article.area_following{
             width: 100%;
             height: 100px;
             margin: 25px auto;
-            background: orange;
+            // background: orange;
             display: flex;
             justify-content: left;
             align-items: center;
+
+            h4{
+                text-align: center;
+            }
         
-            div.imagem_user_follower{
-                width: 80px;
+            div.imagem_user_following{
+                width: 70px;
                 // height: 65px;
                 margin: 8px;
-                background-color: blue;
+                // background-color: blue;
                 overflow: hidden;
                 display: flex;
                 align-items: center;
         
                 img{
                    width: 100%;
-                   height: 75px;
+                   height: 65px;
                    border-radius: 50%;
                    object-fit: fill;
                 //    border: 1px solid $themeColor;
                 }
             }
         
-            div.nome_user_follower{
+            div.nome_user_followed{
                 width: 80%;
                 height: 55px;
                 text-align: center;
                 // background-color: aquamarine;   
         
                 h3{
-                    color: white;
+                    color: $themeColor;
                     font-size: 1.13em;
                     font-weight: 500;
                     margin-top: 12px;
@@ -56,6 +59,14 @@ main{
                 }
             }
         }
+    }
+
+    .noFollowing{
+        width: 92%;
+        background-color: white;
+        margin: 20px auto;
+        border-radius: 3px;
+        border: 1px solid $themeColor;
     }
 
 }
