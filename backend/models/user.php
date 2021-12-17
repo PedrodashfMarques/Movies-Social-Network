@@ -230,8 +230,6 @@
             return $this->dataBase->lastInsertId();
         }
 
-
-
         public function getCountries(){
             $query = $this->dataBase->prepare("
             SELECT nicename
@@ -292,6 +290,24 @@
             ]);
 
             return $query->fetchAll( PDO:: FETCH_ASSOC );
+
+        }
+
+        public function checkIfUserAlreadyFollowing($id, $connectedUserId){
+
+            $query = $this->dataBase->prepare("
+            SELECT follows.user_following, follows.user_followed
+            FROM follows
+            WHERE user_following = ?
+            AND user_followed = ?
+            ");
+
+            $query->execute([
+                $connectedUserId,
+                $id
+            ]);
+
+            return $query->fetch(PDO::FETCH_ASSOC);
 
         }
 

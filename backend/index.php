@@ -26,7 +26,8 @@ $controllers = [
     "posts",
     "postsActions",
     "comments",
-    "countries"
+    "countries",
+    "checkFollowUnfollow"
 ];
 
     $url_parts = explode("/", $_SERVER["REQUEST_URI"]);

@@ -35,14 +35,6 @@ export class UserActionsService {
 
   }
 
-  // followUser(connectedUser: number, userFollowed: number){
-
-  //   const url = this.api + 'users' + userFollowed;
-
-  //   JSON.stringify(connectedUser);
-
-  // }
-
 
   likeDislikePost(postId, connectedUserId){
 
@@ -54,6 +46,17 @@ export class UserActionsService {
     })
 
   }
+
+
+  checkIfAlreadyFollowing(idDoUser, connectedUser){
+    const url = this.api + 'checkFollowUnfollow' + "/" + idDoUser;
+
+    return this.myHttp.post(url, {
+      userId: connectedUser
+    })
+    
+  }
+  
 
   followUnfollowUser(idDoUser, connectedUserId){
     const url = this.api + 'users' + "/" + idDoUser;

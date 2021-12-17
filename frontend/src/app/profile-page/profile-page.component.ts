@@ -32,9 +32,17 @@ export class ProfilePageComponent implements OnInit {
   connectedUserId: number = 0;
   // Connected User id
 
+   // Connected Username
+   connectedUsername: string;
+   // Connected Username
+
   // CantFollowMyself
   CantFollowMyself: boolean;
   // CantFollowMyself
+
+  // Follow or Unfollow message
+  followUnfollowMessage: string;
+  // Follow or Unfollow message
 
 
   userIsVerified: boolean = false;
@@ -55,7 +63,10 @@ export class ProfilePageComponent implements OnInit {
     this.idDoUser = this.myActiveRoute.snapshot.params['id'];
 
     this.myAuthService.userSubject.subscribe(data => {
+
       this.connectedUserId = data.userId;
+      this.connectedUsername = data.username;
+
       if(this.connectedUserId === this.idDoUser){
         this.CantFollowMyself = false;
       } else{
@@ -64,7 +75,8 @@ export class ProfilePageComponent implements OnInit {
       }
     })
 
-    this.myUserActions.getUserData(this.idDoUser).subscribe(data => {
+    
+    this.myUserActions.getUserData(this.idDoUser).subscribe(data => { 
       this.firstName = data[0].userData.first_name;
       this.username = data[0].userData.username;
       this.lastName = data[0].userData.last_name;
@@ -72,6 +84,15 @@ export class ProfilePageComponent implements OnInit {
       this.smallBio = data[0].userData.small_bio;
       this.numFollowers = data[0].followersCount.Total;
       this.numFollowing = data[0].followingCount.Total;
+
+      this.myUserActions.checkIfAlreadyFollowing(this.idDoUser, this.connectedUserId).subscribe(response => {
+        if(response["message"] === "Already Following"){
+          this.followUnfollowMessage = 'Unfollow';
+        } else {
+          this.followUnfollowMessage = 'Follow';
+
+        }
+    })
 
       let userVerification = data[0].userData.is_verified;
 
@@ -82,6 +103,8 @@ export class ProfilePageComponent implements OnInit {
       }
      
     });
+
+    
 
     this.showTimeline();
   }
@@ -124,7 +147,16 @@ export class ProfilePageComponent implements OnInit {
 
   followUser(){
     this.myUserActions.followUnfollowUser(this.idDoUser, this.connectedUserId).subscribe(response => {
-      console.log(response);
+      console.log();
+      if(response['message'] === 'User followed!'){
+        this.numFollowers++
+        this.followUnfollowMessage = "Unfollow";
+
+      } else {
+        this.numFollowers--
+        this.followUnfollowMessage = "Follow";
+      }
+
     })
 
   }
