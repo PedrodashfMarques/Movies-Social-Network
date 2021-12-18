@@ -9,8 +9,7 @@
             "png" => "image/png"
         ];
 
-
-        $decodedImage = base64_decode($sanitizedData["userImage"]);
+        $decodedImage = base64_decode($sanitizedData["user_image"]);
 
         $finfo = new finfo(FILEINFO_MIME_TYPE);
 
@@ -28,7 +27,7 @@
 
             file_put_contents($file_dir , $decodedImage);
 
-            $sanitizedData["userImage"] = $file_dir;
+            $sanitizedData["user_image"] = $file_dir;
 
         }
 

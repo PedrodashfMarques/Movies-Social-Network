@@ -20,8 +20,6 @@ export class UserSettingsComponent implements OnInit {
 
   fileToUpload;
 
-  base64textString: string
-
   // Image Upload
 
   constructor(
@@ -36,8 +34,6 @@ export class UserSettingsComponent implements OnInit {
     this.myAuthService.autologin();
     this.updateUserForm();
 
-    // this.loadUserInformation();
-
     this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
     })
@@ -50,6 +46,8 @@ export class UserSettingsComponent implements OnInit {
       this.userInformationForm.controls.bgUserImage.setValue(data[0].userData.background_image);
 
       this.userLocation = data[0].userData.location;
+
+      console.log(data);
 
     })
 
@@ -97,19 +95,24 @@ export class UserSettingsComponent implements OnInit {
 
     // let userImage = this.imageUpload(form.userImage);
     // console.log(userImage)
+
+    if(this.fileToUpload === undefined || this.fileToUpload === ''){
+      this.fileToUpload = '';
+    }
     
     let formData = new FormData();
 
     formData.append('small_bio', values.smallBio);
     formData.append('big_bio', values.bigBio);
     formData.append('location', values.location);
-    formData.append('userImage', this.fileToUpload);
-    formData.append('bgUserImage', values.bgUserImage);
+    formData.append('user_image', this.fileToUpload);
+    formData.append('bgUser_image', values.bgUserImage);
 
 
     // Pesquisar FileReader Angular for image upload
     this.myUserActions.updateUserData(formData, this.connectedUserId).subscribe(response => {
       console.log(response);
+      // Atribuir mensagens de sucesso ou erro aqui dentro
     });
 
   }

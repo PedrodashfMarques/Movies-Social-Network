@@ -36,7 +36,7 @@
                         id="locationId"
                         required
                         formControlName="location">
-                        <option value="{{userLocation}}"> {{userLocation}} </option>
+                        <option> {{userLocation}} </option>
                         <option *ngFor="let eachCountry of allCountriesArray"> {{eachCountry.nicename}} </option>
                         </select>
                 </div>

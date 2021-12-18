@@ -9,7 +9,7 @@
 
     if(!empty($sanitizedData)){
 
-        $size = strlen($sanitizedData["userImage"]);
+        $size = strlen($sanitizedData["user_image"]);
 
         if(
             isset($sanitizedData["small_bio"]) &&

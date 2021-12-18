@@ -125,16 +125,17 @@ use ReallySimpleJWT\Token;
 
 
         $sanitizedData = sanitizer($data);
+
         $transformedData = imageTransformer($sanitizedData);
 
         // var_dump($transformedData);
 
         if(!empty($id)){
 
-            if(updateUserValidator($sanitizedData) && !empty($transformedData["userImage"])){
+            if(updateUserValidator($sanitizedData) && !empty($transformedData["user_image"])){
                 // echo $transformedData["userImage"];
     
-                $result = $userModel->updateUserImage($id, $transformedData["userImage"]);
+                $result = $userModel->updateUserImage($id, $transformedData["user_image"]);
 
                 if(!empty($result)){
                     http_response_code(202);
@@ -150,40 +151,29 @@ use ReallySimpleJWT\Token;
                 
             }
     
-           if(empty($transformedData["userImage"]) && updateUserValidator($sanitizedData)){
-                echo "bananm";
+           if(
+               updateUserValidator($sanitizedData)
+
+            ){
+
+            $result = $userModel->updateUserData($id, $transformedData);
+
+                if(!empty($result)){
+                    http_response_code(202);
+                        echo '{"message": "Api working!"}';
+                } 
+                else {
+                        http_response_code(400);
+                        echo '{"message": "banana"}';
+                }
                 
            }
 
 
         } else{
             http_response_code(400);
-            echo '{"message": "Bad Request"}';
+            echo '{"message": " Bad Request"}';
         }
-
-        
-
-        // if(!empty($id) && updateUserValidator($data)){
-
-        //     // if(!empty($data["userImage"])){
-        //     //     $binario = base64_decode($data["userImage"]);
-        //     //     $filename = date("Ymd") . "_" . bin2hex(random_bytes(4));
-        //     //     file_put_contents("user-profile-images/" . $filename . ".jpg" , $binario); 
-                
-        //     //     // $insertImageResult = $userModel->updateUserImage($id, $filename);
-        //     //     // Criar nova function para updateUserProfileImage e criar ainda outra function para updateBackgroundImage
-
-        //     // }
-
-
-        //     http_response_code(202);
-        //     echo '{"message": "Api working!"}';
-
-        // } else {
-        //     http_response_code(400);
-        //     echo '{"message": "Bad Request"}';
-        // }
-        
         
     }
 

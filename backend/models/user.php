@@ -122,21 +122,21 @@
             return $query->fetch(PDO:: FETCH_ASSOC );
         }
 
-        // Estava aqui
 
         public function updateUserData($id, $data){
-            //  FIQUEI AQUI
             $query = $this->dataBase->prepare("
             UPDATE users
             SET small_bio = ?, big_bio = ?, location = ?
             WHERE user_id  = ?
             ");
             
-            $query->execute([
+            return $query->execute([
+                $data["small_bio"],
+                $data["big_bio"],
+                $data["location"],
                 $id
             ]);
 
-            return $this->dataBase->lastInsertId();
         }
 
 
