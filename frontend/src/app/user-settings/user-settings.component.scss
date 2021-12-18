@@ -61,6 +61,8 @@ main{
                         display: block;
                         border-radius: 2px;
                         border: 0;
+                        font-family: $LDFont;
+                        
                     }
 
                     textarea{
@@ -71,6 +73,7 @@ main{
                         border-radius: 2px;
                         border: 0;
                         resize: none;
+                        font-family: $LDFont;
                     }
 
                     select{

@@ -139,7 +139,21 @@
             return $this->dataBase->lastInsertId();
         }
 
-        // Estava aqui
+        public function updateUserImage($userId, $filename){
+            $query = $this->dataBase->prepare("
+            UPDATE users
+            SET user_image = ?
+            WHERE user_id  = ?    
+            ");
+
+            $query->execute([
+                $filename,
+                $userId
+            ]);
+
+            return $query->fetch(PDO:: FETCH_ASSOC);
+
+        }
 
 
         public function getConnectedUserFollowers($id){
