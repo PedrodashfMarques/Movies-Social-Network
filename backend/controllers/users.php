@@ -117,16 +117,20 @@ use ReallySimpleJWT\Token;
             $data[$key] = trim(htmlspecialchars(strip_tags($value)));
         }
 
-
         if(!empty($id) && updateUserValidator($data)){
 
             if(!empty($data["userImage"])){
                 $binario = base64_decode($data["userImage"]);
                 $filename = date("Ymd") . "_" . bin2hex(random_bytes(4));
                 file_put_contents("user-profile-images/" . $filename . ".jpg" , $binario);
+
+                // Criar nova function para updateUserProfileImage e criar ainda outra function para updateBackgroundImage
+                // $result = $userModel->updateUserData($id, $data);
+
             }
 
-            // $result = $userModel->updateUserData($id);
+
+            $result = $userModel->updateUserData($id, $data);
 
             http_response_code(202);
             echo '{"message": "Api working!"}';

@@ -124,8 +124,13 @@
 
         // Estava aqui
 
-        public function updateUserData($id){
-            $query = $this->dataBase->prepare("");
+        public function updateUserData($id, $data){
+            //  FIQUEI AQUI
+            $query = $this->dataBase->prepare("
+            UPDATE users
+            SET small_bio = ?, big_bio = ?, location = ?
+            WHERE user_id  = ?
+            ");
             
             $query->execute([
                 $id

@@ -16,5 +16,7 @@
 
     // 3 - guarda na pasta
 
-    // 4 - e depois da pasta envia para a base de dados
+
+
+    // 4 - e depois da pasta envia para a base de dados e como associo esta imagem ao utilizador X
 ?>

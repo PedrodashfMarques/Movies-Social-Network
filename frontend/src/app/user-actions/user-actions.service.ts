@@ -81,9 +81,9 @@ export class UserActionsService {
 
     let jsonConverted = JSON.stringify(object);
 
-    console.log(jsonConverted);
+    // console.log(jsonConverted);
 
-    // return this.myHttp.put(url, )
+    return this.myHttp.put(url, jsonConverted, {responseType: 'json'});
   }
 
 }

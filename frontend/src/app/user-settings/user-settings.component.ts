@@ -93,7 +93,7 @@ export class UserSettingsComponent implements OnInit {
   updateUserInformation(form: any){
 
     let values = form.value;
-    console.log(values)
+    // console.log(values)
 
     // let userImage = this.imageUpload(form.userImage);
     // console.log(userImage)
@@ -104,18 +104,17 @@ export class UserSettingsComponent implements OnInit {
     formData.append('big_bio', values.bigBio);
     formData.append('location', values.location);
     formData.append('userImage', this.fileToUpload);
-    formData.append('backgroundImage', values.bgUserImage);
-
-    console.log(this.fileToUpload);
+    formData.append('bgUserImage', values.bgUserImage);
 
 
     // Pesquisar FileReader Angular for image upload
-
-    this.myUserActions.updateUserData(formData, this.connectedUserId);
+    this.myUserActions.updateUserData(formData, this.connectedUserId).subscribe(response => {
+      console.log(response);
+    });
 
   }
 
-  
+
   imageUpload(fileInput: any){
     // Fazer validações do tamanho da imagem
 
