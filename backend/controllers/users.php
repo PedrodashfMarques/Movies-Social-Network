@@ -9,7 +9,17 @@ use ReallySimpleJWT\Token;
     require_once("models/user.php");
     require_once("models/base.php");
 
+    // Validator
     require_once("validators/updateUserValidator.php");
+
+    // Sanitizer
+    require_once("sanitizers/updateUserSanitizer.php");
+
+
+    // Image Transformer
+    require_once("imageTransformer.php");
+    // Image Transformer
+
 
 
     $userModel = new User();
@@ -113,42 +123,66 @@ use ReallySimpleJWT\Token;
     else if($_SERVER["REQUEST_METHOD"] === "PUT"){
         $data = json_decode(file_get_contents("php://input"), true);
 
-        foreach ($data as $key => $value) {
-            $data[$key] = trim(htmlspecialchars(strip_tags($value)));
-        }
 
-        $targetDir = "user-profile-images/";
+        $sanitizedData = sanitizer($data);
+        $transformedData = imageTransformer($sanitizedData);
 
-        $fileName = base64_decode($data["userImage"]);
-        $targetFilePath = $targetDir . $fileName;
-        $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+        // var_dump($transformedData);
 
-        if(!empty($id) && updateUserValidator($data)){
+        if(!empty($id)){
 
-            if(!empty($data["userImage"])){
-                $binario = base64_decode($data["userImage"]);
-                $filename = date("Ymd") . "_" . bin2hex(random_bytes(4));
-                file_put_contents("user-profile-images/" . $filename . ".jpg" , $binario); 
+            if(updateUserValidator($sanitizedData) && !empty($transformedData["userImage"])){
+                // echo $transformedData["userImage"];
+    
+                $result = $userModel->updateUserImage($id, $transformedData["userImage"]);
+
+                if(!empty($result)){
+                    http_response_code(202);
+                        echo '{
+                            "message": "Api working!",
+                            "result": "'.$result.'"
+                        }';
+                } 
+                else {
+                        http_response_code(400);
+                        echo '{"message": "Bad Request"}';
+                }
                 
-
-                $insertImageResult = $userModel->updateUserImage($id, $filename);
-
-                echo $insertImageResult;
-
-                // Criar nova function para updateUserProfileImage e criar ainda outra function para updateBackgroundImage
-                // $result = $userModel->updateUserData($id, $data);
-                // $data["userImage"]
             }
+    
+           if(empty($transformedData["userImage"]) && updateUserValidator($sanitizedData)){
+                echo "bananm";
+                
+           }
 
-            // $result = $userModel->updateUserData($id, $data);
 
-            http_response_code(202);
-            echo '{"message": "Api working!"}';
-
-        } else {
+        } else{
             http_response_code(400);
             echo '{"message": "Bad Request"}';
         }
+
+        
+
+        // if(!empty($id) && updateUserValidator($data)){
+
+        //     // if(!empty($data["userImage"])){
+        //     //     $binario = base64_decode($data["userImage"]);
+        //     //     $filename = date("Ymd") . "_" . bin2hex(random_bytes(4));
+        //     //     file_put_contents("user-profile-images/" . $filename . ".jpg" , $binario); 
+                
+        //     //     // $insertImageResult = $userModel->updateUserImage($id, $filename);
+        //     //     // Criar nova function para updateUserProfileImage e criar ainda outra function para updateBackgroundImage
+
+        //     // }
+
+
+        //     http_response_code(202);
+        //     echo '{"message": "Api working!"}';
+
+        // } else {
+        //     http_response_code(400);
+        //     echo '{"message": "Bad Request"}';
+        // }
         
         
     }

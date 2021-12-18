@@ -5,25 +5,31 @@
 
     $userModel = new User();
 
- function updateUserValidator($data){
+ function updateUserValidator($sanitizedData){
 
-    // $allCountries = $userModel->getCountries();
+    if(!empty($sanitizedData)){
 
+        $size = strlen($sanitizedData["userImage"]);
 
-    if(
-        !empty($data["small_bio"]) &&
-        !empty($data["big_bio"]) &&
-        !empty($data["location"]) &&
-        mb_strlen($data["small_bio"]) > 3 &&
-        mb_strlen($data["small_bio"]) <= 25 &&
-        mb_strlen($data["big_bio"]) >= 3 &&
-        mb_strlen($data["big_bio"]) <= 1000 &&
-        mb_strlen($data["location"]) >= 3 &&
-        mb_strlen($data["location"]) <= 60
-        ){
-        return true;
-    } 
-    return false;
+        if(
+            isset($sanitizedData["small_bio"]) &&
+            isset($sanitizedData["big_bio"]) &&
+            isset($sanitizedData["location"]) &&
+            mb_strlen($sanitizedData["small_bio"]) > 3 &&
+            mb_strlen($sanitizedData["small_bio"]) <= 25 &&
+            mb_strlen($sanitizedData["big_bio"]) >= 3 &&
+            mb_strlen($sanitizedData["big_bio"]) <= 1000 &&
+            mb_strlen($sanitizedData["location"]) >= 3 &&
+            mb_strlen($sanitizedData["location"]) <= 60 &&
+            $size >= 0 &&
+            $size < 10000000
+            ){
+            return true;
+        } 
+
+        return false;
+
+    }
 
 }
 

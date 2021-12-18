@@ -139,19 +139,18 @@
             return $this->dataBase->lastInsertId();
         }
 
-        public function updateUserImage($userId, $filename){
+
+        public function updateUserImage($userId, $image){
             $query = $this->dataBase->prepare("
             UPDATE users
             SET user_image = ?
             WHERE user_id  = ?    
             ");
 
-            $query->execute([
-                $filename,
+            return $query->execute([
+                $image,
                 $userId
             ]);
-
-            return $query->fetch(PDO:: FETCH_ASSOC);
 
         }
 
