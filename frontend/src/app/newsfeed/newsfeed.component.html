@@ -1,6 +1,15 @@
 <app-header> </app-header>
 
 <main>
+
+    <app-post-modal 
+    *ngIf="postModalAberto"
+    [postModal]="postModalAberto"
+    [postInfo]="postLoaded"
+    (closeModal)="fecharModal()"
+    [postsArray]="allPostsArray"
+    >
+    </app-post-modal>
     
     <section class="area_perfil_shortcuts">
 
@@ -98,7 +107,7 @@
 
             <div class="area_conteudo_desse_post">
 
-                <div class="area_post_created">
+                <div (click)="abrirPost(eachPost)" class="area_post_created">
                         <p> Posted {{eachPost.created_at | date: 'MMMM d, y, \'at\' h\'h\'mm'}} </p> 
                 </div>
 
@@ -114,11 +123,14 @@
                 <ul>
 
                     <li (click)="likePost(eachPost.post_id)">
-                            <i class="fas fa-heart"></i>
+                        <i class="fas fa-heart"></i>
                         <span> {{eachPost.likesNumber}} </span>
                     </li>
                     
-                    <li> <i class="far fa-comment"></i> <span> {{eachPost.commentsNumber}} </span> </li>
+                    <li (click)="abrirPost(eachPost)"> 
+                        <i class="far fa-comment"></i> 
+                        <span> {{eachPost.commentsNumber}} </span> 
+                    </li>
                     <!-- Este li tb vai ter um routerLink para o post/:id do post-->
                 </ul>
 

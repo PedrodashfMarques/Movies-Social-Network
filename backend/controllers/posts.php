@@ -29,15 +29,14 @@
             // $id variable from index.php
             $data = $postModel->getPost($id);
 
-            $postCommentsArray = $postModel->getPostComments($id);
+            // $postCommentsArray = $postModel->getPostComments($id);
 
             // countPostComments MAYBE DO
 
             // $postLikesCount = $postModel->countPostLikes($id);
 
             $postDataArray = array(
-                'postData' => $data,
-                'postComments' => $postCommentsArray
+                'postData' => $data
             );
 
             if(!empty($data)){

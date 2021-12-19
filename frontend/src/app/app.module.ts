@@ -25,6 +25,7 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { FollowersComponent } from './profile-page/followers/followers.component';
 import { FollowingComponent } from './profile-page/following/following.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { PostModalComponent } from './post-modal/post-modal.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
     FollowersComponent,
     FollowingComponent,
     UserSettingsComponent,
+    PostModalComponent,
   ],
   imports: [
     BrowserModule,

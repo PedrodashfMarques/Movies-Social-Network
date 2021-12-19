@@ -1,0 +1,87 @@
+<main>
+    <div class="background" (click)="fecharModal()"></div>
+
+    <section class="area_scrolling">
+
+        <div class="alert-box">
+
+            <article class="posts_carregados">
+                
+                <div class="area_quem_postou">
+                    <div class="imagem_user_post">
+                        <img src="{{imagemTeste}}" alt="">
+                    </div>
+                    
+                    <div class="nome_user_post">
+                        <h3 (click)="goToUserPage(postInfo.user_id)"> {{postInfo.first_name}} @{{postInfo.username}} {{postInfo.last_name}} </h3>
+                    </div>
+    
+                </div>
+    
+                <div class="area_conteudo_desse_post">
+    
+                    <div class="area_post_created">
+                            <p> Posted {{postInfo.created_at | date: 'MMMM d, y, \'at\' h\'h\'mm'}} </p> 
+                    </div>
+    
+                    <div class="area_content_post">
+                        {{postInfo.content}}  
+                    </div>
+                </div>
+    
+                <div class="area_likes_comments">
+                    <ul>
+    
+                        <li (click)="likePost(postInfo.post_id)">
+                                <i class="fas fa-heart"></i>
+                            <span> {{postInfo.likesNumber}} </span>
+                        </li>
+                        
+                        <li> <i class="far fa-comment"></i> <span> {{postInfo.commentsNumber}} </span> </li>
+                        <!-- Click abrir modal -->
+                        <!-- Este li tb vai ter um routerLink para o post/:id do post-->
+                    </ul>
+    
+                </div>
+                
+            </article>
+    
+            <!-- Area Comments -->
+    
+            <article class="comments_carregados" *ngFor="let eachComment of commentsArray">
+    
+                <div class="area_quem_comentou">
+                    <div class="imagem_user_comment">
+                        <img src="{{imagemTeste}}" alt="">
+                    </div>
+                    
+                    <div class="nome_user_comment">
+                        <h3 (click)="goToUserPage(postInfo.user_id)"> fname @username lname} </h3>
+                    </div>
+    
+                </div>
+    
+                <div class="area_conteudo_desse_comment">
+    
+                    <div class="area_comment_created">
+                            <!-- <p> Posted {{postInfo.created_at | date: 'MMMM d, y, \'at\' h\'h\'mm'}} </p>  -->
+                            <p> Posted at 15 December </p> 
+                    </div>
+    
+                    <div class="area_content_comment">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet nobis magnam deleniti quae, possimus vel! Impedit minus similique, porro, enim perspiciatis, neque voluptatem quaerat rerum delectus illum praesentium sunt? Magnam.
+                    </div>
+                </div>
+    
+            </article>
+            <article class="noComments" *ngIf="messageNotFound">
+                <h4> No Comments to display. Be the first one to comment on this post! </h4>
+            </article>
+                
+        </div>
+
+    </section>
+
+   
+    
+</main>

@@ -164,22 +164,6 @@
             return $this->dataBase->lastInsertId();
         }
 
-        public function getPostComments($postId){
-            $query = $this->dataBase->prepare("
-            SELECT comment_id, comments.content, comments.created_at
-            FROM comments
-            INNER JOIN posts USING(post_id)
-            WHERE post_id = ?
-            ORDER BY created_at DESC
-            ");
-
-            $query->execute([
-                $postId
-            ]);
-
-            return $query->fetchAll(PDO:: FETCH_ASSOC);
-        }
-
         public function countPostLikes($postId){
             $query = $this->dataBase->prepare("
             SELECT COUNT(*) AS Total

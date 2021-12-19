@@ -4,7 +4,28 @@
 
     $commentModel = new Comment();
 
-    if($_SERVER["REQUEST_METHOD"] === "GET"){}
+    if($_SERVER["REQUEST_METHOD"] === "GET"){
+        if(isset($id)){
+            $data = $commentModel->getPostComments($id);
+
+            $postComments = array(
+                'postComments' => $data
+            );
+
+            if(!empty($data)){
+
+                http_response_code(202);
+                echo json_encode($postComments);
+            } else {
+                http_response_code(202);
+                echo '{"message": "Comments Not Found"}';
+            }
+        } else {
+            http_response_code(405);
+            echo '{"message": "Method Not Allowed"}';
+            
+        }
+    }
 
 
     if($_SERVER["REQUEST_METHOD"] === "POST"){

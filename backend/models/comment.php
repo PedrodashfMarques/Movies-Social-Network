@@ -4,6 +4,31 @@ require_once("base.php");
 
     class Comment extends Base {
 
+        public function getPostComments($postId){
+            $query = $this->dataBase->prepare("
+            SELECT 
+            users.user_id,
+            users.first_name,
+            users.username,
+            users.last_name,
+            users.user_image,
+            comments.comment_id, 
+            comments.content, 
+            comments.created_at      
+            FROM comments
+            INNER JOIN users USING(user_id)
+            INNER JOIN posts USING(post_id)
+            WHERE posts.post_id = ?
+            ORDER BY created_at DESC
+            ");
+
+            $query->execute([
+                $postId
+            ]);
+
+            return $query->fetchAll(PDO:: FETCH_ASSOC);
+        }
+
         public function commentPost($data){
             $query = $this->dataBase->prepare("
             INSERT INTO comments

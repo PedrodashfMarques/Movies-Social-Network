@@ -172,6 +172,7 @@ main{
 
                     i{
                         font-size: 1.1em;
+                        
                         width: 7%;
                         color: rgb(44, 96, 100);
                     }
@@ -335,6 +336,10 @@ main{
 
                     p{
                         font-size: 0.85em;
+                    }
+
+                    &:hover{
+                        cursor: pointer;
                     }
                 }
 

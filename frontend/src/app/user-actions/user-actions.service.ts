@@ -46,6 +46,18 @@ export class UserActionsService {
 
   }
 
+  getPostData(postId){
+    const url = this.api + "posts" + "/" + postId;
+
+    return this.myHttp.get(url);
+  }
+
+  getPostComments(postId: number){
+    const url = this.api + "comments" + "/" + postId;
+
+    return this.myHttp.get(url);
+    
+  }
 
   likeDislikePost(postId, connectedUserId){
 

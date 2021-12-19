@@ -17,6 +17,7 @@ export class NewsfeedComponent implements OnInit {
   mensagem: string = "Posted November 8th, 2021 at 17h28";
   contentPost: string ="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis alias magni, iusto quo vel id nam. Deleniti blanditiis eius at earum, enim incidunt, expedita tenetur impedit illum, molestias ab porro?"
   
+  banana = false;
   // Connected User Id
   connectedUserId: number;
   // Connected User Id
@@ -35,6 +36,12 @@ export class NewsfeedComponent implements OnInit {
   numFollowing: number;
 
   allPostsArray: any = [];
+
+
+  // Post Modal
+  postModalAberto: boolean;
+  postLoaded;
+  // Post Modal
 
   constructor(
     private myFormBuilder: FormBuilder, 
@@ -84,17 +91,15 @@ export class NewsfeedComponent implements OnInit {
     });
 
 
-
   }
 
   likePost(postId:number){
-    let connectedUserId: number;
     this.myAuthService.userSubject.subscribe(response => {
 
-      connectedUserId = response.userId;
+      this.connectedUserId = response.userId;
     })
     
-    this.myUserActions.likeDislikePost(postId, connectedUserId).subscribe(responseData => {
+    this.myUserActions.likeDislikePost(postId, this.connectedUserId).subscribe(responseData => {
       console.log(responseData['message']);
 
       for (let index = 0; index < this.allPostsArray.length; index++) {
@@ -124,6 +129,16 @@ export class NewsfeedComponent implements OnInit {
     .then(()=>{
         this.myRouter.navigate(['/profile/',userId, 'timeline']);
     })
+  }
+
+  abrirPost(cadaPost){
+    this.postModalAberto = !this.postModalAberto;
+    this.postLoaded = cadaPost;
+    // console.log(this.postLoaded);
+  }
+
+  fecharModal(){
+    this.postModalAberto = null;
   }
 
 }
