@@ -122,6 +122,10 @@
         // Existe a necessidade de perceber primeiro se o post existe antes de eliminar?
         // Porque assim , mesmo que o post n exista na base de dados com o id se eu tentar eliminar aparece a mensagem a dizer que eliminei um post inexistente
         
+    } else {
+        http_response_code(405);
+        echo '{"message": "Method Not Allowed"}';
+
     }
 
 

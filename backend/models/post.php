@@ -17,6 +17,7 @@
             WHERE comments.post_id = posts.post_id
            ) AS commentsNumber
             FROM posts
+            ORDER BY posts.created_at DESC
             ");
 
             $query->execute();

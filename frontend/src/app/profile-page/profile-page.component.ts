@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { AuthService } from '../auth-service/auth.service';
 import { UserActionsService } from '../user-actions/user-actions.service';
 
@@ -47,6 +47,7 @@ export class ProfilePageComponent implements OnInit {
 
 
   userIsVerified: boolean = false;
+  
   // Rotas Ativas
   timelineClicked: boolean = false;
   aboutClicked: boolean = false;
@@ -58,7 +59,13 @@ export class ProfilePageComponent implements OnInit {
     private myActiveRoute: ActivatedRoute,
     private myUserActions: UserActionsService,
     private myAuthService: AuthService
-    ) {}
+    ) {
+      myRouter.events.subscribe((event: NavigationStart) => {
+        if(event.navigationTrigger === 'popstate'){
+          window.location.reload()
+        }
+      })
+    }
 
   ngOnInit(): void {
     console.log(this.userProfileImage);

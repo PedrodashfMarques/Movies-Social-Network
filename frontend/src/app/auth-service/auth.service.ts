@@ -133,20 +133,20 @@ export class AuthService {
     //  1 hour until auto-logout
     const expirationDate = new Date(new Date().getTime() + JWTdecoded.expiryTime * 1000);
 
-        const newUser = new User(
-        JWTdecoded.userId,
-        JWTdecoded.firstName,
-        JWTdecoded.username,
-        JWTdecoded.lastName,
-        JWTdecoded.location,
-        JWTdecoded.smallBio,
-        JWTdecoded.bigBio,
-        JWTdecoded.userImage,
-        JWTdecoded.backgroundImage,
-        JWTdecoded.isAdmin,
-        JWTdecoded.isVerified,
-        JWToken,
-        expirationDate,
+      const newUser = new User(
+      JWTdecoded.userId,
+      JWTdecoded.firstName,
+      JWTdecoded.username,
+      JWTdecoded.lastName,
+      JWTdecoded.location,
+      JWTdecoded.smallBio,
+      JWTdecoded.bigBio,
+      JWTdecoded.userImage,
+      JWTdecoded.backgroundImage,
+      JWTdecoded.isAdmin,
+      JWTdecoded.isVerified,
+      JWToken,
+      expirationDate,
 
     );
 

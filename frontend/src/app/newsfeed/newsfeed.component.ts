@@ -30,6 +30,8 @@ export class NewsfeedComponent implements OnInit {
     lastName: ''
   };
 
+  userVerification: boolean = false;
+
   constructor(
     private myFormBuilder: FormBuilder, 
     private myAuthService: AuthService,
@@ -45,6 +47,18 @@ export class NewsfeedComponent implements OnInit {
       this.connectedUserInfo.firstName = data.firstName;
       this.connectedUserInfo.username = data.username;
       this.connectedUserInfo.lastName = data.lastName;
+
+      console.log(data)
+
+
+      let verifiedCheck = String(data.isVerified);
+
+      if(verifiedCheck === "1"){
+        this.userVerification = true;
+      } else {
+        this.userVerification = false
+      }
+      
     })
     console.log("Este é o newsfeed component a funcionar");
 
