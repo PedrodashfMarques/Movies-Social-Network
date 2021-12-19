@@ -33,22 +33,22 @@
 
             // countPostComments MAYBE DO
 
-            $postLikesCount = $postModel->countPostLikes($id);
+            // $postLikesCount = $postModel->countPostLikes($id);
 
             $postDataArray = array(
                 'postData' => $data,
-                'postComments' => $postCommentsArray,
-                'numberLikes' => $postLikesCount
+                'postComments' => $postCommentsArray
             );
 
             if(!empty($data)){
+                http_response_code(202);
                 echo json_encode($postDataArray);
-                header("HTTP/1.1 202 Accepted");
             } else {
-                header("HTTP/1.1 404 Not Found");
-                echo '{"message": "Not Found"}';
+                http_response_code(404);
+                echo '{"message": "Post Not Found"}';
             }
         } else {
+            http_response_code(202);
             echo json_encode($postModel->getAllPosts());
 
         }

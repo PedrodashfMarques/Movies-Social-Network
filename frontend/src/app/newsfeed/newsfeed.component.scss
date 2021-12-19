@@ -82,6 +82,18 @@ main{
                     align-items: center;
                     color: $themeColor;
 
+                    div.area_verified{
+                        width: 10%;
+                        height: 30px;
+                        margin: 5px 0px 0px 8px;
+                        float: left;
+    
+                        i{
+                            font-size: 20px;
+                            color: #0048BA;
+                        }
+                    }
+
                     p{
                         text-align: center;
                         font-weight: lighter;
@@ -348,7 +360,8 @@ main{
                         margin-left: 5px;
                         margin-right: 70px;
                         font-size: 22px;
-                        color: $themeColor;
+                        color: rgb(134, 23, 23);
+
 
                         span{
                             font-size: 12px;

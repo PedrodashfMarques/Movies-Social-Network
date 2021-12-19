@@ -8,7 +8,11 @@
             SELECT posts.user_id, 
             posts.post_id, 
             posts.content, 
-            posts.created_at, 
+            posts.created_at,
+            users.first_name,
+            users.username,
+            users.last_name,
+            users.user_image,
             (SELECT COUNT(*)
             FROM likes 
             WHERE likes.post_id = posts.post_id) AS likesNumber,
@@ -17,6 +21,7 @@
             WHERE comments.post_id = posts.post_id
            ) AS commentsNumber
             FROM posts
+            INNER JOIN users USING(user_id)
             ORDER BY posts.created_at DESC
             ");
 
@@ -24,14 +29,20 @@
 
             return $query->fetchAll( PDO:: FETCH_ASSOC );
         }
-            
 
-
+        
         public function getConnectedUserPosts(){}
 
         public function getPost($id){
             $query = $this->dataBase->prepare("
-            SELECT *
+            SELECT *,
+            (SELECT COUNT(*)
+            FROM likes 
+            WHERE likes.post_id = posts.post_id) AS likesNumber,
+            (SELECT COUNT(*)
+            FROM comments
+            WHERE comments.post_id = posts.post_id
+           ) AS commentsNumber
             FROM posts
             WHERE posts.post_id = ?
             ");

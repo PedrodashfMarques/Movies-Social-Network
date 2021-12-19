@@ -20,6 +20,11 @@ export class NewsfeedComponent implements OnInit {
   // Connected User Id
   connectedUserId: number;
   // Connected User Id
+  
+  // Post Likes and Dislikes
+  postIsLiked: boolean;
+  postIsDisliked: boolean;
+// Post Likes and Dislikes
 
   firstName: string;
   username: string;
@@ -64,6 +69,38 @@ export class NewsfeedComponent implements OnInit {
       this.allPostsArray = data;
       console.log(this.allPostsArray);
     });
+
+  }
+
+  likePost(postId:number){
+    let connectedUserId: number;
+    this.myAuthService.userSubject.subscribe(response => {
+
+      connectedUserId = response.userId;
+    })
+    
+    this.myUserActions.likeDislikePost(postId, connectedUserId).subscribe(responseData => {
+      console.log(responseData['message']);
+
+      for (let index = 0; index < this.allPostsArray.length; index++) {
+
+        let posicaoIndex = this.allPostsArray[index];
+        
+        if(posicaoIndex['post_id'] === postId){
+          
+          if(responseData['message'] === 'Post liked!'){
+            posicaoIndex["likesNumber"]++
+            this.postIsLiked = true;
+          } else {
+            posicaoIndex["likesNumber"]--
+            this.postIsDisliked = false;
+          }
+        }
+      }
+    
+    }, errorRes => {
+      console.log(errorRes)
+    })
 
   }
 

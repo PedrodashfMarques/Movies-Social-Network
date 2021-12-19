@@ -92,7 +92,7 @@
                 </div>
                 
                 <div class="nome_user_post">
-                    <h3> Pedro "@movieLover" Marques </h3>
+                    <h3> {{eachPost.first_name}} @{{eachPost.username}} {{eachPost.last_name}} </h3>
                 </div>
                 
             </div>
@@ -100,7 +100,7 @@
             <div class="area_conteudo_desse_post">
 
                 <div class="area_post_created">
-                        <p> {{mensagem}} </p> 
+                        <p> Posted {{eachPost.created_at | date: 'MMMM d, y, \'at\' h\'h\'mm'}} </p> 
                 </div>
 
                 <div class="area_content_post">
@@ -114,9 +114,12 @@
             <div class="area_likes_comments">
                 <ul>
 
-                    <li> <i class="fas fa-trophy"></i> <span> 0 </span>  </li>
+                    <li (click)="likePost(eachPost.post_id)">
+                        <i class="fas fa-heart"></i>
+                    <span> {{eachPost.likesNumber}} </span>
+                </li>
                     
-                    <li> <i class="far fa-comment"></i> <span> 0 </span> </li>
+                    <li> <i class="far fa-comment"></i> <span> {{eachPost.commentsNumber}} </span> </li>
                     <!-- Este li tb vai ter um routerLink para o post/:id do post-->
                 </ul>
 
