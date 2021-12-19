@@ -13,24 +13,23 @@ import { UserActionsService } from '../user-actions/user-actions.service';
 export class NewsfeedComponent implements OnInit {
 
   imagemTeste: string = "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/33/33fc65586f9b4615f95209a03398d8c8b2729f0b_full.jpg";
-
   bootcamp: string = "https://images8.alphacoders.com/926/thumb-1920-926492.jpg";
-
-  userIsVerified: boolean = true;
-
   mensagem: string = "Posted November 8th, 2021 at 17h28";
-
   contentPost: string ="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis alias magni, iusto quo vel id nam. Deleniti blanditiis eius at earum, enim incidunt, expedita tenetur impedit illum, molestias ab porro?"
   
+  // Connected User Id
+  connectedUserId: number;
+  // Connected User Id
 
-  connectedUserInfo = {
-    userId: 0,
-    firstName: '',
-    username: '',
-    lastName: ''
-  };
-
+  firstName: string;
+  username: string;
+  lastName: string;
   userVerification: boolean = false;
+
+  numFollowers: number;
+  numFollowing: number;
+
+  allPostsArray: any = [];
 
   constructor(
     private myFormBuilder: FormBuilder, 
@@ -40,33 +39,32 @@ export class NewsfeedComponent implements OnInit {
   ) {}
   
   ngOnInit(): void {
-    this.myAuthService.autologin();
-    
+    // this.myAuthService.autologin();
     this.myAuthService.userSubject.subscribe((data: User) => {
-      this.connectedUserInfo.userId = data.userId;
-      this.connectedUserInfo.firstName = data.firstName;
-      this.connectedUserInfo.username = data.username;
-      this.connectedUserInfo.lastName = data.lastName;
+      this.connectedUserId = data.userId;
+    })
 
-      console.log(data)
+    this.myUserActions.getUserData(this.connectedUserId).subscribe(data => {
+      this.firstName = data[0].userData.first_name;
+      this.username = data[0].userData.username;
+      this.lastName = data[0].userData.last_name;
+      this.numFollowers = data[0].followersCount.Total;
+      this.numFollowing = data[0].followingCount.Total;
 
+      let userVerification = data[0].userData.is_verified;
 
-      let verifiedCheck = String(data.isVerified);
-
-      if(verifiedCheck === "1"){
+      if(userVerification === 1 || userVerification === "1"){
         this.userVerification = true;
       } else {
         this.userVerification = false
       }
-      
     })
-    console.log("Este é o newsfeed component a funcionar");
+
+    this.myUserActions.getAllPosts().subscribe(data => {
+      this.allPostsArray = data;
+      console.log(this.allPostsArray);
+    });
 
   }
-
-  daLike(){
-    console.log("hello")
-  }
-
 
 }

@@ -88,7 +88,7 @@ export class AuthService {
       JWToken,
       userData.expiryTime
     );
-
+    
     // if there is a token
     // if(loadedUser.Token) {
     //   const expirationDuration = new Date(userData.expiryTime).getTime() - new Date().getTime();

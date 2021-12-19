@@ -36,6 +36,16 @@ export class UserActionsService {
 
   }
 
+  getAllPosts(){
+    // parafazer a routeValidation vou necessitar de ir buscar o JWT ao local Storage
+    let JWToken = localStorage.getItem('authToken');
+
+    const url = this.api + 'posts';
+
+    return this.myHttp.get(url);
+
+  }
+
 
   likeDislikePost(postId, connectedUserId){
 
