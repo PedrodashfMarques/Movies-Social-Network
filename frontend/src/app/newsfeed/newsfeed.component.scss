@@ -76,16 +76,18 @@ main{
                     width: 100%;
                     height: 70px;
                     // background-color: #202020;
-                    // background-color: white;
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     color: $themeColor;
 
+                    &:hover{
+                        cursor: pointer;
+                    }
+
                     div.area_verified{
-                        width: 10%;
                         height: 30px;
-                        margin: 5px 0px 0px 8px;
+                        margin: 5px 0px 0px 5px;
                         float: left;
     
                         i{
@@ -310,6 +312,10 @@ main{
 
                         span{
                             margin-left: 5px;
+                        }
+
+                        &:hover{
+                            cursor: pointer;
                         }
                     }
                 }

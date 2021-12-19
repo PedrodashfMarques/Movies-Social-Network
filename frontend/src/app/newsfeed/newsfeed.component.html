@@ -25,7 +25,6 @@
                 <div class="name_and_username">
                     <p> {{firstName}} <span> {{username}} </span> {{lastName}} </p>
                         <div class="area_verified" *ngIf="userVerification"> <i class="fas fa-check"></i> </div>
-
                 </div>
 
                 <div class="followers_and_followings">
@@ -92,7 +91,7 @@
                 </div>
                 
                 <div class="nome_user_post">
-                    <h3> {{eachPost.first_name}} @{{eachPost.username}} {{eachPost.last_name}} </h3>
+                    <h3 (click)="goToUserPage(eachPost.user_id)"> {{eachPost.first_name}} @{{eachPost.username}} {{eachPost.last_name}} </h3>
                 </div>
                 
             </div>
@@ -115,9 +114,9 @@
                 <ul>
 
                     <li (click)="likePost(eachPost.post_id)">
-                        <i class="fas fa-heart"></i>
-                    <span> {{eachPost.likesNumber}} </span>
-                </li>
+                            <i class="fas fa-heart"></i>
+                        <span> {{eachPost.likesNumber}} </span>
+                    </li>
                     
                     <li> <i class="far fa-comment"></i> <span> {{eachPost.commentsNumber}} </span> </li>
                     <!-- Este li tb vai ter um routerLink para o post/:id do post-->

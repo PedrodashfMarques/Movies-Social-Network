@@ -68,7 +68,22 @@ export class NewsfeedComponent implements OnInit {
     this.myUserActions.getAllPosts().subscribe(data => {
       this.allPostsArray = data;
       console.log(this.allPostsArray);
+
+      for (let index = 0; index < this.allPostsArray.length; index++) {
+
+        let posicaoIndex = this.allPostsArray[index];
+        // console.log(posicaoIndex.user_id);
+
+        if(posicaoIndex.user_id === this.connectedUserId){
+          // console.log(posicaoIndex);
+          // perceber se o connectedUserID tem algum registo na tabela de likes sobre este postid em especifico, se retornar sim mensagem: "User has like on this post"
+          // Perguntar ao Ivo como posso fazer isto
+        }
+        
+      }
     });
+
+
 
   }
 
@@ -102,6 +117,13 @@ export class NewsfeedComponent implements OnInit {
       console.log(errorRes)
     })
 
+  }
+
+  goToUserPage(userId: number){
+    this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
+    .then(()=>{
+        this.myRouter.navigate(['/profile/',userId, 'timeline']);
+    })
   }
 
 }
