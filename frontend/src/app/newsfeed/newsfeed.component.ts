@@ -41,6 +41,8 @@ export class NewsfeedComponent implements OnInit {
   // Post Modal
   postModalAberto: boolean;
   postLoaded;
+
+  userWantsToComment: boolean = false;
   // Post Modal
 
   constructor(
@@ -136,6 +138,7 @@ export class NewsfeedComponent implements OnInit {
     this.postLoaded = cadaPost;
     // console.log(this.postLoaded);
   }
+
 
   fecharModal(){
     this.postModalAberto = null;

@@ -37,13 +37,31 @@
                             <span> {{postInfo.likesNumber}} </span>
                         </li>
                         
-                        <li> <i class="far fa-comment"></i> <span> {{postInfo.commentsNumber}} </span> </li>
+                        <li (click)="openComment()"> <i class="far fa-comment"></i> <span> {{postInfo.commentsNumber}} </span> </li>
                         <!-- Click abrir modal -->
                         <!-- Este li tb vai ter um routerLink para o post/:id do post-->
                     </ul>
     
                 </div>
                 
+            </article>
+
+            <article *ngIf="userWantsToComment" class="new_comment">
+                <div class="area_comentario">
+                    
+                    <form [formGroup]="commentForm" (ngSubmit)="commentPost(commentForm.value)">
+                        <label for="newComment"></label>
+                        <textarea 
+                        id="newComment" 
+                        placeholder="Write a comment"
+                        formControlName="comment_content"
+                        ></textarea>
+                        <div class="area_botao_comment">
+                            <button type="submit"> Comment </button>
+                        </div>
+                    </form>
+                    
+                </div>
             </article>
     
             <!-- Area Comments -->
@@ -56,7 +74,7 @@
                     </div>
                     
                     <div class="nome_user_comment">
-                        <h3 (click)="goToUserPage(postInfo.user_id)"> fname @username lname} </h3>
+                        <h3 (click)="goToUserPage(eachComment.user_id)"> {{eachComment.first_name}} @{{eachComment.username}} {{eachComment.last_name}} </h3>
                     </div>
     
                 </div>
@@ -64,12 +82,11 @@
                 <div class="area_conteudo_desse_comment">
     
                     <div class="area_comment_created">
-                            <!-- <p> Posted {{postInfo.created_at | date: 'MMMM d, y, \'at\' h\'h\'mm'}} </p>  -->
-                            <p> Posted at 15 December </p> 
+                            <p> Posted {{eachComment.created_at | date: 'MMMM d, y, \'at\' h\'h\'mm'}} </p> 
                     </div>
     
                     <div class="area_content_comment">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet nobis magnam deleniti quae, possimus vel! Impedit minus similique, porro, enim perspiciatis, neque voluptatem quaerat rerum delectus illum praesentium sunt? Magnam.
+                        {{eachComment.content}}
                     </div>
                 </div>
     

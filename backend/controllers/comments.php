@@ -1,5 +1,9 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: PUT, GET, POST");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+
     require("models/comment.php");
 
     $commentModel = new Comment();
@@ -32,9 +36,11 @@
 
         $data = json_decode(file_get_contents("php://input"), true);
 
-        foreach ($data as $key => $value) {
-            $data[$key] = trim(htmlspecialchars(strip_tags($value)));
-        }
+        var_dump($data["userId"]);
+
+        // foreach ($data as $key => $value) {
+        //     $data[$key] = trim(htmlspecialchars(strip_tags($value)));
+        // }
 
         if(
             isset($data["postId"]) &&

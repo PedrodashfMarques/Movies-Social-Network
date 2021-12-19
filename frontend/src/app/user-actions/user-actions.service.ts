@@ -56,7 +56,7 @@ export class UserActionsService {
     const url = this.api + "comments" + "/" + postId;
 
     return this.myHttp.get(url);
-    
+
   }
 
   likeDislikePost(postId, connectedUserId){
@@ -67,6 +67,21 @@ export class UserActionsService {
       userId: connectedUserId,
       postId: postId
     })
+
+  }
+
+  commentPost(data){
+    const url = this.api + "comments";
+
+    let object = {};
+    data.forEach((value, key) => object[key] = value);
+    let jsonConverted = JSON.stringify(object);
+
+    // console.log(jsonConverted)
+
+    return this.myHttp.post(url, jsonConverted, {responseType: 'json'}
+    )
+
 
   }
 
@@ -98,6 +113,7 @@ export class UserActionsService {
 
   updateUserData(data: any, connectedUserId){
     const url = this.api + 'users' + "/" + connectedUserId;
+
     let object = {};
     data.forEach((value, key) => object[key] = value);
 

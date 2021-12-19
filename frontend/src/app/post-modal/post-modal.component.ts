@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth-service/auth.service';
 import { UserActionsService } from '../user-actions/user-actions.service';
@@ -11,13 +11,17 @@ import { UserActionsService } from '../user-actions/user-actions.service';
 })
 export class PostModalComponent implements OnInit {
 
+  commentForm: FormGroup;
+
   imagemTeste: string = "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/33/33fc65586f9b4615f95209a03398d8c8b2729f0b_full.jpg";
 
   // Connected User Id
-  connectedUserId: number;
+  connectedUserId: any;
   // Connected User Id
 
-  postId: number;
+  userWantsToComment: boolean = false;
+
+  postId: any;
 
   @Input() postModal: boolean;
 
@@ -45,6 +49,11 @@ export class PostModalComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.myAuthService.userSubject.subscribe(response => {
+      this.connectedUserId = response.userId;
+    })
+    
+    this.commentPostForm();
     this.myUserActions.getPostData(this.postInfo.post_id).subscribe(data => {
       this.postId = data["postData"].post_id; 
     });
@@ -54,7 +63,6 @@ export class PostModalComponent implements OnInit {
 
       this.commentsArray = commentsData["postComments"];
 
-      
       if(this.commentsArray === undefined){
           this.messageNotFound = true;
 
@@ -62,7 +70,6 @@ export class PostModalComponent implements OnInit {
         this.messageNotFound = false;
 
       }
-
 
     })
 
@@ -80,10 +87,6 @@ export class PostModalComponent implements OnInit {
   }
 
   likePost(postId:number){
-    this.myAuthService.userSubject.subscribe(response => {
-
-      this.connectedUserId = response.userId;
-    })
     
     this.myUserActions.likeDislikePost(postId, this.connectedUserId).subscribe(responseData => {
       console.log(responseData['message']);
@@ -106,6 +109,31 @@ export class PostModalComponent implements OnInit {
     
     });
     
+  }
+
+  openComment(){
+    this.userWantsToComment = !this.userWantsToComment;
+  }
+
+  commentPostForm(){
+    this.commentForm = this.myFormBuilder.group({
+      'comment_content' : ['', Validators.compose([
+        Validators.required, 
+        Validators.minLength(3), 
+        Validators.maxLength(25)])]
+      })
+    
+  }
+
+  commentPost(values: any){
+    let formData = new FormData();
+    formData.append('userId', this.connectedUserId);
+    formData.append('postId', this.postId);
+    formData.append('content', values.comment_content);
+    this.myUserActions.commentPost(formData).subscribe( response => {
+      console.log(response)
+    })
+
   }
 
 }
