@@ -16,7 +16,12 @@ export class NewsfeedComponent implements OnInit {
   bootcamp: string = "https://images8.alphacoders.com/926/thumb-1920-926492.jpg";
   mensagem: string = "Posted November 8th, 2021 at 17h28";
   contentPost: string ="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis alias magni, iusto quo vel id nam. Deleniti blanditiis eius at earum, enim incidunt, expedita tenetur impedit illum, molestias ab porro?"
-  
+
+
+  imagesPath = "http://localhost/backend/";
+  userProfileImage: string;
+
+
   banana = false;
   // Connected User Id
   connectedUserId: number;

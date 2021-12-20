@@ -17,6 +17,10 @@ export class PostModalComponent implements OnInit {
   // User Edit Permissions
 
 
+  imagesPath = "http://localhost/backend/";
+  userProfileImage: string;
+
+
   commentForm: FormGroup;
 
   imagemTeste: string = "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/33/33fc65586f9b4615f95209a03398d8c8b2729f0b_full.jpg";
@@ -68,6 +72,8 @@ export class PostModalComponent implements OnInit {
       // console.log(commentsData["postComments"]);
 
       this.commentsArray = commentsData["postComments"];
+
+      console.log(this.commentsArray)
 
       if(this.commentsArray === undefined){
           this.messageNotFound = true;

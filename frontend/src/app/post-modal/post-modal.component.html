@@ -9,7 +9,7 @@
                 
                 <div class="area_quem_postou">
                     <div class="imagem_user_post">
-                        <img src="{{imagemTeste}}" alt="">
+                        <img src="{{imagesPath + postInfo.user_image}}" alt="">
                     </div>
                     
                     <div class="nome_user_post">
@@ -46,6 +46,7 @@
                 
             </article>
 
+
             <article *ngIf="userWantsToComment" class="new_comment">
                 <div class="area_comentario">
                     
@@ -63,6 +64,7 @@
                     
                 </div>
             </article>
+
 
             <article *ngIf="userWantsToEdit" class="new_comment">
                 <div class="area_comentario">
@@ -88,7 +90,7 @@
     
                 <div class="area_quem_comentou">
                     <div class="imagem_user_comment">
-                        <img src="{{imagemTeste}}" alt="">
+                        <img src="{{imagesPath + eachComment.user_image}}" alt="">
                     </div>
                     
                     <div class="nome_user_comment">
@@ -96,8 +98,8 @@
                     </div>
 
                     <div *ngIf="eachComment.user_id === connectedUserId" class="area_edit_delete">
-                        <li (click)="openEditBox(eachComment.comment_id, eachComment.content)"> Edit </li>
-                        <li (click)="deleteComment(eachComment.comment_id)"> Delete</li>
+                        <li (click)="openEditBox(eachComment.comment_id, eachComment.content)" title="Edit"> <i class="fas fa-edit"></i> </li>
+                        <li (click)="deleteComment(eachComment.comment_id)" title="Delete"> <i class="fas fa-trash"></i> </li>
                     </div>
     
                 </div>
@@ -112,10 +114,10 @@
                         {{eachComment.content}}
                     </div>
 
-                  
                 </div>
     
             </article>
+
 
             <article class="noComments" *ngIf="messageNotFound">
                 <h4> No Comments to display. Comment something! </h4>

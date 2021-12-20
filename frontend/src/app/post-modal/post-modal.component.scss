@@ -252,7 +252,7 @@ main{
                         // height: 65px;
                         margin: 8px;
                         // background-color: blue;
-                        overflow: hidden;
+                        // overflow: hidden;
                         display: flex;
                         align-items: center;
     
@@ -292,16 +292,17 @@ main{
 
                     div.area_edit_delete{
                         position: relative;
-                        left: 12%;
+                        left: 10%;
                         height: 55px;
                         display: flex;
                         align-items: center;
                         float:right;
 
                         li{
-                            margin: 0px 10px;
+                            margin: 0px 13px;
                             list-style: none;
-                            background-color: orchid;
+                            // color: rgb(134, 23, 23);
+                            font-size: 20px;
 
                             &:hover{
                                 cursor: pointer;
@@ -313,7 +314,6 @@ main{
     
                 div.area_conteudo_desse_comment{
                     width: 100%;
-                    // display: flex;
                     display: block;
     
     
@@ -321,8 +321,7 @@ main{
                         width: 90%;
                         // height: 200px;
                         margin: 5px auto;
-                        // background-color: orchid;
-    
+
                         p{
                             font-size: 0.85em;
                         }

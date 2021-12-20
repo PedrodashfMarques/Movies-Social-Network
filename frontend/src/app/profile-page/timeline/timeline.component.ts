@@ -15,6 +15,9 @@ export class TimelineComponent implements OnInit {
   mensagem: string = "Posted November 8th, 2021 at 17h28";
 
 
+  imagesPath = "http://localhost/backend/";
+  userProfileImage: string;
+
   // Post Likes and Dislikes
     postIsLiked: boolean;
     postIsDisliked: boolean;
@@ -41,6 +44,7 @@ export class TimelineComponent implements OnInit {
 
     this.myUserActions.allUserData.subscribe(data => {
       this.userPostsArray = data[0].userPosts;
+      this.userProfileImage = data[0].userData.user_image;
 
       let userVerification = data[0].userData.is_verified;
 

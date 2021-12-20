@@ -79,8 +79,7 @@ export class UserActionsService {
 
     // console.log(jsonConverted);
 
-    return this.myHttp.post(url, jsonConverted, {responseType: 'json'})
-    // Fazer pipe da resposta e enviar para um subjcet para que depois possa enviar para component.ts e fazer push do objeto para dentro do array
+    return this.myHttp.post(url, jsonConverted, {responseType: 'json'});
 
   }
 
@@ -101,9 +100,6 @@ export class UserActionsService {
     return this.myHttp.delete(url);
 
   }
-
- 
-
 
 
   checkIfAlreadyFollowing(idDoUser, connectedUser){
