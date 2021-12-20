@@ -20,6 +20,7 @@ export class NewsfeedComponent implements OnInit {
 
   imagesPath = "http://localhost/backend/";
   userProfileImage: string;
+  imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
 
 
   banana = false;
@@ -69,6 +70,7 @@ export class NewsfeedComponent implements OnInit {
       this.lastName = data[0].userData.last_name;
       this.numFollowers = data[0].followersCount.Total;
       this.numFollowing = data[0].followingCount.Total;
+      this.userProfileImage = data[0].userData.user_image;
 
       let userVerification = data[0].userData.is_verified;
 

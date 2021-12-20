@@ -50,13 +50,13 @@ main{
                     bottom: 70%;
                     border-radius: 50% ;
                     margin: 0 auto;
-                    // background: orange;
-
+                    
                     img{
                         width: 100%;
                         background-size: cover;
                         border-radius: 50%;
-                        // margin-top: -75px;
+                        background-color: #202020;
+                        
 
                         &:hover{
                             cursor: pointer;
@@ -283,8 +283,6 @@ main{
                     width: 55px;
                     // height: 65px;
                     margin: 8px;
-                    // background-color: blue;
-                    overflow: hidden;
                     display: flex;
                     align-items: center;
 

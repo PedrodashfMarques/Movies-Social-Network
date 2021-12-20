@@ -23,7 +23,8 @@
 
                 <div class="area_profile_picture">
                     <!-- Esta imagem vai ter um routerLink para a página de perfil do utilizador -->
-                    <img src="{{ imagemTeste }}" alt="">
+                    <img *ngIf="userProfileImage" src="{{imagesPath + userProfileImage}}" alt="">
+                    <img *ngIf="!userProfileImage" src="{{imagemDefault}}" alt="">
 
                 </div>
 
@@ -88,7 +89,8 @@
             
             <div class="area_quem_postou">
                 <div class="imagem_user_post">
-                    <img src="{{imagemTeste}}" alt="">
+                    <img *ngIf="eachPost.user_image" src="{{imagesPath + eachPost.user_image}}" alt="">
+                    <img *ngIf="!eachPost.user_image" src="{{imagemDefault}}" alt="">
                 </div>
                 
                 <div class="nome_user_post">

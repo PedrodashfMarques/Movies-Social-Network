@@ -4,7 +4,8 @@
 
         <article class="area_following" (click)="goToFollowingUserPage(eachFollowing.user_followed)">
             <div class="imagem_user_following">
-                <img src="{{imagemTeste}}" alt="">
+                <img *ngIf="eachFollowing.user_image" src="{{imagesPath + eachFollowing.user_image}}" alt="">
+                <img *ngIf="!eachFollowing.user_image" src="{{imagemDefault}}" alt="">
             </div>
 
             

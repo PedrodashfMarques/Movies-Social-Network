@@ -13,9 +13,11 @@ export class ProfilePageComponent implements OnInit {
   imagemBackground: string = "https://steamuserimages-a.akamaihd.net/ugc/448490901519563018/1DBA511F88594E8E29FA8F1B56329CFD7B2DEC4E/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false";
   imagemTeste: string = "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/33/33fc65586f9b4615f95209a03398d8c8b2729f0b_full.jpg";
   
-  
+
   imagesPath = "http://localhost/backend/";
   userProfileImage: string;
+  imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
+
 
   // id no url
   idDoUser: number ;
@@ -71,7 +73,6 @@ export class ProfilePageComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    console.log(this.userProfileImage);
     this.idDoUser = this.myActiveRoute.snapshot.params['id'];
 
     this.myAuthService.userSubject.subscribe(data => {

@@ -36,7 +36,8 @@
                 </div>
     
                 <div class="pPicItself">
-                    <img src="{{imagesPath + userProfileImage}}">
+                    <img *ngIf="userProfileImage" src="{{imagesPath + userProfileImage}}" alt="">
+                    <img *ngIf="!userProfileImage" src="{{imagemDefault}}" alt="">
                 </div>    
                 
                 <div class="botao_follow">

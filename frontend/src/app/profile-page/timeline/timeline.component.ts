@@ -16,7 +16,8 @@ export class TimelineComponent implements OnInit {
 
 
   imagesPath = "http://localhost/backend/";
-  userProfileImage: string;
+  imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
+
 
   // Post Likes and Dislikes
     postIsLiked: boolean;
@@ -44,7 +45,6 @@ export class TimelineComponent implements OnInit {
 
     this.myUserActions.allUserData.subscribe(data => {
       this.userPostsArray = data[0].userPosts;
-      this.userProfileImage = data[0].userData.user_image;
 
       let userVerification = data[0].userData.is_verified;
 
