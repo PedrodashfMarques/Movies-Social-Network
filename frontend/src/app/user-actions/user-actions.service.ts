@@ -130,7 +130,7 @@ export class UserActionsService {
     return this.myHttp.get(url);   
   }
 
-  updateUserData(data: any, connectedUserId){
+  updateUserData(data, connectedUserId: number){
     const url = this.api + 'users' + "/" + connectedUserId;
 
     let object = {};

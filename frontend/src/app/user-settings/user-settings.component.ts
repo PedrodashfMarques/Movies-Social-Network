@@ -13,7 +13,7 @@ export class UserSettingsComponent implements OnInit {
 
   userInformationForm: FormGroup;
   allCountriesArray: any;
-  connectedUserId: number;
+  connectedUserId: any;
   userLocation: string;
 
   // Image Upload
@@ -85,6 +85,8 @@ export class UserSettingsComponent implements OnInit {
         Validators.minLength(1), 
         Validators.maxLength(1000)])],
 
+        // Apresentar control.errors no template
+
     })
   }
 
@@ -108,6 +110,8 @@ export class UserSettingsComponent implements OnInit {
     // Pesquisar FileReader Angular for image upload
     this.myUserActions.updateUserData(formData, this.connectedUserId).subscribe(response => {
       console.log(response);
+
+      // Isto retornava me null porque todos os espaços têm de estar preenchidos
       // Atribuir mensagens de sucesso ou erro aqui dentro
     });
 
