@@ -349,9 +349,9 @@ main{
                     margin: 15px auto;
                     line-height: 23px;
                     margin-bottom: 1px;
-                    // margin
-                    // Perguntar ao Ivo como manter os parágrafos originalmente adicionados pelo user
-                    // background-color: green;
+                    &:hover{
+                        cursor: pointer;
+                    }
                 }
                        
             }

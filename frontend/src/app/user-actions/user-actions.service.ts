@@ -25,7 +25,7 @@ export class UserActionsService {
     const url = this.api + 'users' + "/" + userId;
 
     return this.myHttp.get<UserResponseData>(url).pipe(tap(resData => {
-      this.handleUserData(resData)
+      this.handleUserData(resData);
     }));
 
   }

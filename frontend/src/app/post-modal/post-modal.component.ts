@@ -69,8 +69,6 @@ export class PostModalComponent implements OnInit {
 
       this.commentsArray = commentsData["postComments"];
 
-      console.log(this.commentsArray);
-
       if(this.commentsArray === undefined){
           this.messageNotFound = true;
 
@@ -137,8 +135,7 @@ export class PostModalComponent implements OnInit {
   }
 
   // CREATE COMMENT
-
-  commentPost(values: any){
+  postComment(values: any){
     let formData = new FormData();
     formData.append('userId', this.connectedUserId);
     formData.append('postId', this.postId);
@@ -155,6 +152,7 @@ export class PostModalComponent implements OnInit {
         this.messageNotFound = false;
         
         this.commentsArray = commentsData["postComments"];
+
         for (let index = 0; index < this.postsArray.length; index++) {
           
           let posicaoIndex = this.postsArray[index];
@@ -177,10 +175,8 @@ export class PostModalComponent implements OnInit {
 
   openEditBox(commentId:number, commentContent: string){
     this.commentIdToEdit = commentId;
-    console.log(this.commentIdToEdit);
-    console.log(commentContent);
     this.commentContentToEdit = commentContent;
-    this.userWantsToEdit = true;
+    this.userWantsToEdit = !this.userWantsToEdit;
     this.userWantsToComment = false;
 
   }
@@ -194,9 +190,12 @@ export class PostModalComponent implements OnInit {
         this.myUserActions.getPostComments(this.postInfo.post_id).subscribe(commentsData => { 
           // Talvez aplicar aqui um loading spinner
          this.commentsArray = commentsData["postComments"];
+         
         })
       }, 500)  
     })
+
+    this.userWantsToEdit = false;
   }
   // UPDATE COMMENT
 
@@ -205,10 +204,21 @@ export class PostModalComponent implements OnInit {
   // DELETE COMMENT
 
   deleteComment(commentId:number){
+    this.userWantsToEdit = false;
     this.myUserActions.deleteComment(commentId).subscribe(data => {
       console.log(data);
     })
 
+    for (let index = 0; index < this.postsArray.length; index++) {
+          
+      let posicaoIndex = this.postsArray[index];
+
+      if(posicaoIndex["post_id"] === this.postInfo.post_id){
+        posicaoIndex["commentsNumber"]--;
+      }
+   
+    }
+    
     setTimeout(() => {
       this.myUserActions.getPostComments(this.postInfo.post_id).subscribe(commentsData => { 
         // Talvez aplicar aqui um loading spinner
@@ -217,10 +227,8 @@ export class PostModalComponent implements OnInit {
         if(this.commentsArray === undefined){
           this.messageNotFound = true;
         }
-
-
       })
-    }, 500)  
+    }, 100)  
     
   }
   // DELETE COMMENT

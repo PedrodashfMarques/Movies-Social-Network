@@ -103,7 +103,7 @@
                         <p> Posted {{eachPost.created_at | date: 'MMMM d, y, \'at\' h\'h\'mm'}} </p> 
                 </div>
 
-                <div class="area_content_post">
+                <div (click)="abrirPost(eachPost)" class="area_content_post">
                     {{eachPost.content}}
                    
                 </div>

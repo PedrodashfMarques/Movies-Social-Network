@@ -49,7 +49,7 @@
             <article *ngIf="userWantsToComment" class="new_comment">
                 <div class="area_comentario">
                     
-                    <form [formGroup]="commentForm" (ngSubmit)="commentPost(commentForm.value)">
+                    <form [formGroup]="commentForm" (ngSubmit)="postComment(commentForm.value)">
                         <label for="newComment"></label>
                         <textarea 
                         id="newComment" 
