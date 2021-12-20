@@ -185,8 +185,8 @@ export class NewsfeedComponent implements OnInit {
 
     formData.append('content', values.post_content);
 
-    this.myUserActions.editPost(this.connectedUserId, this.postIdToEdit, formData).subscribe(response => {
-      console.log(response)
+    this.myUserActions.editPost(this.postIdToEdit, formData).subscribe(response => {
+      console.log(response);
     })
 
 

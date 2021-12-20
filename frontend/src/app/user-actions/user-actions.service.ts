@@ -83,19 +83,17 @@ export class UserActionsService {
     return this.myHttp.post(url, dataConvertedJson, {});
   }
 
-  editPost(connectedUserId, postId, data: FormData){
+  editPost( postId, data: FormData){
     const url = this.api + "posts" + "/" + postId;
+
+    // Enviar connectedUserId através de header.set
 
     let object = {};
     data.forEach((value, key) => object[key] = value);
     let dataConvertedJson = JSON.stringify(object);
 
-    console.log(object);
 
-    return this.myHttp.put(url, {
-      user_id: connectedUserId,
-      content: object
-    });
+    return this.myHttp.put(url, dataConvertedJson);
   }
 
   deletePost(postId){

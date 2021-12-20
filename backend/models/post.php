@@ -72,12 +72,11 @@
         public function updatePost($id, $data){
             $query = $this->dataBase->prepare("
                 UPDATE posts
-                SET user_id = ?, content = ?
+                SET content = ?
                 WHERE post_id = ?
             ");
 
             return $query->execute([
-                $data["user_id"],
                 $data["content"],
                 $id
             ]);

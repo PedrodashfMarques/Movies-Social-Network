@@ -1,5 +1,6 @@
 @import 'var&mixin.scss';
 
+
 main{
     max-width: 1600px;
     height: 861px;
@@ -53,16 +54,87 @@ main{
         .caixa_filters{
             width: 100%;
             height: 90px;
-            background-color: orchid;
+
+            div.area_formulario{
+                width: 100%;
+                height: 90px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                // background-color: dodgerblue;
+                
+                form{
+                    font-family: 'Noto Sans', sans-serif;
+
+                    label{
+                        margin-right: 10px;
+                        font-size: 17px;
+                    }
+
+                    input{
+                        width: 70%;
+                        height: 23px;
+                        border: 1;
+                    }
+                }
+                
+            }
         }
 
         .area_child_routing{
             width: 100%;
             height: 751px;
-            // background-color: orange;
             display: flex;
             justify-content: center;
             // align-items: center;
+
+            article.area_quem_postou{
+                width: 100%;
+                height: 100px;
+                margin: 25px auto;
+                background: orange;
+                display: flex;
+                justify-content: left;
+                align-items: center;
+            
+                div.imagem_user_post{
+                    width: 80px;
+                    // height: 65px;
+                    margin: 8px;
+                    // background-color: blue;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+            
+                    img{
+                       width: 100%;
+                       height: 75px;
+                       border-radius: 50%;
+                       object-fit: fill;
+                    //    border: 1px solid $themeColor;
+                    }
+                }
+            
+                div.nome_user_post{
+                    width: 80%;
+                    height: 55px;
+                    text-align: center;
+                    // background-color: aquamarine;   
+            
+                    h3{
+                        color: white;
+                        font-size: 1.2em;
+                        font-weight: 500;
+                        margin-top: 12px;
+                        display: flex;
+                        align-items: center; 
+            
+                        span{
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
 
             .area_resultados{
                 width: 100%;
