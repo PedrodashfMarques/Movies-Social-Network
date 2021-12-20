@@ -15,13 +15,14 @@ export class TimelineComponent implements OnInit {
   mensagem: string = "Posted November 8th, 2021 at 17h28";
 
 
+  postThatWasLiked;
+
   imagesPath = "http://localhost/backend/";
   imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
 
 
   // Post Likes and Dislikes
-    postIsLiked: boolean;
-    postIsDisliked: boolean;
+    postIsLiked: boolean = false;
   // Post Likes and Dislikes
 
 
@@ -46,6 +47,8 @@ export class TimelineComponent implements OnInit {
     this.myUserActions.allUserData.subscribe(data => {
       this.userPostsArray = data[0].userPosts;
 
+      console.log(data[0].userPosts[0].isLiked);
+
       let userVerification = data[0].userData.is_verified;
 
       if(userVerification === 1 || userVerification === "1"){
@@ -55,7 +58,6 @@ export class TimelineComponent implements OnInit {
       }
       
     })
-
     // Conforme tal informação aplicar uma classe ou outra / *ngIf para adicionar um <i> ou outro
   }
 
@@ -67,7 +69,7 @@ export class TimelineComponent implements OnInit {
     })
     
     this.myUserActions.likeDislikePost(postId, connectedUserId).subscribe(responseData => {
-      console.log(responseData['message']);
+      console.log(postId);
 
       for (let index = 0; index < this.userPostsArray.length; index++) {
 
@@ -75,12 +77,16 @@ export class TimelineComponent implements OnInit {
         
         if(posicaoIndex['post_id'] === postId){
           
-          if(responseData['message'] === 'Post liked!'){
+          if(responseData['liked'] === true){
             posicaoIndex["likesNumber"]++
-            this.postIsLiked = true;
+            this.postThatWasLiked = postId;
+            
+            this.postIsLiked = !this.postIsLiked;
           } else {
             posicaoIndex["likesNumber"]--
-            this.postIsDisliked = false;
+            this.postIsLiked = !this.postIsLiked;
+            this.postThatWasLiked = postId;
+
           }
         }
       }

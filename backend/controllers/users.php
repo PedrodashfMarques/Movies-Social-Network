@@ -56,6 +56,7 @@ use ReallySimpleJWT\Token;
 
             $userPostsData = $userModel->getUserPosts($id);
 
+
             $userDataArray = array(
                 'userData' => $userInfo,
                 'userFollowers' => $userFollowersData,
@@ -64,6 +65,7 @@ use ReallySimpleJWT\Token;
                 'followingCount' => $followingCount,
                 'userPosts' => $userPostsData
             );
+
 
             if(!empty($userInfo)){
                 http_response_code(202);

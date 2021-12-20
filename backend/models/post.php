@@ -112,7 +112,7 @@
         }
 
 
-        public function likeDislikePost($postId, $userId){
+        public function togglePostLike($postId, $userId){
 
             $postAlreadyLikedQuery = $this->dataBase->prepare("
             SELECT post_id, user_id
@@ -143,12 +143,11 @@
 
                 ]);
 
-                // return $dislikePostQuery->fetch();
-                return $this->dataBase->lastInsertId();
-
+                return false;
 
             }
 
+        
             $query = $this->dataBase->prepare("
             INSERT INTO likes
             (post_id, user_id)
@@ -160,7 +159,7 @@
                 $userId
             ]);
 
-            return $this->dataBase->lastInsertId();
+            return true;
         }
 
         public function countPostLikes($postId){

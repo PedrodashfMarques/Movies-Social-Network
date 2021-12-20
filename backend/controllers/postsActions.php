@@ -18,19 +18,14 @@
             
             $userId = $data["userId"];
             $postId = $data["postId"];
+            
+            $result = $postModel->togglePostLike($postId, $userId);
 
-            $result = $postModel->likeDislikePost($postId, $userId);
-
-            if(empty($result)){
-                http_response_code(202);
-                echo '{"message": "Post disliked!"}';
-            }
-
-            if(!empty($result)){
-                http_response_code(202);
-                echo '{"message": "Post liked!"}';
-            }
-
+            http_response_code(202);
+            echo '{
+                "message": "Post disliked!",
+                "liked": '.($result ? "true" : "false").'
+            }';
         }
 
     }

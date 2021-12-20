@@ -18,6 +18,8 @@ export class WorldComponent implements OnInit {
 
   postsRouteClicked: boolean = false;
 
+  usersFoundArray: [] = [];
+
   constructor(
     private myRouter: Router, 
     private myActiveRoute: ActivatedRoute

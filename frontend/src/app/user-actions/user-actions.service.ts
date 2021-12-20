@@ -39,7 +39,7 @@ export class UserActionsService {
 
   private handleUserData(resData){
     this.allUserData.next(resData);
-    // console.log(this.allUserData.value);
+    console.log(this.allUserData.value);
 
   }
 
