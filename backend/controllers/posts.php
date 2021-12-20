@@ -1,7 +1,7 @@
 <?php
 
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");
+header("Access-Control-Allow-Methods: PUT, GET, POST");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
     require("models/post.php");
@@ -90,10 +90,10 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
             $result = $postModel->updatePost($id, $data);
 
             if($result){
-                header("HTTP/1.1 202 Accepted");
+                http_response_code(202);
                 echo json_encode($data);
             } else {
-                header("HTTP/1.1 400 Bad Request");
+                http_response_code(400);
                 echo '{"message": "Failure"}';
             }
 
@@ -111,11 +111,11 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
             $result = $postModel->deletePost($id);
 
             if($result){
-                header("HTTP/1.1 202 Accepted");
+                http_response_code(202);
                 echo '{"message": "Deleted ID ' .$id. '"}';
 
             } else{
-                header("HTTP/1.1 400 Bad Request");
+                http_response_code(400);
                 echo '{"message": "Bad Request"}';
             }
         }

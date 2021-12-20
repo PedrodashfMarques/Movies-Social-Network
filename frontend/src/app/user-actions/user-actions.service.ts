@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { tap } from "rxjs/operators";
@@ -62,11 +62,18 @@ export class UserActionsService {
   createPost(data: FormData){
     const url = this.api + "posts";
 
+    let JWToken = localStorage.getItem('authToken');
+    
+    const headers = new HttpHeaders()
+    .set('x-auth-token', JWToken);
+
+    console.log(headers.get('x-auth-token'));
+
     let object = {};
     data.forEach((value, key) => object[key] = value);
     let dataConvertedJson = JSON.stringify(object);
 
-    return this.myHttp.post(url, dataConvertedJson);
+    return this.myHttp.post(url, dataConvertedJson, {});
   }
 
   editPost(connectedUserId, postId, data: FormData){

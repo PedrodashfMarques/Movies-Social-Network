@@ -18,7 +18,7 @@ import { WorldComponent } from './world/world.component';
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  // {path: "*", canActivate: [AuthGuard],
+  
   // Route Guard apartir daqui
   {path: 'newsfeed', component: NewsfeedComponent, canActivate:[AuthGuard]},
   
