@@ -16,7 +16,8 @@
                     id="smallBio"
                     required
                     formControlName="smallBio"
-                    maxlength="25">
+                    maxlength="25"
+                    value="">
                 </div>
 
                 <div class="cadaForm">
@@ -25,7 +26,8 @@
                     id="bigBio"
                     placeholder="Placeholder memo"
                     formControlName="bigBio"
-                    maxlength="1000">
+                    maxlength="1000"
+                    value="">
                     </textarea>
                 </div>
 
@@ -36,7 +38,7 @@
                         id="locationId"
                         required
                         formControlName="location">
-                        <option> {{userLocation}} </option>
+                        <option value=""> {{userLocation}} </option>
                         <option *ngFor="let eachCountry of allCountriesArray"> {{eachCountry.nicename}} </option>
                         </select>
                 </div>
@@ -48,23 +50,19 @@
                         (change)="imageUpload($event.target.files)"
                         id="userImageId"
                         required
-                        formControlName="userImage">
+                        formControlName="userImage"
+                        value="">
                 </div>
 
                 <div class="cadaForm">
                     <label for="bgUserImageId"> Background Image </label>
-                        <input 
+                        <input
                         type="file"
                         id="bgUserImageId"
                         required
-                        formControlName="bgUserImage">
+                        formControlName="bgUserImage"
+                        value="">
                 </div>
-
-                <div class="cadaForm">
-                    <p> My account was created on </p>
-                </div>
-
-
                 <!-- Botão do type submit, disabled se os campos não forem todos válidos é o !ngForm.valid -->
                 
                 <div class="botao_submit">

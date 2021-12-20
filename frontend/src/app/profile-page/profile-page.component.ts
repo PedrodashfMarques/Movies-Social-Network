@@ -20,7 +20,7 @@ export class ProfilePageComponent implements OnInit {
 
 
   // id no url
-  idDoUser: number ;
+  idDoUser: number;
   // id no url
 
   // USER DATA
@@ -73,7 +73,20 @@ export class ProfilePageComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.idDoUser = this.myActiveRoute.snapshot.params['id'];
+    this.idDoUser = +this.myActiveRoute.snapshot.params['id'];
+    if(!Number(this.idDoUser)){
+      this.myRouter.navigate(['newsfeed']);
+    } else{
+      this.myUserActions.checkIfUserExists(this.idDoUser).subscribe(response => {
+      
+      }, error => {
+        if(error.error.message === "This user does not exist"){
+          this.myRouter.navigate(['newsfeed'])
+        }
+      });
+    }
+  
+    
 
     this.myAuthService.userSubject.subscribe(data => {
 
@@ -108,6 +121,9 @@ export class ProfilePageComponent implements OnInit {
           this.followUnfollowMessage = 'Follow';
 
         }
+      }, error => {
+        // console.log(error);
+        return
       })
 
       let userVerification = data[0].userData.is_verified;

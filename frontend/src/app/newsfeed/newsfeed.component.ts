@@ -220,4 +220,11 @@ export class NewsfeedComponent implements OnInit {
     this.postModalAberto = null;
   }
 
+  goToConnectedUserPage(){
+    this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
+    .then(()=>{
+        this.myRouter.navigate(['/profile/',this.connectedUserId, 'timeline']);
+    })
+  }
+
 }

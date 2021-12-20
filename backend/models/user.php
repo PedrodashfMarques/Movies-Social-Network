@@ -112,7 +112,8 @@
             big_bio,
             user_image,
             background_image,
-            is_verified
+            is_verified,
+            created_at
             FROM users
             WHERE user_id = ?     
             ");

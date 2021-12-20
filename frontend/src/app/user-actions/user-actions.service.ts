@@ -21,6 +21,13 @@ export class UserActionsService {
 
   // This will be the id's of the users 
 
+  checkIfUserExists(urlUserId){
+    const url = this.api + 'users' + "/" + urlUserId;
+
+    return this.myHttp.get(url);
+
+  }
+
   getUserData(userId: number){
     const url = this.api + 'users' + "/" + userId;
 
@@ -67,7 +74,7 @@ export class UserActionsService {
     const headers = new HttpHeaders()
     .set('x-auth-token', JWToken);
 
-    console.log(headers.get('x-auth-token'));
+    // console.log(headers.get('x-auth-token'));
 
     let object = {};
     data.forEach((value, key) => object[key] = value);

@@ -16,6 +16,8 @@ export class UserSettingsComponent implements OnInit {
   connectedUserId: any;
   userLocation: string;
 
+  accountCreatedOn;
+
   // Image Upload
 
   fileToUpload;
@@ -36,6 +38,10 @@ export class UserSettingsComponent implements OnInit {
 
     this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
+
+      // this.accountCreatedOn = data[0].userData.created_at;
+
+      // console.log(data)
     })
 
     this.myUserActions.getUserData(this.connectedUserId).subscribe(data => {
@@ -47,7 +53,6 @@ export class UserSettingsComponent implements OnInit {
 
       this.userLocation = data[0].userData.location;
 
-      console.log(data);
 
     })
 
