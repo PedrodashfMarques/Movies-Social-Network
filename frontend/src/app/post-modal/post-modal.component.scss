@@ -290,6 +290,26 @@ main{
                             }
                         }
                     }
+
+                    div.area_edit_delete{
+                        position: relative;
+                        left: 12%;
+                        height: 55px;
+                        display: flex;
+                        align-items: center;
+                        float:right;
+
+                        li{
+                            margin: 0px 10px;
+                            list-style: none;
+                            background-color: orchid;
+
+                            &:hover{
+                                cursor: pointer;
+                            }
+
+                        }
+                    }
                 }
     
                 div.area_conteudo_desse_comment{

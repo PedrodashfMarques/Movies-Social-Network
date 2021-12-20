@@ -1,7 +1,7 @@
 <?php
 
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: PUT, GET, POST");
+header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
     require("models/comment.php");
@@ -36,11 +36,9 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
         $data = json_decode(file_get_contents("php://input"), true);
 
-        var_dump($data["userId"]);
-
-        // foreach ($data as $key => $value) {
-        //     $data[$key] = trim(htmlspecialchars(strip_tags($value)));
-        // }
+        foreach ($data as $key => $value) {
+            $data[$key] = trim(htmlspecialchars(strip_tags($value)));
+        }
 
         if(
             isset($data["postId"]) &&
@@ -88,7 +86,8 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
             if($result){
                 http_response_code(202);
-                echo json_encode($data);
+                echo '{"message": "Comment Edited" }';
+
             }
 
             if(empty($result)){

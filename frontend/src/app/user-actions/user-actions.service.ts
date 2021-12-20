@@ -77,13 +77,33 @@ export class UserActionsService {
     data.forEach((value, key) => object[key] = value);
     let jsonConverted = JSON.stringify(object);
 
-    // console.log(jsonConverted)
+    // console.log(jsonConverted);
 
-    return this.myHttp.post(url, jsonConverted, {responseType: 'json'}
-    )
-
+    return this.myHttp.post(url, jsonConverted, {responseType: 'json'})
+    // Fazer pipe da resposta e enviar para um subjcet para que depois possa enviar para component.ts e fazer push do objeto para dentro do array
 
   }
+
+  editComment(commentId: number, data: FormData){
+    const url = this.api + "comments" + "/" + commentId;
+
+    let object = {};
+    data.forEach((value, key) => object[key] = value);
+    let dataConvertedJson = JSON.stringify(object);
+
+    return this.myHttp.put(url, dataConvertedJson);
+
+  }
+
+  deleteComment(commentId: number){
+    const url = this.api + "comments" + "/" + commentId;
+
+    return this.myHttp.delete(url);
+
+  }
+
+ 
+
 
 
   checkIfAlreadyFollowing(idDoUser, connectedUser){
@@ -95,7 +115,6 @@ export class UserActionsService {
     
   }
   
-
   followUnfollowUser(idDoUser, connectedUserId){
     const url = this.api + 'users' + "/" + idDoUser;
 

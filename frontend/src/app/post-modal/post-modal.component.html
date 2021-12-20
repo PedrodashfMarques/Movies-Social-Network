@@ -63,6 +63,24 @@
                     
                 </div>
             </article>
+
+            <article *ngIf="userWantsToEdit" class="new_comment">
+                <div class="area_comentario">
+                    
+                    <form [formGroup]="commentForm" (ngSubmit)="editComment(commentForm.value)">
+                        <label for="newComment"></label>
+                        <textarea
+                        id="newComment" 
+                        [placeholder]="commentContentToEdit"
+                        formControlName="comment_content"
+                        ></textarea>
+                        <div class="area_botao_comment">
+                            <button type="submit"> Edit Comment </button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </article>
     
             <!-- Area Comments -->
     
@@ -76,21 +94,29 @@
                     <div class="nome_user_comment">
                         <h3 (click)="goToUserPage(eachComment.user_id)"> {{eachComment.first_name}} @{{eachComment.username}} {{eachComment.last_name}} </h3>
                     </div>
+
+                    <div *ngIf="eachComment.user_id === connectedUserId" class="area_edit_delete">
+                        <li (click)="openEditBox(eachComment.comment_id, eachComment.content)"> Edit </li>
+                        <li (click)="deleteComment(eachComment.comment_id)"> Delete</li>
+                    </div>
     
                 </div>
     
                 <div class="area_conteudo_desse_comment">
     
                     <div class="area_comment_created">
-                            <p> Posted {{eachComment.created_at | date: 'MMMM d, y, \'at\' h\'h\'mm'}} </p> 
+                            <p> Posted {{eachComment.created_at | date: 'MMMM d, y, \'at\' h\'h\'mm'}} </p>
                     </div>
     
-                    <div class="area_content_comment">
+                    <div  class="area_content_comment">
                         {{eachComment.content}}
                     </div>
+
+                  
                 </div>
     
             </article>
+
             <article class="noComments" *ngIf="messageNotFound">
                 <h4> No Comments to display. Be the first one to comment on this post! </h4>
             </article>

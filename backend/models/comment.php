@@ -52,7 +52,6 @@ require_once("base.php");
             FROM comments
             WHERE comment_id = ?
             ");
-
             $commentExistsQuery->execute([$commentId]);
 
             $result = $commentExistsQuery->fetch(PDO:: FETCH_ASSOC );

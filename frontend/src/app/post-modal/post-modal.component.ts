@@ -10,6 +10,12 @@ import { UserActionsService } from '../user-actions/user-actions.service';
   styleUrls: ['./post-modal.component.scss']
 })
 export class PostModalComponent implements OnInit {
+  // User Edit Permissions
+  userWantsToEdit: boolean;
+  commentContentToEdit: string = "";
+  commentIdToEdit: number;
+  // User Edit Permissions
+
 
   commentForm: FormGroup;
 
@@ -52,7 +58,7 @@ export class PostModalComponent implements OnInit {
     this.myAuthService.userSubject.subscribe(response => {
       this.connectedUserId = response.userId;
     })
-    
+
     this.commentPostForm();
     this.myUserActions.getPostData(this.postInfo.post_id).subscribe(data => {
       this.postId = data["postData"].post_id; 
@@ -63,6 +69,8 @@ export class PostModalComponent implements OnInit {
 
       this.commentsArray = commentsData["postComments"];
 
+      console.log(this.commentsArray);
+
       if(this.commentsArray === undefined){
           this.messageNotFound = true;
 
@@ -72,6 +80,7 @@ export class PostModalComponent implements OnInit {
       }
 
     })
+
 
   }
 
@@ -113,6 +122,8 @@ export class PostModalComponent implements OnInit {
 
   openComment(){
     this.userWantsToComment = !this.userWantsToComment;
+    this.userWantsToEdit = false;
+
   }
 
   commentPostForm(){
@@ -125,15 +136,96 @@ export class PostModalComponent implements OnInit {
     
   }
 
+  // CREATE COMMENT
+
   commentPost(values: any){
     let formData = new FormData();
     formData.append('userId', this.connectedUserId);
     formData.append('postId', this.postId);
     formData.append('content', values.comment_content);
+
     this.myUserActions.commentPost(formData).subscribe( response => {
-      console.log(response)
+      console.log(response);
     })
 
+    // O que fiz aqui tb posso fazer para atualizar os likes no timeline component
+    setTimeout(() => {
+      this.myUserActions.getPostComments(this.postInfo.post_id).subscribe(commentsData => { 
+        // Talvez aplicar aqui um loading spinner
+        this.messageNotFound = false;
+        
+        this.commentsArray = commentsData["postComments"];
+        for (let index = 0; index < this.postsArray.length; index++) {
+          
+          let posicaoIndex = this.postsArray[index];
+
+          if(posicaoIndex["post_id"] === this.postInfo.post_id){
+            posicaoIndex["commentsNumber"]++;
+          }
+       
+        }
+
+      })
+    }, 500)  
+
   }
+
+  // CREATE COMMENT
+
+
+  // UPDATE COMMENT
+
+  openEditBox(commentId:number, commentContent: string){
+    this.commentIdToEdit = commentId;
+    console.log(this.commentIdToEdit);
+    console.log(commentContent);
+    this.commentContentToEdit = commentContent;
+    this.userWantsToEdit = true;
+    this.userWantsToComment = false;
+
+  }
+
+  editComment(values: any){
+    let formData = new FormData();
+    formData.append('content', values.comment_content);
+
+    this.myUserActions.editComment(this.commentIdToEdit, formData).subscribe(response => {
+      setTimeout(() => {
+        this.myUserActions.getPostComments(this.postInfo.post_id).subscribe(commentsData => { 
+          // Talvez aplicar aqui um loading spinner
+         this.commentsArray = commentsData["postComments"];
+        })
+      }, 500)  
+    })
+  }
+  // UPDATE COMMENT
+
+
+
+  // DELETE COMMENT
+
+  deleteComment(commentId:number){
+    this.myUserActions.deleteComment(commentId).subscribe(data => {
+      console.log(data);
+    })
+
+    setTimeout(() => {
+      this.myUserActions.getPostComments(this.postInfo.post_id).subscribe(commentsData => { 
+        // Talvez aplicar aqui um loading spinner
+        
+        this.commentsArray = commentsData["postComments"];
+        if(this.commentsArray === undefined){
+          this.messageNotFound = true;
+        }
+
+
+      })
+    }, 500)  
+    
+  }
+  // DELETE COMMENT
+
+
+
 
 }
