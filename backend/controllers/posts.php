@@ -1,5 +1,9 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+
     require("models/post.php");
     
     require_once("validators/postValidator.php");
@@ -72,11 +76,9 @@
             echo '{"id": '.$id.', "message": "Success"}';
         } else{
             header("HTTP/1.1 400 Bad Request");
-            echo '{"message": "Failure"}';
+            echo '{"message": "Wrong Information"}';
         }
     }
-
-
 
 
     else if($_SERVER["REQUEST_METHOD"] === "PUT"){

@@ -10,10 +10,13 @@ import { UserActionsService } from '../user-actions/user-actions.service';
   styleUrls: ['./post-modal.component.scss']
 })
 export class PostModalComponent implements OnInit {
+
   // User Edit Permissions
   userWantsToEdit: boolean;
   commentContentToEdit: string = "";
   commentIdToEdit: number;
+  userWantsToComment: boolean = false;
+
   // User Edit Permissions
 
 
@@ -29,7 +32,6 @@ export class PostModalComponent implements OnInit {
   connectedUserId: any;
   // Connected User Id
 
-  userWantsToComment: boolean = false;
 
   postId: any;
 

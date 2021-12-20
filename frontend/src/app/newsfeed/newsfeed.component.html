@@ -70,10 +70,18 @@
 
     <section class="area_posts">
 
-        <article class="area_novo_post">
+        <article *ngIf="userWantsToPost" class="area_novo_post">
 
-            <form>
-                <textarea name="" id="" placeholder="What are you up to?"></textarea>
+            <form [formGroup]="postForm" (ngSubmit)="createPost(postForm.value)">
+                <label for="novoPostId"></label>
+                <textarea 
+                id="novoPostId" 
+                placeholder="What are you up to?"
+                required
+                formControlName="post_content"
+                >
+                </textarea>
+
                 <div class="area_botao_post">
                     <ul>                      
                         <button type="submit"> Post </button>
@@ -81,6 +89,23 @@
                 </div>
             </form>
             
+        </article>
+
+        <article *ngIf="userWantsToEdit" class="area_novo_post">
+            
+                <form [formGroup]="postForm" (ngSubmit)="editPost(postForm.value)">
+                    <label for="novoPostId"></label>
+                    <textarea
+                    id="novoPostId"
+                    [placeholder]="postContentToEdit"
+                    formControlName="post_content"
+                    ></textarea>
+                    <div class="area_botao_post">
+                        <ul>                      
+                            <button type="submit"> Edit Post </button>
+                        </ul>
+                    </div>
+                </form>
         </article>
 
     
@@ -95,6 +120,11 @@
                 
                 <div class="nome_user_post">
                     <h3 (click)="goToUserPage(eachPost.user_id)"> {{eachPost.first_name}} @{{eachPost.username}} {{eachPost.last_name}} </h3>
+                </div>
+
+                <div *ngIf="eachPost.user_id === connectedUserId" class="area_edit_delete">
+                    <li (click)="openEditBox(eachPost.post_id, eachPost.content)" title="Edit"> <i class="fas fa-edit"></i> </li>
+                    <li (click)="deletePost(eachPost.post_id)" title="Delete"> <i class="fas fa-trash"></i> </li>
                 </div>
                 
             </div>

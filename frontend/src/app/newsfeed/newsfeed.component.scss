@@ -196,7 +196,7 @@ main{
             display: none;  /* Remove scrollbar space */
         }
 
-        .area_novo_post{
+        article.area_novo_post{
             width: 92%;
             height: 170px;
             background-color: white;
@@ -228,7 +228,7 @@ main{
                     height: 38px;
                     // background: red;
                     display: flex;
-                    justify-content: space-evenly;
+                    justify-content: right;
                     align-items: center;
                     float: right;
 
@@ -246,7 +246,7 @@ main{
                     }
 
                     button{
-                        width: 30%;
+                        // width: 30%;
                         height: 25px;
                         background-color: $themeColor;
                         border: 0;
@@ -254,6 +254,7 @@ main{
                         color: white;
                         font-size: 1.07em;
                         border: 1;
+                        margin-right: 15px;
 
                         &:hover{
                             cursor: pointer;
@@ -263,6 +264,7 @@ main{
 
             }
         }
+        
 
         article.posts_carregados{
             width: 92%;
@@ -281,7 +283,6 @@ main{
 
                 div.imagem_user_post{
                     width: 55px;
-                    // height: 65px;
                     margin: 8px;
                     display: flex;
                     align-items: center;
@@ -317,6 +318,27 @@ main{
                         &:hover{
                             cursor: pointer;
                         }
+                    }
+                }
+
+                div.area_edit_delete{
+                    position: relative;
+                    left: 10%;
+                    height: 55px;
+                    display: flex;
+                    align-items: center;
+                    float:right;
+                
+                    li{
+                        margin: 0px 13px;
+                        list-style: none;
+                        // color: rgb(134, 23, 23);
+                        font-size: 20px;
+                
+                        &:hover{
+                            cursor: pointer;
+                        }
+                
                     }
                 }
             }

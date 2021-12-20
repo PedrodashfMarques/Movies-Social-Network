@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth-service/auth.service';
 import { User } from '../shared/user.model';
@@ -12,10 +12,18 @@ import { UserActionsService } from '../user-actions/user-actions.service';
 })
 export class NewsfeedComponent implements OnInit {
 
-  imagemTeste: string = "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/33/33fc65586f9b4615f95209a03398d8c8b2729f0b_full.jpg";
+  postForm : FormGroup;
+
+  // User Edit Permissions
+  userWantsToEdit: boolean;
+  postContentToEdit: string = "";
+  postIdToEdit: number;
+  userWantsToPost: boolean = true;
+  // User Edit Permissions
+
+  // Placeholders
   bootcamp: string = "https://images8.alphacoders.com/926/thumb-1920-926492.jpg";
-  mensagem: string = "Posted November 8th, 2021 at 17h28";
-  contentPost: string ="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis alias magni, iusto quo vel id nam. Deleniti blanditiis eius at earum, enim incidunt, expedita tenetur impedit illum, molestias ab porro?"
+  // Placeholders
 
 
   imagesPath = "http://localhost/backend/";
@@ -25,14 +33,15 @@ export class NewsfeedComponent implements OnInit {
 
   banana = false;
   // Connected User Id
-  connectedUserId: number;
+  connectedUserId: any;
   // Connected User Id
   
   // Post Likes and Dislikes
   postIsLiked: boolean;
   postIsDisliked: boolean;
-// Post Likes and Dislikes
+  // Post Likes and Dislikes
 
+  
   firstName: string;
   username: string;
   lastName: string;
@@ -63,6 +72,8 @@ export class NewsfeedComponent implements OnInit {
     this.myAuthService.userSubject.subscribe((data: User) => {
       this.connectedUserId = data.userId;
     })
+
+    this.createPostForm();
 
     this.myUserActions.getUserData(this.connectedUserId).subscribe(data => {
       this.firstName = data[0].userData.first_name;
@@ -102,6 +113,34 @@ export class NewsfeedComponent implements OnInit {
 
   }
 
+  createPostForm(){
+    this.postForm = this.myFormBuilder.group({
+      'post_content' : ['', Validators.compose([
+        Validators.required, 
+        Validators.minLength(3), 
+        Validators.maxLength(5000)])]
+      })
+  }
+
+
+  createPost(values: any){
+    let formData = new FormData();
+    formData.append('user_id', String(this.connectedUserId));
+    formData.append('content', values.post_content);
+
+    this.myUserActions.createPost(formData).subscribe(response => {
+      console.log(response)
+    })
+
+    setTimeout(() => {
+      this.myUserActions.getAllPosts().subscribe(postsData => { 
+        // Talvez aplicar aqui um loading spinner
+        this.allPostsArray = postsData;
+      })
+    }, 500)  
+
+  }
+
   likePost(postId:number){
     this.myAuthService.userSubject.subscribe(response => {
 
@@ -130,6 +169,36 @@ export class NewsfeedComponent implements OnInit {
     }, errorRes => {
       console.log(errorRes)
     })
+
+  }
+
+  openEditBox(postId, postContent: string){
+    this.postIdToEdit = postId;
+    this.postContentToEdit = postContent;
+    this.userWantsToEdit = !this.userWantsToEdit;
+    this.userWantsToPost = !this.userWantsToPost;
+
+  }
+
+  editPost(values: any){
+    let formData = new FormData();
+
+    formData.append('content', values.post_content);
+
+    this.myUserActions.editPost(this.connectedUserId, this.postIdToEdit, formData).subscribe(response => {
+      console.log(response)
+    })
+
+
+  }
+
+  deletePost(postId: number){
+    this.userWantsToEdit = false;
+    console.log(postId)
+
+    this.myUserActions.deletePost(postId).subscribe(response => {
+      console.log(response);
+    });
 
   }
 

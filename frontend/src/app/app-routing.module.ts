@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth-guard/auth-guard';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { LoginComponent } from './login/login.component';
 import { NewsfeedComponent } from './newsfeed/newsfeed.component';
@@ -17,28 +18,27 @@ import { WorldComponent } from './world/world.component';
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  
+  // {path: "*", canActivate: [AuthGuard],
   // Route Guard apartir daqui
-  {path: 'newsfeed', component: NewsfeedComponent},
-
+  {path: 'newsfeed', component: NewsfeedComponent, canActivate:[AuthGuard]},
   
-  {path: 'world', component: WorldComponent, children: [
+  {path: 'world', component: WorldComponent, canActivate:[AuthGuard], children: [
     {path: 'users', component: UsersFilterComponent},
     {path: 'posts', component: PostsFilterComponent},
   ]},
 
-  {path: 'profile/:id', component: ProfilePageComponent, children: [
+  {path: 'profile/:id', component: ProfilePageComponent, canActivate:[AuthGuard], children: [
     {path: 'timeline', component: TimelineComponent},
     {path: 'about', component: AboutComponent},
     {path: 'followers', component: FollowersComponent},
     {path: 'following', component: FollowingComponent},
   ]},
 
-  {path: 'settings', component: UserSettingsComponent},
+  {path: 'settings', component: UserSettingsComponent, canActivate:[AuthGuard]},
 
 
   {path: 'not-found', component: ErrorPageComponent}, // Aqui defino uma nova rota que irá existir.
-  {path: '**', redirectTo: '/not-found', pathMatch: 'full'},
+  {path: '**', redirectTo: '', pathMatch: 'full'},
    // Aqui digo que se o URL digitado não existir na minha aplicação, então faz o redirecionamento para a rota /not-found
 
 ];

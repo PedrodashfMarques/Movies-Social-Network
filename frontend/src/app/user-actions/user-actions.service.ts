@@ -59,6 +59,36 @@ export class UserActionsService {
 
   }
 
+  createPost(data: FormData){
+    const url = this.api + "posts";
+
+    let object = {};
+    data.forEach((value, key) => object[key] = value);
+    let dataConvertedJson = JSON.stringify(object);
+
+    return this.myHttp.post(url, dataConvertedJson);
+  }
+
+  editPost(connectedUserId, postId, data: FormData){
+    const url = this.api + "posts" + "/" + postId;
+
+    let object = {};
+    data.forEach((value, key) => object[key] = value);
+    let dataConvertedJson = JSON.stringify(object);
+
+    console.log(object);
+
+    return this.myHttp.put(url, {
+      user_id: connectedUserId,
+      content: object
+    });
+  }
+
+  deletePost(postId){
+    const url = this.api + "posts" + "/" + postId;
+    return this.myHttp.delete(url);
+  }
+
   likeDislikePost(postId, connectedUserId){
 
     const url = this.api + 'postsActions';
@@ -70,16 +100,18 @@ export class UserActionsService {
 
   }
 
+
+
   commentPost(data){
     const url = this.api + "comments";
 
     let object = {};
     data.forEach((value, key) => object[key] = value);
-    let jsonConverted = JSON.stringify(object);
+    let dataConvertedJson = JSON.stringify(object);
 
     // console.log(jsonConverted);
 
-    return this.myHttp.post(url, jsonConverted, {responseType: 'json'});
+    return this.myHttp.post(url, dataConvertedJson, {responseType: 'json'});
 
   }
 
