@@ -349,6 +349,24 @@
 
         }
 
+        public function getAllUsers(){
+            $query = $this->dataBase->prepare("
+            SELECT
+                user_id,
+                first_name,
+                username,
+                last_name,
+                user_image,
+                is_verified
+            FROM users
+            ORDER BY first_name ASC
+            ");
+
+            $query->execute();
+
+            return $query->fetchAll(PDO:: FETCH_ASSOC);
+        }
+
         public function findUsers($data){
             $query = $this->dataBase->prepare("
             SELECT
@@ -371,6 +389,5 @@
         }
 
     }
-  
     
 ?>

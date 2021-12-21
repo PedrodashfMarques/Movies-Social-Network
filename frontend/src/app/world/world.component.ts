@@ -31,6 +31,7 @@ export class WorldComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.getUsers();
     // this.showUsersFilter();
   }
 
@@ -45,6 +46,13 @@ export class WorldComponent implements OnInit {
   //   this.postsRouteClicked = true;
   //   this.usersRouteClicked = false;
   // }
+
+  getUsers(){
+    this.myUserActions.getAllUsers().subscribe(allUsers => {
+      this.usersFoundArray = allUsers;
+    })
+
+  }
 
   pesquisarUsername(){
     let userNameAPesquisar = this.userNameSearch.nativeElement.value.toLowerCase();
@@ -68,5 +76,7 @@ export class WorldComponent implements OnInit {
     })
 
   }
+
+  
 
 }

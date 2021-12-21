@@ -184,6 +184,13 @@ export class UserActionsService {
     return this.myHttp.put(url, jsonConverted, {responseType: 'json'});
   }
 
+  getAllUsers(){
+    const url = this.api + 'users';
+
+    return this.myHttp.get(url);
+
+  }
+
   findUser(data){
     const url = this.api + 'findUsers';
 

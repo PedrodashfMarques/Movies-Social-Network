@@ -78,6 +78,10 @@ use ReallySimpleJWT\Token;
                 echo '{"message": "This user does not exist"}';
             }
         } else {
+            $result = $userModel->getAllUsers();
+            http_response_code(202);
+            echo json_encode($result);
+
             // Aplicar lógica para ir buscar todos os utilizadores para listar no World Component
         }
         

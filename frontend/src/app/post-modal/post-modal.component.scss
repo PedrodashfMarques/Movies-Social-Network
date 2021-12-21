@@ -32,12 +32,12 @@ main{
             box-shadow: 0 2px 8px rgba(0,0,0,0.26);
             transition: width 0.7s;
             background: white;
-           overflow-y : scroll;
+            overflow-y : scroll;
     
-        &::-webkit-scrollbar {
-            width: 0;
-            display: none;  /* Remove scrollbar space */
-        }
+            &::-webkit-scrollbar {
+                width: 0;
+                display: none;  /* Remove scrollbar space */
+            }
         
             .alert-box-options{
                 text-align: right;

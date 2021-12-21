@@ -23,7 +23,8 @@ const routes: Routes = [
   {path: 'newsfeed', component: NewsfeedComponent, canActivate:[AuthGuard]},
   
   {path: 'world', component: WorldComponent, canActivate:[AuthGuard], children: [
-    {path: 'users', component: UsersFilterComponent}
+    {path: 'users', component: UsersFilterComponent},
+    // {path: 'posts', component: PostsFilterComponent}
   ]},
 
   {path: 'profile/:id', component: ProfilePageComponent, canActivate:[AuthGuard], children: [

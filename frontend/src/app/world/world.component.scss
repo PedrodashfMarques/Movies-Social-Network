@@ -11,7 +11,7 @@ main{
 
     section.area_filters{
         width: 42%;
-        background-color: dodgerblue;
+        background-color: white;
         margin: 10px;
 
         div.caixa_child_routes{
@@ -48,8 +48,10 @@ main{
     
     section.area_world{
         width: 100%;
+        // height: 85vh;
         background-color: white;
         margin: 10px;
+        
 
         .caixa_filters{
             width: 100%;
@@ -83,19 +85,31 @@ main{
 
         .area_child_routing{
             width: 100%;
-            height: 751px;
+            height: 75vh;
             display: flex;
             justify-content: center;
-            // align-items: center;
+            overflow-y : scroll;
+            background: white;
+    
+            &::-webkit-scrollbar {
+                width: 0;
+                display: none;  /* Remove scrollbar space */
+            }
 
             article.area_quem_postou{
-                width: 100%;
+                width: 90%;
                 height: 100px;
                 margin: 25px auto;
-                background: orange;
+                background-color: #202020;
+
                 display: flex;
                 justify-content: left;
                 align-items: center;
+                border-radius: 5px;
+
+                &:hover{
+                    cursor: pointer;
+                }
             
                 div.imagem_user_post{
                     width: 80px;
@@ -140,7 +154,7 @@ main{
                 width: 100%;
                 // height: 400px;
                 margin: 35px auto;
-                background-color: green;
+                // background-color: green;
 
             }
         }
