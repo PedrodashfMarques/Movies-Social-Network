@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserActionsService } from '../user-actions/user-actions.service';
 
+
 @Component({
   selector: 'app-world',
   templateUrl: './world.component.html',
@@ -78,5 +79,4 @@ export class WorldComponent implements OnInit {
   }
 
   
-
 }

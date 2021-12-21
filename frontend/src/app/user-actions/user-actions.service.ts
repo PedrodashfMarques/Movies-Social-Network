@@ -186,7 +186,6 @@ export class UserActionsService {
 
   getAllUsers(){
     const url = this.api + 'users';
-
     return this.myHttp.get(url);
 
   }

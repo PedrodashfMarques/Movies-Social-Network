@@ -77,6 +77,8 @@ use ReallySimpleJWT\Token;
                 http_response_code(404);
                 echo '{"message": "This user does not exist"}';
             }
+
+            
         } else {
             $result = $userModel->getAllUsers();
             http_response_code(202);
