@@ -22,7 +22,7 @@ export class TimelineComponent implements OnInit {
 
 
   // Post Likes and Dislikes
-    postIsLiked: boolean = false;
+    postIsLiked: boolean;
   // Post Likes and Dislikes
 
 
@@ -47,6 +47,8 @@ export class TimelineComponent implements OnInit {
     this.myUserActions.allUserData.subscribe(data => {
       this.userPostsArray = data[0].userPosts;
 
+      console.log(this.userPostsArray)
+
       console.log(data[0].userPosts[0].isLiked);
 
       let userVerification = data[0].userData.is_verified;
@@ -61,7 +63,8 @@ export class TimelineComponent implements OnInit {
     // Conforme tal informação aplicar uma classe ou outra / *ngIf para adicionar um <i> ou outro
   }
 
-  likePost(postId:number){
+  likePost(postId:number, index){
+    console.log(index)
     let connectedUserId: number;
     this.myAuthService.userSubject.subscribe(response => {
 
@@ -79,13 +82,11 @@ export class TimelineComponent implements OnInit {
           
           if(responseData['liked'] === true){
             posicaoIndex["likesNumber"]++
-            this.postThatWasLiked = postId;
             
             this.postIsLiked = !this.postIsLiked;
           } else {
             posicaoIndex["likesNumber"]--
-            this.postIsLiked = !this.postIsLiked;
-            this.postThatWasLiked = postId;
+            this.postIsLiked = false ;
 
           }
         }

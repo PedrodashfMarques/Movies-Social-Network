@@ -33,12 +33,12 @@
             <div class="area_likes_comments">
                 <ul>
 
-                    <li (click)="likePost(eachPost.post_id)">
-                        <!-- [ngClass]="menuAberto == true ? 'menuAbriu' : 'desapareceIcon'" -->
-                            <i *ngIf="postIsLiked" class="far fa-heart"></i>
-                            <i *ngIf="!postIsLiked " class="fas fa-heart"></i>
+                    <li (click)="likePost(eachPost.post_id, i)">
+                            <i *ngIf="eachPost.isLiked === '0'" class="far fa-heart"></i>
+                            <i *ngIf="eachPost.isLiked === '1'" class="fas fa-heart"></i>
                         <span> {{eachPost.likesNumber}} </span>
                     </li>
+                    
                     
                     <li> <i class="far fa-comment"></i> <span> 0 </span> </li>
                     <!-- Este li tb vai ter um routerLink para o post/:id do post-->
