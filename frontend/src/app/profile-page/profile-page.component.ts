@@ -74,19 +74,19 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.idDoUser = +this.myActiveRoute.snapshot.params['id'];
+    
     if(!Number(this.idDoUser)){
       this.myRouter.navigate(['newsfeed']);
     } else{
-      this.myUserActions.checkIfUserExists(this.idDoUser).subscribe(response => {
-      
-      }, error => {
-        if(error.error.message === "This user does not exist"){
-          this.myRouter.navigate(['newsfeed'])
-        }
-      });
-    }
-  
-    
+        this.myUserActions.checkIfUserExists(this.idDoUser).subscribe(response => {
+          // return
+        }, error => {
+          if(error.error.message === "This user does not exist"){
+            this.myRouter.navigate(['newsfeed'])
+          }
+        });
+      }
+
 
     this.myAuthService.userSubject.subscribe(data => {
 
@@ -141,6 +141,7 @@ export class ProfilePageComponent implements OnInit {
     // this.showTimeline();
   }
 
+
   showTimeline(){
     this.myRouter.navigate(['timeline'], {relativeTo: this.myActiveRoute});
 
@@ -150,6 +151,7 @@ export class ProfilePageComponent implements OnInit {
     this.followingClicked = false;
   }
   
+
   showAboutComponent(){
     this.myRouter.navigate(['about'], {relativeTo: this.myActiveRoute});
 
@@ -158,6 +160,7 @@ export class ProfilePageComponent implements OnInit {
     this.followersClicked = false;
     this.followingClicked = false;
   }
+
 
   showFollowersComponent(){
     this.myRouter.navigate(['followers'], {relativeTo: this.myActiveRoute});
@@ -168,6 +171,7 @@ export class ProfilePageComponent implements OnInit {
     this.followingClicked = false;
   }
 
+
   showFollowingComponent(){
     this.myRouter.navigate(['following'], {relativeTo: this.myActiveRoute});
 
@@ -177,9 +181,10 @@ export class ProfilePageComponent implements OnInit {
     this.followingClicked = true;
   }
 
+
   followUser(){
     this.myUserActions.followUnfollowUser(this.idDoUser, this.connectedUserId).subscribe(response => {
-      console.log();
+      // console.log();
       if(response['message'] === 'User followed!'){
         this.numFollowers++
         this.followUnfollowMessage = "Unfollow";
@@ -188,9 +193,7 @@ export class ProfilePageComponent implements OnInit {
         this.numFollowers--
         this.followUnfollowMessage = "Follow";
       }
-
     })
-
   }
 
 }

@@ -83,6 +83,7 @@
 
         }
 
+        
         public function deletePost($id){
             $query = $this->dataBase->prepare("
             DELETE FROM posts
@@ -93,6 +94,7 @@
                 $id
             ]);
         }
+
 
         public function getItemByUser($id, $userId){
             $query = $this->dataBase->prepare("
@@ -108,7 +110,6 @@
             ]);
 
             return $query->fetch( PDO::FETCH_ASSOC );
-
         }
 
 

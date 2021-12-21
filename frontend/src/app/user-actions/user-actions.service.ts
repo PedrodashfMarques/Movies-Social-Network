@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject} from 'rxjs';
 import { tap } from "rxjs/operators";
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth-service/auth.service';
@@ -17,13 +17,14 @@ export class UserActionsService {
 
   allUserData = new BehaviorSubject<UserResponseData>(null);
 
+  usersFoundArray = new BehaviorSubject(null);
+
   constructor(private myAuthService: AuthService, private myHttp: HttpClient) { }
 
   // This will be the id's of the users 
 
   checkIfUserExists(urlUserId){
     const url = this.api + 'users' + "/" + urlUserId;
-
     return this.myHttp.get(url);
 
   }
@@ -39,7 +40,7 @@ export class UserActionsService {
 
   private handleUserData(resData){
     this.allUserData.next(resData);
-    console.log(this.allUserData.value);
+    // console.log(this.allUserData.value);
 
   }
 
@@ -181,6 +182,25 @@ export class UserActionsService {
     // console.log(jsonConverted);
 
     return this.myHttp.put(url, jsonConverted, {responseType: 'json'});
+  }
+
+  findUser(data){
+    const url = this.api + 'findUsers';
+
+    let object = {};
+    data.forEach((value, key) => object[key] = value);
+
+    let jsonConverted = JSON.stringify(object);
+
+    // console.log(jsonConverted);
+
+    return this.myHttp.post(url, jsonConverted).pipe(tap(resData => {
+      this.handleUsersArray(resData);
+    }));   
+  }
+
+  private handleUsersArray(resData){
+    this.usersFoundArray.next(resData);
   }
 
 }

@@ -30,7 +30,7 @@ $controllers = [
     "comments",
     "countries",
     "checkFollowUnfollow",
-    "findusers"
+    "findUsers"
 ];
 
     $url_parts = explode("/", $_SERVER["REQUEST_URI"]);

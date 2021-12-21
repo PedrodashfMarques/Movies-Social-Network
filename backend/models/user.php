@@ -9,7 +9,8 @@
             user_id, 
             email, 
             first_name, 
-            username, last_name, 
+            username, 
+            last_name, 
             password, 
             location, 
             small_bio, 
@@ -346,6 +347,27 @@
 
             return $query->fetch(PDO::FETCH_ASSOC);
 
+        }
+
+        public function findUsers($data){
+            $query = $this->dataBase->prepare("
+            SELECT
+                user_id,
+                first_name,
+                username,
+                last_name,
+                user_image,
+                is_verified
+            FROM 
+                users
+            WHERE 
+                CONCAT(first_name, username, last_name)
+            LIKE '%$data%'
+            ");
+
+            $query->execute();
+
+            return $query->fetchAll( PDO:: FETCH_ASSOC );
         }
 
     }

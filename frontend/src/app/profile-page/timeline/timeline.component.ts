@@ -47,9 +47,8 @@ export class TimelineComponent implements OnInit {
     this.myUserActions.allUserData.subscribe(data => {
       this.userPostsArray = data[0].userPosts;
 
-      console.log(this.userPostsArray)
-
-      console.log(data[0].userPosts[0].isLiked);
+      // console.log(this.userPostsArray);
+      // console.log(data[0].userPosts[0].isLiked);
 
       let userVerification = data[0].userData.is_verified;
 
@@ -64,15 +63,18 @@ export class TimelineComponent implements OnInit {
   }
 
   likePost(postId:number, index){
-    console.log(index)
+
+    // console.log(index);
+
     let connectedUserId: number;
+
     this.myAuthService.userSubject.subscribe(response => {
 
       connectedUserId = response.userId;
     })
     
     this.myUserActions.likeDislikePost(postId, connectedUserId).subscribe(responseData => {
-      console.log(postId);
+      // console.log(postId);
 
       for (let index = 0; index < this.userPostsArray.length; index++) {
 

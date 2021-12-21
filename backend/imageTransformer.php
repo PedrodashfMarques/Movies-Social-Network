@@ -10,10 +10,11 @@
         ];
 
         $decodedImage = base64_decode($sanitizedData["user_image"]);
-
+        
         $finfo = new finfo(FILEINFO_MIME_TYPE);
 
         $detectedFormat = $finfo->buffer($decodedImage);
+
 
         if(in_array($detectedFormat, $allowedFileTypes)){
 

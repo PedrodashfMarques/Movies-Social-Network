@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserActionsService } from '../user-actions/user-actions.service';
 
 @Component({
   selector: 'app-world',
@@ -7,7 +8,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./world.component.scss']
 })
 export class WorldComponent implements OnInit {
-
   @ViewChild('userName') userNameSearch: ElementRef;
 
   userIsVerified: boolean = true;
@@ -18,11 +18,16 @@ export class WorldComponent implements OnInit {
 
   postsRouteClicked: boolean = false;
 
-  usersFoundArray: [] = [];
+  usersFoundArray: any = [];
+
+  imagesPath = "http://localhost/backend/";
+  userProfileImage: string;
+  imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
 
   constructor(
     private myRouter: Router, 
-    private myActiveRoute: ActivatedRoute
+    private myActiveRoute: ActivatedRoute,
+    private myUserActions: UserActionsService
     ) { }
 
   ngOnInit(): void {
@@ -44,7 +49,24 @@ export class WorldComponent implements OnInit {
   pesquisarUsername(){
     let userNameAPesquisar = this.userNameSearch.nativeElement.value.toLowerCase();
 
-    console.log(userNameAPesquisar)
+    let formData = new FormData();
+    formData.append('userNameSearch', userNameAPesquisar);
+
+    this.myUserActions.findUser(formData).subscribe(response => {
+      // console.log(response);
+      this.usersFoundArray = response;
+      console.log(this.usersFoundArray);
+    })
+    
+  }
+
+  goToUserProfile(id: number){
+
+    this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
+    .then(()=>{
+        this.myRouter.navigate(['/profile/',id, 'timeline']);
+    })
+
   }
 
 }

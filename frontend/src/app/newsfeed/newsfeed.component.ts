@@ -113,6 +113,7 @@ export class NewsfeedComponent implements OnInit {
 
   }
 
+
   createPostForm(){
     this.postForm = this.myFormBuilder.group({
       'post_content' : ['', Validators.compose([
@@ -122,7 +123,7 @@ export class NewsfeedComponent implements OnInit {
       })
   }
 
-
+  
   createPost(values: any){
     let formData = new FormData();
     formData.append('user_id', String(this.connectedUserId));
