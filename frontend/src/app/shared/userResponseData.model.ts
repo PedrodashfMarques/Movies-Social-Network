@@ -44,5 +44,6 @@ export interface UserResponseData {
         created_at : Date,
         content: string,
         likesNumber: string,
+        isLiked: number
       }>,
 }

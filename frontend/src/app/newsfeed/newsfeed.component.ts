@@ -123,7 +123,6 @@ export class NewsfeedComponent implements OnInit {
       })
   }
 
-  
   createPost(values: any){
     let formData = new FormData();
     formData.append('user_id', String(this.connectedUserId));
@@ -178,7 +177,6 @@ export class NewsfeedComponent implements OnInit {
     this.postContentToEdit = postContent;
     this.userWantsToEdit = !this.userWantsToEdit;
     this.userWantsToPost = !this.userWantsToPost;
-
   }
 
   editPost(values: any){
@@ -189,7 +187,6 @@ export class NewsfeedComponent implements OnInit {
     this.myUserActions.editPost(this.postIdToEdit, formData).subscribe(response => {
       console.log(response);
     })
-
 
   }
 
@@ -203,6 +200,7 @@ export class NewsfeedComponent implements OnInit {
 
   }
 
+
   goToUserPage(userId: number){
     this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
     .then(()=>{
@@ -210,10 +208,10 @@ export class NewsfeedComponent implements OnInit {
     })
   }
 
+
   abrirPost(cadaPost){
     this.postModalAberto = !this.postModalAberto;
     this.postLoaded = cadaPost;
-    // console.log(this.postLoaded);
   }
 
 

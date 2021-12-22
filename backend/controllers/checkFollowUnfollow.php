@@ -1,17 +1,14 @@
 <?php
 
-
     require("models/user.php");
 
     $userModel = new User();
 
-
-    if($_SERVER["REQUEST_METHOD"] === "GET"){}
-
-
+    // if($_SERVER["REQUEST_METHOD"] === "GET"){}
+    
     if($_SERVER["REQUEST_METHOD"] === "POST"){
 
-         $connectedUserId = json_decode(file_get_contents("php://input"), true);
+        $connectedUserId = json_decode(file_get_contents("php://input"), true);
 
         if(!empty($id) && 
             !empty($connectedUserId) && 

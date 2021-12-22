@@ -16,11 +16,8 @@ use ReallySimpleJWT\Token;
     // Image Transformer
     require_once("imageTransformer.php");
     // Image Transformer
-
-
-
+    
     $userModel = new User();
-
     $baseModel = new Base();
 
 
@@ -89,7 +86,7 @@ use ReallySimpleJWT\Token;
         
     }
 
-
+    
     else if($_SERVER["REQUEST_METHOD"] === "POST"){
 
         $connectedUserId = json_decode(file_get_contents("php://input"), true);

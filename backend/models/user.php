@@ -351,15 +351,15 @@
 
         public function getAllUsers(){
             $query = $this->dataBase->prepare("
-            SELECT
-                user_id,
-                first_name,
-                username,
-                last_name,
-                user_image,
-                is_verified
-            FROM users
-            ORDER BY first_name ASC
+                SELECT
+                    user_id,
+                    first_name,
+                    username,
+                    last_name,
+                    user_image,
+                    is_verified
+                FROM users
+                ORDER BY first_name ASC
             ");
 
             $query->execute();
@@ -380,10 +380,12 @@
                 users
             WHERE 
                 CONCAT(first_name, username, last_name)
-            LIKE '%$data%'
+            LIKE ?
             ");
 
-            $query->execute();
+            $query->execute([
+                "%".$data."%"
+            ]);
 
             return $query->fetchAll( PDO:: FETCH_ASSOC );
         }

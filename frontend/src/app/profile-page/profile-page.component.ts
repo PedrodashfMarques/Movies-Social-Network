@@ -82,7 +82,7 @@ export class ProfilePageComponent implements OnInit {
           // return
         }, error => {
           if(error.error.message === "This user does not exist"){
-            this.myRouter.navigate(['newsfeed'])
+            this.myRouter.navigate(['newsfeed']);
           }
         });
       }
