@@ -6,8 +6,8 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
 header("Content-Type: application/json");
 
-require("vendor/autoload.php");
 
+require("vendor/autoload.php");
 
 define("CONFIG", parse_ini_file(".env"));
 
@@ -20,6 +20,14 @@ define("ROOT",
         "/"
     )
 );
+
+
+
+$JWTDecoded = "";
+
+
+
+
 
 $controllers = [
     "login",
@@ -47,5 +55,7 @@ $controllers = [
     }
 
     require("controllers/" . $controller . ".php");
+
+
 
 ?>

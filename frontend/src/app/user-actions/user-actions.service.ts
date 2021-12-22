@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders  } from '@angular/common/http';
+import { HttpClient, HttpHeaders, JsonpClientBackend  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject} from 'rxjs';
 import { tap } from "rxjs/operators";
@@ -21,7 +21,13 @@ export class UserActionsService {
 
   constructor(private myAuthService: AuthService, private myHttp: HttpClient) { }
 
-  // This will be the id's of the users 
+  
+    JWToken = localStorage.getItem('authToken');
+
+    // JSON Parsed
+      JWTokenParsed = JSON.parse(this.JWToken)["X-Auth-Token"];
+    // JSON Parsed
+
 
   checkIfUserExists(urlUserId){
     const url = this.api + 'users' + "/" + urlUserId;
@@ -46,12 +52,11 @@ export class UserActionsService {
 
   getAllPosts(){
     // parafazer a routeValidation vou necessitar de ir buscar o JWT ao local Storage
-    let JWToken = localStorage.getItem('authToken');
-    
     const url = this.api + 'posts';
 
-    return this.myHttp.get(url);
+    
 
+    return this.myHttp.get(url);
   }
 
   getPostData(postId){
@@ -70,18 +75,20 @@ export class UserActionsService {
   createPost(data: FormData){
     const url = this.api + "posts";
 
-    let JWToken = localStorage.getItem('authToken');
-    
-    const headers = new HttpHeaders()
-    .set('x-auth-token', JWToken);
-
-    // console.log(headers.get('x-auth-token'));
-
+    // formData Convert
     let object = {};
     data.forEach((value, key) => object[key] = value);
     let dataConvertedJson = JSON.stringify(object);
+    // formData Convert
 
-    return this.myHttp.post(url, dataConvertedJson, {});
+    let dataParsed = JSON.parse(dataConvertedJson);
+
+    return this.myHttp.post(url, {
+      user_id: dataParsed["user_id"],
+      content: dataParsed["content"],
+      authToken: this.JWTokenParsed
+    });
+
   }
 
   editPost( postId, data: FormData){

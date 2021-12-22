@@ -110,7 +110,6 @@ export class NewsfeedComponent implements OnInit {
       }
     });
 
-
   }
 
 
@@ -189,6 +188,7 @@ export class NewsfeedComponent implements OnInit {
     })
 
   }
+  
 
   deletePost(postId: number){
     this.userWantsToEdit = false;

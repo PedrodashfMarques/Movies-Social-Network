@@ -40,8 +40,8 @@
                     <img *ngIf="!userProfileImage" src="{{imagemDefault}}" alt="">
                 </div>    
                 
-                <div class="botao_follow">
-                    <button *ngIf="CantFollowMyself" (click)="followUser()"> {{followUnfollowMessage}} </button>
+                <div class="botao_follow" >
+                    <button *ngIf="CantFollowMyself" (click)="followUser()" > {{followUnfollowMessage}} </button>
                 </div>
             </div>
 

@@ -369,18 +369,18 @@
 
         public function findUsers($data){
             $query = $this->dataBase->prepare("
-            SELECT
-                user_id,
-                first_name,
-                username,
-                last_name,
-                user_image,
-                is_verified
-            FROM 
-                users
-            WHERE 
-                CONCAT(first_name, username, last_name)
-            LIKE ?
+                SELECT
+                    user_id,
+                    first_name,
+                    username,
+                    last_name,
+                    user_image,
+                    is_verified
+                FROM 
+                    users
+                WHERE 
+                    CONCAT(first_name, username, last_name)
+                LIKE ?
             ");
 
             $query->execute([

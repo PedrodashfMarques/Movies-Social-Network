@@ -7,21 +7,24 @@
     $postModel = new Post();
 
 
-    // if(in_array($_SERVER["REQUEST_METHOD"], ["POST", "PUT", "DELETE"]) ) {
+    if(in_array($_SERVER["REQUEST_METHOD"], ["POST", "PUT", "DELETE"]) ) {
+        $data = json_decode(file_get_contents("php://input"), true);
 
-    //     $userId = $postModel->routeRequiresValidation();
+        // var_dump($data["authToken"]);
 
-    //     if(empty($userId)){
-    //         header("HTTP/1.1 401 Unauthorized");
-    //         die('{"message":"Wrong or missing Auth Token"}');
-    //     }
+        $userId = $postModel->routeRequiresValidation($data["authToken"]);
 
-    //     if(!empty($id) && empty($postModel->getItemByUser($id, $userId))){
-    //         header("HTTP/1.1 403 Forbidden");
-    //         die('{"message": "You do not have permission to perform this action "}');
-    //     }
+        // if(empty($userId)){
+        //     header("HTTP/1.1 401 Unauthorized");
+        //     die('{"message":"Wrong or missing Auth Token"}');
+        // }
 
-    // }
+        // if(!empty($id) && empty($postModel->getItemByUser($id, $userId))){
+        //     header("HTTP/1.1 403 Forbidden");
+        //     die('{"message": "You do not have permission to perform this action "}');
+        // }
+
+    }
     
     if($_SERVER["REQUEST_METHOD"] === "GET"){
 
@@ -115,7 +118,7 @@
                 echo '{"message": "Bad Request"}';
             }
         }
-
+        
         // Existe a necessidade de perceber primeiro se o post existe antes de eliminar?
         // Porque assim , mesmo que o post n exista na base de dados com o id se eu tentar eliminar aparece a mensagem a dizer que eliminei um post inexistente
         

@@ -69,12 +69,12 @@ use ReallySimpleJWT\Token;
                 echo json_encode(array($userDataArray));
             }
 
-            
+
             if(empty($userInfo && empty($conUserFollowers) && empty($conUserFollowing))){
                 http_response_code(404);
                 echo '{"message": "This user does not exist"}';
             }
-
+            
             
         } else {
             $result = $userModel->getAllUsers();

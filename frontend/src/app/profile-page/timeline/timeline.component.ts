@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth-service/auth.service';
 import { UserActionsService } from 'src/app/user-actions/user-actions.service';
@@ -14,6 +14,8 @@ export class TimelineComponent implements OnInit {
   userIsVerified: any = false;
   mensagem: string = "Posted November 8th, 2021 at 17h28";
 
+  connectedUserId: number;
+
 
   postThatWasLiked;
 
@@ -27,7 +29,7 @@ export class TimelineComponent implements OnInit {
 
 
   // Post Content
-  userPostsArray: [];
+  userPostsArray: any | [] = [];
   // Post Content
 
 
@@ -42,21 +44,30 @@ export class TimelineComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    // this.myAuthService.autologin();
+    this.myAuthService.userSubject.subscribe(data => {
+      this.connectedUserId = data.userId;
+    });
 
-    this.myUserActions.allUserData.subscribe(data => {
-      this.userPostsArray = data[0].userPosts;
+    this.myUserActions.allUserData.subscribe((data: any) => {
+      if(data === null){
+        this.userPostsArray = [];
+
+      } else{
+        this.userPostsArray = data[0].userPosts;
+
+      }
 
       // console.log(this.userPostsArray);
       // console.log(data[0].userPosts[0].isLiked);
 
-      let userVerification = data[0].userData.is_verified;
+      // let userVerification = data[0].userData.is_verified;
+      // console.log(data[0].userData);
 
-      if(userVerification === 1 || userVerification === "1"){
-        this.userIsVerified = true;
-      } else {
-        this.userIsVerified = false
-      }
+      // if(userVerification === 1 || userVerification === "1"){
+      //   this.userIsVerified = true;
+      // } else {
+      //   this.userIsVerified = false
+      // }
       
     })
     // Conforme tal informação aplicar uma classe ou outra / *ngIf para adicionar um <i> ou outro

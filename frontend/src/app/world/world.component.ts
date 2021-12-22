@@ -19,7 +19,12 @@ export class WorldComponent implements OnInit {
 
   postsRouteClicked: boolean = false;
 
+
+  // Users Array
   usersFoundArray: any = [];
+  // Users Array
+
+
 
   imagesPath = "http://localhost/backend/";
   userProfileImage: string;
@@ -34,6 +39,7 @@ export class WorldComponent implements OnInit {
   ngOnInit(): void {
     this.getUsers();
     // this.showUsersFilter();
+
   }
 
   showUsersFilter(){

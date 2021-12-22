@@ -89,7 +89,6 @@ export class ProfilePageComponent implements OnInit {
 
 
     this.myAuthService.userSubject.subscribe(data => {
-
       this.connectedUserId = data.userId;
       this.connectedUsername = data.username;
 
@@ -115,6 +114,15 @@ export class ProfilePageComponent implements OnInit {
       // this.userProfileImage = data[0].userData.user_image;
 
       this.myUserActions.checkIfAlreadyFollowing(this.idDoUser, this.connectedUserId).subscribe(response => {
+
+        let userVerification = data[0].userData.is_verified;
+
+        if(userVerification === 1 || userVerification === "1"){
+          this.userIsVerified = true;
+        } else {
+          this.userIsVerified = false
+        }
+
         if(response["message"] === "Already Following"){
           this.followUnfollowMessage = 'Unfollow';
         } else {
@@ -126,19 +134,12 @@ export class ProfilePageComponent implements OnInit {
         return
       })
 
-      let userVerification = data[0].userData.is_verified;
-
-      if(userVerification === 1 || userVerification === "1"){
-        this.userIsVerified = true;
-      } else {
-        this.userIsVerified = false
-      }
      
     });
 
     
 
-    // this.showTimeline();
+    this.showTimeline();
   }
 
 
@@ -184,7 +185,7 @@ export class ProfilePageComponent implements OnInit {
 
   followUser(){
     this.myUserActions.followUnfollowUser(this.idDoUser, this.connectedUserId).subscribe(response => {
-      // console.log();
+
       if(response['message'] === 'User followed!'){
         this.numFollowers++
         this.followUnfollowMessage = "Unfollow";

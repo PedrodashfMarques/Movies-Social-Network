@@ -50,7 +50,7 @@
             
         </article>
 
-        <article class="noPosts" *ngIf="userPostsArray.length <= 0">
+        <article class="noPosts" *ngIf="userPostsArray?.length === 0">
             <h4> No Posts to display </h4>
         </article>
 

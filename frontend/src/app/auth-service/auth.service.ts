@@ -126,9 +126,10 @@ export class AuthService {
 
   private handleAuthentication(JWToken: any){
     localStorage.setItem("authToken", JSON.stringify(JWToken));
-
+    console.log(JWToken);
     // Decode the JWT using jwtHelper
     const JWTdecoded = this.jwtHelper.decodeToken(localStorage.getItem('authToken'));
+    console.log(JWTdecoded);
 
     //  1 hour until auto-logout
     const expirationDate = new Date(new Date().getTime() + JWTdecoded.expiryTime * 1000);

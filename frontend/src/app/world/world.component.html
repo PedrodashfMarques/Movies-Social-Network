@@ -19,7 +19,7 @@
             <div class="area_formulario">
                 <form>
                     <div class="cadaForm">
-                        <label for="searchId"> Search Username </label>
+                        <label for="searchId"> Search user </label>
                         <input id="searchId" type="text"
                         (keyup)="pesquisarUsername()"
                         #userName>
@@ -46,11 +46,15 @@
                     
                     <div class="nome_user_post">
                         <h3> {{eachUser.first_name}} @{{eachUser.username}} {{eachUser.last_name}}
-                             <!-- <span *ngIf="userIsVerified"> <i class="fas fa-check"></i> </span>  -->
+                             <span *ngIf="eachUser.is_verified"> <i class="fas fa-check"></i> </span> 
                              </h3>
                     </div>
                     
                 </article>  
+                
+                <article *ngIf="usersFoundArray.length === 0" class="no_users_found">
+                    <p> No users found </p>
+                </article>
 
                 <!-- <router-outlet></router-outlet> -->
 
