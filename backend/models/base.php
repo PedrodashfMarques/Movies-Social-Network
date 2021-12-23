@@ -24,9 +24,13 @@ use ReallySimpleJWT\Token;
 
             $tokenIsValid = Token::validate($tokenKey, $secret);
 
+            
+            // JWT Decode
             if($tokenIsValid){
                 $user = Token::getPayload($tokenKey, $secret);
             }
+            // JWT Decode
+
 
             if(isset($user)){
                 return $user["userId"];

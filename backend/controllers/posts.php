@@ -1,18 +1,22 @@
 <?php
 
     require("models/post.php");
+    require_once("models/base.php");
     
     require_once("validators/postValidator.php");
   
     $postModel = new Post();
 
-
+    $baseModel = new Base();
+    
     if(in_array($_SERVER["REQUEST_METHOD"], ["POST", "PUT", "DELETE"]) ) {
         $data = json_decode(file_get_contents("php://input"), true);
 
-        // var_dump($data["authToken"]);
+        var_dump($data["authToken"]);
 
-        $userId = $postModel->routeRequiresValidation($data["authToken"]);
+        $userId = $baseModel->routeRequiresValidation($data["authToken"]);
+
+        var_dump($userId);
 
         // if(empty($userId)){
         //     header("HTTP/1.1 401 Unauthorized");
@@ -25,7 +29,7 @@
         // }
 
     }
-    
+
     if($_SERVER["REQUEST_METHOD"] === "GET"){
 
         if(isset($id)){
@@ -50,6 +54,8 @@
                 echo '{"message": "Post Not Found"}';
             }
         } else {
+
+
             http_response_code(202);
             echo json_encode($postModel->getAllPosts());
 

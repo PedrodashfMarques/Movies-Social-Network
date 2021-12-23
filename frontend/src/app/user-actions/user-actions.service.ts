@@ -20,12 +20,11 @@ export class UserActionsService {
   usersFoundArray = new BehaviorSubject(null);
 
   constructor(private myAuthService: AuthService, private myHttp: HttpClient) { }
-
   
     JWToken = localStorage.getItem('authToken');
 
     // JSON Parsed
-      JWTokenParsed = JSON.parse(this.JWToken)["X-Auth-Token"];
+    JWTokenParsed = JSON.parse(this.JWToken)["X-Auth-Token"];
     // JSON Parsed
 
 
@@ -54,9 +53,15 @@ export class UserActionsService {
     // parafazer a routeValidation vou necessitar de ir buscar o JWT ao local Storage
     const url = this.api + 'posts';
 
-    
+    // let headers = new HttpHeaders();
 
-    return this.myHttp.get(url);
+    // headers.set('x-auth-token', 'dsdsdsds');
+
+    return this.myHttp.get(url, {
+      headers: new HttpHeaders({
+        'x-auth-token': this.JWTokenParsed
+      })
+    });
   }
 
   getPostData(postId){
@@ -81,13 +86,17 @@ export class UserActionsService {
     let dataConvertedJson = JSON.stringify(object);
     // formData Convert
 
-    let dataParsed = JSON.parse(dataConvertedJson);
+    // return this.myHttp.post(url, {
+    //   user_id: dataParsed["user_id"],
+    //   content: dataParsed["content"],
+    //   authToken: this.JWTokenParsed
+    // });
 
-    return this.myHttp.post(url, {
-      user_id: dataParsed["user_id"],
-      content: dataParsed["content"],
-      authToken: this.JWTokenParsed
-    });
+    return this.myHttp.post(url, dataConvertedJson, {
+      headers: new HttpHeaders({
+        'x-auth-token': this.JWTokenParsed
+      })
+    })
 
   }
 
