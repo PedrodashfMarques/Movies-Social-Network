@@ -9,19 +9,19 @@
 
     $baseModel = new Base();
     
-    if(in_array($_SERVER["REQUEST_METHOD"], ["POST", "PUT", "DELETE"]) ) {
-        $data = json_decode(file_get_contents("php://input"), true);
+    if(in_array($_SERVER["REQUEST_METHOD"], ["GET","POST", "PUT", "DELETE"]) ) {
+        // $data = json_decode(file_get_contents("php://input"), true);
 
-        var_dump($data["authToken"]);
+        $userId = $baseModel->routeRequiresValidation();
 
-        $userId = $baseModel->routeRequiresValidation($data["authToken"]);
-
-        var_dump($userId);
+        // var_dump($userId);
 
         // if(empty($userId)){
         //     header("HTTP/1.1 401 Unauthorized");
         //     die('{"message":"Wrong or missing Auth Token"}');
         // }
+
+        // para os MÉTODOS PUT E DELETE
 
         // if(!empty($id) && empty($postModel->getItemByUser($id, $userId))){
         //     header("HTTP/1.1 403 Forbidden");
@@ -40,7 +40,6 @@
 
             // countPostComments MAYBE DO
 
-            // $postLikesCount = $postModel->countPostLikes($id);
 
             $postDataArray = array(
                 'postData' => $data
@@ -55,9 +54,18 @@
             }
         } else {
 
+            $oldPosts = $postModel->getAllPosts();
+
+            // var_dump($userId);
+            // if($userId){
+                $newPostsArray = $postModel->getUserLikedPosts($userId, $oldPosts);
+            // }
+
+            // Aqui está o array
+            // var_dump($newPostsArray);
 
             http_response_code(202);
-            echo json_encode($postModel->getAllPosts());
+            echo json_encode($newPostsArray);
 
         }
 
@@ -83,6 +91,7 @@
             header("HTTP/1.1 400 Bad Request");
             echo '{"message": "Wrong Information"}';
         }
+        
     }
 
 

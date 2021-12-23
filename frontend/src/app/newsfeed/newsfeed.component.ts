@@ -128,7 +128,7 @@ export class NewsfeedComponent implements OnInit {
     formData.append('content', values.post_content);
 
     this.myUserActions.createPost(formData).subscribe(response => {
-      console.log(response)
+      // console.log(response);
     })
 
     setTimeout(() => {

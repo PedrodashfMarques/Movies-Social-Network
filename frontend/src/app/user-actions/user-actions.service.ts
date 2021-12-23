@@ -50,12 +50,10 @@ export class UserActionsService {
   }
 
   getAllPosts(){
-    // parafazer a routeValidation vou necessitar de ir buscar o JWT ao local Storage
     const url = this.api + 'posts';
 
-    // let headers = new HttpHeaders();
+    return this.myHttp.get(url);
 
-    // headers.set('x-auth-token', 'dsdsdsds');
 
     return this.myHttp.get(url, {
       headers: new HttpHeaders({
@@ -86,11 +84,7 @@ export class UserActionsService {
     let dataConvertedJson = JSON.stringify(object);
     // formData Convert
 
-    // return this.myHttp.post(url, {
-    //   user_id: dataParsed["user_id"],
-    //   content: dataParsed["content"],
-    //   authToken: this.JWTokenParsed
-    // });
+    return this.myHttp.post(url, dataConvertedJson);
 
     return this.myHttp.post(url, dataConvertedJson, {
       headers: new HttpHeaders({

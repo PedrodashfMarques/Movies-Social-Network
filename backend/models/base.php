@@ -11,14 +11,16 @@ use ReallySimpleJWT\Token;
 
         }
 
-        public function routeRequiresValidation($tokenKey){
-            // $headers = apache_request_headers();
+        public function routeRequiresValidation(){
+            $headers = apache_request_headers();
 
-            // foreach($headers as $header => $value){
-            //     if(strtolower($header) === "x-auth-token"){
-            //         $tokenKey = trim($value);
-            //     }; 
-            // };
+            foreach($headers as $header => $value){
+                if(strtolower($header) === "x-auth-token"){
+                    $tokenKey = trim($value);
+                };
+            };
+
+            
 
             $secret = CONFIG["SECRET_KEY"];
 

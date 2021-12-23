@@ -73,18 +73,9 @@ export class TimelineComponent implements OnInit {
     // Conforme tal informação aplicar uma classe ou outra / *ngIf para adicionar um <i> ou outro
   }
 
-  likePost(postId:number, index){
+  likePost(postId:number){
 
-    // console.log(index);
-
-    let connectedUserId: number;
-
-    this.myAuthService.userSubject.subscribe(response => {
-
-      connectedUserId = response.userId;
-    })
-    
-    this.myUserActions.likeDislikePost(postId, connectedUserId).subscribe(responseData => {
+    this.myUserActions.likeDislikePost(postId, this.connectedUserId).subscribe(responseData => {
       // console.log(postId);
 
       for (let index = 0; index < this.userPostsArray.length; index++) {

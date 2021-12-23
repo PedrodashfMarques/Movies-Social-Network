@@ -18,7 +18,6 @@ export class ProfilePageComponent implements OnInit {
   userProfileImage: string;
   imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
 
-
   // id no url
   idDoUser: number;
   // id no url

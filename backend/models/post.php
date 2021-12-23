@@ -19,7 +19,8 @@
             (SELECT COUNT(*)
             FROM comments
             WHERE comments.post_id = posts.post_id
-           ) AS commentsNumber
+           ) AS commentsNumber,
+           false as isLiked
             FROM posts
             INNER JOIN users USING(user_id)
             ORDER BY posts.created_at DESC
@@ -30,8 +31,48 @@
             return $query->fetchAll( PDO:: FETCH_ASSOC );
         }
 
+
+        public function getUserLikedPosts($connectedUserId, $oldPosts){
+
+            // $valuesIN = array();
+            // foreach ($oldPosts as $post => $value) {   
+            //     // + igual
+            //     array_push($valuesIN, intval($value["post_id"]));    
+            // }
+
+            for ($index = 0 ; $index < count($oldPosts) ; $index++) { 
+
+                $posicaoIndex = $oldPosts[$index];
+
+                // var_dump($posicaoIndex["post_id"]);
+
+                $query = $this->dataBase->prepare("
+                    SELECT post_id
+                    FROM likes
+                    WHERE post_id = ?
+                    AND user_id = ?
+                ");
+      
+                $query->execute([
+                    $posicaoIndex["post_id"],
+                    $connectedUserId
+                ]);
+
+                $result = $query->fetchAll( PDO:: FETCH_ASSOC );
+
+                if($result){
+                    $posicaoIndex["isLiked"] = "1";
+                }
+                // var_dump($posicaoIndex["isLiked"]);  
+
+            }
+            return $result;
+
+
+        }
+
         
-        public function getConnectedUserPosts(){}
+        // public function getConnectedUserPosts(){}
 
         public function getPost($id){
             $query = $this->dataBase->prepare("
@@ -52,6 +93,8 @@
             );
 
             return $query->fetch(PDO:: FETCH_ASSOC );
+
+            
         }
 
         public function createPost($data){
