@@ -20,7 +20,6 @@ use ReallySimpleJWT\Token;
                 };
             };
 
-            
 
             $secret = CONFIG["SECRET_KEY"];
 

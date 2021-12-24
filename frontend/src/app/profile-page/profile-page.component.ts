@@ -31,7 +31,6 @@ export class ProfilePageComponent implements OnInit {
     numFollowers: number
     numFollowing: number
   // USER DATA
-
   
   // Connected User id
   connectedUserId: number = 0;
@@ -93,7 +92,8 @@ export class ProfilePageComponent implements OnInit {
 
       if(this.connectedUserId === this.idDoUser){
         this.CantFollowMyself = false;
-      } else{
+      } 
+      if(this.connectedUserId !== this.idDoUser){
         this.CantFollowMyself = true;
 
       }
@@ -181,7 +181,7 @@ export class ProfilePageComponent implements OnInit {
     this.followingClicked = true;
   }
 
-
+  
   followUser(){
     this.myUserActions.followUnfollowUser(this.idDoUser, this.connectedUserId).subscribe(response => {
 

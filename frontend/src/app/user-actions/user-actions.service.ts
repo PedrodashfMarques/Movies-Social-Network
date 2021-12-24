@@ -33,7 +33,7 @@ export class UserActionsService {
     return this.myHttp.get(url);
 
   }
-
+  
   getUserData(userId: number){
     const url = this.api + 'users' + "/" + userId;
 
@@ -54,7 +54,6 @@ export class UserActionsService {
 
     return this.myHttp.get(url);
 
-
     return this.myHttp.get(url, {
       headers: new HttpHeaders({
         'x-auth-token': this.JWTokenParsed
@@ -62,17 +61,19 @@ export class UserActionsService {
     });
   }
 
+
+
   getPostData(postId){
     const url = this.api + "posts" + "/" + postId;
 
     return this.myHttp.get(url);
   }
 
+
   getPostComments(postId: number){
     const url = this.api + "comments" + "/" + postId;
 
     return this.myHttp.get(url);
-
   }
 
   createPost(data: FormData){
@@ -107,10 +108,12 @@ export class UserActionsService {
     return this.myHttp.put(url, dataConvertedJson);
   }
 
+
   deletePost(postId){
     const url = this.api + "posts" + "/" + postId;
     return this.myHttp.delete(url);
   }
+  
 
   likeDislikePost(postId, connectedUserId){
 

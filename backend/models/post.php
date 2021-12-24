@@ -31,43 +31,36 @@
             return $query->fetchAll( PDO:: FETCH_ASSOC );
         }
 
-
+        
         public function getUserLikedPosts($connectedUserId, $oldPosts){
+            $likedPostsArray = array();
 
-            // $valuesIN = array();
-            // foreach ($oldPosts as $post => $value) {   
-            //     // + igual
-            //     array_push($valuesIN, intval($value["post_id"]));    
-            // }
-
-            for ($index = 0 ; $index < count($oldPosts) ; $index++) { 
-
-                $posicaoIndex = $oldPosts[$index];
-
-                // var_dump($posicaoIndex["post_id"]);
+             foreach ($oldPosts as $eachPost) {
 
                 $query = $this->dataBase->prepare("
-                    SELECT post_id
-                    FROM likes
-                    WHERE post_id = ?
-                    AND user_id = ?
+                SELECT likes.post_id
+                FROM likes
+                WHERE likes.post_id = ?
+                AND likes.user_id = ?
                 ");
-      
+
                 $query->execute([
-                    $posicaoIndex["post_id"],
+                    $eachPost["post_id"],
                     $connectedUserId
                 ]);
 
-                $result = $query->fetchAll( PDO:: FETCH_ASSOC );
+                $fetch = $query->fetchAll();
+                // var_dump($fetch);
 
-                if($result){
-                    $posicaoIndex["isLiked"] = "1";
-                }
-                // var_dump($posicaoIndex["isLiked"]);  
-
+                if($fetch){
+                    $eachPost["isLiked"] = true;
+                    array_push($likedPostsArray, $eachPost);
+                    
+                    // var_dump($likedPostsArray);
+                } 
             }
-            return $result;
 
+            return $likedPostsArray;
 
         }
 
@@ -157,7 +150,7 @@
 
 
         public function togglePostLike($postId, $userId){
-
+            
             $postAlreadyLikedQuery = $this->dataBase->prepare("
             SELECT post_id, user_id
             FROM likes

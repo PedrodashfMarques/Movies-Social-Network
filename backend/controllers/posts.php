@@ -14,6 +14,7 @@
 
         $userId = $baseModel->routeRequiresValidation();
 
+
         // var_dump($userId);
 
         // if(empty($userId)){
@@ -40,7 +41,6 @@
 
             // countPostComments MAYBE DO
 
-
             $postDataArray = array(
                 'postData' => $data
             );
@@ -56,16 +56,27 @@
 
             $oldPosts = $postModel->getAllPosts();
 
-            // var_dump($userId);
-            // if($userId){
-                $newPostsArray = $postModel->getUserLikedPosts($userId, $oldPosts);
-            // }
+            foreach ($oldPosts as $cadaPost => $value) {
+                $oldPosts[$cadaPost]["isLiked"] = false;
+            }
 
-            // Aqui está o array
-            // var_dump($newPostsArray);
+            $likedPostsArray = $postModel->getUserLikedPosts($userId, $oldPosts);
+
+            foreach ($likedPostsArray as $eachLikedPost => $value) {
+
+                foreach ($oldPosts as $cadaPost => $value) {
+                    
+                    if($likedPostsArray[$eachLikedPost]["post_id"] === $oldPosts[$cadaPost]["post_id"]){
+                        $oldPosts[$cadaPost]["isLiked"] = true;
+                    }
+                }
+                
+            }
+
+            // var_dump($oldPosts);
 
             http_response_code(202);
-            echo json_encode($newPostsArray);
+            echo json_encode($oldPosts);
 
         }
 
