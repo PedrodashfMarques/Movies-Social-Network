@@ -34,8 +34,8 @@
                 <ul>
 
                     <li (click)="likePost(eachPost.post_id, i)">
-                            <i *ngIf="eachPost.isLiked === '0'" class="far fa-heart"></i>
-                            <i *ngIf="eachPost.isLiked === '1'" class="fas fa-heart"></i>
+                        <i *ngIf="eachPost.isLiked === false" class="far fa-heart"></i>
+                        <i *ngIf="eachPost.isLiked === true" class="fas fa-heart"></i>
                         <span> {{eachPost.likesNumber}} </span>
                     </li>
 

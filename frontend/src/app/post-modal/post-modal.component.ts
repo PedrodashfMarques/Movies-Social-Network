@@ -50,7 +50,6 @@ export class PostModalComponent implements OnInit {
 
   // Booleans For Posts
   postIsLiked: boolean;
-  postIsDisliked: boolean;
   // Booleans For Posts
 
   constructor(
@@ -112,12 +111,12 @@ export class PostModalComponent implements OnInit {
         
         if(posicaoIndex['post_id'] === postId){
           
-          if(responseData['message'] === 'Post liked!'){
+          if(responseData['liked'] === true){
             posicaoIndex["likesNumber"]++
-            this.postIsLiked = true;
+            this.postIsLiked = !this.postIsLiked;
           } else {
             posicaoIndex["likesNumber"]--
-            this.postIsDisliked = false;
+            this.postIsLiked = false;
           }
         }
       }

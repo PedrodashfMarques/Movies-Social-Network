@@ -33,12 +33,11 @@ export class NewsfeedComponent implements OnInit {
 
   banana = false;
   // Connected User Id
-  connectedUserId: any;
+  connectedUserId: number;
   // Connected User Id
   
   // Post Likes and Dislikes
   postIsLiked: boolean;
-  postIsDisliked: boolean;
   // Post Likes and Dislikes
 
   
@@ -93,7 +92,9 @@ export class NewsfeedComponent implements OnInit {
     })
 
     this.myUserActions.getAllPosts().subscribe(data => {
+      
       this.allPostsArray = data;
+
       console.log(this.allPostsArray);
 
       for (let index = 0; index < this.allPostsArray.length; index++) {
@@ -102,9 +103,6 @@ export class NewsfeedComponent implements OnInit {
         // console.log(posicaoIndex.user_id);
 
         if(posicaoIndex.user_id === this.connectedUserId){
-          // console.log(posicaoIndex);
-          // perceber se o connectedUserID tem algum registo na tabela de likes sobre este postid em especifico, se retornar sim mensagem: "User has like on this post"
-          // Perguntar ao Ivo como posso fazer isto
         }
         
       }
@@ -140,6 +138,7 @@ export class NewsfeedComponent implements OnInit {
 
   }
 
+
   likePost(postId:number){
     this.myAuthService.userSubject.subscribe(response => {
 
@@ -147,7 +146,7 @@ export class NewsfeedComponent implements OnInit {
     })
     
     this.myUserActions.likeDislikePost(postId, this.connectedUserId).subscribe(responseData => {
-      console.log(responseData['message']);
+      console.log(responseData);
 
       for (let index = 0; index < this.allPostsArray.length; index++) {
 
@@ -155,12 +154,12 @@ export class NewsfeedComponent implements OnInit {
         
         if(posicaoIndex['post_id'] === postId){
           
-          if(responseData['message'] === 'Post liked!'){
+          if(responseData['liked'] === true){
             posicaoIndex["likesNumber"]++
-            this.postIsLiked = true;
+            this.postIsLiked = !this.postIsLiked;
           } else {
             posicaoIndex["likesNumber"]--
-            this.postIsDisliked = false;
+            this.postIsLiked = false;
           }
         }
       }

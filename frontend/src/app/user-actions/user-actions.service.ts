@@ -54,11 +54,11 @@ export class UserActionsService {
 
     return this.myHttp.get(url);
 
-    return this.myHttp.get(url, {
-      headers: new HttpHeaders({
-        'x-auth-token': this.JWTokenParsed
-      })
-    });
+    // return this.myHttp.get(url, {
+    //   headers: new HttpHeaders({
+    //     'x-auth-token': this.JWTokenParsed
+    //   })
+    // });
   }
 
 

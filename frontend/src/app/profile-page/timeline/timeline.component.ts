@@ -11,8 +11,7 @@ import { UserActionsService } from 'src/app/user-actions/user-actions.service';
 export class TimelineComponent implements OnInit {
 
   imagemTeste: string = "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/33/33fc65586f9b4615f95209a03398d8c8b2729f0b_full.jpg";
-  userIsVerified: any = false;
-  mensagem: string = "Posted November 8th, 2021 at 17h28";
+  userIsVerified: boolean;
 
   connectedUserId: number;
 
@@ -43,10 +42,12 @@ export class TimelineComponent implements OnInit {
     private myRouter: Router
     ) {}
 
-  ngOnInit(): void {
-    this.myAuthService.userSubject.subscribe(data => {
-      this.connectedUserId = data.userId;
-    });
+
+    ngOnInit(): void {
+      this.myAuthService.userSubject.subscribe(data => {
+        this.connectedUserId = data.userId;
+      });
+
 
     this.myUserActions.allUserData.subscribe((data: any) => {
       if(data === null){
@@ -57,17 +58,17 @@ export class TimelineComponent implements OnInit {
 
       }
 
-      // console.log(this.userPostsArray);
+      console.log(this.userPostsArray);
       // console.log(data[0].userPosts[0].isLiked);
 
-      // let userVerification = data[0].userData.is_verified;
-      // console.log(data[0].userData);
+      let userVerification = Number(data[0].userData.is_verified);
+      console.log(data[0].userData);
 
-      // if(userVerification === 1 || userVerification === "1"){
-      //   this.userIsVerified = true;
-      // } else {
-      //   this.userIsVerified = false
-      // }
+      if(userVerification === 1){
+        this.userIsVerified = true;
+      } else {
+        this.userIsVerified = false
+      }
       
     })
     // Conforme tal informação aplicar uma classe ou outra / *ngIf para adicionar um <i> ou outro

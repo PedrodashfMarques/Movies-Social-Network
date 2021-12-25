@@ -312,11 +312,7 @@
                 (SELECT COUNT(*)
                 FROM likes
                 WHERE likes.post_id = posts.post_id
-                ) AS likesNumber,
-                (SELECT COUNT(*)
-                 FROM likes
-                 WHERE posts.post_id = likes.post_id
-                 ) as isLiked
+                ) AS likesNumber
                 FROM posts
                 INNER JOIN users USING(user_id)
                 WHERE users.user_id = ?

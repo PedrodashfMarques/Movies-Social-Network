@@ -3,8 +3,9 @@
 
 use ReallySimpleJWT\Token;
 
-    require_once("models/user.php");
     require_once("models/base.php");
+    require_once("models/user.php");
+    require_once("models/post.php");
 
     // Validator
     require_once("validators/updateUserValidator.php");
@@ -17,26 +18,29 @@ use ReallySimpleJWT\Token;
     require_once("imageTransformer.php");
     // Image Transformer
     
-    $userModel = new User();
     $baseModel = new Base();
+    $userModel = new User();
+    $postModel = new Post();
 
 
-    // if(in_array($_SERVER["REQUEST_METHOD"], ["POST", "PUT", "DELETE"]) ) {
+    // if(in_array($_SERVER["REQUEST_METHOD"], ["GET","POST", "PUT", "DELETE"]) ) {
 
     //     $userId = $baseModel->routeRequiresValidation();
     //     // Validation
 
-    //     if(empty($userId)){
-    //         header("HTTP/1.1 401 Unauthorized");
-    //         die('{"message":"Wrong or missing Auth Token"}');
-    //     }
+    //     // if(empty($userId)){
+    //     //     header("HTTP/1.1 401 Unauthorized");
+    //     //     die('{"message":"Wrong or missing Auth Token"}');
+    //     // }
 
-    //     if(!empty($id) && empty($postModel->getItemByUser($id, $userId))){
-    //         header("HTTP/1.1 403 Forbidden");
-    //         die('{"message": "You do not have permission to perform this action "}');
-    //     }
+    //     // if(!empty($id) && empty($postModel->getItemByUser($id, $userId))){
+    //     //     header("HTTP/1.1 403 Forbidden");
+    //     //     die('{"message": "You do not have permission to perform this action "}');
+    //     // }
 
     // }
+
+    $userId = 1;
 
     if($_SERVER["REQUEST_METHOD"] === "GET"){
         // The id here is the user that is connected aka userId
@@ -53,6 +57,24 @@ use ReallySimpleJWT\Token;
 
             $userPostsData = $userModel->getUserPosts($id);
 
+            foreach ($userPostsData as $eachPost => $value) {
+                $userPostsData[$eachPost]["isLiked"] = false;
+                
+            }
+
+            $likedPostsArray = $postModel->getUserLikedPosts($userId, $userPostsData);
+
+            foreach ($likedPostsArray as $eachLikedPost => $value) {
+
+                foreach ($userPostsData as $eachPost => $value) {
+
+                    if($likedPostsArray[$eachLikedPost]["post_id"] === $userPostsData[$eachPost]["post_id"]){
+                        $userPostsData[$eachPost]["isLiked"] = true;
+                    }     
+                }          
+            }
+
+            // var_dump($userPostsData);
 
             $userDataArray = array(
                 'userData' => $userInfo,
@@ -70,7 +92,7 @@ use ReallySimpleJWT\Token;
             }
 
 
-            if(empty($userInfo && empty($conUserFollowers) && empty($conUserFollowing))){
+            if(empty($userInfo) && empty($conUserFollowers) && empty($conUserFollowing)){
                 http_response_code(404);
                 echo '{"message": "This user does not exist"}';
             }

@@ -33,6 +33,7 @@
 
         
         public function getUserLikedPosts($connectedUserId, $oldPosts){
+
             $likedPostsArray = array();
 
              foreach ($oldPosts as $eachPost) {
@@ -156,7 +157,6 @@
             FROM likes
             WHERE post_id = ?
             AND user_id = ?
-            
             ");
 
             $postAlreadyLikedQuery->execute([
@@ -186,10 +186,10 @@
 
         
             $query = $this->dataBase->prepare("
-            INSERT INTO likes
-            (post_id, user_id)
-            VALUES(?, ?)
-            ");
+                INSERT INTO likes
+                (post_id, user_id)
+                VALUES(?, ?)
+                ");
 
             $query->execute([
                 $postId,

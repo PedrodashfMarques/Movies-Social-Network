@@ -6,7 +6,9 @@ header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
 header("Content-Type: application/json");
+require_once("models/base.php");
 
+$baseModel = new Base();
 
 require("vendor/autoload.php");
 
@@ -21,6 +23,7 @@ define("ROOT",
         "/"
     )
 );
+
 
 
 $controllers = [
