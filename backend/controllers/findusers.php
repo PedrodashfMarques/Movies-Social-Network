@@ -2,7 +2,6 @@
      require_once("models/base.php");
      require_once("models/user.php");
 
-
      require_once("sanitizers/updateUserSanitizer.php");
 
      $userModel = new User();
@@ -23,7 +22,6 @@
             http_response_code(202);
             echo json_encode($result);
         }  
-
     }
 
     else{

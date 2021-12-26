@@ -145,12 +145,10 @@ use ReallySimpleJWT\Token;
     else if($_SERVER["REQUEST_METHOD"] === "PUT"){
         $data = json_decode(file_get_contents("php://input"), true);
 
-
+        // Trim, HtmlSpecialChars and Strip tags
         $sanitizedData = sanitizer($data);
 
         $transformedData = imageTransformer($sanitizedData);
-
-        // var_dump($transformedData);
 
         if(!empty($id)){
 
@@ -197,6 +195,12 @@ use ReallySimpleJWT\Token;
             echo '{"message": " Bad Request"}';
         }
         
+    } 
+    
+    else {
+        http_response_code(405);
+        echo '{"message": "Method Not Allowed"}';
+
     }
 
 

@@ -8,12 +8,10 @@
     $baseModel = new Base();
 
 
-        
     // if(in_array($_SERVER["REQUEST_METHOD"], ["GET","POST", "PUT", "DELETE"]) ) {
-    //     // $data = json_decode(file_get_contents("php://input"), true);
+    //     $data = json_decode(file_get_contents("php://input"), true);
 
-    //     $userId = $baseModel->routeRequiresValidation();
-
+    //     $userId = $baseModel->routeRequiresValidation(); 
 
     //     // if(empty($userId)){
     //     //     header("HTTP/1.1 401 Unauthorized");
@@ -52,6 +50,8 @@
                 http_response_code(404);
                 echo '{"message": "Post Not Found"}';
             }
+
+
         } else {
 
             $oldPosts = $postModel->getAllPosts();

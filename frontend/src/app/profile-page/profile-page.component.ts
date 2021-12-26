@@ -96,17 +96,8 @@ export class ProfilePageComponent implements OnInit {
 
       }
     })
-
     
     this.myUserActions.checkIfAlreadyFollowing(this.idDoUser, this.connectedUserId).subscribe(response => {
-
-      // let userVerification = data[0].userData.is_verified;
-
-      // if(userVerification === 1 || userVerification === "1"){
-      //   this.userIsVerified = true;
-      // } else {
-      //   this.userIsVerified = false
-      // }
 
       if(response["message"] === "Already Following"){
         this.followUnfollowMessage = 'Unfollow';
@@ -119,7 +110,7 @@ export class ProfilePageComponent implements OnInit {
         this.followUnfollowMessage = null;
       }
     })
-    
+
     this.myUserActions.getUserData(this.idDoUser).subscribe(data => { 
       this.firstName = data[0].userData.first_name;
       this.username = data[0].userData.username;
@@ -129,13 +120,11 @@ export class ProfilePageComponent implements OnInit {
       this.numFollowers = data[0].followersCount.Total;
       this.numFollowing = data[0].followingCount.Total;
       this.userProfileImage = data[0].userData.user_image;
-
-      // this.userProfileImage = data[0].userData.user_image;
-     
     });
 
-    
+    // Vou ter que chamar o método getSimilarUsers e passar o small bio como parametro ou então envio o token e escolho
 
+  
     this.showTimeline();
   }
 

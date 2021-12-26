@@ -177,7 +177,6 @@
                 $dislikePostQuery->execute([
                     $postId,
                     $userId
-
                 ]);
 
                 return false;
@@ -198,6 +197,7 @@
 
             return true;
         }
+
 
         public function countPostLikes($postId){
             $query = $this->dataBase->prepare("

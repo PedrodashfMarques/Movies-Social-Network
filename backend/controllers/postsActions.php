@@ -23,7 +23,6 @@
 
             http_response_code(202);
             echo '{
-                "message": "Post disliked!",
                 "liked": '.($result ? "true" : "false").'
             }';
         }

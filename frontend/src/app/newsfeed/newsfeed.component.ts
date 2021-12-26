@@ -140,10 +140,6 @@ export class NewsfeedComponent implements OnInit {
 
 
   likePost(postId:number){
-    this.myAuthService.userSubject.subscribe(response => {
-
-      this.connectedUserId = response.userId;
-    })
     
     this.myUserActions.likeDislikePost(postId, this.connectedUserId).subscribe(responseData => {
       console.log(responseData);

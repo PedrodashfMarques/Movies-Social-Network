@@ -201,18 +201,6 @@
             return $query->fetchAll( PDO:: FETCH_ASSOC );
         }
 
-        // public function getSimilarUsersToThis($id){
-        //     // Perguntar ao Ivo como fazer este
-        //     $query = $this->dataBase->prepare("");
-
-        //     $query->execute([
-        //         $id
-        //     ]);
-
-        //     return $query->fetchAll( PDO:: FETCH_ASSOC );
-
-        // }
-
 
 
         public function followUnfollow($id, $connectedUserId){
@@ -384,6 +372,32 @@
             ]);
 
             return $query->fetchAll( PDO:: FETCH_ASSOC );
+        }
+
+
+        public function getSimilarUsersToThis($userBio){
+            // Perguntar ao Ivo como fazer este
+            $query = $this->dataBase->prepare("
+                SELECT
+                    user_id,
+                    first_name,
+                    username,
+                    last_name,
+                    user_image,
+                    is_verified
+                FROM 
+                    users
+                WHERE 
+                    CONCAT(small_bio, big_bio)
+                LIKE ?
+            ");
+
+            $query->execute([
+                "%".$userBio."%"
+            ]);
+
+            return $query->fetchAll( PDO:: FETCH_ASSOC );
+
         }
 
     }

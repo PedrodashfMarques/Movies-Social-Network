@@ -17,8 +17,6 @@ export class UserActionsService {
 
   allUserData = new BehaviorSubject<UserResponseData>(null);
 
-  usersFoundArray = new BehaviorSubject(null);
-
   constructor(private myAuthService: AuthService, private myHttp: HttpClient) { }
   
     JWToken = localStorage.getItem('authToken');
@@ -219,13 +217,16 @@ export class UserActionsService {
 
     // console.log(jsonConverted);
 
-    return this.myHttp.post(url, jsonConverted).pipe(tap(resData => {
-      this.handleUsersArray(resData);
-    }));   
+    return this.myHttp.post(url, jsonConverted);   
   }
 
-  private handleUsersArray(resData){
-    this.usersFoundArray.next(resData);
+  getSimilarUsers(){
+    const url = this.api + 'getSimilarUsers';
+
+    this.myHttp.get(url);
+
+    // Vai enviar um header com o token
+
   }
 
 }
