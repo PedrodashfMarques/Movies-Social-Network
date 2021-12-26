@@ -166,6 +166,12 @@ export class UserActionsService {
     return this.myHttp.post(url, {
       userId: connectedUser
     })
+
+    // return this.myHttp.post(url, {
+    //   headers: new HttpHeaders({
+    //     'x-auth-token': this.JWTokenParsed
+    //   })
+    // })
     
   }
   

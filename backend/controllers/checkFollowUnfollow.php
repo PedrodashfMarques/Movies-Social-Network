@@ -1,10 +1,48 @@
 <?php
 
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");
+    header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+
     require("models/user.php");
 
     $userModel = new User();
 
-    // if($_SERVER["REQUEST_METHOD"] === "GET"){}
+    $userId = 1;
+
+    if($_SERVER["REQUEST_METHOD"] === "GET"){
+
+        if(!empty($id) && 
+        !empty($userId) && 
+        is_numeric($id) && 
+        is_numeric($userId)){
+
+        if($id === intval($userId)){
+            http_response_code(400);
+            die('{"message":"Users cannot be the same"}');
+        }
+        
+        $result = $userModel->checkIfUserAlreadyFollowing($id, $userId);
+
+     
+        if(empty($result)){
+            http_response_code(202);
+            echo '{"message": "Not Following"}';
+        }
+
+        if(!empty($result)){
+            http_response_code(202);
+            echo '{"message": "Already Following"}';
+        }
+
+
+    } else{
+        http_response_code(400);
+        echo '{"message": "Bad Request"}';
+    }
+
+
+    }
     
     if($_SERVER["REQUEST_METHOD"] === "POST"){
 
@@ -17,7 +55,7 @@
 
             if($id === intval($connectedUserId["userId"])){
                 http_response_code(400);
-                die('{"message":"Bad Request"}');
+                die('{"message":"Users are the same"}');
             }
             
             $result = $userModel->checkIfUserAlreadyFollowing($id, $connectedUserId["userId"]);

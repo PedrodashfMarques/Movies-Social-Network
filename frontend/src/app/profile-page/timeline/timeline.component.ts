@@ -58,13 +58,12 @@ export class TimelineComponent implements OnInit {
 
       }
 
-      console.log(this.userPostsArray);
-      // console.log(data[0].userPosts[0].isLiked);
+      // console.log(this.userPostsArray);
 
-      let userVerification = Number(data[0].userData.is_verified);
+      let userVerification = data[0].userData["is_verified"];
       console.log(data[0].userData);
 
-      if(userVerification === 1){
+      if(userVerification === 1 || userVerification === "1"){
         this.userIsVerified = true;
       } else {
         this.userIsVerified = false

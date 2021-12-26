@@ -1,6 +1,5 @@
 <?php
 
-
 use ReallySimpleJWT\Token;
 
     require_once("models/base.php");
@@ -21,7 +20,6 @@ use ReallySimpleJWT\Token;
     $baseModel = new Base();
     $userModel = new User();
     $postModel = new Post();
-
 
     // if(in_array($_SERVER["REQUEST_METHOD"], ["GET","POST", "PUT", "DELETE"]) ) {
 

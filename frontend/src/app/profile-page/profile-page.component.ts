@@ -33,7 +33,7 @@ export class ProfilePageComponent implements OnInit {
   // USER DATA
   
   // Connected User id
-  connectedUserId: number = 0;
+  connectedUserId: number;
   // Connected User id
 
    // Connected Username
@@ -41,11 +41,11 @@ export class ProfilePageComponent implements OnInit {
    // Connected Username
 
   // Botão Follow Unfollow
-  CantFollowMyself: boolean;
+  followMyself: boolean = false;
   // Botão Follow Unfollow
 
   // Follow or Unfollow message
-  followUnfollowMessage: string;
+  followUnfollowMessage: string = "";
   // Follow or Unfollow message
 
 
@@ -83,22 +83,42 @@ export class ProfilePageComponent implements OnInit {
             this.myRouter.navigate(['newsfeed']);
           }
         });
-      }
-
+    }
 
     this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
       this.connectedUsername = data.username;
 
-      if(this.connectedUserId === this.idDoUser){
-        this.CantFollowMyself = false;
-      } 
-      if(this.connectedUserId !== this.idDoUser){
-        this.CantFollowMyself = true;
+      if( Number(this.connectedUserId) === Number(this.idDoUser)){
+        this.followMyself = false;
+      } else{
+        this.followMyself = true;
 
       }
     })
 
+    
+    this.myUserActions.checkIfAlreadyFollowing(this.idDoUser, this.connectedUserId).subscribe(response => {
+
+      // let userVerification = data[0].userData.is_verified;
+
+      // if(userVerification === 1 || userVerification === "1"){
+      //   this.userIsVerified = true;
+      // } else {
+      //   this.userIsVerified = false
+      // }
+
+      if(response["message"] === "Already Following"){
+        this.followUnfollowMessage = 'Unfollow';
+      } else {
+        this.followUnfollowMessage = 'Follow';
+
+      }
+    }, error => {
+      if(error.error.message === "Users are the same"){
+        this.followUnfollowMessage = null;
+      }
+    })
     
     this.myUserActions.getUserData(this.idDoUser).subscribe(data => { 
       this.firstName = data[0].userData.first_name;
@@ -111,28 +131,6 @@ export class ProfilePageComponent implements OnInit {
       this.userProfileImage = data[0].userData.user_image;
 
       // this.userProfileImage = data[0].userData.user_image;
-
-      this.myUserActions.checkIfAlreadyFollowing(this.idDoUser, this.connectedUserId).subscribe(response => {
-
-        let userVerification = data[0].userData.is_verified;
-
-        if(userVerification === 1 || userVerification === "1"){
-          this.userIsVerified = true;
-        } else {
-          this.userIsVerified = false
-        }
-
-        if(response["message"] === "Already Following"){
-          this.followUnfollowMessage = 'Unfollow';
-        } else {
-          this.followUnfollowMessage = 'Follow';
-
-        }
-      }, error => {
-        // console.log(error);
-        return
-      })
-
      
     });
 
