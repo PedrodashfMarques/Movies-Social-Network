@@ -2,25 +2,21 @@
 
 
 <main>
-    <section class="area_grupos_equipas"> 
+    <section class="area_apenas_shortcuts"> 
 
-        <div class="area_grupos">
-            <div class="area_titulo_area_grupo">
-                <h2> Groups </h2>
+        <div class="area_shortcuts">
+
+            <div class="area_titulo_shortcuts">
+                <h2> Shortcuts </h2>
             </div>
 
             <ul>
-                <!-- Ver como blockear o ngFor para apenas 5 registos -->
-                <li> Cada registo até um máximo de 5 por exemplo </li>
+                <li routerLink="/newsfeed"> <i class="fas fa-rss"></i>  Newsfeed </li>
+                <li routerLink="/world"> <i class="fas fa-globe-europe"></i>  World </li>
+                <li routerLink="/settings"> <i class="fas fa-cog"></i>  Settings </li>
             </ul>
 
         </div>
-
-        <!-- Em vez de área equipas aqui posso colocar shortcuts tal como tenho no newsfeed component -->
-
-        <!-- <div class="area_equipas">
-
-        </div> -->
 
     </section>
 
@@ -55,8 +51,7 @@
                 </div>
                 
 
-
-                <!-- Area onde esta os followers e followings e bio -->
+                <!-- Area onde está os followers e followings e bio -->
                 <div class="aFf">
 
                     <p>Followers <br> <span> {{numFollowers}} </span> </p>
