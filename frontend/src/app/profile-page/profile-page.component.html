@@ -36,8 +36,8 @@
                 </div>
     
                 <div class="pPicItself">
-                    <img *ngIf="userProfileImage" src="{{imagesPath + userProfileImage}}" alt="">
-                    <img *ngIf="!userProfileImage" src="{{imagemDefault}}" alt="">
+                    <img *ngIf="userProfileImage" src="{{imagesPath + userProfileImage}}">
+                    <img *ngIf="!userProfileImage" src="{{imagemDefault}}">
                 </div>    
                 
                 <div class="botao_follow">
@@ -102,24 +102,19 @@
                 <h2> Similar users</h2>
             </div>
             
-            <!-- <article class="area_quem_postou">
-                Imagem do user que fez o post, firstname, username e last name , um *ngIf para mostrar se é verificado ou não   e a data do post que foi criado
-                <div class="imagem_user_post">
-                    <img src="{{imagemTeste}}" alt="">
-                </div>
-                
-                <div class="nome_user_post">
-                    <h3> Pedro "@movieLover" Marques <span *ngIf="userIsVerified"> <i class="fas fa-check"></i> </span>  </h3>
-                </div>
-                
-            </article>    -->
+            <article class="area_quem_postou" *ngFor="let eachUser of similarUsersArray | slice:0:2" (click)="goToUserPage(eachUser.user_id)">
 
-            <ul *ngFor="let eachUser of similarUsersArray">
-                <!-- <li *ngFor="let item of list | slice:0:10; let i=index" class="dropdown-item" (click)="onClick(item)">{{item.text}}</li> -->
-                <!-- https://stackoverflow.com/questions/37818677/how-can-i-limit-ngfor-repeat-to-some-number-of-items-in-angular -->
-                <!-- Ver como blockear o ngFor para apenas 5 registos -->
-                <li> Cada registo até um máximo de 5 por exemplo </li>
-            </ul>
+                <div class="imagem_user_post">
+                    <img *ngIf="eachUser.user_image" src="{{imagesPath + eachUser.user_image}}">
+                    <img *ngIf="!eachUser.user_image" src="{{imagemDefault}}">
+                </div>
+
+                <div class="nome_user_post">
+                    <h3> {{eachUser.first_name}} @{{eachUser.username}} {{eachUser.last_name}} </h3>
+                </div>
+
+            </article>   
+
 
         </div>
 
@@ -129,22 +124,21 @@
                 <h2> Following Users</h2>
             </div>
 
-            <article class="area_quem_postou">
+            <article class="area_quem_postou" *ngFor="let eachUser of followingUsersArray | slice:0:4" (click)="goToUserPage(eachUser.user_followed)">
                 <!-- Imagem do user que fez o post, firstname, username e last name , um *ngIf para mostrar se é verificado ou não   e a data do post que foi criado -->
                 <div class="imagem_user_post">
-                    <img src="{{imagemTeste}}" alt="">
+                    <img *ngIf="eachUser.user_image" src="{{imagesPath + eachUser.user_image}}">
+                    <img *ngIf="!eachUser.user_image" src="{{imagemDefault}}">
                 </div>
-
                 
                 <div class="nome_user_post">
-                    <h3> Pedro "@movieLover" Marques <span *ngIf="userIsVerified"> <i class="fas fa-check"></i> </span>  </h3>
-                </div>
-                
+                    <h3> {{eachUser.first_name}} @{{eachUser.username}} {{eachUser.last_name}} </h3>
+
+                </div>  
             </article>  
 
         </div>
 
     </section>
   
-
 </main>

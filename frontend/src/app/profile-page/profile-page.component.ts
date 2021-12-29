@@ -52,6 +52,10 @@ export class ProfilePageComponent implements OnInit {
   similarUsersArray: any;
   // Similar Users
 
+  // Following Users
+  followingUsersArray: any;
+  // Following Users
+
 
   userIsVerified: boolean = false;
   
@@ -73,6 +77,7 @@ export class ProfilePageComponent implements OnInit {
         }
       })
     }
+
 
   ngOnInit(): void {
     this.idDoUser = +this.myActiveRoute.snapshot.params['id'];
@@ -124,9 +129,12 @@ export class ProfilePageComponent implements OnInit {
       this.numFollowers = data[0].followersCount.Total;
       this.numFollowing = data[0].followingCount.Total;
       this.userProfileImage = data[0].userData.user_image;
+      this.followingUsersArray = data[0].userFollowing;
+
+      console.log(this.followingUsersArray)
+
     });
 
-    // Vou ter que chamar o método getSimilarUsers e passar o small bio como parametro ou então envio o token e escolho
 
     this.showTimeline();
     this.getSimilarUsers();
@@ -172,7 +180,7 @@ export class ProfilePageComponent implements OnInit {
     this.followingClicked = true;
   }
 
-  
+
   followUser(){
     this.myUserActions.followUnfollowUser(this.idDoUser, this.connectedUserId).subscribe(response => {
 
@@ -187,11 +195,22 @@ export class ProfilePageComponent implements OnInit {
     })
   }
 
+  
   getSimilarUsers(){
     this.myUserActions.getSimilarUsers().subscribe(data => {
       this.similarUsersArray = data;
-      console.log(this.similarUsersArray);
+    console.log(this.similarUsersArray)
+
     })
   }
+
+  goToUserPage(followerId: any){
+
+    this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
+    .then(()=>{
+        this.myRouter.navigate(['/profile/',followerId, 'timeline']);
+    })
+  }
+
 
 }

@@ -57,25 +57,20 @@ main{
 
     .area_central{
         width: 100%;
-        // height: 700px;
         margin: 10px;
-
 
         .abpetimeline{
             width: 100%;
             height: 300px;
-            // background-color: red;
 
             .area_background_perfil{
                 width: calc(100% - 2px);
                 height: 200px;
                 border: 1px solid grey;
-                // background-color: aquamarine;
 
                 .bPitself{
                     width: 100%;
                     height: 200px;
-                    // background-color: darkgreen;
                     overflow: hidden;
 
                     img{
@@ -267,6 +262,7 @@ main{
             height: 230px; // Este height depois sai quando tiver informação para meter aqui
             background-color: #202020;
             margin: 15px auto;
+            margin-top: 40px;
             border-radius: 8px;
 
             .area_titulo_asagSimilar{
@@ -289,61 +285,11 @@ main{
 
         .asagUsers{
             width: 80%;
-            height: 400px; // Este height depois sai quando tiver informação para meter aqui
+            height: 350px; 
             background-color: #202020;
             margin: 15px auto;
             margin-top: 40px;
             border-radius: 8px;
-
-            article.area_quem_postou{
-                width: 100%;
-                height: 55px;
-                margin: 5px auto;
-                background: green;
-                display: flex;
-                justify-content: left;
-                align-items: center;
-
-                div.imagem_user_post{
-                    width: 45px;
-                    // height: 65px;
-                    margin: 8px;
-                    // background-color: blue;
-                    overflow: hidden;
-                    display: flex;
-                    align-items: center;
-
-                    img{
-                       width: 100%;
-                       height: 40px;
-                       border-radius: 50%;
-                       object-fit: fill;
-                       border: 1px solid $themeColor;
-                    }
-                }
-
-                div.nome_user_post{
-                    width: calc(90% - 40px);
-                    height: 55px;
-                    text-align: center;
-                    display: flex;
-                    align-items: center;
-                    // background-color: orange;   
-
-                    h3{
-                        color: white;
-                        font-size: 1.03em;
-                        font-weight: 500;
-                        margin-top: 12px;
-                        display: flex;
-                        align-items: center; 
-
-                        span{
-                            margin-left: 5px;
-                        }
-                    }
-                }
-            }
 
             .area_titulo_asagUsers{
                 width: 100%;
@@ -389,4 +335,61 @@ main{
 .desapareceBotao{
     display: none;
 
+}
+
+.area_quem_postou{
+    width: 95%;
+    height: 55px;
+    margin: 15px auto;
+    background: $themeColor;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border-radius: 10px;
+
+    &:hover{
+        cursor: pointer;
+    }
+
+}
+
+.imagem_user_post{
+    width: 45px;
+    // height: 65px;
+    margin: 8px;
+    // background-color: blue;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+
+    img{
+       width: 100%;
+       height: 40px;
+       border-radius: 50%;
+       object-fit: fill;
+       border: 1px solid $themeColor;
+    }
+}
+
+.nome_user_post{
+    width: calc(90% - 40px);
+    height: 55px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    // background-color: blue;
+
+
+    h3{
+        color: white;
+        font-size: 1.03em;
+        font-weight: 500;
+        margin-top: 12px;
+        display: flex;
+        align-items: center; 
+
+        span{
+            margin-left: 5px;
+        }
+    }
 }
