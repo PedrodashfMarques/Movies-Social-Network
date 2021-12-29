@@ -102,7 +102,7 @@
                 <h2> Similar users</h2>
             </div>
             
-            <article class="area_quem_postou" *ngFor="let eachUser of similarUsersArray | slice:0:2" (click)="goToUserPage(eachUser.user_id)">
+            <article class="area_user" *ngFor="let eachUser of similarUsersArray | slice:0:2" (click)="goToUserPage(eachUser.user_id)">
 
                 <div class="imagem_user_post">
                     <img *ngIf="eachUser.user_image" src="{{imagesPath + eachUser.user_image}}">
@@ -124,8 +124,7 @@
                 <h2> Following Users</h2>
             </div>
 
-            <article class="area_quem_postou" *ngFor="let eachUser of followingUsersArray | slice:0:4" (click)="goToUserPage(eachUser.user_followed)">
-                <!-- Imagem do user que fez o post, firstname, username e last name , um *ngIf para mostrar se é verificado ou não   e a data do post que foi criado -->
+            <article class="area_user" *ngFor="let eachUser of followingUsersArray | slice:0:4" (click)="goToUserPage(eachUser.user_followed)">
                 <div class="imagem_user_post">
                     <img *ngIf="eachUser.user_image" src="{{imagesPath + eachUser.user_image}}">
                     <img *ngIf="!eachUser.user_image" src="{{imagemDefault}}">

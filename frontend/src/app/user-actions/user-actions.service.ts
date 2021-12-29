@@ -156,18 +156,16 @@ export class UserActionsService {
   }
 
 
-  checkIfAlreadyFollowing(idDoUser, connectedUser){
+  checkIfAlreadyFollowing(idDoUser){
     const url = this.api + "checkFollowUnfollow" + "/" + idDoUser;
 
-    return this.myHttp.post(url, {
-      userId: connectedUser
+    // return this.myHttp.get(url); 
+    
+    return this.myHttp.get(url, {
+      headers: new HttpHeaders({
+        'x-auth-token': this.JWTokenParsed
+      })
     })
-
-    // return this.myHttp.post(url, {
-    //   headers: new HttpHeaders({
-    //     'x-auth-token': this.JWTokenParsed
-    //   })
-    // })
     
   }
   
@@ -231,23 +229,13 @@ export class UserActionsService {
   getSimilarUsers(){
     const url = this.api + 'similarUsers';
 
-    let userCategory: string;
+    // return this.myHttp.get(url);
 
-    this.allUserData.subscribe(data => {
-
-      userCategory = data[0].userData.category;
-
-      return
-    })
-
-
-    return this.myHttp.get(url);
-
-    // return this.myHttp.get(url, {
-    //   headers: new HttpHeaders({
-    //     'x-auth-token': this.JWTokenParsed
-    //   })
-    // });
+    return this.myHttp.get(url, {
+      headers: new HttpHeaders({
+        'x-auth-token': this.JWTokenParsed
+      })
+    });
 
     // Vai enviar um header com o categoryId para consigo saber qual é o id do utilizador que está a enviar
 

@@ -4,11 +4,24 @@
 
      $userModel = new User();
 
-        $userId = 1;
+    if(in_array($_SERVER["REQUEST_METHOD"], ["GET"]) ) {
 
-        $userCategory = "Web Development";
+        $userId = $baseModel->routeRequiresValidation();
+
+        $userCategory = $baseModel->getUserCategory();
+
+        // if(empty($userId)){
+        //     header("HTTP/1.1 401 Unauthorized");
+        //     die('{"message":"Wrong or missing Auth Token"}');
+        // }
+
+    }
+
+        // $userId = 1;
+
+        // $userCategory = "Web Development";
+
      
-
     if($_SERVER["REQUEST_METHOD"] === "GET"){
 
         if(!empty($userId)){

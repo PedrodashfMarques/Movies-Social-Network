@@ -30,6 +30,7 @@ export class ProfilePageComponent implements OnInit {
     smallBio: string
     numFollowers: number
     numFollowing: number
+    category: string
   // USER DATA
   
   // Connected User id
@@ -55,7 +56,6 @@ export class ProfilePageComponent implements OnInit {
   // Following Users
   followingUsersArray: any;
   // Following Users
-
 
   userIsVerified: boolean = false;
   
@@ -106,7 +106,7 @@ export class ProfilePageComponent implements OnInit {
       }
     })
     
-    this.myUserActions.checkIfAlreadyFollowing(this.idDoUser, this.connectedUserId).subscribe(response => {
+    this.myUserActions.checkIfAlreadyFollowing(this.idDoUser).subscribe(response => {
 
       if(response["message"] === "Already Following"){
         this.followUnfollowMessage = 'Unfollow';
@@ -130,14 +130,19 @@ export class ProfilePageComponent implements OnInit {
       this.numFollowing = data[0].followingCount.Total;
       this.userProfileImage = data[0].userData.user_image;
       this.followingUsersArray = data[0].userFollowing;
-
-      console.log(this.followingUsersArray)
+      this.category = data[0].userData.category;
+      // console.log(data);
 
     });
 
+    this.myUserActions.getSimilarUsers().subscribe(data => {
+      this.similarUsersArray = data;
+      console.log(data);
+    })
+
 
     this.showTimeline();
-    this.getSimilarUsers();
+
   }
 
 
@@ -196,13 +201,9 @@ export class ProfilePageComponent implements OnInit {
   }
 
   
-  getSimilarUsers(){
-    this.myUserActions.getSimilarUsers().subscribe(data => {
-      this.similarUsersArray = data;
-    console.log(this.similarUsersArray)
-
-    })
-  }
+  // getSimilarUsers(){
+    
+  // }
 
   goToUserPage(followerId: any){
 

@@ -41,6 +41,27 @@ use ReallySimpleJWT\Token;
 
         }
 
+        
+        public function getUserCategory(){
+            $headers = apache_request_headers();
+
+            foreach($headers as $header => $value){
+                if(strtolower($header) === "user-category"){
+                    $category = trim($value);
+                };
+            };
+
+            if(!empty($category)){
+                return $category;
+
+            } else{
+
+                return 0;
+            }
+
+
+        }
+
     }
 
 ?>
