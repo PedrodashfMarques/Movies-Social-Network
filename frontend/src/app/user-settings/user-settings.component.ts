@@ -109,10 +109,7 @@ export class UserSettingsComponent implements OnInit {
 
   updateUserInformation(form: any){
 
-
     let values = form.value;
-    console.log(values)
-
     
     if(this.fileToUpload === undefined || this.fileToUpload === ''){
       this.fileToUpload = '';

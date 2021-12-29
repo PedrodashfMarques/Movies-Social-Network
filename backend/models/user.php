@@ -130,7 +130,7 @@
         public function updateUserData($id, $data){
             $query = $this->dataBase->prepare("
             UPDATE users
-            SET small_bio = ?, big_bio = ?, location = ?
+            SET small_bio = ?, big_bio = ?, location = ?, category = ?
             WHERE user_id  = ?
             ");
             
@@ -138,6 +138,7 @@
                 $data["small_bio"],
                 $data["big_bio"],
                 $data["location"],
+                $data["category"],
                 $id
             ]);
 
@@ -388,7 +389,7 @@
         }
 
 
-        public function getSimilarUsersToThis($userSmallBio, $userBigBio){
+        public function getSimilarUsersToThis($userCategory, $userId){
             // Perguntar ao Ivo como fazer este
             $query = $this->dataBase->prepare("
                 SELECT
@@ -400,14 +401,12 @@
                     is_verified
                 FROM 
                     users
-                WHERE 
-                    CONCAT(small_bio, big_bio)
-                LIKE ?
+                WHERE category = ?
+                AND user_id<>'$userId'
             ");
 
             $query->execute([
-                "%".$userSmallBio."%",
-                "%".$userBigBio."%"
+                $userCategory
             ]);
 
             return $query->fetchAll( PDO:: FETCH_ASSOC );

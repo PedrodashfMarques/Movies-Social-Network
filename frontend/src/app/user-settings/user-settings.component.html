@@ -38,7 +38,6 @@
                         id="locationId"
                         required
                         formControlName="location">
-                        <option> {{userLocation}} </option>
                         <option *ngFor="let eachCountry of allCountriesArray"> {{eachCountry.nicename}} </option>
                         </select>
                 </div>
@@ -50,7 +49,6 @@
                         id="categoryId"
                         required
                         formControlName="category">
-                        <option> {{userCategory}} </option>
                         <option *ngFor="let eachCategory of allCategoriesArray"> {{eachCategory.name}} </option>
                         </select>
                 </div>

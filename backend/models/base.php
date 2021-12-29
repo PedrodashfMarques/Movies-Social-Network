@@ -20,7 +20,7 @@ use ReallySimpleJWT\Token;
                 };
             };
 
-
+            
             $secret = CONFIG["SECRET_KEY"];
 
             $tokenIsValid = Token::validate($tokenKey, $secret);

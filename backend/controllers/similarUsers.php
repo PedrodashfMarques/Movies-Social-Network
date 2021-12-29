@@ -4,26 +4,30 @@
 
      $userModel = new User();
 
-     $userSmallBio = "Junior Web Developer";
+        $userId = 1;
 
-     $userBigBio = "Junior Web Developer trying to get my first job as well as semi professional CSGO Player trying to reach the highest possible in the Portuguese Scene.";
+        $userCategory = "Web Development";
+     
 
     if($_SERVER["REQUEST_METHOD"] === "GET"){
 
         if(!empty($userId)){
-            $result = $userModel->getSimilarUsers($userSmallBio, $userBigBio);
+            $usersArray = $userModel->getSimilarUsersToThis($userCategory, $userId);
 
             // Colocar este controller no array no index.php
 
-            if(!empty($result)){
-                
+            if(!empty($usersArray)){
+    
+                http_response_code(202);
+                echo json_encode($usersArray);
 
             } else {
+                http_response_code(404);
+                echo '{"message": "Users not found"}';
                 
             }
-
+            
         }
-        // Aplicar logica
 
     }
 

@@ -48,6 +48,10 @@ export class ProfilePageComponent implements OnInit {
   followUnfollowMessage: string = "";
   // Follow or Unfollow message
 
+  // Similar Users
+  similarUsersArray: any;
+  // Similar Users
+
 
   userIsVerified: boolean = false;
   
@@ -125,6 +129,7 @@ export class ProfilePageComponent implements OnInit {
     // Vou ter que chamar o método getSimilarUsers e passar o small bio como parametro ou então envio o token e escolho
 
     this.showTimeline();
+    this.getSimilarUsers();
   }
 
 
@@ -179,6 +184,13 @@ export class ProfilePageComponent implements OnInit {
         this.numFollowers--
         this.followUnfollowMessage = "Follow";
       }
+    })
+  }
+
+  getSimilarUsers(){
+    this.myUserActions.getSimilarUsers().subscribe(data => {
+      this.similarUsersArray = data;
+      console.log(this.similarUsersArray);
     })
   }
 

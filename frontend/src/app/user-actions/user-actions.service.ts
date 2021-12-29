@@ -229,11 +229,27 @@ export class UserActionsService {
 
   
   getSimilarUsers(){
-    const url = this.api + 'getSimilarUsers';
+    const url = this.api + 'similarUsers';
 
-    this.myHttp.get(url);
+    let userCategory: string;
 
-    // Vai enviar um header com o token
+    this.allUserData.subscribe(data => {
+
+      userCategory = data[0].userData.category;
+
+      return
+    })
+
+
+    return this.myHttp.get(url);
+
+    // return this.myHttp.get(url, {
+    //   headers: new HttpHeaders({
+    //     'x-auth-token': this.JWTokenParsed
+    //   })
+    // });
+
+    // Vai enviar um header com o categoryId para consigo saber qual é o id do utilizador que está a enviar
 
   }
 

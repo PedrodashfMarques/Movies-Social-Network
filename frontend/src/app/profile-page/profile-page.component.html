@@ -101,8 +101,20 @@
             <div class="area_titulo_asagSimilar">
                 <h2> Similar users</h2>
             </div>
+            
+            <!-- <article class="area_quem_postou">
+                Imagem do user que fez o post, firstname, username e last name , um *ngIf para mostrar se é verificado ou não   e a data do post que foi criado
+                <div class="imagem_user_post">
+                    <img src="{{imagemTeste}}" alt="">
+                </div>
+                
+                <div class="nome_user_post">
+                    <h3> Pedro "@movieLover" Marques <span *ngIf="userIsVerified"> <i class="fas fa-check"></i> </span>  </h3>
+                </div>
+                
+            </article>    -->
 
-            <ul>
+            <ul *ngFor="let eachUser of similarUsersArray">
                 <!-- <li *ngFor="let item of list | slice:0:10; let i=index" class="dropdown-item" (click)="onClick(item)">{{item.text}}</li> -->
                 <!-- https://stackoverflow.com/questions/37818677/how-can-i-limit-ngfor-repeat-to-some-number-of-items-in-angular -->
                 <!-- Ver como blockear o ngFor para apenas 5 registos -->
@@ -129,18 +141,6 @@
                 </div>
                 
             </article>  
-            
-            <article class="area_quem_postou">
-                <!-- Imagem do user que fez o post, firstname, username e last name , um *ngIf para mostrar se é verificado ou não   e a data do post que foi criado -->
-                <div class="imagem_user_post">
-                    <img src="{{imagemTeste}}" alt="">
-                </div>
-                
-                <div class="nome_user_post">
-                    <h3> Pedro "@movieLover" Marques <span *ngIf="userIsVerified"> <i class="fas fa-check"></i> </span>  </h3>
-                </div>
-                
-            </article>   
 
         </div>
 

@@ -21,6 +21,8 @@
             mb_strlen($sanitizedData["big_bio"]) <= 1000 &&
             mb_strlen($sanitizedData["location"]) >= 3 &&
             mb_strlen($sanitizedData["location"]) <= 60 &&
+            mb_strlen($sanitizedData["category"]) >= 3 &&
+            mb_strlen($sanitizedData["category"]) <= 40 &&
             $size >= 0 &&
             $size < 10000000
             ){
