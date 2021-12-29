@@ -17,7 +17,7 @@
                     required
                     formControlName="smallBio"
                     maxlength="25"
-                    value="">
+                    >
                 </div>
 
                 <div class="cadaForm">
@@ -27,7 +27,7 @@
                     placeholder="Placeholder memo"
                     formControlName="bigBio"
                     maxlength="1000"
-                    value="">
+                    >
                     </textarea>
                 </div>
 
@@ -38,8 +38,20 @@
                         id="locationId"
                         required
                         formControlName="location">
-                        <option value=""> {{userLocation}} </option>
+                        <option> {{userLocation}} </option>
                         <option *ngFor="let eachCountry of allCountriesArray"> {{eachCountry.nicename}} </option>
+                        </select>
+                </div>
+
+                <div class="cadaForm">
+                    <label for="categoryId"> Category </label>
+                        <select 
+                        type="text" 
+                        id="categoryId"
+                        required
+                        formControlName="category">
+                        <option> {{userCategory}} </option>
+                        <option *ngFor="let eachCategory of allCategoriesArray"> {{eachCategory.name}} </option>
                         </select>
                 </div>
 
@@ -50,8 +62,7 @@
                         (change)="imageUpload($event.target.files)"
                         id="userImageId"
                         required
-                        formControlName="userImage"
-                        value="">
+                        formControlName="userImage">
                 </div>
 
                 <div class="cadaForm">
@@ -60,8 +71,7 @@
                         type="file"
                         id="bgUserImageId"
                         required
-                        formControlName="bgUserImage"
-                        value="">
+                        formControlName="bgUserImage">
                 </div>
                 <!-- Botão do type submit, disabled se os campos não forem todos válidos é o !ngForm.valid -->
                 

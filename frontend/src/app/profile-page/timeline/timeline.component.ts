@@ -15,7 +15,6 @@ export class TimelineComponent implements OnInit {
 
   connectedUserId: number;
 
-
   postThatWasLiked;
 
   imagesPath = "http://localhost/backend/";
@@ -61,7 +60,7 @@ export class TimelineComponent implements OnInit {
       // console.log(this.userPostsArray);
 
       let userVerification = data[0].userData["is_verified"];
-      console.log(data[0].userData);
+      // console.log(data[0].userData);
 
       if(userVerification === 1 || userVerification === "1"){
         this.userIsVerified = true;

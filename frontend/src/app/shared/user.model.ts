@@ -17,7 +17,7 @@ export class User{
 
     get Token(){
         if(!this.expiresIn || new Date() > this.expiresIn){
-            return null
+            return null;
         }
 
         return this.JWToken;

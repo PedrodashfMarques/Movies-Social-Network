@@ -67,7 +67,6 @@ export class UserActionsService {
     return this.myHttp.get(url);
   }
 
-
   getPostComments(postId: number){
     const url = this.api + "comments" + "/" + postId;
 
@@ -125,7 +124,6 @@ export class UserActionsService {
   }
 
 
-
   commentPost(data){
     const url = this.api + "comments";
 
@@ -159,7 +157,7 @@ export class UserActionsService {
 
 
   checkIfAlreadyFollowing(idDoUser, connectedUser){
-    const url = this.api + 'checkFollowUnfollow' + "/" + idDoUser;
+    const url = this.api + "checkFollowUnfollow" + "/" + idDoUser;
 
     return this.myHttp.post(url, {
       userId: connectedUser
@@ -182,11 +180,13 @@ export class UserActionsService {
 
   }
 
+
   getAllCountries(){
     const url = this.api + 'countries';
   
     return this.myHttp.get(url);   
   }
+
 
   updateUserData(data, connectedUserId: number){
     const url = this.api + 'users' + "/" + connectedUserId;
@@ -220,6 +220,14 @@ export class UserActionsService {
     return this.myHttp.post(url, jsonConverted);   
   }
 
+  getAllUserCategories(){
+    const url = this.api + 'userCategories';
+
+    return this.myHttp.get(url);
+
+  }
+
+  
   getSimilarUsers(){
     const url = this.api + 'getSimilarUsers';
 

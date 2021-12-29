@@ -9,6 +9,8 @@ export interface UserResponseData {
         user_image: string,
         background_image: string,
         is_verified: string | number,
+        is_admin: string | number,
+        category: string
     
       },
       userFollowers: Array<{

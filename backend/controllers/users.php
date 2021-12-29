@@ -12,7 +12,6 @@ use ReallySimpleJWT\Token;
     // Sanitizer
     require_once("sanitizers/updateUserSanitizer.php");
 
-
     // Image Transformer
     require_once("imageTransformer.php");
     // Image Transformer
@@ -20,6 +19,7 @@ use ReallySimpleJWT\Token;
     $baseModel = new Base();
     $userModel = new User();
     $postModel = new Post();
+
 
     // if(in_array($_SERVER["REQUEST_METHOD"], ["GET","POST", "PUT", "DELETE"]) ) {
 
@@ -38,8 +38,10 @@ use ReallySimpleJWT\Token;
 
     // }
 
+
     $userId = 1;
 
+    
     if($_SERVER["REQUEST_METHOD"] === "GET"){
         // The id here is the user that is connected aka userId
         if(isset($id)){  
@@ -56,8 +58,7 @@ use ReallySimpleJWT\Token;
             $userPostsData = $userModel->getUserPosts($id);
 
             foreach ($userPostsData as $eachPost => $value) {
-                $userPostsData[$eachPost]["isLiked"] = false;
-                
+                $userPostsData[$eachPost]["isLiked"] = false; 
             }
 
             $likedPostsArray = $postModel->getUserLikedPosts($userId, $userPostsData);
@@ -100,8 +101,6 @@ use ReallySimpleJWT\Token;
             $result = $userModel->getAllUsers();
             http_response_code(202);
             echo json_encode($result);
-
-            // Aplicar lógica para ir buscar todos os utilizadores para listar no World Component
         }
         
     }
@@ -171,10 +170,7 @@ use ReallySimpleJWT\Token;
                 
             }
     
-           if(
-               updateUserValidator($sanitizedData)
-
-            ){
+           if(updateUserValidator($sanitizedData)) {
 
             $result = $userModel->updateUserData($id, $transformedData);
 

@@ -14,7 +14,10 @@ export class UserSettingsComponent implements OnInit {
   userInformationForm: FormGroup;
   allCountriesArray: any;
   connectedUserId: any;
-  userLocation: string;
+  userLocation: string = "";
+  userCategory: string;
+
+  allCategoriesArray: any;
 
   accountCreatedOn;
 
@@ -40,29 +43,34 @@ export class UserSettingsComponent implements OnInit {
       this.connectedUserId = data.userId;
 
       // this.accountCreatedOn = data[0].userData.created_at;
-
-      // console.log(data)
     })
 
     this.myUserActions.getUserData(this.connectedUserId).subscribe(data => {
       this.userInformationForm.controls.smallBio.setValue(data[0].userData.small_bio);
       this.userInformationForm.controls.bigBio.setValue(data[0].userData.big_bio);
       this.userInformationForm.controls.location.setValue(data[0].userData.location);
+      this.userInformationForm.controls.category.setValue(data[0].userData.category);
       this.userInformationForm.controls.userImage.setValue(data[0].userData.user_image);
       this.userInformationForm.controls.bgUserImage.setValue(data[0].userData.background_image);
 
       this.userLocation = data[0].userData.location;
 
-
     })
 
     this.getCountries();
+    this.getUserCategories();
   }
 
   getCountries(){
     this.myUserActions.getAllCountries().subscribe(data => {
       this.allCountriesArray = data;
 
+    })
+  }
+
+  getUserCategories(){
+    this.myUserActions.getAllUserCategories().subscribe(data => {
+      this.allCategoriesArray = data;
     })
   }
 
@@ -81,6 +89,10 @@ export class UserSettingsComponent implements OnInit {
         Validators.required, 
         Validators.minLength(3), 
         Validators.maxLength(60)])],
+      'category' : ['', Validators.compose([
+        Validators.required, 
+        Validators.minLength(3), 
+        Validators.maxLength(40)])],
       'userImage' : ['', Validators.compose([
         Validators.required, 
         Validators.minLength(1), 
@@ -97,7 +109,10 @@ export class UserSettingsComponent implements OnInit {
 
   updateUserInformation(form: any){
 
+
     let values = form.value;
+    console.log(values)
+
     
     if(this.fileToUpload === undefined || this.fileToUpload === ''){
       this.fileToUpload = '';
@@ -108,6 +123,7 @@ export class UserSettingsComponent implements OnInit {
     formData.append('small_bio', values.smallBio);
     formData.append('big_bio', values.bigBio);
     formData.append('location', values.location);
+    formData.append('category', values.category);
     formData.append('user_image', this.fileToUpload);
     formData.append('bgUser_image', values.bgUserImage);
 

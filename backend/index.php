@@ -34,7 +34,8 @@ $controllers = [
     "comments",
     "countries",
     "checkFollowUnfollow",
-    "findUsers"
+    "findUsers",
+    "userCategories"
 ];
 
     $url_parts = explode("/", $_SERVER["REQUEST_URI"]);
@@ -51,7 +52,6 @@ $controllers = [
     }
 
     require("controllers/" . $controller . ".php");
-
 
 
 ?>

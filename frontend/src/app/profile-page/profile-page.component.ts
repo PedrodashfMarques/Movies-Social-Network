@@ -41,7 +41,7 @@ export class ProfilePageComponent implements OnInit {
    // Connected Username
 
   // Botão Follow Unfollow
-  followMyself: boolean = false;
+  followMyself: boolean;
   // Botão Follow Unfollow
 
   // Follow or Unfollow message
@@ -107,7 +107,7 @@ export class ProfilePageComponent implements OnInit {
       }
     }, error => {
       if(error.error.message === "Users are the same"){
-        this.followUnfollowMessage = null;
+        this.followUnfollowMessage = "";
       }
     })
 
@@ -124,7 +124,6 @@ export class ProfilePageComponent implements OnInit {
 
     // Vou ter que chamar o método getSimilarUsers e passar o small bio como parametro ou então envio o token e escolho
 
-  
     this.showTimeline();
   }
 

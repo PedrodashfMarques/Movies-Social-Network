@@ -114,6 +114,8 @@
             user_image,
             background_image,
             is_verified,
+            is_admin,
+            category,
             created_at
             FROM users
             WHERE user_id = ?     
@@ -263,6 +265,17 @@
             return $query->fetchAll( PDO:: FETCH_ASSOC );
         }
 
+        public function getCategories(){
+            $query = $this->dataBase->prepare("
+            SELECT name
+            FROM user_categories
+            ");
+
+            $query->execute();
+
+            return $query->fetchAll( PDO:: FETCH_ASSOC );
+        }
+
         public function followersCount($userId){
             $query = $this->dataBase->prepare("
             SELECT COUNT(*) AS Total
@@ -366,7 +379,7 @@
                     CONCAT(first_name, username, last_name)
                 LIKE ?
             ");
-
+            
             $query->execute([
                 "%".$data."%"
             ]);
@@ -375,7 +388,7 @@
         }
 
 
-        public function getSimilarUsersToThis($userBio){
+        public function getSimilarUsersToThis($userSmallBio, $userBigBio){
             // Perguntar ao Ivo como fazer este
             $query = $this->dataBase->prepare("
                 SELECT
@@ -393,7 +406,8 @@
             ");
 
             $query->execute([
-                "%".$userBio."%"
+                "%".$userSmallBio."%",
+                "%".$userBigBio."%"
             ]);
 
             return $query->fetchAll( PDO:: FETCH_ASSOC );
