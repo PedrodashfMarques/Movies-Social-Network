@@ -152,7 +152,6 @@ export class UserActionsService {
     const url = this.api + "comments" + "/" + commentId;
 
     return this.myHttp.delete(url);
-
   }
 
 
@@ -160,7 +159,7 @@ export class UserActionsService {
     const url = this.api + "checkFollowUnfollow" + "/" + idDoUser;
 
     // return this.myHttp.get(url); 
-    
+
     return this.myHttp.get(url, {
       headers: new HttpHeaders({
         'x-auth-token': this.JWTokenParsed
@@ -222,23 +221,7 @@ export class UserActionsService {
     const url = this.api + 'userCategories';
 
     return this.myHttp.get(url);
-
   }
 
-  
-  getSimilarUsers(){
-    const url = this.api + 'similarUsers';
-
-    // return this.myHttp.get(url);
-
-    return this.myHttp.get(url, {
-      headers: new HttpHeaders({
-        'x-auth-token': this.JWTokenParsed
-      })
-    });
-
-    // Vai enviar um header com o categoryId para consigo saber qual é o id do utilizador que está a enviar
-
-  }
 
 }

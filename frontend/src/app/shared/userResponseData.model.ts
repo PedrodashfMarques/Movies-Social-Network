@@ -48,4 +48,13 @@ export interface UserResponseData {
         likesNumber: string,
         isLiked: boolean
       }>,
+
+      similarUsers: Array<{
+        user_id: number,
+        first_name: string,
+        username: string,
+        last_name: string,
+        user_image: string,
+        is_verified: number,
+      }>,
 }

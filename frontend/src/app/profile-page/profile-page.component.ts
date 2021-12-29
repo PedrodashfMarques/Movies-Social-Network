@@ -131,18 +131,12 @@ export class ProfilePageComponent implements OnInit {
       this.userProfileImage = data[0].userData.user_image;
       this.followingUsersArray = data[0].userFollowing;
       this.category = data[0].userData.category;
-      // console.log(data);
+      this.similarUsersArray = data[0].similarUsers;
 
     });
 
-    this.myUserActions.getSimilarUsers().subscribe(data => {
-      this.similarUsersArray = data;
-      console.log(data);
-    })
-
-
+    
     this.showTimeline();
-
   }
 
 
@@ -200,10 +194,6 @@ export class ProfilePageComponent implements OnInit {
     })
   }
 
-  
-  // getSimilarUsers(){
-    
-  // }
 
   goToUserPage(followerId: any){
 
