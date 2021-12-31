@@ -82,16 +82,17 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit(): void {
     this.idDoUser = +this.myActiveRoute.snapshot.params['id'];
     
-    if(!Number(this.idDoUser)){
+    if(isNaN(this.idDoUser)){
+      console.log("fodasse");
+
       this.myRouter.navigate(['newsfeed']);
-    } else{
-        this.myUserActions.checkIfUserExists(this.idDoUser).subscribe(response => {
-          // return
-        }, error => {
-          if(error.error.message === "This user does not exist"){
-            this.myRouter.navigate(['newsfeed']);
-          }
-        });
+      
+    } else {
+      console.log("Tá fixe");
+      // this.myUserActions.checkIfUserExists(this.idDoUser).subscribe(response => {
+      //   console.log(response);
+        
+      // });
     }
 
     this.myAuthService.userSubject.subscribe(data => {
@@ -179,7 +180,7 @@ export class ProfilePageComponent implements OnInit {
     this.followingClicked = true;
   }
 
-
+  
   followUser(){
     this.myUserActions.followUnfollowUser(this.idDoUser, this.connectedUserId).subscribe(response => {
 
@@ -194,7 +195,7 @@ export class ProfilePageComponent implements OnInit {
     })
   }
 
-
+  
   goToUserPage(followerId: any){
 
     this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})

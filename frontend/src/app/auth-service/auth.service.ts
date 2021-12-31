@@ -47,11 +47,11 @@ export class AuthService {
 
   autologin(){
     let JWToken = localStorage.getItem('authToken');
-
+    
     if(JWToken.length <= 0){
       this.myRouter.navigate(['']);
     }
-    
+
     let userData: {
       userId: number,
       firstName: string,
@@ -125,10 +125,13 @@ export class AuthService {
 
 
   private handleAuthentication(JWToken: any){
-    localStorage.setItem("authToken", JSON.stringify(JWToken));
     console.log(JWToken);
+
+    localStorage.setItem("authToken", JSON.stringify(JWToken));
     // Decode the JWT using jwtHelper
+
     const JWTdecoded = this.jwtHelper.decodeToken(localStorage.getItem('authToken'));
+
     console.log(JWTdecoded);
 
     //  1 hour until auto-logout

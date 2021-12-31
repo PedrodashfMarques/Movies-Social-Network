@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, JsonpClientBackend  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject} from 'rxjs';
+import { BehaviorSubject, Observable} from 'rxjs';
 import { tap } from "rxjs/operators";
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth-service/auth.service';
@@ -26,9 +26,9 @@ export class UserActionsService {
     // JSON Parsed
 
 
-  checkIfUserExists(urlUserId){
+  checkIfUserExists(urlUserId: number){
     const url = this.api + 'users' + "/" + urlUserId;
-    return this.myHttp.get(url);
+    return this.myHttp.get<UserResponseData>(url);
 
   }
   

@@ -5,7 +5,7 @@
     header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
     require("models/user.php");
-
+    
     $userModel = new User();
     
     if(in_array($_SERVER["REQUEST_METHOD"], ["GET"]) ) {
@@ -43,7 +43,7 @@
                 http_response_code(202);
                 echo '{"message": "Already Following"}';
             }
-
+            
         }
     } 
 

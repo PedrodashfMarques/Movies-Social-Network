@@ -57,8 +57,6 @@ export class TimelineComponent implements OnInit {
 
       }
 
-      // console.log(this.userPostsArray);
-
       let userVerification = data[0].userData["is_verified"];
       // console.log(data[0].userData);
 
@@ -69,7 +67,6 @@ export class TimelineComponent implements OnInit {
       }
       
     })
-    // Conforme tal informação aplicar uma classe ou outra / *ngIf para adicionar um <i> ou outro
   }
 
   likePost(postId:number){

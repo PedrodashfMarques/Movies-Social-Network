@@ -25,7 +25,6 @@
 
             $query->execute([
                 $data["email"],
-
             ]);
 
              $user = $query->fetch( PDO::FETCH_ASSOC );
@@ -123,10 +122,9 @@
 
             $query->execute([$id]);
 
-            return $query->fetch(PDO:: FETCH_ASSOC );
+            return $query->fetch(PDO:: FETCH_ASSOC);
         }
-
-
+        
         public function updateUserData($id, $data){
             $query = $this->dataBase->prepare("
             UPDATE users

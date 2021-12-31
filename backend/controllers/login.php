@@ -45,7 +45,7 @@ use ReallySimpleJWT\Token;
             $token = Token::customPayload($payload, $secret);
 
             header("X-Auth-Token: " . $token);
-
+            
             echo '{"X-Auth-Token" : "'. $token .'"}';
 
         

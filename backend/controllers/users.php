@@ -43,17 +43,23 @@ use ReallySimpleJWT\Token;
 
 
     if($_SERVER["REQUEST_METHOD"] === "GET"){
-        // The id here is the user that is connected aka userId
+        $userCategory = "";
+
         if(isset($id)){  
 
             $userInfo = $userModel->getUserData($id);
-            $userCategory = $userInfo["category"];
+
+            if(!empty($userInfo)){
+                $userCategory = $userInfo["category"];
+            }
+
 
             $userFollowersData = $userModel->getConnectedUserFollowers($id);
-
             $userFollowingData = $userModel->getConnectedUserFollowing($id);
 
+            
             $similarUsersData = $userModel->getSimilarUsersToThis($userCategory, $id);
+
 
             $followersCount = $userModel->followersCount($id);
             $followingCount = $userModel->followingCount($id);

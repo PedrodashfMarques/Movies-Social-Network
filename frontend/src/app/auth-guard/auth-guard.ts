@@ -17,7 +17,6 @@ export class AuthGuard implements CanActivate{
         canActivate(): boolean | Promise<boolean> | Observable<boolean |UrlTree> {
             return this.myAuthService.userSubject.pipe( take(1), map( user => {
                 const isAuthenticated = !!user; // !! user faz uma conversão do valor obtido desde que seja true, por ex (objeto, string, number) qq coisa que não seja null ou undefined
-
                 if(isAuthenticated){
                     return true
                 }

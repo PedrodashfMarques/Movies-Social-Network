@@ -32,6 +32,7 @@ const routes: Routes = [
     {path: 'about', component: AboutComponent},
     {path: 'followers', component: FollowersComponent},
     {path: 'following', component: FollowingComponent},
+
   ]},
 
   {path: 'settings', component: UserSettingsComponent, canActivate:[AuthGuard]},
