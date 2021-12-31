@@ -2,16 +2,34 @@
 
 <main>
 
-    <section class="area_filters">
+    <section class="area_apenas_shortcuts"> 
 
-        <!-- <div class="caixa_child_routes">
+        <div class="area_shortcuts">
+
+            <div class="area_titulo_shortcuts">
+                <h2> Shortcuts </h2>
+            </div>
+
+            <ul>
+                <li routerLink="/newsfeed"> <i class="fas fa-rss"></i>  Newsfeed </li>
+                <li routerLink="/world"> <i class="fas fa-globe-europe"></i>  World </li>
+                <li routerLink="/settings"> <i class="fas fa-cog"></i>  Settings </li>
+            </ul>
+
+        </div>
+
+    </section>
+
+    <!-- <section class="area_filters">
+
+        <div class="caixa_child_routes">
             <ul>
                 <li (click)="showUsersFilter()" [ngClass]="{usersClicked: usersRouteClicked === true}"> <span> Users </span>  </li>
                 <li (click)="showPostsFilter()" [ngClass]="{usersClicked: postsRouteClicked === true}"> <span> Posts </span> </li>
             </ul>
-        </div> -->
+        </div>
 
-    </section>
+    </section> -->
 
     <section class="area_world">
 
@@ -52,7 +70,7 @@
                     
                 </article>  
                 
-                <article *ngIf="usersFoundArray.length === 0" class="no_users_found">
+                <article *ngIf="noUsersFound" class="no_users_found">
                     <p> No users found </p>
                 </article>
 

@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     formData.append('email', values.email);
     formData.append('password', values.password);
 
-
+    
     this.myAuthService.loginUser(formData).subscribe(response => {
       // console.log(response);
       

@@ -24,7 +24,6 @@ define("ROOT",
 );
 
 
-
 $controllers = [
     "login",
     "register",

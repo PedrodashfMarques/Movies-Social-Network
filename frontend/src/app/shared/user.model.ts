@@ -14,7 +14,7 @@ export class User{
         private JWToken: string,
         public expiresIn: Date
     ){}
-
+    
     get Token(){
         if(!this.expiresIn || new Date() > this.expiresIn){
             return null;

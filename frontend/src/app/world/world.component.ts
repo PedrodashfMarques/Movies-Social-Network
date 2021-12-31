@@ -24,6 +24,9 @@ export class WorldComponent implements OnInit {
   usersFoundArray: any = [];
   // Users Array
 
+  // No users boolean
+  noUsersFound: boolean;
+  // No users boolean
 
 
   imagesPath = "http://localhost/backend/";
@@ -70,7 +73,16 @@ export class WorldComponent implements OnInit {
     this.myUserActions.findUser(formData).subscribe(response => {
       // console.log(response);
       this.usersFoundArray = response;
-      console.log(this.usersFoundArray);
+
+      // console.log(this.usersFoundArray);
+
+      if(this.usersFoundArray.length <= 0){
+        this.noUsersFound = true;
+
+      } else {
+        this.noUsersFound = false;
+
+      }
     })
     
   }

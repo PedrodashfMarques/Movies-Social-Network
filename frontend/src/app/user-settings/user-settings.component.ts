@@ -14,7 +14,7 @@ export class UserSettingsComponent implements OnInit {
   userInformationForm: FormGroup;
   allCountriesArray: any;
   connectedUserId: any;
-  userLocation: string = "";
+  userLocation: string;
   userCategory: string;
 
   allCategoriesArray: any;

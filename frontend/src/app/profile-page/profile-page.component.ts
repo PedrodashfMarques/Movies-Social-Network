@@ -83,14 +83,11 @@ export class ProfilePageComponent implements OnInit {
     this.idDoUser = +this.myActiveRoute.snapshot.params['id'];
     
     if(isNaN(this.idDoUser)){
-      console.log("fodasse");
-
       this.myRouter.navigate(['newsfeed']);
       
     } else {
-      console.log("Tá fixe");
       // this.myUserActions.checkIfUserExists(this.idDoUser).subscribe(response => {
-      //   console.log(response);
+        // console.log(response);
         
       // });
     }

@@ -29,25 +29,24 @@ export class AuthService {
     private jwtHelper: JwtHelperService,
     private myRouter: Router) { }
 
+  
   loginUser(data: any){
     const url = this.api + 'login';
-
+    
     let object = {};
     data.forEach((value, key) => object[key] = value);
 
     let jsonConverted = JSON.stringify(object);
-
-    // console.log(jsonConverted);
 
     return this.myHttp.post<AuthResponseData>(url, jsonConverted).pipe(catchError(this.handleError), 
     tap( resData => {
       this.handleAuthentication(resData)
     }));
   }
-
+  
   autologin(){
     let JWToken = localStorage.getItem('authToken');
-    
+
     if(JWToken.length <= 0){
       this.myRouter.navigate(['']);
     }
@@ -125,17 +124,19 @@ export class AuthService {
 
 
   private handleAuthentication(JWToken: any){
+    localStorage.setItem("authToken", JSON.stringify(JWToken));
+
     console.log(JWToken);
 
-    localStorage.setItem("authToken", JSON.stringify(JWToken));
+    
     // Decode the JWT using jwtHelper
-
     const JWTdecoded = this.jwtHelper.decodeToken(localStorage.getItem('authToken'));
 
     console.log(JWTdecoded);
 
     //  1 hour until auto-logout
     const expirationDate = new Date(new Date().getTime() + JWTdecoded.expiryTime * 1000);
+
 
       const newUser = new User(
       JWTdecoded.userId,
@@ -151,7 +152,6 @@ export class AuthService {
       JWTdecoded.isVerified,
       JWToken,
       expirationDate,
-
     );
 
     this.userSubject.next(newUser);

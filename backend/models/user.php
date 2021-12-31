@@ -386,7 +386,7 @@
             return $query->fetchAll( PDO:: FETCH_ASSOC );
         }
 
-
+        
         public function getSimilarUsersToThis($userCategory, $userId){
             // Perguntar ao Ivo como fazer este
             $query = $this->dataBase->prepare("
