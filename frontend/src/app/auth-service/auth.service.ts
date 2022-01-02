@@ -121,8 +121,7 @@ export class AuthService {
 
   // }
 
-
-
+  
   private handleAuthentication(JWToken: any){
     localStorage.setItem("authToken", JSON.stringify(JWToken));
 

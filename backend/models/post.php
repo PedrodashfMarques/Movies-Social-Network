@@ -36,7 +36,7 @@
 
             $likedPostsArray = array();
 
-             foreach ($oldPosts as $eachPost) {
+            foreach ($oldPosts as $eachPost) {
 
                 $query = $this->dataBase->prepare("
                 SELECT likes.post_id
@@ -50,8 +50,7 @@
                     $connectedUserId
                 ]);
 
-                $fetch = $query->fetchAll();
-                // var_dump($fetch);
+                $fetch = $query->fetchAll(PDO :: FETCH_ASSOC );
 
                 if($fetch){
                     $eachPost["isLiked"] = true;
@@ -62,6 +61,35 @@
             }
 
             return $likedPostsArray;
+
+        }
+
+        public function getUserCommentedPosts($connectedUserId, $oldPosts){
+            $commentedPostsArray = array();
+
+            foreach ($oldPosts as $eachPost) {
+                $query = $this->dataBase->prepare("
+                SELECT comments.comment_id
+                FROM comments
+                WHERE comments.post_id = ?
+                AND comments.user_id = ?
+                ");
+
+                $query->execute([
+                    $eachPost["post_id"],
+                    $connectedUserId
+                ]);
+                
+                $fetch = $query->fetchAll( PDO :: FETCH_ASSOC );
+
+                if($fetch){
+                    $eachPost["isCommented"] = true;
+                    array_push($commentedPostsArray, $eachPost);
+                }
+
+            }
+
+            return $commentedPostsArray;
 
         }
 

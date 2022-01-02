@@ -27,9 +27,8 @@
     //     // }
     // }
 
-
     $userId = 1;
-    
+
     if($_SERVER["REQUEST_METHOD"] === "GET"){
 
         if(isset($id)){
@@ -59,6 +58,7 @@
 
             foreach ($oldPosts as $cadaPost => $value) {
                 $oldPosts[$cadaPost]["isLiked"] = false;
+                $oldPosts[$cadaPost]["isCommented"] = false;
             }
 
             $likedPostsArray = $postModel->getUserLikedPosts($userId, $oldPosts);
@@ -73,6 +73,23 @@
                 }
                 
             }
+
+            $commentedPostsArray = $postModel->getUserCommentedPosts($userId, $oldPosts);
+
+            foreach ($commentedPostsArray as $eachCommentedPost => $value) {
+
+                foreach ($oldPosts as $cadaPost => $value) {
+
+                    if($commentedPostsArray[$eachCommentedPost]["post_id"] === $oldPosts[$cadaPost]["post_id"]){
+                        $oldPosts[$cadaPost]["isCommented"] = true;
+                    } 
+
+                }
+            }
+
+            // var_dump($commentedPostsArray);
+
+
 
             http_response_code(202);
             echo json_encode($oldPosts);

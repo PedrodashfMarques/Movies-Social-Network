@@ -46,6 +46,7 @@ export class UserSettingsComponent implements OnInit {
     })
 
     this.myUserActions.getUserData(this.connectedUserId).subscribe(data => {
+      this.userLocation = data[0].userData.location;
       this.userInformationForm.controls.smallBio.setValue(data[0].userData.small_bio);
       this.userInformationForm.controls.bigBio.setValue(data[0].userData.big_bio);
       this.userInformationForm.controls.location.setValue(data[0].userData.location);
@@ -53,7 +54,7 @@ export class UserSettingsComponent implements OnInit {
       this.userInformationForm.controls.userImage.setValue(data[0].userData.user_image);
       this.userInformationForm.controls.bgUserImage.setValue(data[0].userData.background_image);
 
-      this.userLocation = data[0].userData.location;
+      
 
     })
 
