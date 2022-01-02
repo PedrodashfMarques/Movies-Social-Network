@@ -19,8 +19,7 @@
             (SELECT COUNT(*)
             FROM comments
             WHERE comments.post_id = posts.post_id
-           ) AS commentsNumber,
-           false as isLiked
+           ) AS commentsNumber
             FROM posts
             INNER JOIN users USING(user_id)
             ORDER BY posts.created_at DESC

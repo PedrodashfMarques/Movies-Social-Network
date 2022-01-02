@@ -311,8 +311,11 @@
                 posts.content,
                 (SELECT COUNT(*)
                 FROM likes
-                WHERE likes.post_id = posts.post_id
-                ) AS likesNumber
+                WHERE likes.post_id = posts.post_id) AS likesNumber,
+                (SELECT COUNT(*)
+                FROM comments
+                WHERE comments.post_id = posts.post_id
+               ) AS commentsNumber
                 FROM posts
                 INNER JOIN users USING(user_id)
                 WHERE users.user_id = ?

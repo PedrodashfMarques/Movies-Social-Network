@@ -42,7 +42,11 @@
                     <!-- Pedir novamente ajuda ao Ivo porque n estou a conseguir fazer esta parte -->
                     
                     
-                    <li> <i class="far fa-comment"></i> <span> 0 </span> </li>
+                    <li> 
+                        <i *ngIf="eachPost.isCommented === false" class="far fa-comment"></i> 
+                        <i *ngIf="eachPost.isCommented === true" class="fas fa-comment"></i> 
+                        <span> {{eachPost.commentsNumber}} </span> 
+                    </li>
                     <!-- Este li tb vai ter um routerLink para o post/:id do post-->
                 </ul>
 

@@ -38,9 +38,7 @@ use ReallySimpleJWT\Token;
 
     // }
      
-    
     $userId = 1;
-
 
     if($_SERVER["REQUEST_METHOD"] === "GET"){
         $userCategory = "";
@@ -68,6 +66,7 @@ use ReallySimpleJWT\Token;
 
             foreach ($userPostsData as $eachPost => $value) {
                 $userPostsData[$eachPost]["isLiked"] = false; 
+                $userPostsData[$eachPost]["isCommented"] = false; 
             }
 
             $likedPostsArray = $postModel->getUserLikedPosts($userId, $userPostsData);
@@ -82,7 +81,18 @@ use ReallySimpleJWT\Token;
                 }          
             }
 
-            // var_dump($userPostsData);
+            $commentedPostsArray = $postModel->getUserCommentedPosts($userId, $userPostsData);
+
+            foreach ($commentedPostsArray as $eachCommentedPost => $value) {
+
+                foreach ($userPostsData as $cadaPost => $value) {
+
+                    if($commentedPostsArray[$eachCommentedPost]["post_id"] === $userPostsData[$cadaPost]["post_id"]){
+                        $userPostsData[$cadaPost]["isCommented"] = true;
+                    } 
+
+                }
+            }
 
             $userDataArray = array(
                 'userData' => $userInfo,

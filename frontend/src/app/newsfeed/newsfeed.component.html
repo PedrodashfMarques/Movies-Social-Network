@@ -145,8 +145,6 @@
             <div class="area_likes_comments">
                 <ul>
 
-                   
-
                     <li (click)="likePost(eachPost.post_id)">
                         <i *ngIf="eachPost.isLiked === false" class="far fa-heart"></i>
                         <i *ngIf="eachPost.isLiked === true" class="fas fa-heart"></i>
@@ -154,10 +152,11 @@
                     </li>
                     
                     <li (click)="abrirPost(eachPost)"> 
-                        <i class="far fa-comment"></i> 
+                        <i *ngIf="eachPost.isCommented === false" class="far fa-comment"></i> 
+                        <i *ngIf="eachPost.isCommented === true" class="fas fa-comment"></i> 
                         <span> {{eachPost.commentsNumber}} </span> 
                     </li>
-                    <!-- Este li tb vai ter um routerLink para o post/:id do post-->
+                    
                 </ul>
 
             </div>

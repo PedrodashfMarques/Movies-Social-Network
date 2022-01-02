@@ -33,11 +33,19 @@
                     <ul>
     
                         <li (click)="likePost(postInfo.post_id)">
-                                <i class="fas fa-heart"></i>
+                                <i *ngIf="postInfo.isLiked === false" class="far fa-heart"></i>
+                                <i *ngIf="postInfo.isLiked === true" class="fas fa-heart"></i>
                             <span> {{postInfo.likesNumber}} </span>
                         </li>
                         
-                        <li (click)="openComment()"> <i class="far fa-comment"></i> <span> {{postInfo.commentsNumber}} </span> </li>
+                        <li (click)="openComment()">
+
+                             <i *ngIf="postInfo.isCommented === false" class="far fa-comment"></i> 
+                             <i *ngIf="postInfo.isCommented === true" class="fas fa-comment"></i> 
+                             
+                             <span> {{postInfo.commentsNumber}} </span> 
+
+                        </li>
                         <!-- Click abrir modal -->
                         <!-- Este li tb vai ter um routerLink para o post/:id do post-->
                     </ul>

@@ -25,11 +25,9 @@ export class NewsfeedComponent implements OnInit {
   bootcamp: string = "https://images8.alphacoders.com/926/thumb-1920-926492.jpg";
   // Placeholders
 
-
   imagesPath = "http://localhost/backend/";
   userProfileImage: string;
   imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
-
 
   banana = false;
   // Connected User Id
@@ -40,7 +38,6 @@ export class NewsfeedComponent implements OnInit {
   postIsLiked: boolean;
   // Post Likes and Dislikes
 
-  
   firstName: string;
   username: string;
   lastName: string;
@@ -51,7 +48,7 @@ export class NewsfeedComponent implements OnInit {
 
   allPostsArray: any = [];
 
-
+  
   // Post Modal
   postModalAberto: boolean;
   postLoaded;
