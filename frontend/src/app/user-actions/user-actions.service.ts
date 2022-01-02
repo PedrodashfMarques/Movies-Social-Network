@@ -36,14 +36,16 @@ export class UserActionsService {
     const url = this.api + 'users' + "/" + userId;
 
     return this.myHttp.get<UserResponseData>(url).pipe(tap(resData => {
-      this.handleUserData(resData);
+      this.allUserData.next(resData);
     }));
 
-  }
-
-  private handleUserData(resData){
-    this.allUserData.next(resData);
-    // console.log(this.allUserData.value);
+    // return this.myHttp.get<UserResponseData>(url, {
+    //   headers: new HttpHeaders({
+    //     'x-auth-token': this.JWTokenParsed
+    //   })
+    // }).pipe(tap(resData => {
+    //   this.allUserData.next(resData);
+    // }));
 
   }
 
@@ -222,6 +224,5 @@ export class UserActionsService {
 
     return this.myHttp.get(url);
   }
-
 
 }

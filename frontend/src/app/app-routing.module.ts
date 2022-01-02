@@ -24,6 +24,7 @@ const routes: Routes = [
   
   {path: 'world', component: WorldComponent, canActivate:[AuthGuard], children: [
     {path: 'users', component: UsersFilterComponent},
+    {path: 'posts', component: PostsFilterComponent},
     // {path: 'posts', component: PostsFilterComponent}
   ]},
 

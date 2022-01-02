@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth-service/auth.service';
+import { User } from '../shared/user.model';
 import { UserActionsService } from '../user-actions/user-actions.service';
 
 
@@ -19,6 +21,8 @@ export class WorldComponent implements OnInit {
 
   postsRouteClicked: boolean = false;
 
+  connectedUserId: number;
+
 
   // Users Array
   usersFoundArray: any = [];
@@ -36,12 +40,19 @@ export class WorldComponent implements OnInit {
   constructor(
     private myRouter: Router, 
     private myActiveRoute: ActivatedRoute,
-    private myUserActions: UserActionsService
+    private myUserActions: UserActionsService,
+    private myAuthService: AuthService
+
     ) { }
 
   ngOnInit(): void {
+
     this.getUsers();
-    // this.showUsersFilter();
+
+    this.showUsersFilter();
+     this.myAuthService.userSubject.subscribe((data: User) => {
+      this.connectedUserId = data.userId;
+    })
 
   }
 
@@ -51,11 +62,11 @@ export class WorldComponent implements OnInit {
     this.postsRouteClicked = false;
   }
 
-  // showPostsFilter(){
-  //   this.myRouter.navigate(["posts"], {relativeTo: this.myActiveRoute});
-  //   this.postsRouteClicked = true;
-  //   this.usersRouteClicked = false;
-  // }
+  showPostsFilter(){
+    this.myRouter.navigate(["posts"], {relativeTo: this.myActiveRoute});
+    this.postsRouteClicked = true;
+    this.usersRouteClicked = false;
+  }
 
   getUsers(){
     this.myUserActions.getAllUsers().subscribe(allUsers => {
@@ -94,6 +105,14 @@ export class WorldComponent implements OnInit {
         this.myRouter.navigate(['/profile/',id, 'timeline']);
     })
 
+  }
+
+
+  goToConnectedUserPage(){
+    this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
+    .then(()=>{
+        this.myRouter.navigate(['/profile/',this.connectedUserId, 'timeline']);
+    })
   }
 
   

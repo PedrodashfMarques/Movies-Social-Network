@@ -87,10 +87,6 @@
                 }
             }
 
-            // var_dump($commentedPostsArray);
-
-
-
             http_response_code(202);
             echo json_encode($oldPosts);
 

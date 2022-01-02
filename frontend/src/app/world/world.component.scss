@@ -71,17 +71,20 @@ main{
 
     }
 
-    section.area_filters{
-        width: 42%;
+    div.area_filters{
+        width: 90%;
+        position: relative;
+        // top: 5%;
+        margin: 50px auto;
+        border-radius: 5px;
         background-color: white;
-        margin: 10px;
 
         div.caixa_child_routes{
-            width: 85%;
+            width: 100%;
             background: white;
             height: 150px;
             margin: 15px auto;
-            border-radius: 8px;
+            border-radius: 5px;
 
             ul{
                 width: 100%;
@@ -95,8 +98,7 @@ main{
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    border-radius: 8px;
-
+                    border-radius: 3px;
 
                     &:hover{
                         cursor: pointer;
@@ -104,7 +106,6 @@ main{
                 }
             }
         }
-
 
     }
     
