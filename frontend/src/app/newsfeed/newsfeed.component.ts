@@ -89,24 +89,10 @@ export class NewsfeedComponent implements OnInit {
     })
 
     this.myUserActions.getAllPosts().subscribe(data => {
-      
       this.allPostsArray = data;
-
-      console.log(this.allPostsArray);
-
-      for (let index = 0; index < this.allPostsArray.length; index++) {
-
-        let posicaoIndex = this.allPostsArray[index];
-        // console.log(posicaoIndex.user_id);
-
-        if(posicaoIndex.user_id === this.connectedUserId){
-        }
-        
-      }
     });
 
   }
-
 
   createPostForm(){
     this.postForm = this.myFormBuilder.group({
@@ -210,6 +196,7 @@ export class NewsfeedComponent implements OnInit {
   fecharModal(){
     this.postModalAberto = null;
   }
+
 
   goToConnectedUserPage(){
     this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})

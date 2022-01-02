@@ -17,7 +17,6 @@ main{
             display: flex;
             justify-content: center;
             align-items: center;
-            // background-color: dodgerblue;
             
             form{
                 font-family: 'Noto Sans', sans-serif;
@@ -38,13 +37,19 @@ main{
     }
 
     article.area_quem_postou{
-        width: 100%;
+        width: 90%;
         height: 100px;
         margin: 25px auto;
-        background: orange;
+        background-color: #202020;
+
         display: flex;
         justify-content: left;
         align-items: center;
+        border-radius: 5px;
+
+        &:hover{
+            cursor: pointer;
+        }
     
         div.imagem_user_post{
             width: 80px;
@@ -86,3 +91,10 @@ main{
     }
 }
 
+.no_users_found{
+    width: 80%;
+    display: flex;
+    justify-content: left;
+    background: green;
+    margin: 0 auto;
+}

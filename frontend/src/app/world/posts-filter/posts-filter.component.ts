@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserActionsService } from 'src/app/user-actions/user-actions.service';
 
 @Component({
   selector: 'app-posts-filter',
@@ -6,26 +8,43 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./posts-filter.component.scss']
 })
 export class PostsFilterComponent implements OnInit {
+  @ViewChild('postContent') postContentSearch: ElementRef;
 
-  imagemTeste: string = "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/33/33fc65586f9b4615f95209a03398d8c8b2729f0b_full.jpg";
 
-  bootcamp: string = "https://images8.alphacoders.com/926/thumb-1920-926492.jpg";
+  imagemTeste: string = "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/33/33fc65586f9b4615f95209a03398d8c8b2729f0b_full.jpg";;
 
   userIsVerified: boolean = true;
 
-  mensagem: string = "Posted November 8th, 2021 at 17h28";
+  postsFoundArray: any = [];
 
-  contentPost: string ="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis alias magni, iusto quo vel id nam. Deleniti blanditiis eius at earum, enim incidunt, expedita tenetur impedit illum, molestias ab porro?"
-  
+  imagesPath = "http://localhost/backend/";
+  userProfileImage: string;
+  imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
 
-  constructor() { }
+  constructor(
+    private myUserActions: UserActionsService,
+    private myRouter: Router,
+  ) { }
 
   ngOnInit(): void {
-    this.daLike();
+    this.myUserActions.getAllPosts().subscribe(data => {
+      this.postsFoundArray = data;
+      console.log(this.postsFoundArray);
+    })
   }
 
-  daLike(){
-    console.log("hello")
+  pesquisarPost(){
+    let postContentAPesquisar: string = this.postContentSearch.nativeElement.value.toLowerCase();
+    
+    let formData = new FormData();
+
+    formData.append('postContentSearch', postContentAPesquisar);
+
+    this.myUserActions.findPost(formData).subscribe(data => {
+      this.postsFoundArray = data;
+      console.log(data)
+    })
   }
+
 
 }

@@ -1,14 +1,48 @@
 @import 'var&mixin.scss';
 
 main{
+    width: 100%;
+    margin: 8px auto;
+    display: block;
+    
+    .caixa_filters{
+        width: 100%;
+        height: 90px;
+            
+        div.area_formulario{
+            width: 100%;
+            height: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            // background-color: dodgerblue;
+            
+            form{
+                font-family: 'Noto Sans', sans-serif;
+
+                label{
+                    margin-right: 10px;
+                    font-size: 17px;
+                }
+
+                input{
+                    width: 70%;
+                    height: 23px;
+                    border: 1;
+                }
+            }
+            
+        }
+    }
 
 
     article.posts_carregados{
-        width: 92%;
+        width: 90%;
         // height: 170px;
         background-color: white;
         margin: 25px auto;
         border-radius: 3px;
+        border: 1px solid grey;
 
         div.area_quem_postou{
             width: 100%;

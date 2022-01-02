@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserActionsService } from 'src/app/user-actions/user-actions.service';
 
 @Component({
@@ -24,13 +25,12 @@ export class UsersFilterComponent implements OnInit {
 
 
   constructor(
-    private myUserActions: UserActionsService
+    private myUserActions: UserActionsService,
+    private myRouter: Router,
     ) { }
 
   ngOnInit(): void {
     this.getUsers();
-
-    
   }
 
   getUsers(){
@@ -61,6 +61,15 @@ export class UsersFilterComponent implements OnInit {
       }
     })
     
+  }
+
+  goToUserProfile(id: number){
+
+    this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
+    .then(()=>{
+        this.myRouter.navigate(['/profile/',id, 'timeline']);
+    })
+
   }
 
 }

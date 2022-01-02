@@ -34,6 +34,7 @@ $controllers = [
     "countries",
     "checkFollowUnfollow",
     "findUsers",
+    "findPosts",
     "userCategories"
 ];
 

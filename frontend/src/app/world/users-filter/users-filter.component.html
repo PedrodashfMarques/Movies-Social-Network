@@ -1,5 +1,6 @@
 <main>
     <div class="caixa_filters">
+
         <div class="area_formulario">
             <form>
                 <div class="cadaForm">
@@ -13,6 +14,7 @@
         </div>
 
     </div>
+
     <article (click)="goToUserProfile(eachUser.user_id)" class="area_quem_postou" *ngFor="let eachUser of usersFoundArray">
         <!-- Imagem do user que fez o post, firstname, username e last name , um *ngIf para mostrar se é verificado ou não   e a data do post que foi criado -->
         <div class="imagem_user_post">
@@ -23,8 +25,8 @@
         
         <div class="nome_user_post">
             <h3> {{eachUser.first_name}} @{{eachUser.username}} {{eachUser.last_name}}
-                 <span *ngIf="eachUser.is_verified"> <i class="fas fa-check"></i> </span> 
-                 </h3>
+                 <span *ngIf="eachUser.is_verified === '1'"> <i class="fas fa-check"></i> </span> 
+            </h3>
         </div>
         
     </article>  

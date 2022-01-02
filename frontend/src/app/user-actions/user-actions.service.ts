@@ -65,7 +65,7 @@ export class UserActionsService {
 
   getPostData(postId){
     const url = this.api + "posts" + "/" + postId;
-
+    
     return this.myHttp.get(url);
   }
 
@@ -169,7 +169,7 @@ export class UserActionsService {
     })
     
   }
-  
+
   followUnfollowUser(idDoUser, connectedUserId){
     const url = this.api + 'users' + "/" + idDoUser;
 
@@ -179,13 +179,11 @@ export class UserActionsService {
 
   }
 
-
   getAllCountries(){
     const url = this.api + 'countries';
   
     return this.myHttp.get(url);   
   }
-
 
   updateUserData(data, connectedUserId: number){
     const url = this.api + 'users' + "/" + connectedUserId;
@@ -203,7 +201,6 @@ export class UserActionsService {
   getAllUsers(){
     const url = this.api + 'users';
     return this.myHttp.get(url);
-
   }
 
   findUser(data){
@@ -214,14 +211,24 @@ export class UserActionsService {
 
     let jsonConverted = JSON.stringify(object);
 
-    // console.log(jsonConverted);
-
     return this.myHttp.post(url, jsonConverted);   
   }
 
+  findPost(data){
+    const url = this.api + 'findPosts';
+
+    let object = {};
+    data.forEach((value, key) => object[key] = value);
+
+    let jsonConverted = JSON.stringify(object);
+
+    return this.myHttp.post(url, jsonConverted);
+
+  }
+
+
   getAllUserCategories(){
     const url = this.api + 'userCategories';
-
     return this.myHttp.get(url);
   }
 

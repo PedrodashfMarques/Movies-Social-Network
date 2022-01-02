@@ -119,6 +119,8 @@
                 
                 <div class="nome_user_post">
                     <h3 (click)="goToUserPage(eachPost.user_id)"> {{eachPost.first_name}} @{{eachPost.username}} {{eachPost.last_name}} </h3>
+                    <span *ngIf="eachPost.is_verified === '1'"> <i class="fas fa-check"></i> </span>  
+
                 </div>
 
                 <div *ngIf="eachPost.user_id === connectedUserId" class="area_edit_delete">

@@ -64,11 +64,13 @@ use ReallySimpleJWT\Token;
 
             $userPostsData = $userModel->getUserPosts($id);
 
+
             foreach ($userPostsData as $eachPost => $value) {
                 $userPostsData[$eachPost]["isLiked"] = false; 
                 $userPostsData[$eachPost]["isCommented"] = false; 
             }
 
+            
             $likedPostsArray = $postModel->getUserLikedPosts($userId, $userPostsData);
 
             foreach ($likedPostsArray as $eachLikedPost => $value) {
@@ -80,6 +82,7 @@ use ReallySimpleJWT\Token;
                     }     
                 }          
             }
+
 
             $commentedPostsArray = $postModel->getUserCommentedPosts($userId, $userPostsData);
 

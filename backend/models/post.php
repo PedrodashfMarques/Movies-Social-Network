@@ -13,6 +13,7 @@
             users.username,
             users.last_name,
             users.user_image,
+            users.is_verified,
             (SELECT COUNT(*)
             FROM likes 
             WHERE likes.post_id = posts.post_id) AS likesNumber,
@@ -240,6 +241,32 @@
 
             return $query->fetchAll(PDO:: FETCH_ASSOC);
 
+        }
+
+        public function findPosts($data){
+            $query = $this->dataBase->prepare("
+            SELECT
+                users.user_id,
+                users.first_name,
+                users.username,
+                users.last_name,
+                users.user_image,
+                users.is_verified,
+                posts.content,
+                posts.created_at
+            FROM 
+                posts
+            INNER JOIN users USING(user_id)
+            WHERE 
+                CONCAT(content)
+            LIKE ?
+            ");
+            
+            $query->execute([
+                "%".$data."%"
+            ]);
+
+            return $query->fetchAll( PDO:: FETCH_ASSOC );
         }
 
 

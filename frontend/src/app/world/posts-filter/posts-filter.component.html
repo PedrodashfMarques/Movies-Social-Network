@@ -1,82 +1,51 @@
 <main>
 
-    <article class="posts_carregados">
+    <div class="caixa_filters">
+
+        <div class="area_formulario">
+            <form>
+                <div class="cadaForm">
+                    <label for="searchId"> Search post </label>
+                    <input id="searchId" type="text"
+                    (keyup)="pesquisarPost()"
+                    #postContent>
+                </div>
+            </form>
+            
+        </div>
+
+    </div>
+    
+    <article class="posts_carregados" *ngFor="let eachPost of postsFoundArray">
 
         <div class="area_quem_postou">
             <!-- Imagem do user que fez o post, firstname, username e last name , um *ngIf para mostrar se é verificado ou não   e a data do post que foi criado -->
             <div class="imagem_user_post">
-                <img src="{{imagemTeste}}" alt="">
+                <img *ngIf="eachPost.user_image" src="{{imagesPath + eachPost.user_image}}" alt="">
+                <img *ngIf="!eachPost.user_image" src="{{imagemDefault}}" alt="{{eachPost.username}}" title="{{eachPost.username}}">
             </div>
             
             <div class="nome_user_post">
-                <h3> Pedro "@movieLover" Marques <span *ngIf="userIsVerified"> <i class="fas fa-check"></i> </span>  </h3>
+                <h3> {{eachPost.first_name}} @{{eachPost.username}} {{eachPost.last_name}} 
+                    <span *ngIf="eachPost.is_verified === '1'"> <i class="fas fa-check"></i> </span>  
+                </h3>
             </div>
         </div>
 
         <div class="area_conteudo_desse_post">
             <div class="area_post_created">
-                    <p> {{mensagem}} </p> 
+                    <p> Posted {{eachPost.created_at | date: 'MMMM d, y, \'at\' h\'h\'mm'}} </p> 
             </div>
 
             <div class="area_content_post">
-                <!-- {{contentPost}} -->
-                Yesterday I showed my dog Luke how the PS5 looks like, he immediatelly started licking me like no tomorrow.
-
-                Today, I showed him how the Xbox X looks like, he started coughing.
-                Signals?
-                #gamermotion #whatdrivesyourmotion
+                {{eachPost.content}}
             </div>
-
 
         </div>
 
         <div class="area_likes_comments">
             <ul>
-
-                <li (click)="daLike()"> <i class="fas fa-trophy"></i> <span> 0 </span>  </li>
-                
-                <li> <i class="far fa-comment"></i> <span> 0 </span> </li>
-                <!-- Este li tb vai ter um routerLink para o post/:id do post-->
-            </ul>
-
-        </div>
-        
-    </article>
-
-    <article class="posts_carregados">
-
-        <div class="area_quem_postou">
-            <!-- Imagem do user que fez o post, firstname, username e last name , um *ngIf para mostrar se é verificado ou não   e a data do post que foi criado -->
-            <div class="imagem_user_post">
-                <img src="{{imagemTeste}}" alt="">
-            </div>
-            
-            <div class="nome_user_post">
-                <h3> Pedro "@movieLover" Marques <span *ngIf="userIsVerified"> <i class="fas fa-check"></i> </span>  </h3>
-            </div>
-        </div>
-
-        <div class="area_conteudo_desse_post">
-            <div class="area_post_created">
-                    <p> {{mensagem}} </p> 
-            </div>
-
-            <div class="area_content_post">
-                <!-- {{contentPost}} -->
-                Yesterday I showed my dog Luke how the PS5 looks like, he immediatelly started licking me like no tomorrow.
-
-                Today, I showed him how the Xbox X looks like, he started coughing.
-                Signals?
-                #gamermotion #whatdrivesyourmotion
-            </div>
-
-
-        </div>
-
-        <div class="area_likes_comments">
-            <ul>
-
-                <li (click)="daLike()"> <i class="fas fa-trophy"></i> <span> 0 </span>  </li>
+                <li> <i class="fas fa-trophy"></i> <span> 0 </span>  </li>
                 
                 <li> <i class="far fa-comment"></i> <span> 0 </span> </li>
                 <!-- Este li tb vai ter um routerLink para o post/:id do post-->
