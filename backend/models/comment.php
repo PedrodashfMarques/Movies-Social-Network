@@ -12,6 +12,7 @@ require_once("base.php");
             users.username,
             users.last_name,
             users.user_image,
+            users.is_verified,
             comments.comment_id, 
             comments.content, 
             comments.created_at      

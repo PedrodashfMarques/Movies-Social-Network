@@ -18,7 +18,7 @@
     //     //     die('{"message":"Wrong or missing Auth Token"}');
     //     // }
 
-    
+
     //     // para os MÉTODOS PUT E DELETE
 
     //     // if(!empty($id) && empty($postModel->getItemByUser($id, $userId))){
@@ -32,18 +32,29 @@
     if($_SERVER["REQUEST_METHOD"] === "GET"){
 
         if(isset($id)){
-            // $id variable from index.php
-            $data = $postModel->getPost($id);
+            $postFound = $postModel->getPost($id);
 
-            // $postCommentsArray = $postModel->getPostComments($id);
+            $postFound["isLiked"] = false;
+            $postFound["isCommented"] = false;
 
-            // countPostComments MAYBE DO
+            $isPostLiked = $postModel->findIfUserHasLikeInPost($userId, $postFound["post_id"]);
+            
+            $isPostCommented = $postModel->findIfUserHasCommentInPost($userId, $postFound["post_id"]);
+
+            if($isPostLiked === true){
+                $postFound["isLiked"] = true;
+            }
+
+            if($isPostCommented === true){
+                $postFound["isCommented"] = true;
+            }
+                       
 
             $postDataArray = array(
-                'postData' => $data
+                'postData' => $postFound
             );
 
-            if(!empty($data)){
+            if(!empty($postFound)){
                 http_response_code(202);
                 echo json_encode($postDataArray);
             } else {

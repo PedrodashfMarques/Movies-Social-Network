@@ -281,6 +281,56 @@
             return $query->fetchAll( PDO:: FETCH_ASSOC );
         }
 
+        public function findIfUserHasLikeInPost($userId, $postId){
+            $query = $this->dataBase->prepare("
+                SELECT likes.post_id
+                FROM likes
+                WHERE likes.post_id = ?
+                AND likes.user_id = ?
+            ");
+
+            $query->execute([
+                $postId,
+                $userId
+            ]);
+
+            $fetch = $query->fetch( PDO:: FETCH_ASSOC ); 
+            
+            if(!empty($fetch)){
+                return true;
+            } else{
+                return false;
+                
+            }
+
+        }
+
+        public function findIfUserHasCommentInPost($userId, $postId){
+            $query = $this->dataBase->prepare("
+                SELECT comments.post_id
+                FROM comments
+                WHERE comments.post_id = ?
+                AND comments.user_id = ?
+            ");
+
+            $query->execute([
+                $postId,
+                $userId
+            ]);
+
+            $fetch = $query->fetch( PDO:: FETCH_ASSOC ); 
+            
+            if(!empty($fetch)){
+                return true;
+            } else{
+                return false;
+                
+            }
+
+        }
+
+
+
 
 
     }

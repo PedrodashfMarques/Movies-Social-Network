@@ -13,9 +13,11 @@ export class PostDetailComponent implements OnInit {
   postId: number;
   connectedUserId: number;
 
+  // Comments Array
   commentsArray: any = [];
+  commentsNotFound: boolean;
+  // Comments Array
 
-  
   imagesPath = "http://localhost/backend/";
   userProfileImage: string;
   imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
@@ -26,6 +28,12 @@ export class PostDetailComponent implements OnInit {
     lastName;
     userImage;
     isVerified;
+    createdAt;
+    postContent;
+    likesNumber;
+    commentsNumber;
+    isLiked: boolean;
+    isCommented: boolean;
   // Post Data
 
   constructor(
@@ -46,7 +54,19 @@ export class PostDetailComponent implements OnInit {
       this.myRouter.navigate(['newsfeed']);
     } else {
       this.myUserActions.getPostData(this.postId).subscribe(response => {
+
         console.log(response);
+        this.firstName = response["postData"]["first_name"];
+        this.username = response["postData"]["username"];
+        this.lastName = response["postData"]["last_name"];
+        this.userImage = response["postData"]["user_image"];
+        this.isVerified = response["postData"]["is_verified"];
+        this.createdAt = response["postData"]["created_at"];
+        this.postContent = response["postData"]["content"];
+        this.likesNumber = response["postData"]["likesNumber"];
+        this.commentsNumber = response["postData"]["commentsNumber"];
+        this.isLiked = response["postData"]["isLiked"];
+        this.isCommented = response["postData"]["isCommented"];
 
       }, error => {
         if(error.error.message === "Post Not Found"){
@@ -56,6 +76,37 @@ export class PostDetailComponent implements OnInit {
       })
     }
 
+    this.myUserActions.getPostComments(this.postId).subscribe(response => {
+      console.log(response["postComments"][0])
+      if(response["message"] === "Comments Not Found"){
+        this.commentsNotFound = true;
+      } else {
+        this.commentsArray = response["postComments"];
+        this.commentsNotFound = false;
+
+      }
+    })
+
+  }
+
+  likePost(){
+    this.myUserActions.likeDislikePost(this.postId, this.connectedUserId).subscribe(res => {
+      console.log(res);
+
+      if(res["liked"] === true){
+        this.likesNumber++;
+      } else {
+        this.likesNumber--;
+      }
+
+    })
+  }
+
+  goToUserPage(userId: number){
+    this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
+    .then(()=>{
+        this.myRouter.navigate(['/profile/',userId, 'timeline']);
+    })
   }
 
 }
