@@ -1,6 +1,5 @@
 <?php
 
-
     require("models/comment.php");
 
     $commentModel = new Comment();
@@ -97,7 +96,6 @@
             http_response_code(400);
             echo '{"message": "Bad Request" }';
         }
-
     }
 
 

@@ -101,9 +101,11 @@ export class PostDetailComponent implements OnInit {
 
   }
 
+   // POSTS
+
   likePost(){
     this.myUserActions.likeDislikePost(this.postId, this.connectedUserId).subscribe(res => {
-      // console.log(res);
+
       if(res["liked"] === true){
         this.likesNumber++;
       } else {
@@ -147,6 +149,11 @@ export class PostDetailComponent implements OnInit {
     })
   }
 
+  // POSTS
+
+
+  // COMMENTS
+
   abrirCommentModal(){
     this.commentModalAberto = !this.commentModalAberto;
   }
@@ -155,7 +162,7 @@ export class PostDetailComponent implements OnInit {
     this.commentModalAberto = null;
   }
 
-
+  
   openEditBox(commentId:number, commentContent: string){
     this.commentIdToEdit = commentId;
     this.commentContentToEdit = commentContent;
@@ -214,12 +221,17 @@ export class PostDetailComponent implements OnInit {
 
   }
 
+  // COMMENTS
 
   goToUserPage(userId: number){
     this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
     .then(()=>{
         this.myRouter.navigate(['/profile/',userId, 'timeline']);
     })
+  }
+
+  goToConnectedUserPage(){
+
   }
 
 }

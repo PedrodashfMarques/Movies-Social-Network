@@ -55,7 +55,6 @@ use ReallySimpleJWT\Token;
                 $userCategory = $userInfo["category"];
             }
 
-
             $userFollowersData = $userModel->getConnectedUserFollowers($id);
             $userFollowingData = $userModel->getConnectedUserFollowing($id);
 
