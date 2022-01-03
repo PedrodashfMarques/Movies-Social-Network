@@ -77,7 +77,7 @@
 
         </div>
 
-
+        
         <div class="area_comment">
 
             <article class="comments_carregados" *ngFor="let eachComment of commentsArray">
@@ -97,12 +97,7 @@
                         <li (click)="openEditBox(eachComment.comment_id, eachComment.content)" title="Edit"> <i class="fas fa-edit"></i> </li>
                         <li (click)="deleteComment(eachComment.comment_id)" title="Delete"> <i class="fas fa-trash"></i> </li>
                     </div>
-
-                    <!-- <div class="area_edit_delete">
-                        <li title="Edit"> <i class="fas fa-edit"></i> </li>
-                        <li title="Delete"> <i class="fas fa-trash"></i> </li>
-                    </div>
-     -->
+                    
                 </div>
     
                 <div class="area_conteudo_desse_comment">
