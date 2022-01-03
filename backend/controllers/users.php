@@ -47,6 +47,10 @@ use ReallySimpleJWT\Token;
 
             $userInfo = $userModel->getUserData($id);
 
+            if(empty($userInfo)){
+                die ('{"message": "User does not exist"}');
+            }
+
             if(!empty($userInfo)){
                 $userCategory = $userInfo["category"];
             }

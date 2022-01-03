@@ -30,8 +30,6 @@ export class CommentModalComponent implements OnInit {
     this.myAuthService.userSubject.subscribe(response => {
       this.connectedUserId = response.userId;
     })
-
-    console.log(this.postId)
   }
 
 
@@ -57,8 +55,8 @@ export class CommentModalComponent implements OnInit {
       formData.append('content', commentContent);
 
       this.myUserActions.commentPost(formData).subscribe(response => {
-        console.log(response);
-
+        // console.log(response);
+        
         this.myRouter.navigateByUrl('/post-detail', {skipLocationChange: true})
           .then(() => {
             this.myRouter.navigate(['/post-detail/', this.postId]);

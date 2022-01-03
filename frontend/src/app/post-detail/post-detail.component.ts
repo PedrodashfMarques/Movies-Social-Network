@@ -11,8 +11,13 @@ import { UserActionsService } from '../user-actions/user-actions.service';
 export class PostDetailComponent implements OnInit {
   @ViewChild('commentContent') commentContent: ElementRef;
 
+  @ViewChild('editPostContent') editPostContent: ElementRef;
+
   postId: number;
   connectedUserId: number;
+
+
+  vouEditarPost: boolean;
 
   commentIdToEdit: number;
   commentContentToEdit: string;
@@ -30,6 +35,7 @@ export class PostDetailComponent implements OnInit {
   imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
 
   // Post Data
+    postOwnerId;
     firstName;
     username;
     lastName;
@@ -61,33 +67,30 @@ export class PostDetailComponent implements OnInit {
       this.myRouter.navigate(['newsfeed']);
     } else {
       this.myUserActions.getPostData(this.postId).subscribe(response => {
-
-        console.log(response);
-        this.firstName = response["postData"]["first_name"];
-        this.username = response["postData"]["username"];
-        this.lastName = response["postData"]["last_name"];
-        this.userImage = response["postData"]["user_image"];
-        this.isVerified = response["postData"]["is_verified"];
-        this.createdAt = response["postData"]["created_at"];
-        this.postContent = response["postData"]["content"];
-        this.likesNumber = response["postData"]["likesNumber"];
-        this.commentsNumber = response["postData"]["commentsNumber"];
-        this.isLiked = response["postData"]["isLiked"];
-        this.isCommented = response["postData"]["isCommented"];
-
-      }, error => {
-        if(error.error.message === "Post Not Found"){
+        if(response["message"] === "Post does not exist"){
           this.myRouter.navigate(['newsfeed']);
-
+        } else{
+          this.postOwnerId = response["postData"]["user_id"];
+          this.firstName = response["postData"]["first_name"];
+          this.username = response["postData"]["username"];
+          this.lastName = response["postData"]["last_name"];
+          this.userImage = response["postData"]["user_image"];
+          this.isVerified = response["postData"]["is_verified"];
+          this.createdAt = response["postData"]["created_at"];
+          this.postContent = response["postData"]["content"];
+          this.likesNumber = response["postData"]["likesNumber"];
+          this.commentsNumber = response["postData"]["commentsNumber"];
+          this.isLiked = response["postData"]["isLiked"];
+          this.isCommented = response["postData"]["isCommented"];
         }
+
       })
     }
 
     this.myUserActions.getPostComments(this.postId).subscribe(response => {
-
       // console.log(response["postComments"])
 
-      if(response["message"] === "Comments Not Found"){
+      if(response["message"] === "Comments Not Found" || response["postComments"] === undefined){
         this.commentsNotFound = true;
       } else {
         this.commentsArray = response["postComments"];
@@ -100,14 +103,47 @@ export class PostDetailComponent implements OnInit {
 
   likePost(){
     this.myUserActions.likeDislikePost(this.postId, this.connectedUserId).subscribe(res => {
-      console.log(res);
-
+      // console.log(res);
       if(res["liked"] === true){
         this.likesNumber++;
       } else {
         this.likesNumber--;
       }
 
+    })
+  }
+
+  openEditPostBox(){
+    this.vouEditarPost = !this.vouEditarPost;
+  }
+
+  editPost(){
+    let newPostContent = this.editPostContent.nativeElement.value.toLowerCase();
+
+    let formData = new FormData();
+
+    formData.append('content', newPostContent);
+
+    if(newPostContent.length <= 0){
+      this.vouEditarPost = false;
+    } else{
+      this.myUserActions.editPost(this.postId, formData).subscribe(response => {
+        console.log(response);
+      this.vouEditarPost = false;
+        setTimeout(() => {
+            this.ngOnInit();
+        }, 100);
+      })
+    }
+
+
+  }
+
+  deletePost(){
+    this.myUserActions.deletePost(this.postId).subscribe(res => {
+      console.log(res);
+
+      this.myRouter.navigate(['newsfeed']);
     })
   }
 
@@ -119,12 +155,6 @@ export class PostDetailComponent implements OnInit {
     this.commentModalAberto = null;
   }
 
-  goToUserPage(userId: number){
-    this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
-    .then(()=>{
-        this.myRouter.navigate(['/profile/',userId, 'timeline']);
-    })
-  }
 
   openEditBox(commentId:number, commentContent: string){
     this.commentIdToEdit = commentId;
@@ -156,6 +186,40 @@ export class PostDetailComponent implements OnInit {
 
     }
 
+  }
+
+  deleteComment(commentId: number){
+    this.userWantsToEdit = false;
+    console.log(commentId);
+
+    this.myUserActions.deleteComment(commentId).subscribe(response =>{
+      console.log(response);
+    })
+
+    for (let index = 0; index < this.commentsArray.length; index++) {
+      let posicaoDoIndex = this.commentsArray[index];
+
+      if(posicaoDoIndex["comment_id"] === commentId){
+        this.commentsNumber--;
+      }
+    }
+
+    setTimeout(() => {
+      this.myUserActions.getPostComments(this.postId).subscribe(response => {
+        this.commentsArray = response["postComments"];
+        this.userWantsToEdit = false;
+      })
+    }, 100);
+
+
+  }
+
+
+  goToUserPage(userId: number){
+    this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
+    .then(()=>{
+        this.myRouter.navigate(['/profile/',userId, 'timeline']);
+    })
   }
 
 }

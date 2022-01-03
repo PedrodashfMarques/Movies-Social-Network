@@ -18,7 +18,6 @@
     //     //     die('{"message":"Wrong or missing Auth Token"}');
     //     // }
 
-
     //     // para os MÉTODOS PUT E DELETE
 
     //     // if(!empty($id) && empty($postModel->getItemByUser($id, $userId))){
@@ -34,11 +33,14 @@
         if(isset($id)){
             $postFound = $postModel->getPost($id);
 
+            if(empty($postFound)){
+                die ('{"message": "Post does not exist"}');
+            }
+
             $postFound["isLiked"] = false;
             $postFound["isCommented"] = false;
 
             $isPostLiked = $postModel->findIfUserHasLikeInPost($userId, $postFound["post_id"]);
-            
             $isPostCommented = $postModel->findIfUserHasCommentInPost($userId, $postFound["post_id"]);
 
             if($isPostLiked === true){

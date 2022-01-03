@@ -83,13 +83,16 @@ export class ProfilePageComponent implements OnInit {
     this.idDoUser = +this.myActiveRoute.snapshot.params['id'];
     
     if(isNaN(this.idDoUser)){
-      this.myRouter.navigate(['newsfeed']);
-      
-    } else {
-      // this.myUserActions.checkIfUserExists(this.idDoUser).subscribe(response => {
-        // console.log(response);
-        
-      // });
+      this.myRouter.navigate(['newsfeed']); 
+    }
+    else if(Number(this.idDoUser)){
+      this.myUserActions.checkIfUserExists(this.idDoUser).subscribe(response => {
+        if(response["message"] === "User does not exist"){
+          this.myRouter.navigate(['newsfeed']);
+        } else {
+            this.showTimeline();
+        }
+      })
     }
 
     this.myAuthService.userSubject.subscribe(data => {
@@ -130,11 +133,9 @@ export class ProfilePageComponent implements OnInit {
       this.followingUsersArray = data[0].userFollowing;
       this.category = data[0].userData.category;
       this.similarUsersArray = data[0].similarUsers;
-
     });
 
     
-    this.showTimeline();
   }
 
 
@@ -177,7 +178,7 @@ export class ProfilePageComponent implements OnInit {
     this.followingClicked = true;
   }
 
-  
+
   followUser(){
     this.myUserActions.followUnfollowUser(this.idDoUser, this.connectedUserId).subscribe(response => {
 
@@ -192,7 +193,7 @@ export class ProfilePageComponent implements OnInit {
     })
   }
 
-  
+
   goToUserPage(followerId: any){
 
     this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
@@ -200,6 +201,5 @@ export class ProfilePageComponent implements OnInit {
         this.myRouter.navigate(['/profile/',followerId, 'timeline']);
     })
   }
-
 
 }

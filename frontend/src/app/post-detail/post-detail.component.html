@@ -6,7 +6,6 @@
     *ngIf="commentModalAberto"
     (closeModal)="fecharModal()"
     [postId]="postId">
-
     </app-comment-modal>
 
     <section class="area_apenas_shortcuts"> 
@@ -39,16 +38,17 @@
                         <img *ngIf="!userImage" src="{{imagemDefault}}" alt="username}}" title="{{username}}">
                     </div>
 
-                    <div class="nome_user_post">
+                    <div (click)="goToUserPage(postOwnerId)" class="nome_user_post">
                         <h3> {{firstName}} @{{username}} {{lastName}} 
                             <span *ngIf="isVerified === '1'"> <i class="fas fa-check"></i> </span>  
                         </h3>
                     </div>
                     
-                    <!-- <div  class="area_edit_delete">
-                        <li (click)="openEditBox(eachComment.comment_id, eachComment.content)" title="Edit"> <i class="fas fa-edit"></i> </li>
-                        <li (click)="deleteComment(eachComment.comment_id)" title="Delete"> <i class="fas fa-trash"></i> </li>
-                    </div> -->
+                    <div *ngIf="postOwnerId === connectedUserId" class="area_edit_delete">
+                        <li (click)="openEditPostBox()" title="Edit"> <i class="fas fa-edit"></i> </li>
+                        <li (click)="deletePost()"  title="Delete"> <i class="fas fa-trash"></i> </li>
+                    </div>
+
                 </div>
         
                 <div class="area_conteudo_desse_post">
@@ -57,9 +57,19 @@
 
                     </div>
         
-                    <div class="area_content_post">
+                    <div *ngIf="!vouEditarPost" class="area_content_post">
                         {{postContent}}
+                    </div>
 
+                    <div *ngIf="vouEditarPost" class="postContentReplacer area_content_post">
+                        <textarea 
+                        rows="5" 
+                        cols="0" 
+                        autofocus 
+                        placeholder="{{postContent}}"
+                        #editPostContent></textarea>
+
+                        <button (click)="editPost()"> Edit </button>
                     </div>
         
                 </div>

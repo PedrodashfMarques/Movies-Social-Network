@@ -97,20 +97,21 @@ export class UserActionsService {
   editPost( postId, data: FormData){
     const url = this.api + "posts" + "/" + postId;
 
-    // Enviar connectedUserId através de header.set
-
     let object = {};
     data.forEach((value, key) => object[key] = value);
     let dataConvertedJson = JSON.stringify(object);
 
 
     return this.myHttp.put(url, dataConvertedJson);
+
+    // Enviar auth-token para validação se o user tem auth ou não para fazer o update ao comentário
   }
 
 
   deletePost(postId){
     const url = this.api + "posts" + "/" + postId;
     return this.myHttp.delete(url);
+      // Enviar auth-token para validação se o user tem auth ou não para fazer o delete ao comentário
   }
   
 

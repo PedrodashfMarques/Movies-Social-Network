@@ -159,6 +159,34 @@ main{
                         line-height: 23px;
                         margin-bottom: 1px;
                     }
+
+                    .postContentReplacer{
+                        textarea{
+                            width: 90%;
+                            resize: none;
+                            outline: none;
+                            border: 0;
+                            text-align: left;
+                            font-family: $LDFont;
+                            
+                        }
+
+                        button{
+                            width: 10%;
+                            height: 25px;
+                            background-color: $themeColor;
+                            border: 0;
+                            border-radius: 3px;
+                            color: white;
+                            font-size: 1.07em;
+                            font-family: $LDFont;
+                            float: right;
+
+                            &:hover{
+                                cursor: pointer;
+                            }
+                        }
+                    }
                            
                 }
         
@@ -322,26 +350,6 @@ main{
                         }
                     }
 
-                    div.area_edit_delete{
-                        position: relative;
-                        left: 20%;
-                        height: 55px;
-                        display: flex;
-                        align-items: center;
-                        float:right;
-
-                        li{
-                            margin: 0px 13px;
-                            list-style: none;
-                            // color: rgb(134, 23, 23);
-                            font-size: 20px;
-
-                            &:hover{
-                                cursor: pointer;
-                            }
-
-                        }
-                    }
                 }
     
                 div.area_conteudo_desse_comment{
@@ -369,5 +377,26 @@ main{
                 }
             }
         }
+    }
+}
+
+div.area_edit_delete{
+    position: relative;
+    left: 20%;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    float:right;
+
+    li{
+        margin: 0px 13px;
+        list-style: none;
+        // color: rgb(134, 23, 23);
+        font-size: 20px;
+
+        &:hover{
+            cursor: pointer;
+        }
+
     }
 }
