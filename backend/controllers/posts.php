@@ -18,6 +18,7 @@
     //     //     die('{"message":"Wrong or missing Auth Token"}');
     //     // }
 
+    
     //     // para os MÉTODOS PUT E DELETE
 
     //     // if(!empty($id) && empty($postModel->getItemByUser($id, $userId))){

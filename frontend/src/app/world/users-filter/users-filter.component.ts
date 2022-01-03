@@ -50,8 +50,6 @@ export class UsersFilterComponent implements OnInit {
       // console.log(response);
       this.usersFoundArray = response;
 
-      // console.log(this.usersFoundArray);
-
       if(this.usersFoundArray.length <= 0){
         this.noUsersFound = true;
 

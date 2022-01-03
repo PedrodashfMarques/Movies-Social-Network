@@ -50,7 +50,7 @@ export class PostsFilterComponent implements OnInit {
 
     this.myUserActions.findPost(formData).subscribe(data => {
       this.postsFoundArray = data;
-      console.log(this.postsFoundArray);
+      // console.log(this.postsFoundArray);
 
       if(this.postsFoundArray.length <= 0){
         this.noPostsFound = true;

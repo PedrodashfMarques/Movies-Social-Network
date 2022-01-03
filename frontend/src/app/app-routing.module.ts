@@ -4,6 +4,7 @@ import { AuthGuard } from './auth-guard/auth-guard';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { LoginComponent } from './login/login.component';
 import { NewsfeedComponent } from './newsfeed/newsfeed.component';
+import { PostDetailComponent } from './post-detail/post-detail.component';
 import { AboutComponent } from './profile-page/about/about.component';
 import { FollowersComponent } from './profile-page/followers/followers.component';
 import { FollowingComponent } from './profile-page/following/following.component';
@@ -35,6 +36,9 @@ const routes: Routes = [
     {path: 'following', component: FollowingComponent},
 
   ]},
+
+  {path: 'post-detail/:id', component: PostDetailComponent, canActivate:[AuthGuard]},
+
 
   {path: 'settings', component: UserSettingsComponent, canActivate:[AuthGuard]},
 

@@ -93,16 +93,25 @@
 
         public function getPost($id){
             $query = $this->dataBase->prepare("
-            SELECT *,
-            (SELECT COUNT(*)
-            FROM likes 
-            WHERE likes.post_id = posts.post_id) AS likesNumber,
-            (SELECT COUNT(*)
-            FROM comments
-            WHERE comments.post_id = posts.post_id
-           ) AS commentsNumber
-            FROM posts
-            WHERE posts.post_id = ?
+            SELECT 
+                posts.post_id,
+                posts.content,
+                posts.created_at,
+                users.user_id,
+                users.first_name,
+                users.username,
+                users.last_name,
+                users.user_image,
+                users.is_verified,
+                (SELECT COUNT(*)
+                FROM likes 
+                WHERE likes.post_id = posts.post_id) AS likesNumber,
+                (SELECT COUNT(*)
+                FROM comments
+                WHERE comments.post_id = posts.post_id) AS commentsNumber
+                FROM posts
+                INNER JOIN users USING(user_id)
+                WHERE posts.post_id = ?
             ");
 
             $query->execute(

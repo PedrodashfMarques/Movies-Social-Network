@@ -69,4 +69,247 @@ main{
         }
 
     }
+
+    section.area_central{
+        width: 100%;
+        border: 1px solid grey;
+
+        margin: 10px;
+
+        div.area_post{
+            width: 80%;
+            background-color: green;
+            margin: 15px auto;
+            // width: 40vw;
+           
+
+            article.posts_carregados{
+                width: 80%;
+                // height: 170px;
+                background-color: white;
+                margin: 25px auto;
+                border-radius: 3px;
+                border: 1px solid grey;
+        
+                div.area_quem_postou{
+                    width: 100%;
+                    height: 55px;
+                    // background: green;
+                    display: flex;
+                    justify-content: left;
+                    align-items: center;
+        
+                    div.imagem_user_post{
+                        width: 55px;
+                        // height: 65px;
+                        margin: 8px;
+                        // background-color: blue;
+                        overflow: hidden;
+                        display: flex;
+                        align-items: center;
+        
+                        img{
+                           width: 100%;
+                           height: 50px;
+                           border-radius: 50%;
+                             object-fit: fill;
+                             border: 1px solid $themeColor;
+                        }
+                    }
+        
+                    div.nome_user_post{
+                        width: 50%;
+                        height: 55px;
+                        text-align: center;
+                        display: flex;
+                        align-items: center;
+                        // background-color: orange;   
+        
+                        h3{
+                            color: $themeColor;
+                            font-weight: 500;
+                            margin-top: 12px;
+                            display: flex;
+                            align-items: center; 
+        
+                            span{
+                                margin-left: 5px;
+                            }
+                        }
+                    }
+                }
+        
+                div.area_conteudo_desse_post{
+                    width: 100%;
+                    display: block;
+        
+        
+                    .area_post_created{
+                        width: 90%;
+                        margin: 5px auto;
+        
+                        p{
+                            font-size: 0.85em;
+                        }
+                    }
+        
+                    .area_content_post{
+                        width: 90%;
+                        margin: 15px auto;
+                        line-height: 23px;
+                        margin-bottom: 1px;
+                    }
+                           
+                }
+        
+                div.area_likes_comments{
+                    width: 90%;
+                    // height: 50px;
+                    margin: 10px auto;
+                    // background-color: orchid;
+        
+                    ul{
+                        width: 100%;
+                        display: flex;
+                        justify-content: left;
+        
+                        li{
+                            margin: 15px 0px;
+                            margin-left: 5px;
+                            margin-right: 70px;
+                            font-size: 22px;
+                            color: $themeColor;
+        
+                            span{
+                                font-size: 12px;
+                            
+                            }
+        
+                            &:hover{
+                                cursor: pointer;
+                            }
+                        }
+        
+                        
+                    }
+                }
+            }
+
+        }
+
+        div.area_comment{
+            width: 95%;
+            margin: 15px auto;
+            height: 57vh;
+            z-index: 99;
+            border-radius: 7px;
+            transition: width 0.7s;
+            overflow-y : scroll;
+
+            &::-webkit-scrollbar {
+                width: 0;
+                display: none;  /* Remove scrollbar space */
+            }
+            article.comments_carregados{
+                width: 70%;
+                margin: 20px auto;
+                border-radius: 3px;
+                border: 1px solid $themeColor;
+    
+    
+                div.area_quem_comentou{
+                    width: 100%;
+                    height: 55px;
+                    // background: green;
+                    display: flex;
+                    justify-content: left;
+                    align-items: center;
+    
+                    div.imagem_user_comment{
+                        width: 55px;
+                        margin: 8px;
+                        display: flex;
+                        align-items: center;
+    
+                        img{
+                           width: 100%;
+                           height: 50px;
+                           border-radius: 50%;
+                             object-fit: fill;
+                             border: 1px solid $themeColor;
+                        }
+                    }
+    
+                    div.nome_user_comment{
+                        width: 50%;
+                        height: 55px;
+                        text-align: center;
+                        display: flex;
+                        align-items: center; 
+    
+                        h3{
+                            color: $themeColor;
+                            font-weight: 500;
+                            margin-top: 12px;
+                            display: flex;
+                            align-items: center; 
+    
+                            span{
+                                margin-left: 5px;
+                            }
+    
+                            &:hover{
+                                cursor: pointer;
+                            }
+                        }
+                    }
+
+                    div.area_edit_delete{
+                        position: relative;
+                        left: 10%;
+                        height: 55px;
+                        display: flex;
+                        align-items: center;
+                        float:right;
+
+                        li{
+                            margin: 0px 13px;
+                            list-style: none;
+                            // color: rgb(134, 23, 23);
+                            font-size: 20px;
+
+                            &:hover{
+                                cursor: pointer;
+                            }
+
+                        }
+                    }
+                }
+    
+                div.area_conteudo_desse_comment{
+                    width: 100%;
+                    display: block;
+    
+    
+                    .area_comment_created{
+                        width: 90%;
+                        // height: 200px;
+                        margin: 5px auto;
+
+                        p{
+                            font-size: 0.85em;
+                        }
+                    }
+    
+                    .area_content_comment{
+                        width: 90%;
+                        margin: 15px auto;
+                        line-height: 23px;
+                        margin-bottom: 1px;
+                    }
+                           
+                }
+            }
+        }
+    }
 }
