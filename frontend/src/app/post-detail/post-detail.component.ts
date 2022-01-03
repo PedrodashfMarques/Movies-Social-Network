@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth-service/auth.service';
 import { UserActionsService } from '../user-actions/user-actions.service';
@@ -9,9 +9,14 @@ import { UserActionsService } from '../user-actions/user-actions.service';
   styleUrls: ['./post-detail.component.scss']
 })
 export class PostDetailComponent implements OnInit {
+  @ViewChild('commentContent') commentContent: ElementRef;
 
   postId: number;
   connectedUserId: number;
+
+  commentIdToEdit: number;
+  commentContentToEdit: string;
+  userWantsToEdit: boolean;
 
   commentModalAberto: boolean;
 
@@ -79,7 +84,9 @@ export class PostDetailComponent implements OnInit {
     }
 
     this.myUserActions.getPostComments(this.postId).subscribe(response => {
-      console.log(response["postComments"][0])
+
+      // console.log(response["postComments"])
+
       if(response["message"] === "Comments Not Found"){
         this.commentsNotFound = true;
       } else {
@@ -117,6 +124,38 @@ export class PostDetailComponent implements OnInit {
     .then(()=>{
         this.myRouter.navigate(['/profile/',userId, 'timeline']);
     })
+  }
+
+  openEditBox(commentId:number, commentContent: string){
+    this.commentIdToEdit = commentId;
+    this.commentContentToEdit = commentContent;
+    this.userWantsToEdit = !this.userWantsToEdit;
+  }
+
+  editComment(){
+    let commentContent = this.commentContent.nativeElement.value.toLowerCase();
+
+    if(commentContent.length <= 0){
+      this.myRouter.navigateByUrl('/post-detail', {skipLocationChange: true})
+      .then(() => {
+        this.myRouter.navigate(['/post-detail/', this.postId]);
+      })
+
+    } else {
+      let formData = new FormData();
+      formData.append('content', commentContent);
+
+      this.myUserActions.editComment(this.commentIdToEdit, formData).subscribe(response => {
+        setTimeout(() => {
+          this.myUserActions.getPostComments(this.postId).subscribe(response => {
+            this.commentsArray = response["postComments"];
+            this.userWantsToEdit = false;
+          })
+        }, 200)
+      })
+
+    }
+
   }
 
 }

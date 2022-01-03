@@ -149,6 +149,8 @@ export class UserActionsService {
 
     return this.myHttp.put(url, dataConvertedJson);
 
+    // Aqui vou enviar o JWToken provavelmente
+
   }
 
   deleteComment(commentId: number){

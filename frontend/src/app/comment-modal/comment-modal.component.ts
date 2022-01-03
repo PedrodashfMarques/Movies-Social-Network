@@ -56,8 +56,6 @@ export class CommentModalComponent implements OnInit {
       formData.append('postId', this.postId);
       formData.append('content', commentContent);
 
-      console.log("Envia");
-
       this.myUserActions.commentPost(formData).subscribe(response => {
         console.log(response);
 

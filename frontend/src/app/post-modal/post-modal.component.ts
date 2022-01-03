@@ -185,7 +185,6 @@ export class PostModalComponent implements OnInit {
     this.commentContentToEdit = commentContent;
     this.userWantsToEdit = !this.userWantsToEdit;
     this.userWantsToComment = false;
-
   }
 
   editComment(values: any){
