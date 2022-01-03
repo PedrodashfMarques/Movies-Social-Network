@@ -57,7 +57,6 @@ export class UsersFilterComponent implements OnInit {
 
       } else {
         this.noUsersFound = false;
-
       }
     })
     

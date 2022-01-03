@@ -123,6 +123,8 @@ export class UserActionsService {
       postId: postId
     })
 
+    // Enviar aqui o auth token também
+
   }
 
 

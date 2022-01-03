@@ -45,7 +45,11 @@
 
         <div class="area_likes_comments">
             <ul>
-                <li> <i class="fas fa-trophy"></i> <span> 0 </span>  </li>
+                <li (click)="likePost(eachPost.post_id)">
+                    <i *ngIf="eachPost.isLiked === false" class="far fa-heart"></i>
+                    <i *ngIf="eachPost.isLiked === true" class="fas fa-heart"></i>
+                    <span> {{eachPost.likesNumber}} </span>
+                </li>
                 
                 <li> <i class="far fa-comment"></i> <span> 0 </span> </li>
                 <!-- Este li tb vai ter um routerLink para o post/:id do post-->
@@ -53,6 +57,10 @@
 
         </div>
         
+    </article>
+
+    <article *ngIf="noPostsFound" class="no_posts_found">
+        <p> No posts found </p>
     </article>
 
 </main>

@@ -37,7 +37,7 @@ main{
 
 
     article.posts_carregados{
-        width: 90%;
+        width: 70%;
         // height: 170px;
         background-color: white;
         margin: 25px auto;
@@ -153,4 +153,12 @@ main{
             }
         }
     }
+}
+
+.no_posts_found{
+    width: 80%;
+    display: flex;
+    justify-content: left;
+    background: green;
+    margin: 0 auto;
 }

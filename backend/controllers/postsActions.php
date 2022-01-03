@@ -5,6 +5,8 @@
 
     $postModel = new Post();
 
+    // $userId = 1;
+
     if($_SERVER["REQUEST_METHOD"] === "GET"){
         // Verificar se o utilizador logado já tem um like em determinado post
     }

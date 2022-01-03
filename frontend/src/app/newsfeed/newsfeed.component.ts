@@ -35,7 +35,6 @@ export class NewsfeedComponent implements OnInit {
   // Connected User Id
   
   // Post Likes and Dislikes
-  postIsLiked: boolean;
   // Post Likes and Dislikes
 
   firstName: string;
@@ -135,10 +134,8 @@ export class NewsfeedComponent implements OnInit {
           
           if(responseData['liked'] === true){
             posicaoIndex["likesNumber"]++
-            this.postIsLiked = !this.postIsLiked;
           } else {
             posicaoIndex["likesNumber"]--
-            this.postIsLiked = false;
           }
         }
       }

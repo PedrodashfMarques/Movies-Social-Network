@@ -53,10 +53,8 @@
                 $fetch = $query->fetchAll(PDO :: FETCH_ASSOC );
 
                 if($fetch){
-                    $eachPost["isLiked"] = true;
                     array_push($likedPostsArray, $eachPost);
                     
-                    // var_dump($likedPostsArray);
                 } 
             }
 
@@ -83,7 +81,6 @@
                 $fetch = $query->fetchAll( PDO :: FETCH_ASSOC );
 
                 if($fetch){
-                    $eachPost["isCommented"] = true;
                     array_push($commentedPostsArray, $eachPost);
                 }
 
@@ -93,8 +90,6 @@
 
         }
 
-        
-        // public function getConnectedUserPosts(){}
 
         public function getPost($id){
             $query = $this->dataBase->prepare("
@@ -252,14 +247,22 @@
                 users.last_name,
                 users.user_image,
                 users.is_verified,
+                posts.post_id,
                 posts.content,
-                posts.created_at
+                posts.created_at,
+                (SELECT COUNT(*)
+                FROM likes
+                WHERE likes.post_id = posts.post_id ) AS likesNumber,
+                (SELECT COUNT(*)
+                FROM comments
+                WHERE comments.post_id = posts.post_id) AS commentsNumber
             FROM 
                 posts
             INNER JOIN users USING(user_id)
             WHERE 
                 CONCAT(content)
             LIKE ?
+            ORDER BY posts.created_at DESC
             ");
             
             $query->execute([

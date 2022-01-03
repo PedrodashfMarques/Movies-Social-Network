@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth-service/auth.service';
 import { UserActionsService } from 'src/app/user-actions/user-actions.service';
 
 @Component({
@@ -10,23 +11,30 @@ import { UserActionsService } from 'src/app/user-actions/user-actions.service';
 export class PostsFilterComponent implements OnInit {
   @ViewChild('postContent') postContentSearch: ElementRef;
 
-
-  imagemTeste: string = "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/33/33fc65586f9b4615f95209a03398d8c8b2729f0b_full.jpg";;
-
-  userIsVerified: boolean = true;
-
   postsFoundArray: any = [];
+  noPostsFound: boolean;
+  
+  connectedUserId: number;
 
+
+  // Images
   imagesPath = "http://localhost/backend/";
   userProfileImage: string;
   imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
+  // Images
+
 
   constructor(
     private myUserActions: UserActionsService,
     private myRouter: Router,
+    private myAuthService: AuthService
   ) { }
 
   ngOnInit(): void {
+    this.myAuthService.userSubject.subscribe(data => {
+      this.connectedUserId = data.userId;
+    })
+
     this.myUserActions.getAllPosts().subscribe(data => {
       this.postsFoundArray = data;
       console.log(this.postsFoundArray);
@@ -42,8 +50,42 @@ export class PostsFilterComponent implements OnInit {
 
     this.myUserActions.findPost(formData).subscribe(data => {
       this.postsFoundArray = data;
-      console.log(data)
+      console.log(this.postsFoundArray);
+
+      if(this.postsFoundArray.length <= 0){
+        this.noPostsFound = true;
+
+      } else{
+        this.noPostsFound = false;
+      }
     })
+
+  }
+
+  likePost(postId:number){
+    console.log(postId);
+    
+    this.myUserActions.likeDislikePost(postId, this.connectedUserId).subscribe(responseData => {
+      console.log(responseData);
+
+      for (let index = 0; index < this.postsFoundArray.length; index++) {
+
+        let posicaoIndex = this.postsFoundArray[index];
+        
+        if(posicaoIndex['post_id'] === postId){
+          
+          if(responseData['liked'] === true){
+            posicaoIndex["likesNumber"]++
+          } else {
+            posicaoIndex["likesNumber"]--
+          }
+        }
+      }
+    
+    }, errorRes => {
+      console.log(errorRes)
+    })
+
   }
 
 
