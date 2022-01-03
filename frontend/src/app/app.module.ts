@@ -26,6 +26,7 @@ import { FollowersComponent } from './profile-page/followers/followers.component
 import { FollowingComponent } from './profile-page/following/following.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { PostModalComponent } from './post-modal/post-modal.component';
+import { PostDetailComponent } from './post-detail/post-detail.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { PostModalComponent } from './post-modal/post-modal.component';
     FollowingComponent,
     UserSettingsComponent,
     PostModalComponent,
+    PostDetailComponent,
   ],
   imports: [
     BrowserModule,

@@ -37,7 +37,7 @@ export class PostsFilterComponent implements OnInit {
 
     this.myUserActions.getAllPosts().subscribe(data => {
       this.postsFoundArray = data;
-      console.log(this.postsFoundArray);
+      // console.log(this.postsFoundArray);
     })
   }
 
@@ -63,7 +63,6 @@ export class PostsFilterComponent implements OnInit {
   }
 
   likePost(postId:number){
-    console.log(postId);
     
     this.myUserActions.likeDislikePost(postId, this.connectedUserId).subscribe(responseData => {
       console.log(responseData);
@@ -82,8 +81,6 @@ export class PostsFilterComponent implements OnInit {
         }
       }
     
-    }, errorRes => {
-      console.log(errorRes)
     })
 
   }

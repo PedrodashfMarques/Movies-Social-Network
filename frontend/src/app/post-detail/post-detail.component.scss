@@ -1,0 +1,72 @@
+@import 'var&mixin.scss';
+
+main{
+    max-width: 1600px;
+    height: 861px;
+    margin: 8px auto;
+    background-color: #202020;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+
+    .area_apenas_shortcuts{
+        width: 34.8%;
+        height: 700px;
+        background-color: #202020; // ou isto ou branco
+        margin: 10px;
+        border: 1px solid grey;
+
+        .area_shortcuts{
+            width: 80%;
+            background-color: #202020;
+            height: 220px;
+            margin: 65px auto;
+            margin-top: 40px;
+
+            border-radius: 8px;
+
+            .area_titulo_shortcuts{
+                width: 100%;
+                height: 50px;
+                display: flex;
+                align-items: center; // Verticalmente
+                justify-content: left ; // Horizontalmente
+                h2{
+                    border-bottom: 1px solid;
+                    // border-bottom-width: 5px;
+                    color: white;
+                    margin-top: 12px;
+                    font-weight: 500;
+                    margin-left: 15px;
+                    font-size: 1.25em;
+                }
+            }
+
+            ul{
+                width: 100%;
+
+                li{
+                    width: calc(100% - 30px);
+                    line-height: 32px;
+                    margin: 15px;
+                    margin-left: 10px;
+                    font-size: 1.2em;
+                    color: white;
+                    
+                    &:hover{
+                        color: $themeColor;
+                        cursor: pointer;
+                    }
+
+                    i{
+                        font-size: 1.1em;
+                        width: 7%;
+                        color: rgb(44, 96, 100);
+                    }
+
+                }
+            }
+        }
+
+    }
+}

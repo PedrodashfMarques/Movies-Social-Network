@@ -49,7 +49,7 @@ export class WorldComponent implements OnInit {
 
     this.getUsers();
 
-    this.showPostsFilter();
+    this.showUsersFilter();
 
      this.myAuthService.userSubject.subscribe((data: User) => {
       this.connectedUserId = data.userId;
