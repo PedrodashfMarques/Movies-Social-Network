@@ -133,9 +133,8 @@ export class UserActionsService {
 
     let object = {};
     data.forEach((value, key) => object[key] = value);
-    let dataConvertedJson = JSON.stringify(object);
 
-    // console.log(jsonConverted);
+    let dataConvertedJson = JSON.stringify(object);
 
     return this.myHttp.post(url, dataConvertedJson, {responseType: 'json'});
 

@@ -1,1 +1,25 @@
-<p>comment-modal works!</p>
+<main>
+    <div class="background" (click)="fecharModal()"></div>
+
+    <div class="alert-box">
+        <article class="new_comment">
+       
+            <div class="area_comentario">
+    
+                <form>
+                    <label for="newComment"></label>
+                    <textarea 
+                    id="newComment" 
+                    placeholder="Write a comment"
+                    #commentContent
+                    ></textarea>
+                    <div class="area_botao_comment">
+                        <button (click)="newComment()" type="submit"> Comment </button>
+                    </div>
+                </form>
+                
+            </div>
+        </article>
+    </div>
+    
+</main>

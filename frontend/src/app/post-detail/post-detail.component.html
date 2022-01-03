@@ -1,7 +1,13 @@
 <app-header> </app-header>
 
-
 <main>
+
+    <app-comment-modal
+    *ngIf="commentModalAberto"
+    (closeModal)="fecharModal()"
+    [postId]="postId">
+
+    </app-comment-modal>
 
     <section class="area_apenas_shortcuts"> 
 
@@ -18,8 +24,6 @@
             </ul>
 
         </div>
-
-      
 
     </section>
 
@@ -63,7 +67,7 @@
                             <span> {{likesNumber}} </span>
                         </li>
                         
-                        <li> 
+                        <li (click)="abrirCommentModal()"> 
                             <i *ngIf="isCommented === false" class="far fa-comment"></i> 
                             <i *ngIf="isCommented === true" class="fas fa-comment"></i> 
                             <span> {{commentsNumber}}</span>
@@ -77,7 +81,7 @@
 
         </div>
 
-        
+
         <div class="area_comment">
 
             <article class="comments_carregados" *ngFor="let eachComment of commentsArray">

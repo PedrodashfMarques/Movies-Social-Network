@@ -1,0 +1,119 @@
+@import 'var&mixin.scss';
+
+
+main{
+    max-width: 1600px;
+    height: 861px;
+    margin: 8px auto;
+
+
+    .background{
+        width: 100vw;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.75);
+        z-index: 50;
+    }
+        
+        .alert-box{
+            position: absolute;
+            width: 40vw;
+            // height: 85vh;
+            left: 30vw;
+            top: 25%; 
+            z-index: 100;
+            border-radius: 7px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.26);
+            transition: width 0.7s;
+            background: white;
+            overflow-y : scroll;
+    
+            &::-webkit-scrollbar {
+                width: 0;
+                display: none;  /* Remove scrollbar space */
+            }
+        
+            .alert-box-options{
+                text-align: right;
+        
+                button{
+                    font-size: 1.2em;
+                    border-radius: 7px;
+        
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+            }
+            
+            article.new_comment{
+                width: 80%;
+                margin: 20px auto;
+                border-radius: 3px;
+                border: 1px solid $themeColor;
+
+                div.area_comentario{
+                    width: 92%;
+                    height: 170px;
+                    background-color: white;
+                    margin: 5px auto;
+                    border-radius: 3px;
+
+                    textarea{
+                        width: 99%;
+                        height: 125px;
+                        background-color: white;
+                        margin: 0 auto;
+                        resize: none;
+                        border: 0;
+                        outline: 0;
+                        font-family: $LDFont;
+                        overflow: hidden;
+        
+                    }
+                }
+
+                .area_botao_comment{
+                    width: 100%;
+                    height: 20px;
+                    border-radius: 0px 0px 3px 3px;
+                    margin-top: -2px;
+                    display: flex;
+                    justify-content: right;
+    
+                    button{
+                        width: 30%;
+                        height: 25px;
+                        background-color: $themeColor;
+                        border: 0;
+                        border-radius: 3px;
+                        color: white;
+                        font-size: 1.07em;
+                        border: 1;
+
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }
+    
+                }
+            }
+        
+            div.a_imagem{
+                margin-left: -15px;
+                
+                img{
+                    border-radius: 7px;
+                    width: calc(100% - 40px);
+                    float: left;
+                    margin: 0 20px;
+                }
+        
+            }
+        
+        }
+
+}

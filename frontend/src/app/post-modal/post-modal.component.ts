@@ -63,7 +63,7 @@ export class PostModalComponent implements OnInit {
     this.myAuthService.userSubject.subscribe(response => {
       this.connectedUserId = response.userId;
     })
-
+    
     this.commentPostForm();
     this.myUserActions.getPostData(this.postInfo.post_id).subscribe(data => {
       this.postId = data["postData"].post_id; 

@@ -13,6 +13,8 @@ export class PostDetailComponent implements OnInit {
   postId: number;
   connectedUserId: number;
 
+  commentModalAberto: boolean;
+
   // Comments Array
   commentsArray: any = [];
   commentsNotFound: boolean;
@@ -100,6 +102,14 @@ export class PostDetailComponent implements OnInit {
       }
 
     })
+  }
+
+  abrirCommentModal(){
+    this.commentModalAberto = !this.commentModalAberto;
+  }
+
+  fecharModal(){
+    this.commentModalAberto = null;
   }
 
   goToUserPage(userId: number){
