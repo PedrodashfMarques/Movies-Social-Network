@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="area_conteudo_desse_post">
+        <div routerLink="/post-detail/{{eachPost.post_id}}" class="area_conteudo_desse_post">
             <div class="area_post_created">
                     <p> Posted {{eachPost.created_at | date: 'MMMM d, y, \'at\' h\'h\'mm'}} </p> 
             </div>
@@ -51,8 +51,10 @@
                     <span> {{eachPost.likesNumber}} </span>
                 </li>
                 
-                <li> <i class="far fa-comment"></i> <span> 0 </span> </li>
-                <!-- Este li tb vai ter um routerLink para o post/:id do post-->
+                <li routerLink="/post-detail/{{eachPost.post_id}}"> 
+                    <i class="far fa-comment"></i> 
+                    <span> 0 </span> 
+                </li>
             </ul>
 
         </div>

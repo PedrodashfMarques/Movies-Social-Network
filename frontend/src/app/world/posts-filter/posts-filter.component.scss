@@ -97,6 +97,10 @@ main{
             // display: flex;
             display: block;
 
+            &:hover{
+                cursor: pointer;
+            }
+
 
             .area_post_created{
                 width: 90%;

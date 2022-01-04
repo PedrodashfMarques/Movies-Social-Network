@@ -162,7 +162,7 @@ export class PostDetailComponent implements OnInit {
     this.commentModalAberto = null;
   }
 
-  
+
   openEditBox(commentId:number, commentContent: string){
     this.commentIdToEdit = commentId;
     this.commentContentToEdit = commentContent;
@@ -231,7 +231,10 @@ export class PostDetailComponent implements OnInit {
   }
 
   goToConnectedUserPage(){
-
+  this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
+    .then(()=>{
+        this.myRouter.navigate(['/profile/',this.connectedUserId, 'timeline']);
+    })
   }
 
 }

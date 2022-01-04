@@ -18,9 +18,9 @@
     
                 </div>
     
-                <div class="area_conteudo_desse_post">
+                <div routerLink="/post-detail/{{postInfo.post_id}}" class="area_conteudo_desse_post">
     
-                    <div class="area_post_created">
+                    <div  class="area_post_created">
                             <p> Posted {{postInfo.created_at | date: 'MMMM d, y, \'at\' h\'h\'mm'}} </p> 
                     </div>
     
@@ -38,7 +38,7 @@
                             <span> {{postInfo.likesNumber}} </span>
                         </li>
                         
-                        <li (click)="openComment()">
+                        <li routerLink="/post-detail/{{postInfo.post_id}}">
 
                              <i *ngIf="postInfo.isCommented === false" class="far fa-comment"></i> 
                              <i *ngIf="postInfo.isCommented === true" class="fas fa-comment"></i> 

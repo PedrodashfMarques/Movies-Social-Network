@@ -73,6 +73,10 @@ main{
             width: 100%;
             // display: flex;
             display: block;
+
+            &:hover{
+                cursor: pointer;
+            }
     
     
             .area_post_created{

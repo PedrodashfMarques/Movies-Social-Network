@@ -43,7 +43,6 @@ export class HeaderComponent implements OnInit {
   onLogout(){
       this.myAuthService.logoutUser();
       this.myRouter.navigate(['']);
- 
   }
 
   goToConnectedUserPage(){

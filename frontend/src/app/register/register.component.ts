@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { passwordMatch } from '../shared/PasswordMatch.validator';
+import { UserActionsService } from '../user-actions/user-actions.service';
 
 @Component({
   selector: 'app-register',
@@ -10,13 +11,14 @@ import { passwordMatch } from '../shared/PasswordMatch.validator';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
-  constructor(private myFormBuilder: FormBuilder) { }
+  constructor(
+    private myFormBuilder: FormBuilder
+    ) { }
 
 
   ngOnInit(): void {
     this.createUserForm();
   }
-
 
   createUserForm(){
     this.registerForm = this.myFormBuilder.group({
@@ -52,8 +54,8 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  // Injetar service de Auth e enviar os dados para a API
-  
+  // Injetar service de Auth e enviar os dados para a API 
+
   submitRegister(values: any){
     let formData = new FormData();
     formData.append('firstName', values.firstName);
@@ -62,7 +64,8 @@ export class RegisterComponent implements OnInit {
     formData.append('email', values.email);
     formData.append('password', values.password);
     formData.append('confirmPassword', values.confirmPassword);
-    
+
+
     console.log(values);
 
     this.registerForm.reset();

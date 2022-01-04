@@ -167,7 +167,7 @@ export class NewsfeedComponent implements OnInit {
 
   deletePost(postId: number){
     this.userWantsToEdit = false;
-    console.log(postId)
+    // console.log(postId)
 
     this.myUserActions.deletePost(postId).subscribe(response => {
       console.log(response);

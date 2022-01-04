@@ -148,7 +148,7 @@ export class UserActionsService {
     let dataConvertedJson = JSON.stringify(object);
 
     return this.myHttp.put(url, dataConvertedJson);
-
+    
     // Aqui vou enviar o JWToken provavelmente
 
   }

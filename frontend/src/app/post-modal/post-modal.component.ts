@@ -74,7 +74,7 @@ export class PostModalComponent implements OnInit {
 
       this.commentsArray = commentsData["postComments"];
 
-      console.log(this.commentsArray)
+      // console.log(this.commentsArray);
 
       if(this.commentsArray === undefined){
           this.messageNotFound = true;
@@ -85,7 +85,6 @@ export class PostModalComponent implements OnInit {
       }
 
     })
-
 
   }
 

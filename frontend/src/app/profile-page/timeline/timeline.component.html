@@ -17,7 +17,7 @@
                 
             </div>
 
-            <div class="area_conteudo_desse_post">
+            <div routerLink="/post-detail/{{eachPost.post_id}}" class="area_conteudo_desse_post">
 
                 <div class="area_post_created">
                     <p> Posted {{eachPost.created_at | date: 'MMMM d, y, \'at\' h\'h\'mm'}} </p>  
@@ -42,7 +42,7 @@
                     <!-- Pedir novamente ajuda ao Ivo porque n estou a conseguir fazer esta parte -->
                     
                     
-                    <li> 
+                    <li routerLink="/post-detail/{{eachPost.post_id}}"> 
                         <i *ngIf="eachPost.isCommented === false" class="far fa-comment"></i> 
                         <i *ngIf="eachPost.isCommented === true" class="fas fa-comment"></i> 
                         <span> {{eachPost.commentsNumber}} </span> 
