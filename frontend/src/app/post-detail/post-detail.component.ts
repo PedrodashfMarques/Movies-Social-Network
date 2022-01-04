@@ -60,7 +60,6 @@ export class PostDetailComponent implements OnInit {
     this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
     })
-
     this.postId = +this.myActiveRoute.snapshot.params["id"];
 
     if(isNaN(this.postId)){

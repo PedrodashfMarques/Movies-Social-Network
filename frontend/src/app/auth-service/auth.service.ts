@@ -23,13 +23,25 @@ export class AuthService {
   
   api: string = environment.API_Endpoint;
 
-
   constructor(
     private myHttp: HttpClient, 
     private jwtHelper: JwtHelperService,
     private myRouter: Router) { }
 
-  
+
+  registerUser(data: FormData){
+    const url = this.api + 'register';
+ 
+    let object = {};
+    data.forEach((value, key) => object[key] = value);
+    
+    let jsonConverted = JSON.stringify(object);
+
+    console.log(jsonConverted);
+
+    return this.myHttp.post(url, jsonConverted);
+  }
+
   loginUser(data: any){
     const url = this.api + 'login';
     
@@ -50,7 +62,7 @@ export class AuthService {
     if(JWToken.length <= 0){
       this.myRouter.navigate(['']);
     }
-
+    
     let userData: {
       userId: number,
       firstName: string,
@@ -73,7 +85,7 @@ export class AuthService {
     }
 
     let loadedUser = new User(
-      userData.userId,
+      userData.userId ,
       userData.firstName,
       userData.username,
       userData.lastName,
@@ -87,7 +99,7 @@ export class AuthService {
       JWToken,
       userData.expiryTime
     );
-    
+
     // if there is a token
     // if(loadedUser.Token) {
     //   const expirationDuration = new Date(userData.expiryTime).getTime() - new Date().getTime();
@@ -151,17 +163,11 @@ export class AuthService {
       JWToken,
       expirationDate,
     );
-
     this.userSubject.next(newUser);
 
-    // console.log(newUser);
-    // console.log(JWTdecoded);
-
     this.autologin();
-
   }
 
-  
   private handleError(responseError: HttpErrorResponse){
     let errorMessage = "An unknow error occurred";
 

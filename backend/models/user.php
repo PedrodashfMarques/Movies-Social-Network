@@ -203,7 +203,6 @@
         }
 
 
-
         public function followUnfollow($id, $connectedUserId){
 
             // Check if user is already following

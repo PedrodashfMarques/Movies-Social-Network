@@ -9,11 +9,13 @@ import { UserActionsService } from '../user-actions/user-actions.service';
   styleUrls: ['./comment-modal.component.scss']
 })
 export class CommentModalComponent implements OnInit {
+
   @Output() closeModal = new EventEmitter<void>();
 
   @ViewChild('commentContent') commentContent: ElementRef;
 
   @Input() postId;
+
 
   connectedUserId: any;
 
@@ -37,7 +39,7 @@ export class CommentModalComponent implements OnInit {
     this.closeModal.emit();
   }
 
-
+  
   newComment(){
     let commentContent = this.commentContent.nativeElement.value.toLowerCase();
 

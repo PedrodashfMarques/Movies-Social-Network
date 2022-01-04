@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth-service/auth.service';
 import { passwordMatch } from '../shared/PasswordMatch.validator';
 import { UserActionsService } from '../user-actions/user-actions.service';
 
@@ -11,15 +13,22 @@ import { UserActionsService } from '../user-actions/user-actions.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
+  errorMessage: string;
+
+  successMessage: string;
+
   constructor(
-    private myFormBuilder: FormBuilder
+    private myFormBuilder: FormBuilder,
+    private myAuthService: AuthService,
+    private myRouter: Router
     ) { }
-
-
+    
+    
   ngOnInit(): void {
     this.createUserForm();
   }
 
+  
   createUserForm(){
     this.registerForm = this.myFormBuilder.group({
 
@@ -54,22 +63,36 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  // Injetar service de Auth e enviar os dados para a API 
+  // Injetar service de Auth e enviar os dados para a API
 
   submitRegister(values: any){
+
     let formData = new FormData();
+
     formData.append('firstName', values.firstName);
     formData.append('userName', values.userName);
-    formData.append('lastname', values.lastName);
+    formData.append('lastName', values.lastName);
     formData.append('email', values.email);
     formData.append('password', values.password);
     formData.append('confirmPassword', values.confirmPassword);
 
+    this.myAuthService.registerUser(formData).subscribe(response => {
+      console.log(response);
+      this.successMessage = response["message"];
+        setTimeout(() => {
+          window.location.reload();
+          
+        }, 3000);
+    }, error => {
+      this.errorMessage = error.error.message;
+      setTimeout(() => {
+        window.location.reload();
+        
+      }, 2000);
 
-    console.log(values);
+    })
 
     this.registerForm.reset();
-
   }
 
 }

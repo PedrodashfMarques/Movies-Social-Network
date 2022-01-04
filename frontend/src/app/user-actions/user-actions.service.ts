@@ -108,11 +108,11 @@ export class UserActionsService {
 
   deletePost(postId){
     const url = this.api + "posts" + "/" + postId;
-    
+
     return this.myHttp.delete(url);
       // Enviar auth-token para validação se o user tem auth ou não para fazer o delete ao comentário
   }
-  
+
 
   likeDislikePost(postId, connectedUserId){
 
@@ -228,8 +228,8 @@ export class UserActionsService {
     return this.myHttp.post(url, jsonConverted);
 
   }
-
-
+  
+  
   getAllUserCategories(){
     const url = this.api + 'userCategories';
     return this.myHttp.get(url);

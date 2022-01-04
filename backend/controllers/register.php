@@ -24,14 +24,13 @@ use ReallySimpleJWT\Token;
 
             if(empty($userInfo)){
                 http_response_code(400);
-                die( '{"message": "Email or Username already exists"}');
+                die( '{"message": "Email or Username already exists."}');
             }
 
             if(!empty($userInfo)){
                 http_response_code(202);
-                echo '{"message": "Account Created Successfully"}';
+                echo '{"message": "Account Created Successfully."}';
             }
-
         
         } else {
             // http_response_code();

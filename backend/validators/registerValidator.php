@@ -9,7 +9,7 @@
             !empty($data["email"]) &&
             !empty($data["password"]) &&
             !empty($data["confirmPassword"]) &&
-            mb_strlen($data["firstName"]) > 3 &&
+            mb_strlen($data["firstName"]) >= 3 &&
             mb_strlen($data["firstName"]) <= 30 &&
             mb_strlen($data["userName"]) >= 3 &&
             mb_strlen($data["userName"]) <= 30 &&

@@ -3,21 +3,16 @@
 main{
     max-width: 1725px;
     // width: 90%;
-    // height: 100vh;
     margin: 0 auto;
     // background: rgb(166, 202, 166);
     display: flex;
     // justify-content: center;
     font-family: $LDFont;
 
-
     section.area_logotipo{
         width: 60%;
         height: 100vh;
-        // margin: 0 auto;
-        // background: rgb(191, 166, 202);
         background: white;
-        // font-family: $LDFont;
 
         div.nome_da_redeSocial{
             width: 50%;
@@ -25,7 +20,6 @@ main{
             position: relative;
             top: 26%;
             margin: 15px auto;
-            // background: rgb(154, 74, 189);
             color: #1D3B3E;
             font-family: $LDFont;
             text-align: center;
@@ -40,7 +34,6 @@ main{
             top: 25%;
             left: 23%;
             margin: 15px auto;
-            // background: rgb(211, 173, 90);
             color: #202020; 
             float: left;
             font-family: $LDFont;
@@ -48,11 +41,9 @@ main{
             // text-decoration: underline;
         }
     }
-
-
+    
     section.area_formulario{
         width: 40%;
-        // height: 1000px;
         background: #202020;
         float: left;
         font-family: $LDFont;
@@ -62,8 +53,6 @@ main{
 
         div.area_div_formulario{
             width: 93%;
-            // height: 100px;
-            // background: red;
             margin: 30px auto;
             
             form{
@@ -72,7 +61,6 @@ main{
                 // height: 700px;
                 background: #dbdada;
                 // display: flex;
-                // justify-content: center;
                 padding-top: 3px;
                 position: relative;
                 border-radius: 10px;
@@ -90,7 +78,6 @@ main{
                         // background-color: orange;
                     }
 
-
                     label{
                         width: 100%;
                         float: left;
@@ -107,12 +94,10 @@ main{
                         border: 0;
                     }
                 
-
                 }
 
                 div.botao_submit{
                     width: 100%;
-                    // background: blue;
                     margin: 20px auto;
                     display: flex;
                     justify-content: center;
@@ -121,7 +106,6 @@ main{
                     p{
                         margin-right: 20px;
                         color: #202020; 
-                        // font-weight: bold;
                         
                     }
 
@@ -135,14 +119,24 @@ main{
                         }
                     }
                 }
-
-             
-        }
+       
+            }
 
         }
         
         
     }
 
+}
 
+.error_area{
+    width: 100%;
+    margin: 0 auto;
+    color: rgb(155, 57, 38);
+}
+
+.success_area{
+    width: 100%;
+    margin: 0 auto;
+    color: rgb(44, 85, 36);
 }
