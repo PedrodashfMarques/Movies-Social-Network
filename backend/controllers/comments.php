@@ -21,8 +21,9 @@
                 echo '{"message": "Comments Not Found"}';
             }
         } else {
-            http_response_code(405);
-            echo '{"message": "Method Not Allowed"}';
+            $allComments = $commentModel->getAllComments();
+            http_response_code(202);
+            echo json_encode($allComments);
             
         }
     }

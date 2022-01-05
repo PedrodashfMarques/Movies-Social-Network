@@ -9,7 +9,7 @@
                 <ul>
                     <li (click)="showUsers()" [ngClass]="{usersClicked: usersRouteClicked === true}"> <span> Users </span>  </li>
                     <li (click)="showPosts()" [ngClass]="{usersClicked: postsRouteClicked === true}"> <span> Posts </span> </li>
-                    <li> <span> Comments </span> </li>
+                    <li (click)="showComments()" [ngClass]="{usersClicked: commentsRouteClicked === true}"> <span> Comments </span> </li>
                     <li (click)="showStats()" [ngClass]="{usersClicked: statsRouteClicked === true}"> <span> Metrics </span> </li>
                 </ul>
             </div>

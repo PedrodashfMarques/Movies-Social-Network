@@ -64,8 +64,7 @@ export class PostsComponent implements OnInit {
       console.log(response);
 
       setTimeout(() => {
-        this.getAllPosts();
-        
+        this.getAllPosts();   
       }, 100);
     });
   }

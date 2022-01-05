@@ -14,6 +14,7 @@ export class AdminPanelComponent implements OnInit {
   usersRouteClicked: boolean = false;
   postsRouteClicked: boolean = false;
   statsRouteClicked: boolean = false;
+  commentsRouteClicked: boolean = false;
 
   constructor( 
     private myAuthService: AuthService,
@@ -36,6 +37,7 @@ export class AdminPanelComponent implements OnInit {
     this.usersRouteClicked = true;
     this.postsRouteClicked = false;
     this.statsRouteClicked = false;
+    this.commentsRouteClicked = false;
   }
 
   showPosts(){
@@ -43,7 +45,17 @@ export class AdminPanelComponent implements OnInit {
     this.postsRouteClicked = true;
     this.usersRouteClicked = false;
     this.statsRouteClicked = false;
+    this.commentsRouteClicked = false;
 
+  }
+
+  showComments(){
+    this.myRouter.navigate(["comments"], {relativeTo: this.myActiveRoute});
+    this.commentsRouteClicked = true;
+    this.usersRouteClicked = false;
+    this.postsRouteClicked = false;
+    this.statsRouteClicked = false;
+    
   }
 
   showStats(){
@@ -51,7 +63,9 @@ export class AdminPanelComponent implements OnInit {
     this.statsRouteClicked = true;
     this.usersRouteClicked = false;
     this.postsRouteClicked = false;
+    this.commentsRouteClicked = false;
   }
+  
 
 
   goToConnectedUserPage(){

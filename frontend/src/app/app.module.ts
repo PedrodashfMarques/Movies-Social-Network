@@ -35,6 +35,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { UsersComponent } from './admin-panel/users/users.component';
 import { PostsComponent } from './admin-panel/posts/posts.component';
 import { StatsComponent } from './admin-panel/stats/stats.component';
+import { CommentsComponent } from './admin-panel/comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { StatsComponent } from './admin-panel/stats/stats.component';
     UsersComponent,
     PostsComponent,
     StatsComponent,
+    CommentsComponent,
   ],
   imports: [
     BrowserModule,

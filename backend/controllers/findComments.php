@@ -1,0 +1,31 @@
+<?php
+
+     require_once("models/post.php");
+     require_once("sanitizers/updateUserSanitizer.php");
+
+     $postModel = new Post();
+
+     
+
+    if($_SERVER["REQUEST_METHOD"] === "POST"){
+
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        $sanitizedData = sanitizer($data);
+
+        if(!empty($sanitizedData)){
+            $postsFound = $postModel->findPosts($sanitizedData["postContentSearch"]);
+
+            http_response_code(202);
+            echo json_encode($postsFound);
+        }  
+   
+    }
+
+    else{
+        http_response_code(405);
+        echo '{"message": "Method Not Allowed"}';
+    }
+
+
+?>

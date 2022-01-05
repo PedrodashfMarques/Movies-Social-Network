@@ -61,6 +61,11 @@ export class UserActionsService {
     // });
   }
 
+  getAllComments(){
+    const url = this.api + 'comments';
+    
+    return this.myHttp.get(url);
+  }
 
 
   getPostData(postId){
@@ -157,6 +162,9 @@ export class UserActionsService {
     const url = this.api + "comments" + "/" + commentId;
 
     return this.myHttp.delete(url);
+
+    // Aqui vou enviar o JWToken provavelmente
+
   }
 
 

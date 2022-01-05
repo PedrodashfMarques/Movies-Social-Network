@@ -1,0 +1,57 @@
+<main>
+
+    <div class="caixa_filters">
+
+        <div class="area_formulario">
+            <form>
+                <div class="cadaForm">
+                    <label for="searchId"> Search comment </label>
+                    <input id="searchId" type="text"
+                    (keyup)="pesquisarComment()"
+                    #commentContent>
+                </div>
+            </form>
+            
+        </div>
+
+    </div>
+
+    <article class="comments_carregados" *ngFor="let eachComment of commentsFoundArray">
+
+        <div class="area_quem_postou">
+            <div class="imagem_user_post">
+                <img *ngIf="eachComment.user_image" src="{{imagesPath + eachComment.user_image}}" alt="">
+                <img *ngIf="!eachComment.user_image" src="{{imagemDefault}}" alt="{{eachComment.username}}" title="{{eachComment.username}}">
+            </div>
+            
+            <div class="nome_user_post">
+                <h3> {{eachComment.first_name}} @{{eachComment.username}} {{eachComment.last_name}} 
+                    <span *ngIf="eachComment.is_verified === '1'"> <i class="fas fa-check"></i> </span>
+                </h3>
+            </div>
+
+            <div class="area_delete_post">
+                <ul>
+                    <li> <i class="fas fa-trash"></i> </li>
+                </ul>
+            </div>
+        </div>
+
+        <div  class="area_conteudo_desse_post">
+            <div class="area_post_created">
+                    <p> Posted {{eachComment.created_at | date: 'MMMM d, y, \'at\' h\'h\'mm'}} </p> 
+            </div>
+
+            <div class="area_content_post">
+                {{eachComment.content}}
+            </div>
+
+        </div>
+        
+    </article>
+
+    <!-- <article *ngIf="noPostsFound" class="no_posts_found">
+        <p> No posts found </p>
+    </article> -->
+
+</main>

@@ -4,6 +4,28 @@ require_once("base.php");
 
     class Comment extends Base {
 
+        public function getAllComments(){
+            $query = $this->dataBase->prepare("
+                SELECT 
+                users.first_name,
+                users.username,
+                users.last_name,
+                users.user_image,
+                users.is_verified,
+                comment_id,
+                comments.post_id,
+                comments.user_id,
+                comments.content,
+                comments.created_at            
+                FROM comments
+                INNER JOIN users USING(user_id)
+            ");
+        
+            $query->execute();
+            
+            return $query->fetchAll(PDO:: FETCH_ASSOC);
+        }
+
         public function getPostComments($postId){
             $query = $this->dataBase->prepare("
             SELECT 

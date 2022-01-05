@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminAuthGuard } from './admin-auth-guard/admin-auth-guard';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { CommentsComponent } from './admin-panel/comments/comments.component';
 import { PostsComponent } from './admin-panel/posts/posts.component';
 import { StatsComponent } from './admin-panel/stats/stats.component';
 import { UsersComponent } from './admin-panel/users/users.component';
@@ -47,6 +48,7 @@ const routes: Routes = [
   {path: 'admin-panel', component: AdminPanelComponent, canActivate:[AdminAuthGuard], children: [
     {path: 'users', component: UsersComponent},
     {path: 'posts', component: PostsComponent},
+    {path: 'comments', component: CommentsComponent},
     {path: 'stats', component: StatsComponent},
 
   ]},
