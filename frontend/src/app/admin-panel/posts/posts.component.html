@@ -15,41 +15,44 @@
         </div>
 
     </div>
-    
-    <article class="posts_carregados">
+
+    <article class="posts_carregados" *ngFor="let eachPost of postsFoundArray">
 
         <div class="area_quem_postou">
             <!-- Imagem do user que fez o post, firstname, username e last name , um *ngIf para mostrar se é verificado ou não   e a data do post que foi criado -->
             <div class="imagem_user_post">
-                <!-- <img *ngIf="eachPost.user_image" src="{{imagesPath + eachPost.user_image}}" alt="">
-                <img *ngIf="!eachPost.user_image" src="{{imagemDefault}}" alt="{{eachPost.username}}" title="{{eachPost.username}}"> -->
+                <img *ngIf="eachPost.user_image" src="{{imagesPath + eachPost.user_image}}" alt="">
+                <img *ngIf="!eachPost.user_image" src="{{imagemDefault}}" alt="{{eachPost.username}}" title="{{eachPost.username}}">
             </div>
             
             <div class="nome_user_post">
-                <!-- <h3> {{eachPost.first_name}} @{{eachPost.username}} {{eachPost.last_name}}  -->
-                    <h3> Pedro d sdsd
-                    <!-- <span *ngIf="eachPost.is_verified === '1'"> <i class="fas fa-check"></i> </span>   -->
+                <h3> {{eachPost.first_name}} @{{eachPost.username}} {{eachPost.last_name}} 
+                    <span *ngIf="eachPost.is_verified === '1'"> <i class="fas fa-check"></i> </span>  
                 </h3>
+            </div>
+
+            <div class="area_delete_post">
+                <ul>
+                    <li (click)="deletePost(eachPost.post_id)"> <i class="fas fa-trash"></i> </li>
+                </ul>
             </div>
         </div>
 
-        <div class="area_conteudo_desse_post">
+        <div routerLink="/post-detail/{{eachPost.post_id}}" class="area_conteudo_desse_post">
             <div class="area_post_created">
-                    <!-- <p> Posted {{eachPost.created_at | date: 'MMMM d, y, \'at\' h\'h\'mm'}} </p>  -->
-                    <p> Posted</p> 
+                    <p> Posted {{eachPost.created_at | date: 'MMMM d, y, \'at\' h\'h\'mm'}} </p> 
             </div>
 
             <div class="area_content_post">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero officiis quaerat a veniam, nam ex distinctio saepe commodi. Quod, aperiam. Qui ratione praesentium alias doloremque id aperiam reprehenderit dolorum asperiores.
-                <!-- {{eachPost.content}} -->
+                {{eachPost.content}}
             </div>
 
         </div>
         
     </article>
 
-    <!-- <article *ngIf="noPostsFound" class="no_posts_found">
+    <article *ngIf="noPostsFound" class="no_posts_found">
         <p> No posts found </p>
-    </article> -->
+    </article>
 
 </main>
