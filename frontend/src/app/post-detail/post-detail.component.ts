@@ -176,7 +176,7 @@ export class PostDetailComponent implements OnInit {
       .then(() => {
         this.myRouter.navigate(['/post-detail/', this.postId]);
       })
-
+      
     } else {
       let formData = new FormData();
       formData.append('content', commentContent);
@@ -216,7 +216,6 @@ export class PostDetailComponent implements OnInit {
         this.userWantsToEdit = false;
       })
     }, 100);
-
 
   }
 

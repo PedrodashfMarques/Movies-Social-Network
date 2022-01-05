@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminAuthGuard } from './admin-auth-guard/admin-auth-guard';
 import { AuthGuard } from './auth-guard/auth-guard';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { LoginComponent } from './login/login.component';
@@ -44,7 +45,7 @@ const routes: Routes = [
 
 
   {path: 'not-found', component: ErrorPageComponent}, // Aqui defino uma nova rota que irá existir.
-  {path: '**', redirectTo: '', pathMatch: 'full'},
+  {path: '**', redirectTo: 'newsfeed', pathMatch: 'full'},
    // Aqui digo que se o URL digitado não existir na minha aplicação, então faz o redirecionamento para a rota /not-found
 
 ];

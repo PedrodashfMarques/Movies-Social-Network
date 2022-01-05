@@ -38,8 +38,6 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  // Injetar service de Auth e enviar os dados para a API
-
 
   submitLogin(values: any){
     let formData = new FormData();

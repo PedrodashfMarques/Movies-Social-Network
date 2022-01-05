@@ -55,14 +55,14 @@ export class AuthService {
       this.handleAuthentication(resData)
     }));
   }
-  
+
   autologin(){
     let JWToken = localStorage.getItem('authToken');
 
     if(JWToken.length <= 0){
       this.myRouter.navigate(['']);
     }
-    
+      
     let userData: {
       userId: number,
       firstName: string,

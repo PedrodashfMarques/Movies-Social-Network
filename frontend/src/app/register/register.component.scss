@@ -6,7 +6,6 @@ main{
     margin: 0 auto;
     // background: rgb(166, 202, 166);
     display: flex;
-    // justify-content: center;
     font-family: $LDFont;
 
     section.area_logotipo{
@@ -38,7 +37,6 @@ main{
             float: left;
             font-family: $LDFont;
             font-size: 1.6em;
-            // text-decoration: underline;
         }
     }
     
@@ -75,13 +73,11 @@ main{
                     .formErrors{
                         width: 90%;
                         margin: 10px auto;
-                        // background-color: orange;
                     }
 
                     label{
                         width: 100%;
                         float: left;
-                        // text-align: left;
                         margin: 12px 0px 12px 30px;
                     }
                     
