@@ -33,9 +33,11 @@ export class NewsfeedComponent implements OnInit {
   // Connected User Id
   connectedUserId: number;
   // Connected User Id
-  
-  // Post Likes and Dislikes
-  // Post Likes and Dislikes
+
+  // connectedUser is Admin?
+  isAdmin;
+  // connectedUser is Admin?
+
 
   firstName: string;
   username: string;
@@ -66,6 +68,7 @@ export class NewsfeedComponent implements OnInit {
     // this.myAuthService.autologin();
     this.myAuthService.userSubject.subscribe((data: User) => {
       this.connectedUserId = data.userId;
+      this.isAdmin = data.isAdmin;
     })
 
     this.createPostForm();

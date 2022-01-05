@@ -16,9 +16,11 @@ import { MatIconModule} from '@angular/material/icon';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { AboutComponent } from './profile-page/about/about.component';
 import { TimelineComponent } from './profile-page/timeline/timeline.component';
+
 import { WorldComponent } from './world/world.component';
 import { UsersFilterComponent } from './world/users-filter/users-filter.component';
 import { PostsFilterComponent } from './world/posts-filter/posts-filter.component';
+
 import { AuthService } from './auth-service/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from "@auth0/angular-jwt";
@@ -28,6 +30,11 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { PostModalComponent } from './post-modal/post-modal.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { CommentModalComponent } from './comment-modal/comment-modal.component';
+
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { UsersComponent } from './admin-panel/users/users.component';
+import { PostsComponent } from './admin-panel/posts/posts.component';
+import { StatsComponent } from './admin-panel/stats/stats.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +57,10 @@ import { CommentModalComponent } from './comment-modal/comment-modal.component';
     PostModalComponent,
     PostDetailComponent,
     CommentModalComponent,
+    AdminPanelComponent,
+    UsersComponent,
+    PostsComponent,
+    StatsComponent,
   ],
   imports: [
     BrowserModule,

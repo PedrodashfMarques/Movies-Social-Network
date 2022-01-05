@@ -80,9 +80,9 @@ export class RegisterComponent implements OnInit {
       console.log(response);
       this.successMessage = response["message"];
         setTimeout(() => {
-          window.location.reload();
+          this.myRouter.navigate(['']);
           
-        }, 3000);
+        }, 2000);
     }, error => {
       this.errorMessage = error.error.message;
       setTimeout(() => {

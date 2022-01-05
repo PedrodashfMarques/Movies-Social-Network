@@ -355,7 +355,8 @@
                     username,
                     last_name,
                     user_image,
-                    is_verified
+                    is_verified,
+                    is_mod 
                 FROM users
                 ORDER BY first_name ASC
             ");
@@ -373,7 +374,8 @@
                     username,
                     last_name,
                     user_image,
-                    is_verified
+                    is_verified,
+                    is_mod
                 FROM 
                     users
                 WHERE 

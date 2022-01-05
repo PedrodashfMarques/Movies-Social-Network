@@ -42,24 +42,51 @@ use ReallySimpleJWT\Token;
         }
 
         
-        public function getUserCategory(){
+        // public function getUserCategory(){
+        //     $headers = apache_request_headers();
+
+        //     foreach($headers as $header => $value){
+        //         if(strtolower($header) === "user-category"){
+        //             $category = trim($value);
+        //         };
+        //     };
+
+        //     if(!empty($category)){
+        //         return $category;
+
+        //     } else{
+
+        //         return 0;
+        //     }
+
+        // }
+
+        public function adminValidation(){
             $headers = apache_request_headers();
 
             foreach($headers as $header => $value){
-                if(strtolower($header) === "user-category"){
-                    $category = trim($value);
+                if(strtolower($header) === "x-auth-token"){
+                    $tokenKey = trim($value);
                 };
             };
 
-            if(!empty($category)){
-                return $category;
+            $secret = CONFIG["SECRET_KEY"];
 
-            } else{
+            $tokenIsValid = Token::validate($tokenKey, $secret);
 
-                return 0;
+            
+            // JWT Decode
+            if($tokenIsValid){
+                $user = Token::getPayload($tokenKey, $secret);
+            }
+            // JWT Decode
+
+
+            if(isset($user)){
+                return $user["isAdmin"];
             }
 
-
+            return 0;
         }
 
     }

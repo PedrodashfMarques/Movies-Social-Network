@@ -222,7 +222,6 @@ export class UserActionsService {
 
     let object = {};
     data.forEach((value, key) => object[key] = value);
-
     let jsonConverted = JSON.stringify(object);
 
     return this.myHttp.post(url, jsonConverted);
@@ -233,6 +232,28 @@ export class UserActionsService {
   getAllUserCategories(){
     const url = this.api + 'userCategories';
     return this.myHttp.get(url);
+  }
+
+  giveRemoveMod(data: FormData){
+    const url = this.api + 'adminPerms';
+
+    // return this.myHttp.post(url, {
+    //   user_id: userId
+    // }
+
+    let object = {};
+    data.forEach((value, key) => object[key] = value);
+    let jsonConverted = JSON.stringify(object);
+
+    return this.myHttp.post(url, jsonConverted, {
+      headers: new HttpHeaders({
+        'x-auth-token': this.JWTokenParsed
+      })
+    })
+
+
+    // Enviar Auth Token
+    
   }
 
 }

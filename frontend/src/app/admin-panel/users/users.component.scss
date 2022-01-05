@@ -1,0 +1,126 @@
+@import 'var&mixin.scss';
+
+main{
+    width: 100%;
+    // height: 250px;
+    // background-color: red;
+    margin: 8px auto;
+    display: block;
+
+    .caixa_filters{
+        width: 100%;
+        height: 90px;
+
+        div.area_formulario{
+            width: 100%;
+            height: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            form{
+                font-family: 'Noto Sans', sans-serif;
+
+                label{
+                    margin-right: 10px;
+                    font-size: 17px;
+                }
+
+                input{
+                    width: 70%;
+                    height: 23px;
+                    border: 1;
+                }
+            }
+            
+        }
+    }
+
+    article.area_quem_postou{
+        width: 80%;
+        height: 100px;
+        margin: 25px auto;
+        background-color: #202020;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        border-radius: 5px;
+
+        &:hover{
+            cursor: pointer;
+        }
+    
+        div.imagem_user_post{
+            width: 10%;
+            margin: 8px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+    
+            img{
+               width: 100%;
+               height: 75px;
+               border-radius: 50%;
+               object-fit: fill;
+            //    border: 1px solid $themeColor;
+            }
+        }
+    
+        div.nome_user_post{
+            width: 70%;
+            height: 55px;
+            text-align: center;
+            // background-color: aquamarine;
+    
+            h3{
+                color: white;
+                font-size: 1.2em;
+                font-weight: 500;
+                margin-top: 12px;
+                display: flex;
+                align-items: center; 
+    
+                span{
+                    margin-left: 5px;
+                }
+            }
+        }
+
+        div.area_makeAdmin_delete{
+            width: 20%;
+            height: 70px;
+            // background: orange;
+
+            ul{
+                width: 100%;
+                height: 70px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                label{
+                    color: white;
+                }
+
+                input{
+                    width: 50px;
+                    height: 20px;
+                }
+
+                li{
+                    margin-left: 25px;
+                    color: white;
+                    font-size: 17px;
+                }
+            }
+        }
+    }
+}
+
+.no_users_found{
+    width: 80%;
+    display: flex;
+    justify-content: left;
+    background: green;
+    margin: 0 auto;
+}

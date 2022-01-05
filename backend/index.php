@@ -35,7 +35,8 @@ $controllers = [
     "checkFollowUnfollow",
     "findUsers",
     "findPosts",
-    "userCategories"
+    "userCategories",
+    "adminPerms"
 ];
 
     $url_parts = explode("/", $_SERVER["REQUEST_URI"]);

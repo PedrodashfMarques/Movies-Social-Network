@@ -37,7 +37,6 @@ export class UsersFilterComponent implements OnInit {
     this.myUserActions.getAllUsers().subscribe(allUsers => {
       this.usersFoundArray = allUsers;
     })
-
   }
 
   pesquisarUsername(){

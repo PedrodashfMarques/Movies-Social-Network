@@ -1,0 +1,232 @@
+@import 'var&mixin.scss';
+
+
+main{
+    max-width: 1600px;
+    height: 861px;
+    margin: 8px auto;
+    background-color: #202020;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+
+    .area_apenas_shortcuts{
+        width: 34.8%;
+        height: 700px;
+        background-color: #202020; // ou isto ou branco
+        margin: 10px;
+        border: 1px solid grey;
+
+        .area_shortcuts{
+            width: 80%;
+            background-color: #202020;
+            height: 220px;
+            margin: 65px auto;
+            margin-top: 40px;
+
+            border-radius: 8px;
+
+            .area_titulo_shortcuts{
+                width: 100%;
+                height: 50px;
+                display: flex;
+                align-items: center; // Verticalmente
+                justify-content: left ; // Horizontalmente
+                h2{
+                    border-bottom: 1px solid;
+                    // border-bottom-width: 5px;
+                    color: white;
+                    margin-top: 12px;
+                    font-weight: 500;
+                    margin-left: 15px;
+                    font-size: 1.25em;
+                }
+            }
+
+            ul{
+                width: 100%;
+
+                li{
+                    width: calc(100% - 30px);
+                    line-height: 32px;
+                    margin: 15px;
+                    margin-left: 10px;
+                    font-size: 1.2em;
+                    color: white;
+                    
+                    &:hover{
+                        color: $themeColor;
+                        cursor: pointer;
+                    }
+
+                    i{
+                        font-size: 1.1em;
+                        width: 7%;
+                        color: rgb(44, 96, 100);
+                    }
+
+                }
+            }
+        }
+
+    }
+
+    div.area_filters{
+        width: 90%;
+        position: relative;
+        // top: 5%;
+        margin: 50px auto;
+        border-radius: 5px;
+        background-color: white;
+
+        div.caixa_child_routes{
+            width: 100%;
+            background: white;
+            margin: 15px auto;
+            border-radius: 5px;
+            border: 1px solid $themeColor;
+
+
+            ul{
+                width: 100%;
+
+                li{
+                    width: 100%;
+                    height: 75px;
+                    margin: 10px 0;
+                    text-align: center;
+                    font-size: 1.2em;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    // background: rgb(122, 122, 122);
+
+                    &:hover{
+                        cursor: pointer;
+                        background: #3a3a3a;
+                    }
+                }
+            }
+        }
+
+    }
+    
+    section.area_world{
+        width: 100%;
+        // height: 800px;
+        background-color: white;
+        margin: 10px;
+    
+        .caixa_filters{
+            width: 100%;
+            height: 90px;
+
+            div.area_formulario{
+                width: 100%;
+                height: 90px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                // background-color: dodgerblue;
+                
+                form{
+                    font-family: 'Noto Sans', sans-serif;
+
+                    label{
+                        margin-right: 10px;
+                        font-size: 17px;
+                    }
+
+                    input{
+                        width: 70%;
+                        height: 23px;
+                        border: 1;
+                    }
+                }
+                
+            }
+        }
+
+        .area_child_routing{
+            width: 100%;
+            height: 700px;
+            display: flex;
+            justify-content: center;
+            overflow-y : scroll;
+    
+            &::-webkit-scrollbar {
+                width: 0;
+                display: none;  /* Remove scrollbar space */
+            }
+
+            article.area_quem_postou{
+                width: 90%;
+                height: 100px;
+                margin: 25px auto;
+                background-color: #202020;
+
+                display: flex;
+                justify-content: left;
+                align-items: center;
+                border-radius: 5px;
+
+                &:hover{
+                    cursor: pointer;
+                }
+            
+                div.imagem_user_post{
+                    width: 80px;
+                    // height: 65px;
+                    margin: 8px;
+                    // background-color: blue;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+            
+                    img{
+                       width: 100%;
+                       height: 75px;
+                       border-radius: 50%;
+                       object-fit: fill;
+                    //    border: 1px solid $themeColor;
+                    }
+                }
+            
+                div.nome_user_post{
+                    width: 80%;
+                    height: 55px;
+                    text-align: center;
+                    // background-color: aquamarine;   
+            
+                    h3{
+                        color: white;
+                        font-size: 1.2em;
+                        font-weight: 500;
+                        margin-top: 12px;
+                        display: flex;
+                        align-items: center; 
+            
+                        span{
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
+
+            .area_resultados{
+                width: 100%;
+                // height: 400px;
+                margin: 35px auto;
+
+            }
+        }
+    }
+
+
+}
+
+.usersClicked{
+    background-color: #3a3a3a;
+
+
+}

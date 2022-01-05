@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminAuthGuard } from './admin-auth-guard/admin-auth-guard';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { PostsComponent } from './admin-panel/posts/posts.component';
+import { StatsComponent } from './admin-panel/stats/stats.component';
+import { UsersComponent } from './admin-panel/users/users.component';
 import { AuthGuard } from './auth-guard/auth-guard';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { LoginComponent } from './login/login.component';
@@ -39,6 +43,13 @@ const routes: Routes = [
   ]},
 
   {path: 'post-detail/:id', component: PostDetailComponent, canActivate:[AuthGuard]},
+
+  {path: 'admin-panel', component: AdminPanelComponent, canActivate:[AdminAuthGuard], children: [
+    {path: 'users', component: UsersComponent},
+    {path: 'posts', component: PostsComponent},
+    {path: 'stats', component: StatsComponent},
+
+  ]},
 
 
   {path: 'settings', component: UserSettingsComponent, canActivate:[AuthGuard]},
