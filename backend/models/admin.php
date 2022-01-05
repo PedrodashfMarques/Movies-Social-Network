@@ -4,24 +4,10 @@
 
     class Admin extends Base{
 
-        public function checkUserModeration($userId){
-            $query = $this->dataBase->prepare("
-                SELECT is_mod
-                FROM users
-                WHERE user_id = ?
-            
-            ");
-
-            $query->execute([
-                $userId
-            ]);
-
-            return $query->fetch(PDO:: FETCH_ASSOC);
-        }
-
         public function giveRemoveUserMod($userId){
-            // Check if user is mod already
 
+            // Check if user is mod already
+            
             $query = $this->dataBase->prepare("
             SELECT is_mod
             FROM users
@@ -63,6 +49,19 @@
                 return false;
             }
 
+        }
+
+        public function deleteUser($userId){
+            $query = $this->dataBase->prepare("
+            DELETE FROM users
+            WHERE user_id = ? 
+            ");
+
+            $query->execute([
+                $userId
+            ]);
+
+            return $this->dataBase->lastInsertId();
         }
 
         

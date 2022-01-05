@@ -1,4 +1,19 @@
 <main>
+
+    <div (click)="openCloseModal()" [ngClass]="{background_shadow: openDeleteModal === true}"></div>
+
+    <div *ngIf="openDeleteModal" class="confirmDeleteModal">
+        <div class="confirmation_area">
+            <h3>Are you sure you want to delete this user?</h3>
+            <div class="buttons_area">
+                <button (click)="deleteUser()"> Yes, I'm sure </button>
+                <button (click)="openCloseModal()"> No </button>
+            </div>
+
+        </div>
+
+    </div>
+
     <div class="caixa_filters">
 
         <div class="area_formulario">
@@ -31,23 +46,23 @@
 
         <div *ngIf="eachUser.user_id !== connectedUserId" class="area_makeAdmin_delete">
             <ul>
+                <label > Mod </label>
                 <li *ngIf="eachUser.is_mod === '0'">
-                    Mod
                     <input #makeUserAdmin (click)="makeModerator(eachUser.user_id)" type="checkbox">
                 </li>
 
                 <li *ngIf="eachUser.is_mod === '1'">
-                    Mod
-                    <input #removeAdmin (click)="makeModerator(eachUser.user_id)" type="checkbox" checked>
-
+                    <input (click)="makeModerator(eachUser.user_id)" type="checkbox" checked>
                 </li>
-                <li>Delete</li>
+
+                <li (click)="openCloseModal(eachUser.user_id)"> Delete user</li>
+
             </ul>
         </div>
         
     </article>  
     
-    <!-- <article *ngIf="noUsersFound" class="no_users_found">
+    <article *ngIf="noUsersFound" class="no_users_found">
         <p> No users found </p>
-    </article> -->
+    </article>
 </main>

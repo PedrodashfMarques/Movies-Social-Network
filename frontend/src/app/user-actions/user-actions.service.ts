@@ -234,12 +234,9 @@ export class UserActionsService {
     return this.myHttp.get(url);
   }
 
+  
   giveRemoveMod(data: FormData){
     const url = this.api + 'adminPerms';
-
-    // return this.myHttp.post(url, {
-    //   user_id: userId
-    // }
 
     let object = {};
     data.forEach((value, key) => object[key] = value);
@@ -250,10 +247,18 @@ export class UserActionsService {
         'x-auth-token': this.JWTokenParsed
       })
     })
-
-
-    // Enviar Auth Token
     
+  }
+
+  deleteUser(userId: number){
+    const url = this.api + 'adminPerms' + "/" + userId;
+
+    return this.myHttp.delete(url, {
+      headers: new HttpHeaders({
+        'x-auth-token': this.JWTokenParsed
+      })
+    })
+
   }
 
 }

@@ -3,9 +3,55 @@
 main{
     width: 100%;
     // height: 250px;
-    // background-color: red;
     margin: 8px auto;
     display: block;
+
+
+    div.confirmDeleteModal{
+        position: absolute;
+        width: 40vw;
+        height: 30vh;
+        left: 40vw;
+        top: 15%; 
+        padding: 16px;
+        z-index: 100;
+        border-radius: 7px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.26);
+        transition: width 0.7s;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .confirmation_area{
+            width: 80%;
+            height: 150px;
+            margin: 0 auto;
+
+            h3{
+                width: 100%;
+                font-size: 22px;
+                text-align: center;
+            }
+
+            .buttons_area{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                button{
+                    margin:20px;
+                    font-size: 20px;
+
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+            }
+
+        }
+    
+    }
 
     .caixa_filters{
         width: 100%;
@@ -89,7 +135,6 @@ main{
         div.area_makeAdmin_delete{
             width: 20%;
             height: 70px;
-            // background: orange;
 
             ul{
                 width: 100%;
@@ -100,6 +145,7 @@ main{
 
                 label{
                     color: white;
+                    font-size: 17px;
                 }
 
                 input{
@@ -121,6 +167,18 @@ main{
     width: 80%;
     display: flex;
     justify-content: left;
-    background: green;
     margin: 0 auto;
+}
+
+
+
+.background_shadow{
+    width: 100vw;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 50;
 }

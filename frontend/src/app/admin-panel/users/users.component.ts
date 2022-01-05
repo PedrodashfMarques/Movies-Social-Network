@@ -11,7 +11,6 @@ import { UserActionsService } from 'src/app/user-actions/user-actions.service';
 export class UsersComponent implements OnInit {
   @ViewChild('userNameAPesquisar') userNameSearch: ElementRef;
   @ViewChild('makeUserAdmin') makeUserAdmin: ElementRef;
-  @ViewChild('removeAdmin') removeAdmin: ElementRef;
 
 
   imagesPath = "http://localhost/backend/";
@@ -25,6 +24,10 @@ export class UsersComponent implements OnInit {
   noUsersFound: boolean;
 
   connectedUserId: number;
+
+  openDeleteModal: boolean = false;
+
+  userIdToDelete: number;
 
 
   constructor(
@@ -87,12 +90,24 @@ export class UsersComponent implements OnInit {
     
   }
 
-  // removeModerator(){
-  //   let removeAdmin = this.removeAdmin.nativeElement.value.toLowerCase();
-  //   this.userIsAdmin = false;
+  // Argumento Opcional
+  openCloseModal(userId?){
+    this.openDeleteModal = !this.openDeleteModal;
+    this.userIdToDelete = userId;
+  }
 
-  //   console.log("Tirei mod");
+  deleteUser(){
+    this.myUserActions.deleteUser(this.userIdToDelete).subscribe(response => {
+      this.openDeleteModal = !this.openDeleteModal;
+      // console.log(response);
 
-  // }
+      setTimeout(() => {
+        this.getUsers();
+      }, 100);
+
+
+      
+    })
+  }
 
 }
