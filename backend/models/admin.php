@@ -7,7 +7,6 @@
         public function giveRemoveUserMod($userId){
 
             // Check if user is mod already
-            
             $query = $this->dataBase->prepare("
             SELECT is_mod
             FROM users

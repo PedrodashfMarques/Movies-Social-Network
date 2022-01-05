@@ -22,9 +22,12 @@ export class AdminPanelComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.showUsers();
+
     this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
     })
+
 
   }
 

@@ -31,7 +31,6 @@
     </div>
 
     <article class="area_quem_postou" *ngFor="let eachUser of usersFoundArray">
-        <!-- Imagem do user que fez o post, firstname, username e last name , um *ngIf para mostrar se é verificado ou não   e a data do post que foi criado -->
         <div class="imagem_user_post">
             <img *ngIf="eachUser.user_image" src="{{imagesPath + eachUser.user_image}}" alt="{{eachUser.username}}" title="{{eachUser.username}}">
             <img *ngIf="!eachUser.user_image" src="{{imagemDefault}}" alt="{{eachUser.username}}" title="{{eachUser.username}}">
@@ -40,7 +39,7 @@
         
         <div class="nome_user_post">
             <h3> {{eachUser.first_name}} @{{eachUser.username}} {{eachUser.last_name}}
-                 <span> <i class="fas fa-check"></i> </span> 
+                <span *ngIf="eachUser.is_verified === '1'"> <i class="fas fa-check"></i> </span> 
             </h3>
         </div>
 

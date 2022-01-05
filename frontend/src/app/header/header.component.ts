@@ -18,6 +18,9 @@ export class HeaderComponent implements OnInit {
 
   connectedUserId;
 
+  isAdmin;
+
+
   constructor(
     private myFormBuilder: FormBuilder, 
     private myAuthService: AuthService,
@@ -27,6 +30,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
+      this.isAdmin = data.isAdmin;
     })
 
   }

@@ -12,6 +12,7 @@
         
         <ul>
             <li (click)="goToConnectedUserPage()"> Profile </li>
+            <li *ngIf="isAdmin === '1'" routerLink="/admin-panel/users"> Admin panel </li>
             <li routerLink="/world/users" [routerLinkActive]="['is-active']"> World</li>
             <li routerLink="/newsfeed" [routerLinkActive]="['is-active']"> Newsfeed </li>
             <li routerLink="/settings" [routerLinkActive]="['is-active']"> Settings </li>

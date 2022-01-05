@@ -1,0 +1,134 @@
+@import 'var&mixin.scss';
+
+main{
+    width: 100%;
+    margin: 8px auto;
+    display: block;
+    
+    .caixa_filters{
+        width: 100%;
+        height: 90px;
+            
+        div.area_formulario{
+            width: 100%;
+            height: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            // background-color: dodgerblue;
+            
+            form{
+                font-family: 'Noto Sans', sans-serif;
+
+                label{
+                    margin-right: 10px;
+                    font-size: 17px;
+                }
+
+                input{
+                    width: 70%;
+                    height: 23px;
+                    border: 1;
+                }
+            }
+            
+        }
+    }
+
+
+    article.posts_carregados{
+        width: 70%;
+        // height: 170px;
+        background-color: white;
+        margin: 25px auto;
+        border-radius: 3px;
+        border: 1px solid grey;
+
+        div.area_quem_postou{
+            width: 100%;
+            height: 55px;
+            // background: green;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+
+            div.imagem_user_post{
+                width: 55px;
+                // height: 65px;
+                margin: 8px;
+                // background-color: blue;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+
+                img{
+                   width: 100%;
+                   height: 50px;
+                   border-radius: 50%;
+                     object-fit: fill;
+                     border: 1px solid $themeColor;
+                }
+            }
+
+            div.nome_user_post{
+                width: 50%;
+                height: 55px;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                // background-color: orange;   
+
+                h3{
+                    color: $themeColor;
+                    font-weight: 500;
+                    margin-top: 12px;
+                    display: flex;
+                    align-items: center; 
+
+                    span{
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+
+        div.area_conteudo_desse_post{
+            width: 100%;
+            // display: flex;
+            display: block;
+
+            &:hover{
+                cursor: pointer;
+            }
+
+
+            .area_post_created{
+                width: 90%;
+                // height: 200px;
+                margin: 5px auto;
+                // background-color: orchid;
+
+                p{
+                    font-size: 0.85em;
+                }
+            }
+
+            .area_content_post{
+                width: 90%;
+                margin: 15px auto;
+                line-height: 23px;
+                margin-bottom: 1px;
+            }
+                   
+        }
+
+    }
+}
+
+.no_posts_found{
+    width: 80%;
+    display: flex;
+    justify-content: left;
+    background: green;
+    margin: 0 auto;
+}
