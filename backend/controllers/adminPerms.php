@@ -24,7 +24,39 @@
 
     }
 
-    if($_SERVER["REQUEST_METHOD"] === "POST"){
+    if($_SERVER["REQUEST_METHOD"] === "GET"){
+
+        $metricsArray = array();
+
+        $users = $adminModel->usersCount();
+        $posts = $adminModel->postsCount();
+        $comments = $adminModel->commentsCount();
+        $likes = $adminModel->likesCount();
+        $admins = $adminModel->adminsCount();
+        $mods = $adminModel->modsCount();
+
+
+        $metricsArray = [
+            "usersCount" => $users,
+            "postsCount" => $posts,
+            "commentsCount" => $comments,
+            "likesCount" => $likes,
+            "adminsCount" => $admins,
+            "modsCount" => $mods
+        ];
+
+        if(!empty($metricsArray)){
+            http_response_code(202);
+            echo json_encode($metricsArray);
+        } else{
+            http_response_code(400);
+            echo '{"message": "Bad Request"}';
+        }
+
+    }
+
+
+    else if($_SERVER["REQUEST_METHOD"] === "POST"){
 
         $data = json_decode(file_get_contents("php://input"), true);
 
@@ -34,7 +66,7 @@
         ){
             var_dump($data["user_id"]);
 
-            
+
             $result = $adminModel->giveRemoveUserMod($data["user_id"]);
 
             var_dump($result);
@@ -59,7 +91,6 @@
                 http_response_code(202);
                 echo '{"message": "User was deleted from system."}';
             }
-
         }
 
     }

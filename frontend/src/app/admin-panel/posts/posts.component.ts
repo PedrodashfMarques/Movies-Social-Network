@@ -21,11 +21,7 @@ export class PostsComponent implements OnInit {
   imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
 
 
-  constructor(
-    private myAuthService: AuthService,
-    private myUserActions: UserActionsService,
-    private myRouter: Router
-  ) { }
+  constructor(private myUserActions: UserActionsService) { }
 
   ngOnInit(): void {
    this.getAllPosts();

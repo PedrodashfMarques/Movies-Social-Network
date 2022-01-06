@@ -116,7 +116,6 @@ main{
 
         div.area_conteudo_desse_post{
             width: 100%;
-            // display: flex;
             display: block;
 
             &:hover{
@@ -126,10 +125,7 @@ main{
 
             .area_post_created{
                 width: 90%;
-                // height: 200px;
                 margin: 5px auto;
-                // background-color: orchid;
-
                 p{
                     font-size: 0.85em;
                 }

@@ -252,7 +252,23 @@ export class UserActionsService {
     return this.myHttp.get(url);
   }
 
-  
+
+  // ADMIN PERMS
+
+  getMetrics(){
+    const url = this.api + 'adminPerms';
+
+    return this.myHttp.get(url);
+
+    return this.myHttp.get(url, {
+      headers: new HttpHeaders({
+        'x-auth-token': this.JWTokenParsed
+      })
+    })
+
+  }
+
+
   giveRemoveMod(data: FormData){
     const url = this.api + 'adminPerms';
 
@@ -278,5 +294,7 @@ export class UserActionsService {
     })
 
   }
+  // ADMIN PERMS
+
 
 }

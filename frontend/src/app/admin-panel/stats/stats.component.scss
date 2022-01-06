@@ -1,0 +1,38 @@
+@import 'var&mixin.scss';
+
+main{
+    width: 100%;
+    margin: 8px auto;
+
+    section.area_metricas{
+        width: 90%;
+        // background-color: dodgerblue;
+        margin: 0px auto;
+        display: grid;
+        grid-template-columns: repeat(3, 33.33%);
+        grid-auto-rows: minmax(150px, auto);
+        justify-items: center;
+
+        article{
+           margin: 25px auto;
+
+           div{
+               width: 100%;
+               text-align: center;
+               h4{
+                    width: 100%;
+                    font-weight: 500;
+                    font-family: $LDFont;
+                    text-decoration: underline;
+               }
+
+               p{
+                font-family: $LDFont;
+                font-weight: bold;
+
+               }
+           }
+        }
+    }
+}
+
