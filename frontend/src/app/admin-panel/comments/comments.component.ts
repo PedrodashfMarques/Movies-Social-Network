@@ -49,8 +49,22 @@ export class CommentsComponent implements OnInit {
 
     this.myUserActions.findComment(formData).subscribe(response => {
       this.commentsFoundArray = response;
+      console.log(response);
     })
 
+  }
+
+  deleteComment(commentId){
+
+    this.myUserActions.deleteComment(commentId).subscribe(res => {
+      console.log(res);
+
+      setTimeout(() => {
+        this.getAllComments();   
+      }, 100);
+    })
+
+    
   }
 
 }

@@ -19,6 +19,7 @@ require_once("base.php");
                 comments.created_at            
                 FROM comments
                 INNER JOIN users USING(user_id)
+                ORDER BY comments.created_at DESC
             ");
         
             $query->execute();
