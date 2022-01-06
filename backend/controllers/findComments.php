@@ -1,11 +1,9 @@
 <?php
 
-     require_once("models/post.php");
+     require_once("models/comment.php");
      require_once("sanitizers/updateUserSanitizer.php");
 
-     $postModel = new Post();
-
-     
+     $commentModel = new Comment();
 
     if($_SERVER["REQUEST_METHOD"] === "POST"){
 
@@ -14,10 +12,10 @@
         $sanitizedData = sanitizer($data);
 
         if(!empty($sanitizedData)){
-            $postsFound = $postModel->findPosts($sanitizedData["postContentSearch"]);
+            $commentsFound = $commentModel->findComments($sanitizedData["commentContentSearch"]);
 
             http_response_code(202);
-            echo json_encode($postsFound);
+            echo json_encode($commentsFound);
         }  
    
     }

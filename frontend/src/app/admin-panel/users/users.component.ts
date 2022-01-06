@@ -72,8 +72,9 @@ export class UsersComponent implements OnInit {
 
   makeModerator(userId){
     let makeUserAdmin = this.makeUserAdmin.nativeElement.value.toLowerCase();
-
+    
     let formData = new FormData();
+
     formData.append("user_id", userId);
 
     this.myUserActions.giveRemoveMod(formData).subscribe(response => {

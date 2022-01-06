@@ -129,6 +129,37 @@ require_once("base.php");
         }
 
 
+        public function findComments($data){
+            $query = $this->dataBase->prepare("
+            SELECT
+                users.user_id,
+                users.first_name,
+                users.username,
+                users.last_name,
+                users.user_image,
+                users.is_verified,
+                comments.comment_id,
+                comments.post_id,
+                comments.content,
+                comments.created_at
+            FROM 
+                comments
+            INNER JOIN users USING(user_id)
+            WHERE 
+                CONCAT(content)
+            LIKE ?
+            ORDER BY comments.created_at DESC
+            ");
+            
+            $query->execute([
+                "%".$data."%"
+            ]);
+
+            return $query->fetchAll( PDO:: FETCH_ASSOC );
+
+        }
+
+
     }
 
 ?>

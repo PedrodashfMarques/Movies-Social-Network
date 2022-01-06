@@ -35,6 +35,7 @@ $controllers = [
     "checkFollowUnfollow",
     "findUsers",
     "findPosts",
+    "findComments",
     "userCategories",
     "adminPerms"
 ];

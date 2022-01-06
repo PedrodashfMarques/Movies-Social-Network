@@ -235,6 +235,16 @@ export class UserActionsService {
     return this.myHttp.post(url, jsonConverted);
 
   }
+
+  findComment(data){
+    const url = this.api + 'findComments';
+
+    let object = {};
+    data.forEach((value, key) => object[key] = value);
+    let jsonConverted = JSON.stringify(object);
+ 
+    return this.myHttp.post(url, jsonConverted);
+  }
   
   
   getAllUserCategories(){

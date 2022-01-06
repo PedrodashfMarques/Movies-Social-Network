@@ -47,7 +47,10 @@ export class CommentsComponent implements OnInit {
 
     formData.append('commentContentSearch', commentContentAPesquisar);
 
-    //  Método Find Post
+    this.myUserActions.findComment(formData).subscribe(response => {
+      this.commentsFoundArray = response;
+    })
+
   }
 
 }
