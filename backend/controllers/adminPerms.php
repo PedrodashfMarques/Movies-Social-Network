@@ -5,8 +5,7 @@
 
     $adminModel = new Admin();
 
-
-    if(in_array($_SERVER["REQUEST_METHOD"], ["GET","POST", "DELETE"]) ) {
+    if(in_array($_SERVER["REQUEST_METHOD"], ["GET", "POST", "DELETE"]) ) {
 
         $adminOrNot = $baseModel->adminValidation();
 
@@ -17,7 +16,6 @@
         
         if($adminOrNot !== '1'){
             http_response_code(403);
-            // header("HTTP/1.1 403 Unauthorized");
             die('{"message":"You do not have the permission to perform this task."}');
         }
 

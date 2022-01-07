@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, JsonpClientBackend  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable} from 'rxjs';
+import { BehaviorSubject} from 'rxjs';
 import { tap } from "rxjs/operators";
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth-service/auth.service';
@@ -203,10 +203,9 @@ export class UserActionsService {
     data.forEach((value, key) => object[key] = value);
 
     let jsonConverted = JSON.stringify(object);
-
     // console.log(jsonConverted);
 
-    return this.myHttp.put(url, jsonConverted, {responseType: 'json'});
+    return this.myHttp.put(url, jsonConverted);
 
     // Enviar o Auth Token aqui
   }
@@ -234,8 +233,7 @@ export class UserActionsService {
     data.forEach((value, key) => object[key] = value);
     let jsonConverted = JSON.stringify(object);
 
-    return this.myHttp.post(url, jsonConverted);
-
+    return this.myHttp.post(url, jsonConverted, );
   }
 
   findComment(data){
@@ -256,7 +254,6 @@ export class UserActionsService {
 
 
   // ADMIN PERMS
-
   getMetrics(){
     const url = this.api + 'adminPerms';
 
@@ -284,6 +281,7 @@ export class UserActionsService {
     
   }
 
+
   deleteUser(userId: number){
     const url = this.api + 'adminPerms' + "/" + userId;
 
@@ -295,6 +293,5 @@ export class UserActionsService {
 
   }
   // ADMIN PERMS
-
 
 }

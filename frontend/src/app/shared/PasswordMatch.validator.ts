@@ -12,6 +12,7 @@ export function passwordMatch(passwordName: string, confirmPasswordName: string)
 
         if(control.value !== matchingControl.value){
             matchingControl.setErrors({passwordMatch: true});
+
         } else {
             matchingControl.setErrors(null);
         }

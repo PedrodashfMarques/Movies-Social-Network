@@ -47,6 +47,12 @@ export class UsersComponent implements OnInit {
   getUsers(){
     this.myUserActions.getAllUsers().subscribe(allUsers => {
       this.usersFoundArray = allUsers;
+      if(this.usersFoundArray.length <= 0){
+        this.noUsersFound = true;
+
+      } else {
+        this.noUsersFound = false;
+      }
     })
   }
 

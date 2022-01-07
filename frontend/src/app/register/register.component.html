@@ -120,6 +120,7 @@
                     role="alert"
                     *ngIf="registerForm.controls['confirmPassword'].errors && registerForm.controls['confirmPassword'].touched">
                     <p *ngIf="registerForm.controls['confirmPassword'].errors?.required"> Confirm Password is required </p>
+
                     <p *ngIf="registerForm.controls['confirmPassword'].errors?.passwordMatch"> Passwords must match </p>
                     </div>
 

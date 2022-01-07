@@ -115,7 +115,6 @@ export class UserSettingsComponent implements OnInit {
         Validators.required, 
         Validators.minLength(1), 
         Validators.maxLength(1000)])],
-        // Apresentar control.errors no template
     })
   }
 
@@ -155,8 +154,7 @@ export class UserSettingsComponent implements OnInit {
 
   }
 
-    // PROFILE IMAGE ENCODE
-
+  // PROFILE IMAGE ENCODE
   profileImageUpload(fileInput: any){
     let file = fileInput[0];
 
@@ -172,15 +170,12 @@ export class UserSettingsComponent implements OnInit {
 
   }
 
-
   encodeProfileImage(readerEvt) {
     var binaryString = readerEvt.target.result;
 
     this.fileToUpload= btoa(binaryString);
 
   }
-
-
 
   // BACKGROUND IMAGE ENCODE
 
@@ -204,6 +199,5 @@ export class UserSettingsComponent implements OnInit {
     this.backgroundFileToUpload = btoa(binaryString);
 
   }
-
 
 }

@@ -5,6 +5,9 @@
     $commentModel = new Comment();
 
 
+    
+
+
     if($_SERVER["REQUEST_METHOD"] === "GET"){
         if(isset($id)){
             $data = $commentModel->getPostComments($id);

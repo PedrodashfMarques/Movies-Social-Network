@@ -15,6 +15,8 @@ export class CommentsComponent implements OnInit {
 
   commentsFoundArray: any = [];
   connectedUserId: number;
+  noCommentsFound: boolean;
+
 
   imagesPath = "http://localhost/backend/";
   userProfileImage: string;
@@ -35,7 +37,13 @@ export class CommentsComponent implements OnInit {
   getAllComments(){
     this.myUserActions.getAllComments().subscribe(data => {
       this.commentsFoundArray = data;
-      console.log(this.commentsFoundArray);
+      
+      if(this.commentsFoundArray.length <= 0){
+        this.noCommentsFound = true;
+      } else {
+        this.noCommentsFound = false;
+
+      }
     })
   }
 
@@ -49,7 +57,13 @@ export class CommentsComponent implements OnInit {
 
     this.myUserActions.findComment(formData).subscribe(response => {
       this.commentsFoundArray = response;
-      console.log(response);
+      
+      if(this.commentsFoundArray.length <= 0){
+        this.noCommentsFound = true;
+      } else {
+        this.noCommentsFound = false;
+
+      }
     })
 
   }

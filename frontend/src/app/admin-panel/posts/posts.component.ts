@@ -31,7 +31,13 @@ export class PostsComponent implements OnInit {
   getAllPosts(){
     this.myUserActions.getAllPosts().subscribe(data => {
       this.postsFoundArray = data;
-      console.log(this.postsFoundArray)
+
+      if(this.postsFoundArray.length <= 0){
+        this.noPostsFound = true;
+
+      } else{
+        this.noPostsFound = false;
+      }
     })
   }
 
