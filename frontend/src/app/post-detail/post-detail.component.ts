@@ -129,7 +129,7 @@ export class PostDetailComponent implements OnInit {
       this.vouEditarPost = false;
     } else{
       this.myUserActions.editPost(this.postId, formData).subscribe(response => {
-        console.log(response);
+        // console.log(response);
       this.vouEditarPost = false;
         setTimeout(() => {
             this.ngOnInit();
@@ -143,7 +143,6 @@ export class PostDetailComponent implements OnInit {
   deletePost(){
     this.myUserActions.deletePost(this.postId).subscribe(res => {
       console.log(res);
-
       this.myRouter.navigate(['newsfeed']);
     })
   }

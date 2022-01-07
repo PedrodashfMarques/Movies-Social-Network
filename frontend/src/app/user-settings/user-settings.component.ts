@@ -25,7 +25,13 @@ export class UserSettingsComponent implements OnInit {
 
   fileToUpload;
 
+  minhaImagem;
+
   // Image Upload
+
+  imagesPath = "http://localhost/backend/";
+  userProfileImage: string;
+  imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
 
   constructor(
     private myFormBuilder: FormBuilder, 
@@ -41,23 +47,24 @@ export class UserSettingsComponent implements OnInit {
 
     this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
-
       // this.accountCreatedOn = data[0].userData.created_at;
     })
 
+
     this.myUserActions.getUserData(this.connectedUserId).subscribe(data => {
+
       this.userLocation = data[0].userData.location;
       this.userInformationForm.controls.smallBio.setValue(data[0].userData.small_bio);
       this.userInformationForm.controls.bigBio.setValue(data[0].userData.big_bio);
       this.userInformationForm.controls.location.setValue(data[0].userData.location);
       this.userInformationForm.controls.category.setValue(data[0].userData.category);
-      this.userInformationForm.controls.userImage.setValue(data[0].userData.user_image);
-      this.userInformationForm.controls.bgUserImage.setValue(data[0].userData.background_image);
-
-      
-
+      this.minhaImagem = data[0].userData.user_image;
+      // this.userInformationForm.controls.userImage.setValue(data[0].userData.user_image);
+      // this.userInformationForm.controls.bgUserImage.setValue(data[0].userData.background_image);
     })
 
+
+  
     this.getCountries();
     this.getUserCategories();
   }
@@ -102,9 +109,7 @@ export class UserSettingsComponent implements OnInit {
         Validators.required, 
         Validators.minLength(1), 
         Validators.maxLength(1000)])],
-
         // Apresentar control.errors no template
-
     })
   }
 
@@ -128,7 +133,9 @@ export class UserSettingsComponent implements OnInit {
 
     // Pesquisar FileReader Angular for image upload
     this.myUserActions.updateUserData(formData, this.connectedUserId).subscribe(response => {
-      console.log(response);
+      console.log(response["message"]);
+
+      // Criar property msg para caso sucesso
 
       // Isto retornava me null porque todos os espaços têm de estar preenchidos
       // Atribuir mensagens de sucesso ou erro aqui dentro
@@ -139,7 +146,6 @@ export class UserSettingsComponent implements OnInit {
 
   imageUpload(fileInput: any){
     // Fazer validações do tamanho da imagem
-
     let file = fileInput[0];
 
     // If the image is valid

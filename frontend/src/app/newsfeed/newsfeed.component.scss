@@ -11,7 +11,7 @@ main{
 
     section.area_perfil_shortcuts{
         width: 75%;
-        background-color: dodgerblue;
+        // background-color: dodgerblue;
         margin: 10px;
 
         div.area_perfil{
@@ -187,7 +187,7 @@ main{
 
     section.area_posts{
         width: 100%;
-        background-color: dodgerblue;
+        background-color: rgb(141, 141, 141);
         margin: 10px;
         overflow-y: scroll;
 
@@ -414,66 +414,13 @@ main{
 
     section.area_recent_activity_and_trendings{
         width: 75%;
-        background-color: dodgerblue;
+        // background-color: dodgerblue;
         margin: 10px;
-
-        .area_recent_activity{
-            width: 70%;
-            height: 150px; // Este height depois sai quando tiver informação para meter aqui
-            background-color: #202020;
-            margin: 15px auto;
-            border-radius: 8px;
-
-            .area_titulo_Ractivity{
-                width: 100%;
-                border-radius: 8px;
-                display: flex;
-                justify-content: left;
-                // background-color: white;
-
-                h2{
-                    border-bottom: 1px solid;
-                    // border-bottom-width: 5px;
-                    color: white;
-                    margin-top: 12px;
-                    font-weight: 500;
-                    margin-left: 15px;
-                    font-size: 1.25em;
-                }
-            }
-
-        }
-
-        .area_trending_tags{
-            width: 70%;
-            // height: 150px;
-            background-color: #202020;
-            height: 270px; // Este height depois sai quando tiver informação para meter aqui
-            margin: 65px auto;
-            margin-bottom: 30px;
-            border-radius: 8px;
-
-            .area_titulo_trending_tags{
-                width: 100%;
-                border-radius: 8px;
-                display: flex;
-                justify-content: left;
-                // background-color: white;
-
-                h2{
-                    border-bottom: 1px solid;
-                    // border-bottom-width: 5px;
-                    color: white;
-                    margin-top: 12px;
-                    font-weight: 500;
-                    margin-left: 15px;
-                    font-size: 1.25em;
-                }
-            }
-        }
 
         .area_terms_conditions_privacy{
             width: 70%;
+            position: relative;
+            top: 90%;
             background-color: #202020;
             height: 60px;
             margin: 10px auto;

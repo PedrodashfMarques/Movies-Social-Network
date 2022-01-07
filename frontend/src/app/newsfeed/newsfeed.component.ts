@@ -38,7 +38,6 @@ export class NewsfeedComponent implements OnInit {
   isAdmin;
   // connectedUser is Admin?
 
-
   firstName: string;
   username: string;
   lastName: string;
@@ -107,6 +106,7 @@ export class NewsfeedComponent implements OnInit {
 
   createPost(values: any){
     let formData = new FormData();
+    
     formData.append('user_id', String(this.connectedUserId));
     formData.append('content', values.post_content);
 

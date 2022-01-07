@@ -1,13 +1,12 @@
 <?php
 
     require("models/admin.php");
-
     require_once("sanitizers/updateUserSanitizer.php");
 
     $adminModel = new Admin();
 
 
-    if(in_array($_SERVER["REQUEST_METHOD"], ["POST", "DELETE"]) ) {
+    if(in_array($_SERVER["REQUEST_METHOD"], ["GET","POST", "DELETE"]) ) {
 
         $adminOrNot = $baseModel->adminValidation();
 
@@ -15,11 +14,11 @@
             header("HTTP/1.1 401 Unauthorized");
             die('{"message":"Wrong or missing Auth Token"}');
         }
-
+        
         if($adminOrNot !== '1'){
-            header("HTTP/1.1 401 Unauthorized");
+            http_response_code(403);
+            // header("HTTP/1.1 403 Unauthorized");
             die('{"message":"You do not have the permission to perform this task."}');
-
         }
 
     }

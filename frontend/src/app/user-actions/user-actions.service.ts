@@ -25,11 +25,9 @@ export class UserActionsService {
     JWTokenParsed = JSON.parse(this.JWToken)["X-Auth-Token"];
     // JSON Parsed
 
-
   checkIfUserExists(urlUserId: number){
     const url = this.api + 'users' + "/" + urlUserId;
     return this.myHttp.get<UserResponseData>(url);
-
   }
   
   getUserData(userId: number){
@@ -38,7 +36,7 @@ export class UserActionsService {
     return this.myHttp.get<UserResponseData>(url).pipe(tap(resData => {
       this.allUserData.next(resData);
     }));
-
+    
     // return this.myHttp.get<UserResponseData>(url, {
     //   headers: new HttpHeaders({
     //     'x-auth-token': this.JWTokenParsed
@@ -257,8 +255,6 @@ export class UserActionsService {
 
   getMetrics(){
     const url = this.api + 'adminPerms';
-
-    return this.myHttp.get(url);
 
     return this.myHttp.get(url, {
       headers: new HttpHeaders({
