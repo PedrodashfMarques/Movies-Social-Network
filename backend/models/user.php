@@ -142,7 +142,7 @@
 
         }
 
-
+        
         public function updateUserImage($userId, $image){
             $query = $this->dataBase->prepare("
             UPDATE users
@@ -155,6 +155,19 @@
                 $userId
             ]);
 
+        }
+
+        public function updateBackgroundImage($userId, $bgImage){
+            $query = $this->dataBase->prepare("
+            UPDATE users
+            SET background_image = ?
+            WHERE user_id  = ?    
+            ");
+
+            return $query->execute([
+                $bgImage,
+                $userId
+            ]);
         }
 
 
@@ -412,6 +425,30 @@
 
             return $query->fetchAll( PDO:: FETCH_ASSOC );
 
+        }
+
+        public function getImageName($id){
+            $query = $this->dataBase->prepare("
+                SELECT user_image
+                FROM users
+                WHERE user_id = ?
+            ");
+
+            $query->execute([$id]);
+
+            return $query->fetch();
+        }
+
+        public function getBackgroundImageName($id){
+            $query = $this->dataBase->prepare("
+            SELECT background_image
+            FROM users
+            WHERE user_id = ?
+        ");
+
+        $query->execute([$id]);
+
+        return $query->fetch();
         }
 
     }

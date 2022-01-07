@@ -10,12 +10,14 @@
         ];
 
         $decodedImage = base64_decode($sanitizedData["user_image"]);
-        
+
+   
         $finfo = new finfo(FILEINFO_MIME_TYPE);
 
         $detectedFormat = $finfo->buffer($decodedImage);
 
 
+        // User Profile Image
         if(in_array($detectedFormat, $allowedFileTypes)){
 
             $filename = date("Ymd") . "_" . bin2hex(random_bytes(4));
@@ -23,8 +25,6 @@
             $extension = "." . array_search($detectedFormat, $allowedFileTypes);
 
             $file_dir = $targetDir . $filename . $extension;
-
-            // var_dump($file_dir);
 
             file_put_contents($file_dir , $decodedImage);
 

@@ -14,6 +14,7 @@ use ReallySimpleJWT\Token;
 
     // Image Transformer
     require_once("imageTransformer.php");
+    require_once("backgroundImageTransformer.php");
     // Image Transformer
     
     $baseModel = new Base();
@@ -172,49 +173,78 @@ use ReallySimpleJWT\Token;
 
         // Trim, HtmlSpecialChars and Strip tags
         $sanitizedData = sanitizer($data);
-
+        
         $transformedData = imageTransformer($sanitizedData);
 
+        $backgroundTransformedData = backgroundImageTransformer($sanitizedData);
+          
         if(!empty($id)){
 
-            if(updateUserValidator($sanitizedData) && !empty($transformedData["user_image"])){
-                // echo $transformedData["userImage"];
-    
-                $result = $userModel->updateUserImage($id, $transformedData["user_image"]);
+            if(updateUserValidator($sanitizedData) && 
+            (!empty($transformedData["user_image"]) || !empty($backgroundTransformedData["bgUser_image"]))
+            
+            ){
 
-                if(!empty($result)){
-                    http_response_code(202);
-                        echo '{
-                            "message": "Api working!",
-                            "result": "'.$result.'"
-                        }';
-                } 
-                else {
-                        http_response_code(400);
-                        echo '{"message": "Bad Request"}';
-                }
+                if(!empty($transformedData["user_image"])){
+                    // Get image name from database
+                    $imageName = $userModel->getImageName($id);
+
+                    if(!empty($imageName)){
+                        // Delete old image file for folder size efficiency.
+                        unlink($imageName["user_image"]);
+                    }
+            
+                    $result = $userModel->updateUserImage($id, $transformedData["user_image"]);
                 
+                }
+
+                
+                if(!empty($backgroundTransformedData["bgUser_image"])){
+
+                    $bgImageName = $userModel->getBackgroundImageName($id);
+
+                    if(!empty($bgImageName)){
+                        unlink($bgImageName["background_image"]);
+                    }
+
+                    $backgroundImageResult = $userModel->updateBackgroundImage($id, $backgroundTransformedData["bgUser_image"]);
+                }
+
+                   
+                if(!empty($result) || !empty($backgroundImageResult)){
+                    http_response_code(202);
+                        echo '{"message": " Image updated!"}';
+                } 
+
+                else {
+                    http_response_code(400);
+                    echo '{"message": "Something went wrong"}';
+                }
+ 
             }
     
-           if(updateUserValidator($sanitizedData)) {
+            else if(updateUserValidator($sanitizedData)){
 
-            $result = $userModel->updateUserData($id, $transformedData);
+                $result = $userModel->updateUserData($id, $transformedData);
 
                 if(!empty($result)){
                     http_response_code(202);
-                        echo '{"message": "Api working!"}';
+                    echo '{"message": "Api working."}';
                 } 
                 else {
-                        http_response_code(400);
-                        echo '{"message": "banana"}';
+                    http_response_code(400);
+                    echo '{"message": "Api not working."}';
                 }
                 
-           }
+            } else{
+                http_response_code(400);
+                echo '{"message": "User information not filled"}';
+            }
 
 
         } else{
-            http_response_code(400);
-            echo '{"message": " Bad Request"}';
+            http_response_code(404);
+            echo '{"message": "User not found"}';
         }
         
     } 
@@ -222,8 +252,6 @@ use ReallySimpleJWT\Token;
     else {
         http_response_code(405);
         echo '{"message": "Method Not Allowed"}';
-
     }
-
 
 ?>

@@ -25,6 +25,8 @@ export class UserSettingsComponent implements OnInit {
 
   fileToUpload;
 
+  backgroundFileToUpload;
+
   minhaImagem;
 
   // Image Upload
@@ -113,12 +115,17 @@ export class UserSettingsComponent implements OnInit {
     })
   }
 
+
   updateUserInformation(form: any){
 
     let values = form.value;
     
     if(this.fileToUpload === undefined || this.fileToUpload === ''){
       this.fileToUpload = '';
+    }
+
+    if(this.backgroundFileToUpload === undefined || this.backgroundFileToUpload === ''){
+      this.backgroundFileToUpload = '';
     }
     
     let formData = new FormData();
@@ -128,13 +135,11 @@ export class UserSettingsComponent implements OnInit {
     formData.append('location', values.location);
     formData.append('category', values.category);
     formData.append('user_image', this.fileToUpload);
-    formData.append('bgUser_image', values.bgUserImage);
+    formData.append('bgUser_image', this.backgroundFileToUpload);
 
 
-    // Pesquisar FileReader Angular for image upload
     this.myUserActions.updateUserData(formData, this.connectedUserId).subscribe(response => {
       console.log(response["message"]);
-
       // Criar property msg para caso sucesso
 
       // Isto retornava me null porque todos os espaços têm de estar preenchidos
@@ -143,28 +148,55 @@ export class UserSettingsComponent implements OnInit {
 
   }
 
+    // PROFILE IMAGE ENCODE
 
-  imageUpload(fileInput: any){
-    // Fazer validações do tamanho da imagem
+  profileImageUpload(fileInput: any){
     let file = fileInput[0];
+
+    console.log(fileInput);
 
     // If the image is valid
     if(file){
       let reader = new FileReader();
 
-      reader.onload = this.encodeFileImage.bind(this);
+      reader.onload = this.encodeProfileImage.bind(this);
       reader.readAsBinaryString(file);
     }
 
   }
 
 
-  encodeFileImage(readerEvt) {
+  encodeProfileImage(readerEvt) {
     var binaryString = readerEvt.target.result;
 
     this.fileToUpload= btoa(binaryString);
-    console.log(this.fileToUpload);
-   }
+
+  }
+
+
+
+  // BACKGROUND IMAGE ENCODE
+
+  backgroundImageUpload(bgFile: any){
+    let file = bgFile[0];
+
+    console.log(bgFile);
+
+    if(file){
+      let reader = new FileReader();
+
+      reader.onload = this.encodeBackgroundImage.bind(this);
+      reader.readAsBinaryString(file);
+    }
+
+  }
+
+  encodeBackgroundImage(readerEvt) {
+    var binaryString = readerEvt.target.result;
+
+    this.backgroundFileToUpload = btoa(binaryString);
+
+  }
 
 
 }

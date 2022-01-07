@@ -205,6 +205,8 @@ export class UserActionsService {
     // console.log(jsonConverted);
 
     return this.myHttp.put(url, jsonConverted, {responseType: 'json'});
+
+    // Enviar o Auth Token aqui
   }
 
   getAllUsers(){

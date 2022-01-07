@@ -37,7 +37,7 @@
                     </label>
 
                     <!-- <div>
-                        <img src="{{imagesPath + minhaimagem}}" alt="">
+                        <img src="{{imagesPath + minhaImagem}}" alt="">
                     </div> -->
 
                     <label for="locationId"> Location </label>
@@ -65,7 +65,7 @@
                     <label for="userImageId"> Profile Image </label>
                         <input 
                         type="file"
-                        (change)="imageUpload($event.target.files)"
+                        (change)="profileImageUpload($event.target.files)"
                         id="userImageId"
                         required
                         formControlName="userImage">
@@ -75,6 +75,7 @@
                     <label for="bgUserImageId"> Background Image </label>
                         <input
                         type="file"
+                        (change)="backgroundImageUpload($event.target.files)"
                         id="bgUserImageId"
                         required
                         formControlName="bgUserImage">
