@@ -21,7 +21,6 @@ use ReallySimpleJWT\Token;
     $userModel = new User();
     $postModel = new Post();
 
-
     // if(in_array($_SERVER["REQUEST_METHOD"], ["GET","POST", "PUT", "DELETE"]) ) {
 
     //     $userId = $baseModel->routeRequiresValidation();

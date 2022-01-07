@@ -14,15 +14,13 @@
     <section class="area_perfil_shortcuts">
 
         <div class="area_perfil">
-            <!-- área que vai ter o background e a imagem de perfil do user -->
             <div class="background_picture">
                 <div class="area_background_pic">
-                    <img src="{{ bootcamp }}" alt="">
-
+                    <img *ngIf="userBackgroundImage" src="{{imagesPath + userBackgroundImage}}" alt="">
+                    <img *ngIf="!userBackgroundImage" src="{{imagemDefault}}" alt="">
                 </div>
 
                 <div class="area_profile_picture">
-                    <!-- Esta imagem vai ter um routerLink para a página de perfil do utilizador -->
                     <img *ngIf="userProfileImage" src="{{imagesPath + userProfileImage}}" alt="">
                     <img *ngIf="!userProfileImage" src="{{imagemDefault}}" alt="">
 

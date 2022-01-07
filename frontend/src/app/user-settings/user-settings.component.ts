@@ -27,13 +27,17 @@ export class UserSettingsComponent implements OnInit {
 
   backgroundFileToUpload;
 
-  minhaImagem;
-
   // Image Upload
 
   imagesPath = "http://localhost/backend/";
   userProfileImage: string;
+  userBackgroundImage: string;
   imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
+
+  // Messages
+    successMessage: boolean;
+    errorMessage: boolean;
+  // Messages
 
   constructor(
     private myFormBuilder: FormBuilder, 
@@ -51,8 +55,14 @@ export class UserSettingsComponent implements OnInit {
       this.connectedUserId = data.userId;
       // this.accountCreatedOn = data[0].userData.created_at;
     })
+    this.reloadUserData();
 
+  
+    this.getCountries();
+    this.getUserCategories();
+  }
 
+  reloadUserData(){
     this.myUserActions.getUserData(this.connectedUserId).subscribe(data => {
 
       this.userLocation = data[0].userData.location;
@@ -60,15 +70,9 @@ export class UserSettingsComponent implements OnInit {
       this.userInformationForm.controls.bigBio.setValue(data[0].userData.big_bio);
       this.userInformationForm.controls.location.setValue(data[0].userData.location);
       this.userInformationForm.controls.category.setValue(data[0].userData.category);
-      this.minhaImagem = data[0].userData.user_image;
-      // this.userInformationForm.controls.userImage.setValue(data[0].userData.user_image);
-      // this.userInformationForm.controls.bgUserImage.setValue(data[0].userData.background_image);
+      this.userProfileImage = data[0].userData.user_image;
+      this.userBackgroundImage = data[0].userData.background_image;
     })
-
-
-  
-    this.getCountries();
-    this.getUserCategories();
   }
 
   getCountries(){
@@ -140,10 +144,13 @@ export class UserSettingsComponent implements OnInit {
 
     this.myUserActions.updateUserData(formData, this.connectedUserId).subscribe(response => {
       console.log(response["message"]);
-      // Criar property msg para caso sucesso
-
-      // Isto retornava me null porque todos os espaços têm de estar preenchidos
-      // Atribuir mensagens de sucesso ou erro aqui dentro
+      this.reloadUserData();
+      this.successMessage = true;
+      this.errorMessage = false;
+      
+    }, error => {
+      this.errorMessage = true;
+      this.successMessage = false;
     });
 
   }

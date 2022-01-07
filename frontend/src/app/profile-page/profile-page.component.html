@@ -27,7 +27,8 @@
 
             <div class="area_background_perfil">
                 <div class="bPitself">
-                    <img src="{{imagemBackground}}">
+                    <img *ngIf="userBackgroundImage" src="{{imagesPath + userBackgroundImage}}">
+                    <img *ngIf="!userBackgroundImage" src="{{imagemDefault}}">
                     
                 </div>
     

@@ -28,6 +28,8 @@ export class UserActionsService {
   checkIfUserExists(urlUserId: number){
     const url = this.api + 'users' + "/" + urlUserId;
     return this.myHttp.get<UserResponseData>(url);
+    // Enviar auth-token para validação se user conectado existe
+
   }
   
   getUserData(userId: number){

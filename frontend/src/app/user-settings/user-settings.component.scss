@@ -2,7 +2,7 @@
 
 main{
     max-width: 1100px;
-    height: 861px;
+    // height: 861px;
     margin: 8px auto;
     background-color: white;
     display: flex;
@@ -20,7 +20,7 @@ main{
                 width: 93%;
                 margin: 0 auto;
                 // height: 700px;
-                background: #dbdada;
+                background: #666666;
                 padding-top: 3px;
                 position: relative;
                 border-radius: 10px;
@@ -77,13 +77,68 @@ main{
                         border-radius: 2px;
                         border: 0;
                     }
-                
+                    
+                }
 
+                .profile_background_images_area{
+                    width: 100%;
+                    margin: 0 auto;
+                    margin-top: 50px;
+                    display: grid;
+                    grid-template-columns: repeat(2, 50%);
+                    grid-auto-rows: minmax(150px, auto);
+                    justify-items: center;
+
+                    div{
+                        width: 80%;
+                        margin: 0 auto;
+
+                        .area_imagem{
+                            width: 38%;
+                            height: 125px;
+                            margin: 0 auto;
+                            overflow: hidden;
+                            margin: 15px auto;
+
+                            img{
+                                width: 100%;
+                                height: 125px;
+                                background-size: contain;
+                                background-repeat: no-repeat;
+                                border-radius: 50%;
+                            }
+                        }
+
+                        .area_imagem_background {
+                            width: 65%;
+                            height: 125px;
+                            margin: 0 auto;
+                            overflow: hidden;
+                            margin: 15px auto;
+    
+                            img{
+                                width: 100%;
+                                height: 125px;
+                                background-size: cover;
+                                background-repeat: no-repeat;
+                                border-radius: 10px;
+                            }
+                        }
+
+                        label{
+                            width: 100%;
+                            margin: 0 auto;
+
+                        }
+
+                        input{
+                            width: 100%;
+                        }
+                    }
                 }
 
                 div.botao_submit{
                     width: 100%;
-                    // background: blue;
                     margin: 20px auto;
                     display: flex;
                     justify-content: center;
@@ -100,6 +155,7 @@ main{
                         // width: 12%;
                         height: 34px;
                         font-size: 1.1em;
+                        margin-top: 8px;
 
                         &:hover{
                             cursor: pointer;

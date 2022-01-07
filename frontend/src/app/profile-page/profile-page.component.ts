@@ -16,6 +16,7 @@ export class ProfilePageComponent implements OnInit {
 
   imagesPath = "http://localhost/backend/";
   userProfileImage: string;
+  userBackgroundImage: string;
   imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
 
   // id no url
@@ -130,6 +131,7 @@ export class ProfilePageComponent implements OnInit {
       this.numFollowers = data[0].followersCount.Total;
       this.numFollowing = data[0].followingCount.Total;
       this.userProfileImage = data[0].userData.user_image;
+      this.userBackgroundImage = data[0].userData.background_image;
       this.followingUsersArray = data[0].userFollowing;
       this.category = data[0].userData.category;
       this.similarUsersArray = data[0].similarUsers;

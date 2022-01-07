@@ -36,9 +36,6 @@
                         <p> Current Location: {{userLocation}} </p>
                     </label>
 
-                    <!-- <div>
-                        <img src="{{imagesPath + minhaImagem}}" alt="">
-                    </div> -->
 
                     <label for="locationId"> Location </label>
                         <select 
@@ -61,29 +58,58 @@
                         </select>
                 </div>
 
-                <div class="cadaForm">
-                    <label for="userImageId"> Profile Image </label>
+                <div class="profile_background_images_area">
+                    <div>
+                        <label for="userImageId"> Profile Image </label>
+                               
+                        <div class="area_imagem">
+                            <img *ngIf="userProfileImage" src="{{imagesPath + userProfileImage}}">
+                            <p *ngIf="!userProfileImage">
+                                No image to display
+                            </p>
+                        </div>
+
                         <input 
                         type="file"
                         (change)="profileImageUpload($event.target.files)"
                         id="userImageId"
                         required
                         formControlName="userImage">
-                </div>
+                    </div>
 
-                <div class="cadaForm">
-                    <label for="bgUserImageId"> Background Image </label>
+                    <div>
+                        <label for="bgUserImageId"> Background Image </label>
+
+                        <div class="area_imagem_background" >
+                            <img *ngIf="userBackgroundImage" src="{{imagesPath + userBackgroundImage}}">
+                            <p *ngIf="!userBackgroundImage">
+                                No image to display
+                            </p>
+                        </div>
+
+                    
                         <input
                         type="file"
                         (change)="backgroundImageUpload($event.target.files)"
                         id="bgUserImageId"
                         required
                         formControlName="bgUserImage">
+                    </div>
+
+                    
                 </div>
+
                 <!-- Botão do type submit, disabled se os campos não forem todos válidos é o !ngForm.valid -->
                 
                 <div class="botao_submit">
                     <button type="submit"> Update my information </button>
+                    <p *ngIf="successMessage">
+                        User information updated!
+                    </p>
+
+                    <p *ngIf="errorMessage">
+                        All fields are required!
+                    </p>
 
                 </div>
 
