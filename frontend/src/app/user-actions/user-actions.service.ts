@@ -146,8 +146,11 @@ export class UserActionsService {
   deletePost(postId){
     const url = this.api + "posts" + "/" + postId;
 
-    return this.myHttp.delete(url);
-      // Enviar auth-token para validação se o user tem auth ou não para fazer o delete ao comentário
+    return this.myHttp.delete(url,{
+      headers: new HttpHeaders({
+        'x-auth-token': this.JWTokenParsed
+      })
+    })
   }
 
 
@@ -156,11 +159,12 @@ export class UserActionsService {
     const url = this.api + 'postsActions';
 
     return this.myHttp.post(url, {
-      userId: connectedUserId,
       postId: postId
+    }, {
+      headers: new HttpHeaders({
+        'x-auth-token': this.JWTokenParsed
+      })
     })
-
-    // Enviar aqui o auth token também
 
   }
 
@@ -178,7 +182,7 @@ export class UserActionsService {
     return this.myHttp.get(url);
   }
 
-
+  
   commentPost(data){
     const url = this.api + "comments";
 
@@ -187,7 +191,11 @@ export class UserActionsService {
 
     let dataConvertedJson = JSON.stringify(object);
 
-    return this.myHttp.post(url, dataConvertedJson, {responseType: 'json'});
+    return this.myHttp.post(url, dataConvertedJson, {
+      headers: new HttpHeaders({
+        'x-auth-token': this.JWTokenParsed
+      })
+    });
 
   }
 

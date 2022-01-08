@@ -2,7 +2,7 @@
      require_once("models/base.php");
      require_once("models/user.php");
 
-     require_once("sanitizers/updateUserSanitizer.php");
+     require_once("sanitizers/sanitizer.php");
 
      $userModel = new User();
 

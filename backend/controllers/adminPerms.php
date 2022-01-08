@@ -1,7 +1,7 @@
 <?php
 
     require("models/admin.php");
-    require_once("sanitizers/updateUserSanitizer.php");
+    require_once("sanitizers/sanitizer.php");
 
     $adminModel = new Admin();
 

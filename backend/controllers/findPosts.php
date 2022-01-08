@@ -1,7 +1,7 @@
 <?php
 
      require_once("models/post.php");
-     require_once("sanitizers/updateUserSanitizer.php");
+     require_once("sanitizers/sanitizer.php");
 
      $postModel = new Post();
 

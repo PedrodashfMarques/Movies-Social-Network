@@ -10,7 +10,7 @@ use ReallySimpleJWT\Token;
     require_once("validators/updateUserValidator.php");
 
     // Sanitizer
-    require_once("sanitizers/updateUserSanitizer.php");
+    require_once("sanitizers/sanitizer.php");
 
     // Image Transformer
     require_once("imageTransformer.php");

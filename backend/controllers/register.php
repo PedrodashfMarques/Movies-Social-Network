@@ -5,6 +5,8 @@ use ReallySimpleJWT\Token;
     require_once("models/user.php");
 
     require_once("validators/registerValidator.php");
+    require_once("sanitizers/sanitizer.php");
+
 
     $userModel = new User();
     // Really Simple JWT
@@ -16,11 +18,10 @@ use ReallySimpleJWT\Token;
         if(
             registerValidation($data)
         ){
-            foreach ($data as $key => $value) {
-                $data[$key] = trim(htmlspecialchars(strip_tags($value)));
-            }
+
+            $sanitizedData = sanitizer($data);
             
-            $userInfo = $userModel->registerUser($data);
+            $userInfo = $userModel->registerUser($sanitizedData);
 
             if(empty($userInfo)){
                 http_response_code(400);

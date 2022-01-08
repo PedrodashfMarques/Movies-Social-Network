@@ -1,19 +1,26 @@
 <?php
 
-
     require("models/post.php");
 
     $postModel = new Post();
 
-    // $userId = 1;
+    if(in_array($_SERVER["REQUEST_METHOD"], ["POST"]) ) {
+
+        $userId = $baseModel->routeRequiresValidation(); 
+    
+        if(empty($userId)){
+            header("HTTP/1.1 401 Unauthorized");
+            die('{"message":"Wrong or missing Auth Token."}');
+        }
+
+    }
 
     if($_SERVER["REQUEST_METHOD"] === "POST"){
 
         $data = json_decode(file_get_contents("php://input"), true);
-        // Aqui vou receber o id do post e o id do user que está conectado a dar like no Post
-        if(!empty($data) && intval($data["userId"]) && intval($data["postId"])){
+
+        if(!empty($data) && intval($data["postId"])){
             
-            $userId = $data["userId"];
             $postId = $data["postId"];
             
             $result = $postModel->togglePostLike($postId, $userId);
@@ -23,6 +30,10 @@
                 "liked": '.($result ? "true" : "false").'
             }';
         }
+
+    } else{
+        http_response_code(405);
+        echo '{"message":"Method not allowed."}';
 
     }
 

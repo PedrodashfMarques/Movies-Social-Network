@@ -1,7 +1,7 @@
 <?php
 
      require_once("models/comment.php");
-     require_once("sanitizers/updateUserSanitizer.php");
+     require_once("sanitizers/sanitizer.php");
 
      $commentModel = new Comment();
 

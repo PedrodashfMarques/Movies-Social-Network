@@ -126,9 +126,7 @@ export class NewsfeedComponent implements OnInit {
 
 
   likePost(postId:number){
-    
     this.myUserActions.likeDislikePost(postId, this.connectedUserId).subscribe(responseData => {
-      console.log(responseData);
 
       for (let index = 0; index < this.allPostsArray.length; index++) {
 

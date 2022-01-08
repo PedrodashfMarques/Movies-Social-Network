@@ -1,11 +1,34 @@
 <?php
 
     require("models/comment.php");
+    require_once("sanitizers/sanitizer.php");
 
     $commentModel = new Comment();
 
+    if(in_array($_SERVER["REQUEST_METHOD"], ["POST"]) ) {
 
+        $userId = $baseModel->routeRequiresValidation(); 
     
+        if(empty($userId)){
+            header("HTTP/1.1 401 Unauthorized");
+            die('{"message":"Wrong or missing Auth Token."}');
+        }
+
+    }
+
+    if(in_array($_SERVER["REQUEST_METHOD"], ["PUT", "DELETE"]) ) {
+
+        $userId = $baseModel->routeRequiresValidation(); 
+
+        $adminOrNot = $baseModel->adminValidation();
+
+        // Alterar o método do model e o model
+        if(!empty($id) && $adminOrNot !== '1' && empty($postModel->getItemByUser($id, $userId))){
+            header("HTTP/1.1 403 Forbidden");
+            die('{"message": "You do not have the permission to perform this action."}');
+        }
+    }
+
 
 
     if($_SERVER["REQUEST_METHOD"] === "GET"){
@@ -37,20 +60,16 @@
 
         $data = json_decode(file_get_contents("php://input"), true);
 
-        foreach ($data as $key => $value) {
-            $data[$key] = trim(htmlspecialchars(strip_tags($value)));
-        }
+        $sanitizedData = sanitizer($data);
 
         if(
-            isset($data["postId"]) &&
-            isset($data["userId"]) &&
-            isset($data["content"]) &&
-            is_numeric(intval($data["postId"])) &&
-            is_numeric(intval($data["userId"])) &&
-            mb_strlen($data["content"]) >= 2 &&
-            mb_strlen($data["content"]) <= 1000
+            isset($sanitizedData["postId"]) &&
+            isset($sanitizedData["content"]) &&
+            is_numeric(intval($sanitizedData["postId"])) &&
+            mb_strlen($sanitizedData["content"]) >= 2 &&
+            mb_strlen($sanitizedData["content"]) <= 1000
         ){
-            $result = $commentModel->commentPost($data);
+            $result = $commentModel->commentPost($sanitizedData, $userId);
 
             if(!empty($result)){
                 http_response_code(202);
@@ -64,7 +83,7 @@
 
         } else {
             http_response_code(400);
-            echo '{"message": "Bad Request" }';
+            echo '{"message": "Wrong information" }';
         }
         
     }

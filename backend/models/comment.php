@@ -53,7 +53,7 @@ require_once("base.php");
             return $query->fetchAll(PDO:: FETCH_ASSOC);
         }
 
-        public function commentPost($data){
+        public function commentPost($data, $userId){
             $query = $this->dataBase->prepare("
             INSERT INTO comments
             (post_id, user_id, content)
@@ -62,7 +62,7 @@ require_once("base.php");
         
             $query->execute([
                 $data["postId"],
-                $data["userId"],
+                $userId,
                 $data["content"]
             ]);
             
@@ -158,6 +158,22 @@ require_once("base.php");
 
             return $query->fetchAll( PDO:: FETCH_ASSOC );
 
+        }
+
+        public function getItemByUser(){
+            $query = $this->dataBase->prepare("
+            SELECT post_id
+            FROM posts
+            WHERE post_id = ?
+            AND user_id = ?
+            ");
+
+            $query->execute([
+                $id,
+                $userId
+            ]);
+
+            return $query->fetch( PDO::FETCH_ASSOC );
         }
 
 

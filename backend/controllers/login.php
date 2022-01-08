@@ -3,6 +3,7 @@
 use ReallySimpleJWT\Token;
 
     require_once("models/user.php");
+    require_once("sanitizers/sanitizer.php");
 
     $userModel = new User();
     // Really Simple JWT
@@ -11,14 +12,16 @@ use ReallySimpleJWT\Token;
 
         $data = json_decode(file_get_contents("php://input"), true);
 
+        $sanitizedData = sanitizer($data);
+
         if(
-            !empty($data) &&
-            !empty($data["email"]) &&
-            !empty($data["password"]) &&
-            mb_strlen($data["email"]) <= 30 &&
-            mb_strlen($data["password"]) <= 1000
+            !empty($sanitizedData) &&
+            !empty($sanitizedData["email"]) &&
+            !empty($sanitizedData["password"]) &&
+            mb_strlen($sanitizedData["email"]) <= 30 &&
+            mb_strlen($sanitizedData["password"]) <= 1000
         ){
-            $userInfo = $userModel->login($data);
+            $userInfo = $userModel->login($sanitizedData);
 
             if(empty($userInfo)){
                 header("HTTP/1.1 400 Bad Request");
@@ -50,7 +53,6 @@ use ReallySimpleJWT\Token;
 
         
         } else {
-            // http_response_code();
             header("HTTP/1.1 400 Bad Request");
             echo '{"message": "Wrong information"}';
         }

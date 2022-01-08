@@ -3,6 +3,7 @@
     require("models/post.php");
     require_once("models/base.php");
     require_once("validators/postValidator.php");
+    require_once("sanitizers/sanitizer.php");
   
     $postModel = new Post();
     $baseModel = new Base();
@@ -14,7 +15,7 @@
     
         if(empty($userId)){
             header("HTTP/1.1 401 Unauthorized");
-            die('{"message":"Wrong or missing Auth Token"}');
+            die('{"message":"Wrong or missing Auth Token."}');
         }
 
     }
@@ -28,7 +29,7 @@
 
         if(!empty($id) && $adminOrNot !== '1' && empty($postModel->getItemByUser($id, $userId))){
             header("HTTP/1.1 403 Forbidden");
-            die('{"message": "You do not have permission to perform this action "}');
+            die('{"message": "You do not have the permission to perform this action."}');
         }
     }
 
@@ -173,14 +174,10 @@
             }
         }
         
-        // Existe a necessidade de perceber primeiro se o post existe antes de eliminar?
-        // Porque assim , mesmo que o post n exista na base de dados com o id se eu tentar eliminar aparece a mensagem a dizer que eliminei um post inexistente
-        
     } else {
         http_response_code(405);
         echo '{"message": "Method Not Allowed"}';
 
     }
-
 
 ?>
