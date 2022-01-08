@@ -19,13 +19,13 @@ use ReallySimpleJWT\Token;
                     $tokenKey = trim($value);
                 };
             };
-
             
             $secret = CONFIG["SECRET_KEY"];
 
+          
+
             $tokenIsValid = Token::validate($tokenKey, $secret);
 
-            
             // JWT Decode
             if($tokenIsValid){
                 $user = Token::getPayload($tokenKey, $secret);
@@ -41,25 +41,6 @@ use ReallySimpleJWT\Token;
 
         }
 
-        
-        // public function getUserCategory(){
-        //     $headers = apache_request_headers();
-
-        //     foreach($headers as $header => $value){
-        //         if(strtolower($header) === "user-category"){
-        //             $category = trim($value);
-        //         };
-        //     };
-
-        //     if(!empty($category)){
-        //         return $category;
-
-        //     } else{
-
-        //         return 0;
-        //     }
-
-        // }
 
         public function adminValidation(){
             $headers = apache_request_headers();

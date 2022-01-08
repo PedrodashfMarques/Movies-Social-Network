@@ -49,7 +49,6 @@ export class NewsfeedComponent implements OnInit {
 
   allPostsArray: any = [];
 
-  
   // Post Modal
   postModalAberto: boolean;
   postLoaded;

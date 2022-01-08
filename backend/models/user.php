@@ -228,7 +228,7 @@
             ");
 
             $alreadyFollowingQuery->execute([
-                $connectedUserId["userId"],
+                $connectedUserId,
                 $id
             ]);
 
@@ -243,7 +243,7 @@
                 ");
 
                 $deleteFollowQuery->execute([
-                    $connectedUserId["userId"],
+                    $connectedUserId,
                     $id
                 ]);
 
@@ -258,7 +258,7 @@
             ");
 
             $query->execute([
-                $connectedUserId["userId"],
+                $connectedUserId,
                 $id
             ]);
 

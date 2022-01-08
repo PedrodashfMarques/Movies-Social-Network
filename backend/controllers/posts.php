@@ -8,25 +8,30 @@
     $baseModel = new Base();
 
 
-    // if(in_array($_SERVER["REQUEST_METHOD"], ["GET","POST", "PUT", "DELETE"]) ) {
-    //     // $data = json_decode(file_get_contents("php://input"), true);
+    if(in_array($_SERVER["REQUEST_METHOD"], ["GET","POST"]) ) {
 
-    //     $userId = $baseModel->routeRequiresValidation(); 
+        $userId = $baseModel->routeRequiresValidation(); 
     
-    //     // if(empty($userId)){
-    //     //     header("HTTP/1.1 401 Unauthorized");
-    //     //     die('{"message":"Wrong or missing Auth Token"}');
-    //     // }
+        if(empty($userId)){
+            header("HTTP/1.1 401 Unauthorized");
+            die('{"message":"Wrong or missing Auth Token"}');
+        }
 
-    //     // para os MÉTODOS PUT E DELETE
+    }
 
-    //     // if(!empty($id) && empty($postModel->getItemByUser($id, $userId))){
-    //     //     header("HTTP/1.1 403 Forbidden");
-    //     //     die('{"message": "You do not have permission to perform this action "}');
-    //     // }
-    // }
 
-    $userId = 1;
+    if(in_array($_SERVER["REQUEST_METHOD"], ["PUT", "DELETE"]) ) {
+
+        $userId = $baseModel->routeRequiresValidation(); 
+
+        $adminOrNot = $baseModel->adminValidation();
+
+        if(!empty($id) && $adminOrNot !== '1' && empty($postModel->getItemByUser($id, $userId))){
+            header("HTTP/1.1 403 Forbidden");
+            die('{"message": "You do not have permission to perform this action "}');
+        }
+    }
+
 
     if($_SERVER["REQUEST_METHOD"] === "GET"){
 
@@ -119,9 +124,8 @@
             $data["content"] = nl2br($data["content"]);
             
             $id = $postModel->createPost($data);
-
+            
             header("HTTP/1.1 202 Accepted");
-
             echo '{"id": '.$id.', "message": "Success"}';
         } else{
             header("HTTP/1.1 400 Bad Request");
@@ -130,7 +134,7 @@
         
     }
 
-    
+
     else if($_SERVER["REQUEST_METHOD"] === "PUT"){
 
         $data = json_decode(file_get_contents("php://input"), true);
@@ -150,8 +154,7 @@
         } else{
             header("HTTP/1.1 400 Bad Request");
             echo '{"message": "Bad Request"}';
-        }
-        
+        }     
         
     }
 

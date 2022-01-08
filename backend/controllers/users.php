@@ -21,24 +21,29 @@ use ReallySimpleJWT\Token;
     $userModel = new User();
     $postModel = new Post();
 
-    // if(in_array($_SERVER["REQUEST_METHOD"], ["GET","POST", "PUT", "DELETE"]) ) {
 
-    //     $userId = $baseModel->routeRequiresValidation();
-    //     // Validation
+    if(in_array($_SERVER["REQUEST_METHOD"], ["GET","POST"]) ) {
 
-    //     // if(empty($userId)){
-    //     //     header("HTTP/1.1 401 Unauthorized");
-    //     //     die('{"message":"Wrong or missing Auth Token"}');
-    //     // }
+        $userId = $baseModel->routeRequiresValidation();
 
-    //     // if(!empty($id) && empty($postModel->getItemByUser($id, $userId))){
-    //     //     header("HTTP/1.1 403 Forbidden");
-    //     //     die('{"message": "You do not have permission to perform this action "}');
-    //     // }
+        if(empty($userId)){
+            header("HTTP/1.1 401 Unauthorized");
+            die('{"message":"Wrong or missing Auth Token"}');
+        }
+    }
 
-    // }
+    if(in_array($_SERVER["REQUEST_METHOD"], ["PUT"]) ) {
+
+        $userId = $baseModel->routeRequiresValidation();
+
+        $userIdInted = (int)$userId;
+
+        if(!empty($id) && $userIdInted !== $id){
+            header("HTTP/1.1 403 Forbidden");
+            die('{"message": "You do not have permission to perform this action "}');
+       }
+    }
      
-    $userId = 1;
 
     if($_SERVER["REQUEST_METHOD"] === "GET"){
         $userCategory = "";
@@ -133,20 +138,16 @@ use ReallySimpleJWT\Token;
 
     
     else if($_SERVER["REQUEST_METHOD"] === "POST"){
-
         $connectedUserId = json_decode(file_get_contents("php://input"), true);
 
-        if(!empty($id) && 
-            !empty($connectedUserId) && 
-            is_numeric($id) && 
-            is_numeric($connectedUserId["userId"])){
+        if(!empty($id) && !empty($connectedUserId)){
 
             if($id === intval($connectedUserId["userId"])){
                 http_response_code(400);
                 die('{"message":"Bad Request"}');
             }
             
-            $result = $userModel->followUnfollow($id, $connectedUserId);
+            $result = $userModel->followUnfollow($id, $connectedUserId["userId"]);
 
          
             if(empty($result)){
@@ -166,6 +167,7 @@ use ReallySimpleJWT\Token;
         }
     
     }
+
 
     else if($_SERVER["REQUEST_METHOD"] === "PUT"){
         $data = json_decode(file_get_contents("php://input"), true);
@@ -232,7 +234,7 @@ use ReallySimpleJWT\Token;
                 } 
                 else {
                     http_response_code(400);
-                    echo '{"message": "Api not working."}';
+                    echo '{"message": "Bad Request"}';
                 }
                 
             } else{
