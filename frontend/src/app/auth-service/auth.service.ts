@@ -16,8 +16,6 @@ interface AuthResponseData {
 })
 export class AuthService {
 
-  private tokenExpirationTimer: any;
-
   userSubject = new BehaviorSubject<User>(null);
   // Send the information inside to other components
   
@@ -105,16 +103,10 @@ export class AuthService {
 
 
   logoutUser(){
-    this.userSubject.next(null);
-    localStorage.removeItem('authToken');
-    
-    if(this.tokenExpirationTimer){
-      clearTimeout(this.tokenExpirationTimer); 
-    }
-    
-    window.location.reload();
+    this.userSubject = null;
 
-    this.tokenExpirationTimer = null;
+    localStorage.removeItem('authToken');
+    window.location.reload();
   }
 
   

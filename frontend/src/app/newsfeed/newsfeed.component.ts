@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { AuthService } from '../auth-service/auth.service';
 import { User } from '../shared/user.model';
 import { UserActionsService } from '../user-actions/user-actions.service';
@@ -37,7 +37,7 @@ export class NewsfeedComponent implements OnInit, OnDestroy {
   // Connected User Id
 
   // connectedUser is Admin?
-  isAdmin;
+  isAdmin: any = 0;
   // connectedUser is Admin?
 
   firstName: string;

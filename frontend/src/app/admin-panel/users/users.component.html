@@ -37,13 +37,13 @@
 
         </div>
         
-        <div class="nome_user_post">
+        <div (click)="goToUserProfile(eachUser.user_id)" class="nome_user_post">
             <h3> {{eachUser.first_name}} @{{eachUser.username}} {{eachUser.last_name}}
                 <span *ngIf="eachUser.is_verified === '1'"> <i class="fas fa-check"></i> </span> 
             </h3>
         </div>
 
-        <div *ngIf="eachUser.user_id !== connectedUserId" class="area_makeAdmin_delete">
+        <div *ngIf="eachUser.user_id !== connectedUserId && eachUser.is_verified !== '1'" class="area_makeAdmin_delete">
             <ul>
                 <label > Mod </label>
                 <li *ngIf="eachUser.is_mod === '0'">

@@ -24,14 +24,17 @@
                     id="emailId"
                     formControlName="email"
                     required>
+
+                    <div 
+                        class="formErrors"
+                        role="alert"
+                        *ngIf="loginForm.controls['email'].errors && loginForm.controls['email'].touched">
+                        <p *ngIf="loginForm.controls['email'].errors?.required"> Email is required </p>
+                    </div>
+
                 </div>
 
-                <div 
-                class="formErrors"
-                role="alert"
-                *ngIf="loginForm.controls['email'].errors && loginForm.controls['email'].touched">
-                <p *ngIf="loginForm.controls['email'].errors?.required"> Email is required </p>
-                </div>
+               
 
                 <div class="cadaForm">
                     <label for="passwordId"> Password </label>
@@ -39,29 +42,31 @@
                     type="password" 
                     id="passwordId"
                     formControlName="password">
+
+                    <div 
+                        class="formErrors"
+                        role="alert"
+                        *ngIf="loginForm.controls['password'].errors && loginForm.controls['password'].touched">
+                        <p *ngIf="loginForm.controls['password'].errors?.required"> Password is required </p>
+                    </div>
+
                 </div>
 
-                <div 
-                class="formErrors"
-                role="alert"
-                *ngIf="loginForm.controls['password'].errors && loginForm.controls['password'].touched">
-                <p *ngIf="loginForm.controls['password'].errors?.required"> Password is required </p>
-                </div>
-
+                
                 <div>
                     <p *ngIf="errorMessage"> Incorrect Login</p>
                 </div>
 
-                <!-- Botão do type submit, disabled se os campos não forem todos válidos é o !ngForm.valid -->
                 <div class="botao_submit">
                     <button type="submit" [disabled]="!loginForm.valid"> Login </button>
 
                 </div>
 
                 <div class="botao_submit">
+
                     <p> If you don't have an account, sign up now</p>
-                    <!-- Routerlink para Register page -->
                     <button type="button" routerLink="/register"> Sign up</button>
+                    
                 </div>
 
             </form>

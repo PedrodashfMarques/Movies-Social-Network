@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { AuthService } from '../auth-service/auth.service';
 
 @Component({
@@ -9,15 +8,12 @@ import { AuthService } from '../auth-service/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
   errorMessage: string;
 
-  mySubscription: Subscription;
-
-  
   constructor(
     private myFormBuilder: FormBuilder, 
     private myAuthService: AuthService,
@@ -49,17 +45,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     formData.append('email', values.email);
     formData.append('password', values.password);
 
-    this.mySubscription = this.myAuthService.loginUser(formData).subscribe(response => {
+    this.myAuthService.loginUser(formData).subscribe(response => {
       this.myRouter.navigate(['/newsfeed']);
     },
       error => {
         this.errorMessage = error;
       }
     ); 
-  }
-  
-  ngOnDestroy(): void {
-      this.mySubscription.unsubscribe();
   }
 
 }

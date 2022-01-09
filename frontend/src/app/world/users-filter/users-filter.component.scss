@@ -2,8 +2,6 @@
 
 main{
     width: 100%;
-    // height: 250px;
-    // background-color: red;
     margin: 8px auto;
     display: block;
 
@@ -64,15 +62,13 @@ main{
                height: 75px;
                border-radius: 50%;
                object-fit: fill;
-            //    border: 1px solid $themeColor;
             }
         }
     
         div.nome_user_post{
             width: 80%;
             height: 55px;
-            text-align: center;
-            // background-color: aquamarine;   
+            text-align: center; 
     
             h3{
                 color: white;
@@ -94,6 +90,5 @@ main{
     width: 80%;
     display: flex;
     justify-content: left;
-    background: green;
     margin: 0 auto;
 }

@@ -12,7 +12,6 @@ import { UserActionsService } from 'src/app/user-actions/user-actions.service';
 export class CommentsComponent implements OnInit, OnDestroy {
   @ViewChild('commentContent') commentContentSearch: ElementRef;
 
-  
 
   commentsFoundArray: any = [];
   connectedUserId: number;

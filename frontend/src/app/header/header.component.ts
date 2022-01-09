@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth-service/auth.service';
@@ -9,7 +8,7 @@ import { AuthService } from '../auth-service/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   menuAberto: boolean = false;
 
@@ -19,23 +18,20 @@ export class HeaderComponent implements OnInit {
 
   connectedUserId;
 
-  isAdmin;
+  isAdmin: any;
 
-  
-  mySubscription: Subscription;
-
+  private endSubscription = new Subscription();
 
   constructor(
-    private myFormBuilder: FormBuilder, 
     private myAuthService: AuthService,
     private myRouter: Router
     ) { }
 
   ngOnInit(): void {
-    this.myAuthService.userSubject.subscribe(data => {
+    this.endSubscription.add(this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
       this.isAdmin = data.isAdmin;
-    })
+    }))
 
   }
 
@@ -50,7 +46,10 @@ export class HeaderComponent implements OnInit {
   
   onLogout(){
       this.myAuthService.logoutUser();
+      setTimeout(() => {
       this.myRouter.navigate(['']);
+        
+      },100);
   }
 
   goToConnectedUserPage(){
@@ -59,5 +58,8 @@ export class HeaderComponent implements OnInit {
         this.myRouter.navigate(['/profile/',this.connectedUserId, 'timeline']);
     })
   }
-
+  
+  ngOnDestroy(): void {
+      this.endSubscription.unsubscribe();
+  }
 }

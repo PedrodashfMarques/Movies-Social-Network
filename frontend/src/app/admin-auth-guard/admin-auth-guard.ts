@@ -9,19 +9,29 @@ import { AuthService } from "../auth-service/auth.service";
 })
 
 export class AdminAuthGuard implements CanActivate{
+
     constructor(
         private myAuthService: AuthService,
         private myRouter: Router
         ){}
 
-        canActivate(): boolean | Promise<boolean> | Observable<boolean |UrlTree> {
+        canActivate(): boolean | Promise<boolean> | Observable<boolean | UrlTree> {
 
-            return this.myAuthService.userSubject.pipe( take(1), map( user => {
-                const isAdmin = Number(user.isAdmin);
-                if(isAdmin){
-                    return true
+            return  this.myAuthService.userSubject.pipe( take(1), map( user => {
+                const isAuthenticated = !!user;
+
+                if(isAuthenticated){
+                    let isAdmin = Number(user.isAdmin);
+
+                    if(isAdmin === 1){
+                        return true
+
+                    }
+                    
                 }
                 return this.myRouter.createUrlTree(["newsfeed"]);
+
+
             }))
         }
         

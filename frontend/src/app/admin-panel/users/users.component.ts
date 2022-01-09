@@ -34,7 +34,8 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   constructor(
     private myAuthService: AuthService,
-    private myUserActions: UserActionsService
+    private myUserActions: UserActionsService,
+    private myRouter: Router
   ) { }
   
 
@@ -110,6 +111,15 @@ export class UsersComponent implements OnInit, OnDestroy {
       }, 100);
 
     }))
+  }
+
+  goToUserProfile(id: number){
+
+    this.myRouter.navigateByUrl('/profile', {skipLocationChange: true})
+    .then(()=>{
+        this.myRouter.navigate(['/profile/',id, 'timeline']);
+    })
+
   }
 
   ngOnDestroy(): void {

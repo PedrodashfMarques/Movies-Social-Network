@@ -16,26 +16,41 @@
                     id="smallBio"
                     required
                     formControlName="smallBio"
-                    maxlength="25"
-                    >
+                    maxlength="25">
+
+                    <div class="formErrors"
+                        role="alert"
+                        *ngIf="userInformationForm.controls['smallBio'].errors && userInformationForm.controls['smallBio'].touched">
+                        <p *ngIf="userInformationForm.controls['smallBio'].errors?.required"> Short Bio is required</p>
+                        <p *ngIf="userInformationForm.controls['smallBio'].errors?.minlength"> Short Bio must contain at least 3 char length</p>
+                        <p *ngIf="userInformationForm.controls['smallBio'].errors?.maxlength"> Short Bio must not exceed 25 char length</p>
+                    </div>
+
                 </div>
 
+                
                 <div class="cadaForm">
                     <label for="bigBio"> Big Bio </label>
                     <textarea  
                     id="bigBio"
                     placeholder="Placeholder memo"
                     formControlName="bigBio"
-                    maxlength="1000"
-                    >
+                    maxlength="1000">
                     </textarea>
+
+                    <div class="formErrors"
+                        role="alert"
+                        *ngIf="userInformationForm.controls['bigBio'].errors && userInformationForm.controls['bigBio'].touched">
+                        <p *ngIf="userInformationForm.controls['bigBio'].errors?.required"> Big Bio is required</p>
+                        <p *ngIf="userInformationForm.controls['bigBio'].errors?.minlength"> Big Bio must contain at least 3 char length</p>
+                    </div>
+
                 </div>
 
                 <div class="cadaForm">
                     <label>
-                        <p> Current Location: {{userLocation}} </p>
+                        <p class="zonaUserLocation"> Current Location: {{userLocation}} </p>
                     </label>
-
 
                     <label for="locationId"> Location </label>
                         <select 
@@ -45,7 +60,15 @@
                         formControlName="location">
                         <option *ngFor="let eachCountry of allCountriesArray"> {{eachCountry.nicename}} </option>
                         </select>
+
+                        <div class="formErrors"
+                            role="alert"
+                            *ngIf="userInformationForm.controls['location'].errors && userInformationForm.controls['location'].touched">
+                            <p *ngIf="userInformationForm.controls['location'].errors?.required"> Location is required</p>
+                        </div>
                 </div>
+
+               
 
                 <div class="cadaForm">
                     <label for="categoryId"> Category </label>
@@ -56,7 +79,15 @@
                         formControlName="category">
                         <option *ngFor="let eachCategory of allCategoriesArray"> {{eachCategory.name}} </option>
                         </select>
+
+                        <div class="formErrors"
+                            role="alert"
+                            *ngIf="userInformationForm.controls['category'].errors && userInformationForm.controls['category'].touched">
+                            <p *ngIf="userInformationForm.controls['category'].errors?.required"> Category is required</p>
+                        </div>
                 </div>
+
+               
 
                 <div class="profile_background_images_area">
                     <div>

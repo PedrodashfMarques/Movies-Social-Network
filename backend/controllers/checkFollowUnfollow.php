@@ -1,9 +1,5 @@
 <?php
 
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");
-    header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-
     require("models/user.php");
     
     $userModel = new User();
@@ -23,7 +19,6 @@
 
         if(!empty($id) && 
         !empty($userId) && 
-        is_numeric($id) && 
         is_numeric($userId)){
        
             if($id === intval($userId)){
@@ -40,7 +35,7 @@
             }
 
             if(!empty($result)){
-                http_response_code(202);
+                http_response_code(200);
                 echo '{"message": "Already Following"}';
             }
             

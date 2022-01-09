@@ -115,13 +115,12 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
       if(response["message"] === "Already Following"){
         this.followUnfollowMessage = 'Unfollow';
-      } else {
+      } else if(response["message"] === "Not Following") {
         this.followUnfollowMessage = 'Follow';
-
       }
     }, error => {
       if(error.error.message === "Users are the same"){
-        this.followUnfollowMessage = "";
+        this.followUnfollowMessage = null;
       }
     }))
 
@@ -140,9 +139,8 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       this.similarUsersArray = data[0].similarUsers;
     }));
 
-    
   }
-
+  
 
   showTimeline(){
     this.myRouter.navigate(['timeline'], {relativeTo: this.myActiveRoute});

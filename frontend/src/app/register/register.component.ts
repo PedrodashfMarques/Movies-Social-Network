@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -10,14 +10,12 @@ import { passwordMatch } from '../shared/PasswordMatch.validator';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
   errorMessage: string;
 
   successMessage: string;
-
-  mySubscription: Subscription;
 
   constructor(
     private myFormBuilder: FormBuilder,
@@ -76,8 +74,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     formData.append('password', values.password);
     formData.append('confirmPassword', values.confirmPassword);
 
-    this.mySubscription = this.myAuthService.registerUser(formData).subscribe(response => {
-      console.log(response);
+    this.myAuthService.registerUser(formData).subscribe(response => {
       this.successMessage = response["message"];
         setTimeout(() => {
           this.myRouter.navigate(['']);
@@ -93,10 +90,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     })
 
     this.registerForm.reset();
-  }
-
-  ngOnDestroy(): void {
-      this.mySubscription.unsubscribe();
   }
 
 }
