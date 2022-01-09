@@ -7,6 +7,13 @@
 
     if($_SERVER["REQUEST_METHOD"] === "POST"){
 
+        $userId = $baseModel->routeRequiresValidation();
+
+        if(empty($userId)){
+            header("HTTP/1.1 401 Unauthorized");
+            die('{"message":"Wrong or missing Auth Token"}');
+        }
+
         $data = json_decode(file_get_contents("php://input"), true);
 
         $sanitizedData = sanitizer($data);

@@ -8,20 +8,27 @@
 
     if($_SERVER["REQUEST_METHOD"] === "POST"){
 
-        $data = json_decode(file_get_contents("php://input"), true);
+        $userId = $baseModel->routeRequiresValidation();
 
-        // Fazer validações $data["userId"] e $data["userNameSearch"]
+        if(empty($userId)){
+            header("HTTP/1.1 401 Unauthorized");
+            die('{"message":"Wrong or missing Auth Token"}');
+        }
+        
+        $data = json_decode(file_get_contents("php://input"), true);
 
         $sanitizedData = sanitizer($data);
 
         if(!empty($sanitizedData)){
-            
-            // var_dump($sanitizedData["userNameSearch"]);
-            $result = $userModel->findUsers($sanitizedData["userNameSearch"]);
 
+            $result = $userModel->findUsers($sanitizedData["userNameSearch"]);
             http_response_code(202);
             echo json_encode($result);
-        }  
+            
+        } else {
+            http_response_code(400);
+            echo '{"message": "Bad Request"}';
+        }
     }
 
     else{

@@ -51,7 +51,7 @@
                 </li>
 
                 <li *ngIf="eachUser.is_mod === '1'">
-                    <input (click)="makeModerator(eachUser.user_id)" type="checkbox" checked>
+                    <input #makeUserAdmin (click)="makeModerator(eachUser.user_id)" type="checkbox" checked>
                 </li>
 
                 <li (click)="openCloseModal(eachUser.user_id)"> Delete user</li>

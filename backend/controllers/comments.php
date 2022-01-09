@@ -16,19 +16,18 @@
 
     }
 
+
     if(in_array($_SERVER["REQUEST_METHOD"], ["PUT", "DELETE"]) ) {
 
         $userId = $baseModel->routeRequiresValidation(); 
 
         $adminOrNot = $baseModel->adminValidation();
 
-        // Alterar o método do model e o model
-        if(!empty($id) && $adminOrNot !== '1' && empty($postModel->getItemByUser($id, $userId))){
+        if(!empty($id) && $adminOrNot !== '1' && empty($commentModel->getItemByUser($id, $userId))){
             header("HTTP/1.1 403 Forbidden");
             die('{"message": "You do not have the permission to perform this action."}');
         }
     }
-
 
 
     if($_SERVER["REQUEST_METHOD"] === "GET"){
@@ -91,18 +90,16 @@
     if($_SERVER["REQUEST_METHOD"] === "PUT"){
 
         $data = json_decode(file_get_contents("php://input"), true);
-        
-        foreach ($data as $key => $value) {
-            $data[$key] = trim(htmlspecialchars(strip_tags($value)));
-        }
+
+        $sanitizedData = sanitizer($data);
 
         if(
             !empty($id) && 
-            isset($data["content"]) &&
-            mb_strlen($data["content"]) >= 2 &&
-            mb_strlen($data["content"]) <= 1000){
+            isset($sanitizedData["content"]) &&
+            mb_strlen($sanitizedData["content"]) >= 2 &&
+            mb_strlen($sanitizedData["content"]) <= 1000){
      
-            $result = $commentModel->updateComment($id, $data);
+            $result = $commentModel->updateComment($id, $sanitizedData);
 
             if($result){
                 http_response_code(202);
@@ -112,8 +109,7 @@
 
             if(empty($result)){
                 http_response_code(404);
-                echo '{"message": "Comment does not exist" }';
-                
+                echo '{"message": "Comment does not exist" }';           
             }
 
         } else{
@@ -144,9 +140,5 @@
 
 
     }
-
-
-        // Comment Delete Functionality
-    
 
 ?>

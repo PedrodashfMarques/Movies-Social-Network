@@ -160,16 +160,16 @@ require_once("base.php");
 
         }
 
-        public function getItemByUser(){
+        public function getItemByUser($commentId, $userId){
             $query = $this->dataBase->prepare("
-            SELECT post_id
-            FROM posts
-            WHERE post_id = ?
+            SELECT comment_id
+            FROM comments
+            WHERE comment_id = ?
             AND user_id = ?
             ");
 
             $query->execute([
-                $id,
+                $commentId,
                 $userId
             ]);
 

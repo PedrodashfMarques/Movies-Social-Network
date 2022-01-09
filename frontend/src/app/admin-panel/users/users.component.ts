@@ -29,11 +29,9 @@ export class UsersComponent implements OnInit {
 
   userIdToDelete: number;
 
-
   constructor(
     private myAuthService: AuthService,
-    private myUserActions: UserActionsService,
-    private myRouter: Router,
+    private myUserActions: UserActionsService
   ) { }
   
 
@@ -63,7 +61,6 @@ export class UsersComponent implements OnInit {
     formData.append('userNameSearch', userNameAPesquisar);
 
     this.myUserActions.findUser(formData).subscribe(response => {
-      console.log(response);
       this.usersFoundArray = response;
 
       if(this.usersFoundArray.length <= 0){
@@ -106,14 +103,11 @@ export class UsersComponent implements OnInit {
   deleteUser(){
     this.myUserActions.deleteUser(this.userIdToDelete).subscribe(response => {
       this.openDeleteModal = !this.openDeleteModal;
-      // console.log(response);
 
       setTimeout(() => {
         this.getUsers();
       }, 100);
 
-
-      
     })
   }
 

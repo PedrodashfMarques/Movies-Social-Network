@@ -19,11 +19,20 @@ export class UserActionsService {
 
   constructor(private myAuthService: AuthService, private myHttp: HttpClient) { }
 
-    JWToken = localStorage.getItem('authToken');
+  JWToken = localStorage.getItem('authToken');
 
-    // JSON Parsed
-    JWTokenParsed = JSON.parse(this.JWToken)["X-Auth-Token"];
-    // JSON Parsed
+  // JSON Parsed
+  JWTokenParsed = JSON.parse(this.JWToken)["X-Auth-Token"];
+  // JSON Parsed
+
+  jsonConverter(data){
+    let object = {};
+    data.forEach((value, key) => object[key] = value);
+    let jsonConverted = JSON.stringify(object);
+
+    return jsonConverted;
+  }
+
 
   checkIfUserExists(urlUserId: number){
     const url = this.api + 'users' + "/" + urlUserId;
@@ -52,9 +61,7 @@ export class UserActionsService {
   updateUserData(data, connectedUserId: number){
     const url = this.api + 'users' + "/" + connectedUserId;
 
-    let object = {};
-    data.forEach((value, key) => object[key] = value);
-    let jsonConverted = JSON.stringify(object);
+    const jsonConverted = this.jsonConverter(data);
 
     return this.myHttp.put(url, jsonConverted , {
       headers: new HttpHeaders({
@@ -115,11 +122,9 @@ export class UserActionsService {
   createPost(data){
     const url = this.api + "posts";
 
-    let object = {};
-    data.forEach((value, key) => object[key] = value);
-    let dataConvertedJson = JSON.stringify(object);
-    
-    return this.myHttp.post(url, dataConvertedJson, {
+    const jsonConverted = this.jsonConverter(data);
+
+    return this.myHttp.post(url, jsonConverted, {
       headers: new HttpHeaders({
         'x-auth-token': this.JWTokenParsed
       })
@@ -131,11 +136,9 @@ export class UserActionsService {
   editPost( postId, data: FormData){
     const url = this.api + "posts" + "/" + postId;
 
-    let object = {};
-    data.forEach((value, key) => object[key] = value);
-    let dataConvertedJson = JSON.stringify(object);
+    const jsonConverted = this.jsonConverter(data);
 
-    return this.myHttp.put(url, dataConvertedJson, {
+    return this.myHttp.put(url, jsonConverted, {
       headers: new HttpHeaders({
         'x-auth-token': this.JWTokenParsed
       })
@@ -168,30 +171,12 @@ export class UserActionsService {
 
   }
 
-
-  getAllComments(){
-    const url = this.api + 'comments';
-    
-    return this.myHttp.get(url);
-  }
-
-
-  getPostComments(postId: number){
-    const url = this.api + "comments" + "/" + postId;
-
-    return this.myHttp.get(url);
-  }
-
-  
   commentPost(data){
     const url = this.api + "comments";
+    
+    const jsonConverted = this.jsonConverter(data);
 
-    let object = {};
-    data.forEach((value, key) => object[key] = value);
-
-    let dataConvertedJson = JSON.stringify(object);
-
-    return this.myHttp.post(url, dataConvertedJson, {
+    return this.myHttp.post(url, jsonConverted, {
       headers: new HttpHeaders({
         'x-auth-token': this.JWTokenParsed
       })
@@ -202,86 +187,77 @@ export class UserActionsService {
   editComment(commentId: number, data: FormData){
     const url = this.api + "comments" + "/" + commentId;
 
-    let object = {};
-    data.forEach((value, key) => object[key] = value);
-    let dataConvertedJson = JSON.stringify(object);
+    const jsonConverted = this.jsonConverter(data);
 
-    return this.myHttp.put(url, dataConvertedJson);
-    
-    // Aqui vou enviar o JWToken provavelmente
-
+    return this.myHttp.put(url, jsonConverted, {
+      headers: new HttpHeaders({
+        'x-auth-token': this.JWTokenParsed
+      })
+    });
   }
 
   deleteComment(commentId: number){
     const url = this.api + "comments" + "/" + commentId;
 
-    return this.myHttp.delete(url);
-
-    // Aqui vou enviar o JWToken provavelmente
-
-  }
-
-
-
-  getAllCountries(){
-    const url = this.api + 'countries';
-  
-    return this.myHttp.get(url);   
+    return this.myHttp.delete(url, {
+      headers: new HttpHeaders({
+        'x-auth-token': this.JWTokenParsed
+      })
+    });
   }
 
 
   getAllUsers(){
     const url = this.api + 'users';
-    return this.myHttp.get(url);
+    return this.myHttp.get(url, {
+      headers: new HttpHeaders({
+        'x-auth-token': this.JWTokenParsed
+      })
+    });
   }
+
 
   findUser(data){
     const url = this.api + 'findUsers';
 
-    let object = {};
-    data.forEach((value, key) => object[key] = value);
+    const jsonConverted = this.jsonConverter(data);
 
-    let jsonConverted = JSON.stringify(object);
-
-    return this.myHttp.post(url, jsonConverted);   
+    return this.myHttp.post(url, jsonConverted, {
+      headers: new HttpHeaders({
+        'x-auth-token': this.JWTokenParsed
+      })
+    });
+    
   }
-
-
 
 
   findPost(data){
     const url = this.api + 'findPosts';
 
-    let object = {};
-    data.forEach((value, key) => object[key] = value);
-    let jsonConverted = JSON.stringify(object);
+    const jsonConverted = this.jsonConverter(data);
 
-    return this.myHttp.post(url, jsonConverted, );
+    return this.myHttp.post(url, jsonConverted, {
+      headers: new HttpHeaders({
+        'x-auth-token': this.JWTokenParsed
+      })
+    });
+
   }
-
 
 
   findComment(data){
     const url = this.api + 'findComments';
 
-    let object = {};
-    data.forEach((value, key) => object[key] = value);
-    let jsonConverted = JSON.stringify(object);
- 
-    return this.myHttp.post(url, jsonConverted);
+    const jsonConverted = this.jsonConverter(data);
+
+    return this.myHttp.post(url, jsonConverted, {
+      headers: new HttpHeaders({
+        'x-auth-token': this.JWTokenParsed
+      })
+    });
+
   }
   
-  
-
-  getAllUserCategories(){
-    const url = this.api + 'userCategories';
-    return this.myHttp.get(url);
-  }
-
-
-
-
-
 
   // ADMIN PERMS
   getMetrics(){
@@ -299,9 +275,7 @@ export class UserActionsService {
   giveRemoveMod(data: FormData){
     const url = this.api + 'adminPerms';
 
-    let object = {};
-    data.forEach((value, key) => object[key] = value);
-    let jsonConverted = JSON.stringify(object);
+    const jsonConverted = this.jsonConverter(data);
 
     return this.myHttp.post(url, jsonConverted, {
       headers: new HttpHeaders({
@@ -323,5 +297,31 @@ export class UserActionsService {
 
   }
   // ADMIN PERMS
+
+  // NO TOKEN NEEDED
+
+  getAllCountries(){
+    const url = this.api + 'countries';
+    return this.myHttp.get(url);   
+  }
+
+  getAllUserCategories(){
+    const url = this.api + 'userCategories';
+    return this.myHttp.get(url);
+  }
+
+  getAllComments(){
+    const url = this.api + 'comments';
+    
+    return this.myHttp.get(url);
+  }
+
+  getPostComments(postId: number){
+    const url = this.api + "comments" + "/" + postId;
+
+    return this.myHttp.get(url);
+  }
+
+  // NO TOKEN NEEDED
 
 }
