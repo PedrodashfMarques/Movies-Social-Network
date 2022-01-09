@@ -96,18 +96,10 @@ export class AuthService {
       userData.backgroundImage,
       userData.isAdmin,
       userData.isVerified,
-      JWToken,
-      userData.expiryTime
+      JWToken
     );
-
-    // if there is a token
-    // if(loadedUser.Token) {
-    //   const expirationDuration = new Date(userData.expiryTime).getTime() - new Date().getTime();
-    //   this.autologout(expirationDuration);
-    // }
     
     this.userSubject.next(loadedUser);
-    // console.log(loadedUser);
     return loadedUser;
   }
 
@@ -125,32 +117,13 @@ export class AuthService {
     this.tokenExpirationTimer = null;
   }
 
-  // Test again
-  
-  // setInterval --
-  // autologout(expirationDuration: number){
-  //   console.log(expirationDuration);
-  //   this.tokenExpirationTimer = setTimeout(() => {
-  //     this.logoutUser();
-  //   }, 2000);
-
-  // }
-
   
   private handleAuthentication(JWToken: any){
     localStorage.setItem("authToken", JSON.stringify(JWToken));
-
-    console.log(JWToken);
-
     
     // Decode the JWT using jwtHelper
     const JWTdecoded = this.jwtHelper.decodeToken(localStorage.getItem('authToken'));
 
-    console.log(JWTdecoded);
-
-    //  1 hour until auto-logout
-    const expirationDate = new Date(new Date().getTime() + JWTdecoded.expiryTime * 1000);
-    
       const newUser = new User(
       JWTdecoded.userId,
       JWTdecoded.firstName,
@@ -163,8 +136,7 @@ export class AuthService {
       JWTdecoded.backgroundImage,
       JWTdecoded.isAdmin,
       JWTdecoded.isVerified,
-      JWToken,
-      expirationDate,
+      JWToken
     );
     this.userSubject.next(newUser);
 

@@ -121,7 +121,6 @@ export class NewsfeedComponent implements OnInit, OnDestroy {
 
     setTimeout(() => {
       this.allSubscritions.add(this.myUserActions.getAllPosts().subscribe(postsData => { 
-        // Talvez aplicar aqui um loading spinner
         this.allPostsArray = postsData;
       }))
     }, 200)
