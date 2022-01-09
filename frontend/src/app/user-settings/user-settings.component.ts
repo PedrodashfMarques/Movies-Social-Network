@@ -56,7 +56,6 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
 
     this.allSubscriptions.add(this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
-      // this.accountCreatedOn = data[0].userData.created_at;
     }))
     this.reloadUserData();
 
