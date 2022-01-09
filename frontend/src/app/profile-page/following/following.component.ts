@@ -27,8 +27,6 @@ export class FollowingComponent implements OnInit, OnDestroy {
     this.mySubscription = this.myUserActions.allUserData.subscribe(data => {
       this.followingUsersArray = data[0].userFollowing;
 
-      console.log(this.followingUsersArray)
-
     })
   }
 

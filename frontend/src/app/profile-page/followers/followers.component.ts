@@ -34,8 +34,6 @@ export class FollowersComponent implements OnInit, OnDestroy {
     this.mySubscription = this.myUserActions.allUserData.subscribe(data => {
       this.userFollowersArray = data[0].userFollowers;
 
-      console.log(this.userFollowersArray);
-
     })
 
   }
