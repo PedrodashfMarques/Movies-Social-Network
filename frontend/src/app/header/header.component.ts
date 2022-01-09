@@ -9,7 +9,7 @@ import { AuthService } from '../auth-service/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
 
   menuAberto: boolean = false;
 
@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit(): void {
-    this.mySubscription = this.myAuthService.userSubject.subscribe(data => {
+    this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
       this.isAdmin = data.isAdmin;
     })
@@ -58,10 +58,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     .then(()=>{
         this.myRouter.navigate(['/profile/',this.connectedUserId, 'timeline']);
     })
-  }
-
-  ngOnDestroy(): void {
-      this.mySubscription.unsubscribe();
   }
 
 }

@@ -75,11 +75,11 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     private myUserActions: UserActionsService,
     private myAuthService: AuthService
     ) {
-      this.allSubscriptions.add(myRouter.events.subscribe((event: NavigationStart) => {
+      myRouter.events.subscribe((event: NavigationStart) => {
         if(event.navigationTrigger === 'popstate'){
           window.location.reload();
         }
-      }))
+      })
     }
 
 
@@ -90,13 +90,13 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       this.myRouter.navigate(['newsfeed']); 
     }
     else if(Number(this.idDoUser)){
-      this.allSubscriptions.add(this.myUserActions.checkIfUserExists(this.idDoUser).subscribe(response => {
+      this.myUserActions.checkIfUserExists(this.idDoUser).subscribe(response => {
         if(response["message"] === "User does not exist"){
           this.myRouter.navigate(['newsfeed']);
         } else {
             this.showTimeline();
         }
-      }))
+      })
     }
 
     this.allSubscriptions.add(this.myAuthService.userSubject.subscribe(data => {
@@ -110,7 +110,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
       }
     }))
-    
+  
     this.allSubscriptions.add(this.myUserActions.checkIfAlreadyFollowing(this.idDoUser).subscribe(response => {
 
       if(response["message"] === "Already Following"){
@@ -210,5 +210,4 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
       this.allSubscriptions.unsubscribe();
   }
-
 }

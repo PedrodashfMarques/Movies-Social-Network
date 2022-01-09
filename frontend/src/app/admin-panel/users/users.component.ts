@@ -84,7 +84,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     formData.append("user_id", userId);
 
     this.allSubscriptions.add(this.myUserActions.giveRemoveMod(formData).subscribe(response => {
-      console.log(response);
+      // console.log(response);
       if(response["moderator"] === true){
         this.userIsAdmin = true;
 
