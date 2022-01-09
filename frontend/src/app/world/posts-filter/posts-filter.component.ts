@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth-service/auth.service';
 import { UserActionsService } from 'src/app/user-actions/user-actions.service';
 
@@ -8,7 +9,7 @@ import { UserActionsService } from 'src/app/user-actions/user-actions.service';
   templateUrl: './posts-filter.component.html',
   styleUrls: ['./posts-filter.component.scss']
 })
-export class PostsFilterComponent implements OnInit {
+export class PostsFilterComponent implements OnInit, OnDestroy {
   @ViewChild('postContent') postContentSearch: ElementRef;
 
   postsFoundArray: any = [];
@@ -23,6 +24,7 @@ export class PostsFilterComponent implements OnInit {
   imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
   // Images
 
+  private allSubscriptions = new Subscription();
 
   constructor(
     private myUserActions: UserActionsService,
@@ -31,14 +33,14 @@ export class PostsFilterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.myAuthService.userSubject.subscribe(data => {
+    this.allSubscriptions.add(this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
-    })
+    }))
 
-    this.myUserActions.getAllPosts().subscribe(data => {
+    this.allSubscriptions.add(this.myUserActions.getAllPosts().subscribe(data => {
       this.postsFoundArray = data;
       // console.log(this.postsFoundArray);
-    })
+    }))
   }
 
   pesquisarPost(){
@@ -48,7 +50,7 @@ export class PostsFilterComponent implements OnInit {
 
     formData.append('postContentSearch', postContentAPesquisar);
 
-    this.myUserActions.findPost(formData).subscribe(data => {
+    this.allSubscriptions.add(this.myUserActions.findPost(formData).subscribe(data => {
       this.postsFoundArray = data;
       // console.log(this.postsFoundArray);
 
@@ -58,13 +60,13 @@ export class PostsFilterComponent implements OnInit {
       } else{
         this.noPostsFound = false;
       }
-    })
+    }))
 
   }
 
   likePost(postId:number){
     
-    this.myUserActions.likeDislikePost(postId, this.connectedUserId).subscribe(responseData => {
+    this.allSubscriptions.add(this.myUserActions.likeDislikePost(postId, this.connectedUserId).subscribe(responseData => {
       console.log(responseData);
 
       for (let index = 0; index < this.postsFoundArray.length; index++) {
@@ -81,8 +83,12 @@ export class PostsFilterComponent implements OnInit {
         }
       }
     
-    })
+    }))
 
+  }
+
+  ngOnDestroy(): void {
+      this.allSubscriptions.unsubscribe();
   }
 
 

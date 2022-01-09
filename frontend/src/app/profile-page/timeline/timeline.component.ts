@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth-service/auth.service';
 import { UserActionsService } from 'src/app/user-actions/user-actions.service';
 
@@ -8,7 +9,7 @@ import { UserActionsService } from 'src/app/user-actions/user-actions.service';
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.scss']
 })
-export class TimelineComponent implements OnInit {
+export class TimelineComponent implements OnInit, OnDestroy {
 
   imagemTeste: string = "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/33/33fc65586f9b4615f95209a03398d8c8b2729f0b_full.jpg";
   userIsVerified: boolean;
@@ -35,6 +36,8 @@ export class TimelineComponent implements OnInit {
   checkPostId: number;
   // Post id to checkIfLikeExists
 
+  private allSubscriptions = new Subscription();
+
   constructor(
     private myUserActions: UserActionsService, 
     private myAuthService: AuthService,
@@ -43,12 +46,12 @@ export class TimelineComponent implements OnInit {
 
 
     ngOnInit(): void {
-      this.myAuthService.userSubject.subscribe(data => {
+      this.allSubscriptions.add(this.myAuthService.userSubject.subscribe(data => {
         this.connectedUserId = data.userId;
-      });
+      }));
 
 
-    this.myUserActions.allUserData.subscribe((data: any) => {
+    this.allSubscriptions.add(this.myUserActions.allUserData.subscribe((data: any) => {
       if(data === null){
         this.userPostsArray = [];
 
@@ -66,12 +69,12 @@ export class TimelineComponent implements OnInit {
         this.userIsVerified = false
       }
       
-    })
+    }))
   }
 
   likePost(postId:number){
 
-    this.myUserActions.likeDislikePost(postId, this.connectedUserId).subscribe(responseData => {
+    this.allSubscriptions.add(this.myUserActions.likeDislikePost(postId, this.connectedUserId).subscribe(responseData => {
       // console.log(postId);
 
       for (let index = 0; index < this.userPostsArray.length; index++) {
@@ -94,8 +97,12 @@ export class TimelineComponent implements OnInit {
     
     }, errorRes => {
       console.log(errorRes)
-    })
+    }))
 
+  }
+
+  ngOnDestroy(): void {
+      this.allSubscriptions.unsubscribe();
   }
 
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef, Input, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth-service/auth.service';
 import { UserActionsService } from '../user-actions/user-actions.service';
 
@@ -8,7 +9,7 @@ import { UserActionsService } from '../user-actions/user-actions.service';
   templateUrl: './comment-modal.component.html',
   styleUrls: ['./comment-modal.component.scss']
 })
-export class CommentModalComponent implements OnInit {
+export class CommentModalComponent implements OnInit, OnDestroy {
 
   @Output() closeModal = new EventEmitter<void>();
 
@@ -16,10 +17,11 @@ export class CommentModalComponent implements OnInit {
 
   @Input() postId;
 
-
   connectedUserId: any;
 
   commentModalAberto: boolean;
+
+  private allSubscriptions = new Subscription();
 
   constructor(
     private myAuthService: AuthService,
@@ -29,9 +31,9 @@ export class CommentModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.myAuthService.userSubject.subscribe(response => {
+    this.allSubscriptions.add(this.myAuthService.userSubject.subscribe(response => {
       this.connectedUserId = response.userId;
-    })
+    }))
   }
 
 
@@ -56,7 +58,7 @@ export class CommentModalComponent implements OnInit {
       formData.append('postId', this.postId);
       formData.append('content', commentContent);
 
-      this.myUserActions.commentPost(formData).subscribe(response => {
+      this.allSubscriptions.add(this.myUserActions.commentPost(formData).subscribe(response => {
         // console.log(response);
         
         this.myRouter.navigateByUrl('/post-detail', {skipLocationChange: true})
@@ -64,9 +66,13 @@ export class CommentModalComponent implements OnInit {
             this.myRouter.navigate(['/post-detail/', this.postId]);
           })
         
-      });
+      }))
 
     }
+  }
+
+  ngOnDestroy(): void {
+      this.allSubscriptions.unsubscribe();
   }
 
 }

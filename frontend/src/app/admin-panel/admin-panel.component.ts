@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth-service/auth.service';
 
 @Component({
@@ -7,9 +8,11 @@ import { AuthService } from '../auth-service/auth.service';
   templateUrl: './admin-panel.component.html',
   styleUrls: ['./admin-panel.component.scss']
 })
-export class AdminPanelComponent implements OnInit {
+export class AdminPanelComponent implements OnInit, OnDestroy {
 
   connectedUserId: number;
+
+  mySubscription: Subscription;  
 
   usersRouteClicked: boolean = false;
   postsRouteClicked: boolean = false;
@@ -25,11 +28,9 @@ export class AdminPanelComponent implements OnInit {
   ngOnInit(): void {
     this.showUsers();
 
-    this.myAuthService.userSubject.subscribe(data => {
+    this.mySubscription = this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
     })
-
-
   }
 
   showUsers(){
@@ -73,6 +74,10 @@ export class AdminPanelComponent implements OnInit {
     .then(()=>{
         this.myRouter.navigate(['/profile/',this.connectedUserId, 'timeline']);
     })
+  }
+
+  ngOnDestroy(): void {
+      this.mySubscription.unsubscribe();
   }
 
 

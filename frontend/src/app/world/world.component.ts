@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth-service/auth.service';
 import { User } from '../shared/user.model';
 import { UserActionsService } from '../user-actions/user-actions.service';
@@ -10,7 +11,7 @@ import { UserActionsService } from '../user-actions/user-actions.service';
   templateUrl: './world.component.html',
   styleUrls: ['./world.component.scss']
 })
-export class WorldComponent implements OnInit {
+export class WorldComponent implements OnInit, OnDestroy {
   @ViewChild('userName') userNameSearch: ElementRef;
 
   userIsVerified: boolean = true;
@@ -37,6 +38,8 @@ export class WorldComponent implements OnInit {
   userProfileImage: string;
   imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
 
+  private allSubscriptions = new Subscription();
+
   constructor(
     private myRouter: Router, 
     private myActiveRoute: ActivatedRoute,
@@ -51,9 +54,9 @@ export class WorldComponent implements OnInit {
 
     this.showUsersFilter();
 
-     this.myAuthService.userSubject.subscribe((data: User) => {
+     this.allSubscriptions.add(this.myAuthService.userSubject.subscribe((data: User) => {
       this.connectedUserId = data.userId;
-    })
+    }))
 
   }
 
@@ -70,9 +73,9 @@ export class WorldComponent implements OnInit {
   }
 
   getUsers(){
-    this.myUserActions.getAllUsers().subscribe(allUsers => {
+    this.allSubscriptions.add(this.myUserActions.getAllUsers().subscribe(allUsers => {
       this.usersFoundArray = allUsers;
-    })
+    }))
 
   }
 
@@ -82,11 +85,8 @@ export class WorldComponent implements OnInit {
     let formData = new FormData();
     formData.append('userNameSearch', userNameAPesquisar);
 
-    this.myUserActions.findUser(formData).subscribe(response => {
-      // console.log(response);
+    this.allSubscriptions.add(this.myUserActions.findUser(formData).subscribe(response => {
       this.usersFoundArray = response;
-
-      // console.log(this.usersFoundArray);
 
       if(this.usersFoundArray.length <= 0){
         this.noUsersFound = true;
@@ -95,7 +95,7 @@ export class WorldComponent implements OnInit {
         this.noUsersFound = false;
 
       }
-    })
+    }))
     
   }
 
@@ -116,5 +116,8 @@ export class WorldComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(): void {
+      this.allSubscriptions.unsubscribe();
+  }
   
 }

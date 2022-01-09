@@ -1,7 +1,6 @@
-import { ThrowStmt } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth-service/auth.service';
+import { Subscription } from 'rxjs';
 import { UserActionsService } from 'src/app/user-actions/user-actions.service';
 
 @Component({
@@ -9,7 +8,7 @@ import { UserActionsService } from 'src/app/user-actions/user-actions.service';
   templateUrl: './followers.component.html',
   styleUrls: ['./followers.component.scss']
 })
-export class FollowersComponent implements OnInit {
+export class FollowersComponent implements OnInit, OnDestroy {
   userFollowersArray: [] = [];
 
   idDoUser: number | any;
@@ -18,25 +17,24 @@ export class FollowersComponent implements OnInit {
   imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
 
 
-
   // Follower Id
     followerId: any;
   // Follower Id
 
   userIsVerified: boolean;
 
+  mySubscription: Subscription;
+
   
   constructor(
     private myUserActions: UserActionsService, 
-    private myAuthService: AuthService,
     private myRouter: Router) { }
 
   ngOnInit(): void {
-    this.myUserActions.allUserData.subscribe(data => {
+    this.mySubscription = this.myUserActions.allUserData.subscribe(data => {
       this.userFollowersArray = data[0].userFollowers;
 
       console.log(this.userFollowersArray);
-
 
     })
 
@@ -48,6 +46,10 @@ export class FollowersComponent implements OnInit {
     .then(()=>{
         this.myRouter.navigate(['/profile/',followerId, 'timeline']);
     })
+  }
+
+  ngOnDestroy(): void {
+      this.mySubscription.unsubscribe();
   }
 
 }

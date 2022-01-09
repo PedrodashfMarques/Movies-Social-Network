@@ -1,21 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth-service/auth.service';
 import { passwordMatch } from '../shared/PasswordMatch.validator';
-import { UserActionsService } from '../user-actions/user-actions.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
 
   errorMessage: string;
 
   successMessage: string;
+
+  mySubscription: Subscription;
 
   constructor(
     private myFormBuilder: FormBuilder,
@@ -63,8 +65,6 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  // Injetar service de Auth e enviar os dados para a API
-
   submitRegister(values: any){
 
     let formData = new FormData();
@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit {
     formData.append('password', values.password);
     formData.append('confirmPassword', values.confirmPassword);
 
-    this.myAuthService.registerUser(formData).subscribe(response => {
+    this.mySubscription = this.myAuthService.registerUser(formData).subscribe(response => {
       console.log(response);
       this.successMessage = response["message"];
         setTimeout(() => {
@@ -93,6 +93,10 @@ export class RegisterComponent implements OnInit {
     })
 
     this.registerForm.reset();
+  }
+
+  ngOnDestroy(): void {
+      this.mySubscription.unsubscribe();
   }
 
 }

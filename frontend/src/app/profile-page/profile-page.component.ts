@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth-service/auth.service';
 import { UserActionsService } from '../user-actions/user-actions.service';
 
@@ -8,7 +9,7 @@ import { UserActionsService } from '../user-actions/user-actions.service';
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss']
 })
-export class ProfilePageComponent implements OnInit {
+export class ProfilePageComponent implements OnInit, OnDestroy {
 
   imagemBackground: string = "https://steamuserimages-a.akamaihd.net/ugc/448490901519563018/1DBA511F88594E8E29FA8F1B56329CFD7B2DEC4E/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false";
   imagemTeste: string = "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/33/33fc65586f9b4615f95209a03398d8c8b2729f0b_full.jpg";
@@ -66,17 +67,19 @@ export class ProfilePageComponent implements OnInit {
   followersClicked: boolean = false;
   followingClicked: boolean = false;
 
+  private allSubscriptions = new Subscription();
+
   constructor(
     private myRouter: Router, 
     private myActiveRoute: ActivatedRoute,
     private myUserActions: UserActionsService,
     private myAuthService: AuthService
     ) {
-      myRouter.events.subscribe((event: NavigationStart) => {
+      this.allSubscriptions.add(myRouter.events.subscribe((event: NavigationStart) => {
         if(event.navigationTrigger === 'popstate'){
           window.location.reload();
         }
-      })
+      }))
     }
 
 
@@ -87,16 +90,16 @@ export class ProfilePageComponent implements OnInit {
       this.myRouter.navigate(['newsfeed']); 
     }
     else if(Number(this.idDoUser)){
-      this.myUserActions.checkIfUserExists(this.idDoUser).subscribe(response => {
+      this.allSubscriptions.add(this.myUserActions.checkIfUserExists(this.idDoUser).subscribe(response => {
         if(response["message"] === "User does not exist"){
           this.myRouter.navigate(['newsfeed']);
         } else {
             this.showTimeline();
         }
-      })
+      }))
     }
 
-    this.myAuthService.userSubject.subscribe(data => {
+    this.allSubscriptions.add(this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
       this.connectedUsername = data.username;
 
@@ -106,9 +109,9 @@ export class ProfilePageComponent implements OnInit {
         this.followMyself = true;
 
       }
-    })
+    }))
     
-    this.myUserActions.checkIfAlreadyFollowing(this.idDoUser).subscribe(response => {
+    this.allSubscriptions.add(this.myUserActions.checkIfAlreadyFollowing(this.idDoUser).subscribe(response => {
 
       if(response["message"] === "Already Following"){
         this.followUnfollowMessage = 'Unfollow';
@@ -120,9 +123,9 @@ export class ProfilePageComponent implements OnInit {
       if(error.error.message === "Users are the same"){
         this.followUnfollowMessage = "";
       }
-    })
+    }))
 
-    this.myUserActions.getUserData(this.idDoUser).subscribe(data => { 
+    this.allSubscriptions.add(this.myUserActions.getUserData(this.idDoUser).subscribe(data => { 
       this.firstName = data[0].userData.first_name;
       this.username = data[0].userData.username;
       this.lastName = data[0].userData.last_name;
@@ -135,7 +138,7 @@ export class ProfilePageComponent implements OnInit {
       this.followingUsersArray = data[0].userFollowing;
       this.category = data[0].userData.category;
       this.similarUsersArray = data[0].similarUsers;
-    });
+    }));
 
     
   }
@@ -182,7 +185,7 @@ export class ProfilePageComponent implements OnInit {
 
 
   followUser(){
-    this.myUserActions.followUnfollowUser(this.idDoUser, this.connectedUserId).subscribe(response => {
+    this.allSubscriptions.add(this.myUserActions.followUnfollowUser(this.idDoUser, this.connectedUserId).subscribe(response => {
 
       if(response['message'] === 'User followed!'){
         this.numFollowers++
@@ -192,7 +195,7 @@ export class ProfilePageComponent implements OnInit {
         this.numFollowers--
         this.followUnfollowMessage = "Follow";
       }
-    })
+    }))
   }
 
 
@@ -202,6 +205,10 @@ export class ProfilePageComponent implements OnInit {
     .then(()=>{
         this.myRouter.navigate(['/profile/',followerId, 'timeline']);
     })
+  }
+
+  ngOnDestroy(): void {
+      this.allSubscriptions.unsubscribe();
   }
 
 }

@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth-service/auth.service';
 import { UserActionsService } from 'src/app/user-actions/user-actions.service';
 
@@ -8,7 +9,7 @@ import { UserActionsService } from 'src/app/user-actions/user-actions.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
   @ViewChild('userNameAPesquisar') userNameSearch: ElementRef;
   @ViewChild('makeUserAdmin') makeUserAdmin: ElementRef;
 
@@ -29,6 +30,8 @@ export class UsersComponent implements OnInit {
 
   userIdToDelete: number;
 
+  private allSubscriptions = new Subscription();
+
   constructor(
     private myAuthService: AuthService,
     private myUserActions: UserActionsService
@@ -36,14 +39,14 @@ export class UsersComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.myAuthService.userSubject.subscribe(data => {
+    this.allSubscriptions.add(this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
-    })
+    }))
     this.getUsers();
   }
 
   getUsers(){
-    this.myUserActions.getAllUsers().subscribe(allUsers => {
+    this.allSubscriptions.add(this.myUserActions.getAllUsers().subscribe(allUsers => {
       this.usersFoundArray = allUsers;
       if(this.usersFoundArray.length <= 0){
         this.noUsersFound = true;
@@ -51,7 +54,7 @@ export class UsersComponent implements OnInit {
       } else {
         this.noUsersFound = false;
       }
-    })
+    }))
   }
 
   pesquisarUsername(){
@@ -60,7 +63,7 @@ export class UsersComponent implements OnInit {
     let formData = new FormData();
     formData.append('userNameSearch', userNameAPesquisar);
 
-    this.myUserActions.findUser(formData).subscribe(response => {
+    this.allSubscriptions.add(this.myUserActions.findUser(formData).subscribe(response => {
       this.usersFoundArray = response;
 
       if(this.usersFoundArray.length <= 0){
@@ -69,7 +72,7 @@ export class UsersComponent implements OnInit {
       } else {
         this.noUsersFound = false;
       }
-    })
+    }))
     
   }
 
@@ -80,7 +83,7 @@ export class UsersComponent implements OnInit {
 
     formData.append("user_id", userId);
 
-    this.myUserActions.giveRemoveMod(formData).subscribe(response => {
+    this.allSubscriptions.add(this.myUserActions.giveRemoveMod(formData).subscribe(response => {
       console.log(response);
       if(response["moderator"] === true){
         this.userIsAdmin = true;
@@ -89,8 +92,7 @@ export class UsersComponent implements OnInit {
         this.userIsAdmin = false;
 
       }
-
-    })
+    }))
     
   }
 
@@ -101,14 +103,17 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(){
-    this.myUserActions.deleteUser(this.userIdToDelete).subscribe(response => {
+    this.allSubscriptions.add(this.myUserActions.deleteUser(this.userIdToDelete).subscribe(response => {
       this.openDeleteModal = !this.openDeleteModal;
-
       setTimeout(() => {
         this.getUsers();
       }, 100);
 
-    })
+    }))
+  }
+
+  ngOnDestroy(): void {
+      this.allSubscriptions.unsubscribe();
   }
 
 }

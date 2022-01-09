@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth-service/auth.service';
 import { UserActionsService } from '../user-actions/user-actions.service';
 
@@ -8,7 +9,7 @@ import { UserActionsService } from '../user-actions/user-actions.service';
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.scss']
 })
-export class PostDetailComponent implements OnInit {
+export class PostDetailComponent implements OnInit, OnDestroy {
   @ViewChild('commentContent') commentContent: ElementRef;
 
   @ViewChild('editPostContent') editPostContent: ElementRef;
@@ -49,6 +50,8 @@ export class PostDetailComponent implements OnInit {
     isCommented: boolean;
   // Post Data
 
+  private allSubscriptions = new Subscription();
+
   constructor(
     private myRouter: Router, 
     private myActiveRoute: ActivatedRoute,
@@ -57,15 +60,15 @@ export class PostDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.myAuthService.userSubject.subscribe(data => {
+    this.allSubscriptions.add(this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
-    })
+    }))
     this.postId = +this.myActiveRoute.snapshot.params["id"];
 
     if(isNaN(this.postId)){
       this.myRouter.navigate(['newsfeed']);
     } else {
-      this.myUserActions.getPostData(this.postId).subscribe(response => {
+      this.allSubscriptions.add(this.myUserActions.getPostData(this.postId).subscribe(response => {
         if(response["message"] === "Post does not exist"){
           this.myRouter.navigate(['newsfeed']);
         } else{
@@ -83,11 +86,10 @@ export class PostDetailComponent implements OnInit {
           this.isCommented = response["postData"]["isCommented"];
         }
 
-      })
+      }))
     }
 
-    this.myUserActions.getPostComments(this.postId).subscribe(response => {
-      // console.log(response["postComments"])
+    this.allSubscriptions.add(this.myUserActions.getPostComments(this.postId).subscribe(response => {
 
       if(response["message"] === "Comments Not Found" || response["postComments"] === undefined){
         this.commentsNotFound = true;
@@ -96,14 +98,14 @@ export class PostDetailComponent implements OnInit {
         this.commentsNotFound = false;
 
       }
-    })
+    }))
 
   }
 
    // POSTS
 
   likePost(){
-    this.myUserActions.likeDislikePost(this.postId, this.connectedUserId).subscribe(res => {
+    this.allSubscriptions.add(this.myUserActions.likeDislikePost(this.postId, this.connectedUserId).subscribe(res => {
 
       if(res["liked"] === true){
         this.likesNumber++;
@@ -111,7 +113,7 @@ export class PostDetailComponent implements OnInit {
         this.likesNumber--;
       }
 
-    })
+    }))
   }
 
   openEditPostBox(){
@@ -128,23 +130,23 @@ export class PostDetailComponent implements OnInit {
     if(newPostContent.length <= 0){
       this.vouEditarPost = false;
     } else{
-      this.myUserActions.editPost(this.postId, formData).subscribe(response => {
+      this.allSubscriptions.add(this.myUserActions.editPost(this.postId, formData).subscribe(response => {
         // console.log(response);
       this.vouEditarPost = false;
         setTimeout(() => {
             this.ngOnInit();
         }, 100);
-      })
+      }))
     }
 
 
   }
 
   deletePost(){
-    this.myUserActions.deletePost(this.postId).subscribe(res => {
+    this.allSubscriptions.add(this.myUserActions.deletePost(this.postId).subscribe(res => {
       console.log(res);
       this.myRouter.navigate(['newsfeed']);
-    })
+    }))
   }
 
   // POSTS
@@ -180,14 +182,14 @@ export class PostDetailComponent implements OnInit {
       let formData = new FormData();
       formData.append('content', commentContent);
 
-      this.myUserActions.editComment(this.commentIdToEdit, formData).subscribe(response => {
+      this.allSubscriptions.add(this.myUserActions.editComment(this.commentIdToEdit, formData).subscribe(response => {
         setTimeout(() => {
-          this.myUserActions.getPostComments(this.postId).subscribe(response => {
+          this.allSubscriptions.add(this.myUserActions.getPostComments(this.postId).subscribe(response => {
             this.commentsArray = response["postComments"];
             this.userWantsToEdit = false;
-          })
+          }))
         }, 200)
-      })
+      }))
 
     }
 
@@ -197,9 +199,9 @@ export class PostDetailComponent implements OnInit {
     this.userWantsToEdit = false;
     console.log(commentId);
 
-    this.myUserActions.deleteComment(commentId).subscribe(response =>{
+    this.allSubscriptions.add(this.myUserActions.deleteComment(commentId).subscribe(response =>{
       console.log(response);
-    })
+    }))
 
     for (let index = 0; index < this.commentsArray.length; index++) {
       let posicaoDoIndex = this.commentsArray[index];
@@ -210,10 +212,10 @@ export class PostDetailComponent implements OnInit {
     }
 
     setTimeout(() => {
-      this.myUserActions.getPostComments(this.postId).subscribe(response => {
+      this.allSubscriptions.add(this.myUserActions.getPostComments(this.postId).subscribe(response => {
         this.commentsArray = response["postComments"];
         this.userWantsToEdit = false;
-      })
+      }))
     }, 100);
 
   }
@@ -232,6 +234,10 @@ export class PostDetailComponent implements OnInit {
     .then(()=>{
         this.myRouter.navigate(['/profile/',this.connectedUserId, 'timeline']);
     })
+  }
+
+  ngOnDestroy(): void {
+      this.allSubscriptions.unsubscribe();
   }
 
 }

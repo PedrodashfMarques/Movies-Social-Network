@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth-service/auth.service';
 import { UserActionsService } from '../user-actions/user-actions.service';
 
@@ -9,7 +10,7 @@ import { UserActionsService } from '../user-actions/user-actions.service';
   templateUrl: './post-modal.component.html',
   styleUrls: ['./post-modal.component.scss']
 })
-export class PostModalComponent implements OnInit {
+export class PostModalComponent implements OnInit, OnDestroy {
 
   // User Edit Permissions
   userWantsToEdit: boolean;
@@ -52,6 +53,8 @@ export class PostModalComponent implements OnInit {
   postIsLiked: boolean;
   // Booleans For Posts
 
+  private allSubscriptions = new Subscription();
+
   constructor(
     private myAuthService: AuthService,
     private myRouter: Router,
@@ -60,21 +63,18 @@ export class PostModalComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.myAuthService.userSubject.subscribe(response => {
+    this.allSubscriptions.add(this.myAuthService.userSubject.subscribe(response => {
       this.connectedUserId = response.userId;
-    })
+    }))
     
     this.commentPostForm();
-    this.myUserActions.getPostData(this.postInfo.post_id).subscribe(data => {
+
+    this.allSubscriptions.add(this.myUserActions.getPostData(this.postInfo.post_id).subscribe(data => {
       this.postId = data["postData"].post_id; 
-    });
+    }));
 
-    this.myUserActions.getPostComments(this.postInfo.post_id).subscribe(commentsData => {
-      // console.log(commentsData["postComments"]);
-
+    this.allSubscriptions.add(this.myUserActions.getPostComments(this.postInfo.post_id).subscribe(commentsData => {
       this.commentsArray = commentsData["postComments"];
-
-      // console.log(this.commentsArray);
 
       if(this.commentsArray === undefined){
           this.messageNotFound = true;
@@ -84,7 +84,7 @@ export class PostModalComponent implements OnInit {
 
       }
 
-    })
+    }))
 
   }
 
@@ -101,7 +101,7 @@ export class PostModalComponent implements OnInit {
 
   likePost(postId:number){
     
-    this.myUserActions.likeDislikePost(postId, this.connectedUserId).subscribe(responseData => {
+    this.allSubscriptions.add(this.myUserActions.likeDislikePost(postId, this.connectedUserId).subscribe(responseData => {
       console.log(responseData['message']);
 
       for (let index = 0; index < this.postsArray.length; index++) {
@@ -120,7 +120,7 @@ export class PostModalComponent implements OnInit {
         }
       }
     
-    });
+    }));
     
   }
 
@@ -147,13 +147,13 @@ export class PostModalComponent implements OnInit {
     formData.append('postId', this.postId);
     formData.append('content', values.comment_content);
 
-    this.myUserActions.commentPost(formData).subscribe( response => {
+    this.allSubscriptions.add(this.myUserActions.commentPost(formData).subscribe( response => {
       console.log(response);
-    })
+    }))
 
     // O que fiz aqui tb posso fazer para atualizar os likes no timeline component
     setTimeout(() => {
-      this.myUserActions.getPostComments(this.postInfo.post_id).subscribe(commentsData => { 
+      this.allSubscriptions.add(this.myUserActions.getPostComments(this.postInfo.post_id).subscribe(commentsData => { 
         // Talvez aplicar aqui um loading spinner
         this.messageNotFound = false;
         
@@ -169,7 +169,7 @@ export class PostModalComponent implements OnInit {
        
         }
 
-      })
+      }))
     }, 500)  
 
   }
@@ -190,15 +190,15 @@ export class PostModalComponent implements OnInit {
     let formData = new FormData();
     formData.append('content', values.comment_content);
 
-    this.myUserActions.editComment(this.commentIdToEdit, formData).subscribe(response => {
+    this.allSubscriptions.add(this.myUserActions.editComment(this.commentIdToEdit, formData).subscribe(response => {
       setTimeout(() => {
-        this.myUserActions.getPostComments(this.postInfo.post_id).subscribe(commentsData => { 
+        this.allSubscriptions.add(this.myUserActions.getPostComments(this.postInfo.post_id).subscribe(commentsData => { 
           // Talvez aplicar aqui um loading spinner
          this.commentsArray = commentsData["postComments"];
          
-        })
+        }))
       }, 500)  
-    })
+    }))
 
     this.userWantsToEdit = false;
   }
@@ -209,10 +209,12 @@ export class PostModalComponent implements OnInit {
   // DELETE COMMENT
 
   deleteComment(commentId:number){
+
     this.userWantsToEdit = false;
-    this.myUserActions.deleteComment(commentId).subscribe(data => {
+
+    this.allSubscriptions.add(this.myUserActions.deleteComment(commentId).subscribe(data => {
       console.log(data);
-    })
+    }))
 
     for (let index = 0; index < this.postsArray.length; index++) {
           
@@ -225,20 +227,20 @@ export class PostModalComponent implements OnInit {
     }
     
     setTimeout(() => {
-      this.myUserActions.getPostComments(this.postInfo.post_id).subscribe(commentsData => { 
-        // Talvez aplicar aqui um loading spinner
+      this.allSubscriptions.add(this.myUserActions.getPostComments(this.postInfo.post_id).subscribe(commentsData => { 
         
         this.commentsArray = commentsData["postComments"];
         if(this.commentsArray === undefined){
           this.messageNotFound = true;
         }
-      })
+      }))
     }, 100)  
     
   }
   // DELETE COMMENT
 
-
-
+  ngOnDestroy(): void {
+      this.allSubscriptions.unsubscribe();
+  }
 
 }

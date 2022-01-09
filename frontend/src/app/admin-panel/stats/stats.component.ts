@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { UserActionsService } from 'src/app/user-actions/user-actions.service';
 
 @Component({
@@ -6,7 +7,7 @@ import { UserActionsService } from 'src/app/user-actions/user-actions.service';
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.scss']
 })
-export class StatsComponent implements OnInit {
+export class StatsComponent implements OnInit, OnDestroy {
 
   usersCount: number
   postsCount: number
@@ -15,6 +16,8 @@ export class StatsComponent implements OnInit {
   adminsCount: number
   modsCount: number
 
+  mySubscription: Subscription;
+
   constructor(private myUserActions: UserActionsService) { }
 
   ngOnInit(): void {
@@ -22,7 +25,7 @@ export class StatsComponent implements OnInit {
   }
 
   getAllMetrics(){
-    this.myUserActions.getMetrics().subscribe(data => {
+    this.mySubscription = this.myUserActions.getMetrics().subscribe(data => {
 
       this.usersCount = data["usersCount"][0].totalUsers;
       this.postsCount = data["postsCount"][0].totalPosts;
@@ -32,6 +35,10 @@ export class StatsComponent implements OnInit {
       this.modsCount = data["modsCount"][0].totalMods;
 
     })
+  }
+
+  ngOnDestroy(): void {
+      this.mySubscription.unsubscribe();
   }
 
 }

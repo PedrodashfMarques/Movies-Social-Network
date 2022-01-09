@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { UserActionsService } from 'src/app/user-actions/user-actions.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { UserActionsService } from 'src/app/user-actions/user-actions.service';
   templateUrl: './users-filter.component.html',
   styleUrls: ['./users-filter.component.scss']
 })
-export class UsersFilterComponent implements OnInit {
+export class UsersFilterComponent implements OnInit, OnDestroy {
   @ViewChild('userName') userNameSearch: ElementRef;
 
   // userIsVerified: boolean = true;
@@ -23,6 +24,7 @@ export class UsersFilterComponent implements OnInit {
   userProfileImage: string;
   imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
 
+  private allSubscriptions = new Subscription();
 
   constructor(
     private myUserActions: UserActionsService,
@@ -34,9 +36,9 @@ export class UsersFilterComponent implements OnInit {
   }
 
   getUsers(){
-    this.myUserActions.getAllUsers().subscribe(allUsers => {
+    this.allSubscriptions.add(this.myUserActions.getAllUsers().subscribe(allUsers => {
       this.usersFoundArray = allUsers;
-    })
+    }))
   }
 
   pesquisarUsername(){
@@ -45,8 +47,7 @@ export class UsersFilterComponent implements OnInit {
     let formData = new FormData();
     formData.append('userNameSearch', userNameAPesquisar);
 
-    this.myUserActions.findUser(formData).subscribe(response => {
-      // console.log(response);
+    this.allSubscriptions.add(this.myUserActions.findUser(formData).subscribe(response => {
       this.usersFoundArray = response;
 
       if(this.usersFoundArray.length <= 0){
@@ -55,7 +56,7 @@ export class UsersFilterComponent implements OnInit {
       } else {
         this.noUsersFound = false;
       }
-    })
+    }))
     
   }
 
@@ -66,6 +67,10 @@ export class UsersFilterComponent implements OnInit {
         this.myRouter.navigate(['/profile/',id, 'timeline']);
     })
 
+  }
+
+  ngOnDestroy(): void {
+      this.allSubscriptions.unsubscribe();
   }
 
 }

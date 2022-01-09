@@ -1,6 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth-service/auth.service';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { UserActionsService } from 'src/app/user-actions/user-actions.service';
 
 @Component({
@@ -8,7 +7,7 @@ import { UserActionsService } from 'src/app/user-actions/user-actions.service';
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss']
 })
-export class PostsComponent implements OnInit {
+export class PostsComponent implements OnInit, OnDestroy {
   @ViewChild('postContent') postContentSearch: ElementRef;
 
   postsFoundArray: any = [];
@@ -23,13 +22,15 @@ export class PostsComponent implements OnInit {
 
   constructor(private myUserActions: UserActionsService) { }
 
+  private allSubscriptions = new Subscription();
+
   ngOnInit(): void {
    this.getAllPosts();
 
   }
 
   getAllPosts(){
-    this.myUserActions.getAllPosts().subscribe(data => {
+    this.allSubscriptions.add(this.myUserActions.getAllPosts().subscribe(data => {
       this.postsFoundArray = data;
 
       if(this.postsFoundArray.length <= 0){
@@ -38,7 +39,7 @@ export class PostsComponent implements OnInit {
       } else{
         this.noPostsFound = false;
       }
-    })
+    }))
   }
 
 
@@ -49,7 +50,7 @@ export class PostsComponent implements OnInit {
 
     formData.append('postContentSearch', postContentAPesquisar);
 
-    this.myUserActions.findPost(formData).subscribe(data => {
+    this.allSubscriptions.add(this.myUserActions.findPost(formData).subscribe(data => {
       this.postsFoundArray = data;
 
       if(this.postsFoundArray.length <= 0){
@@ -58,17 +59,21 @@ export class PostsComponent implements OnInit {
       } else{
         this.noPostsFound = false;
       }
-    })
+    }))
   }
 
   deletePost(postId: number){
-    this.myUserActions.deletePost(postId).subscribe(response => {
+    this.allSubscriptions.add(this.myUserActions.deletePost(postId).subscribe(response => {
       console.log(response);
 
       setTimeout(() => {
         this.getAllPosts();   
       }, 100);
-    });
+    }))
+  }
+
+  ngOnDestroy(): void {
+      this.allSubscriptions.unsubscribe();
   }
 
 }

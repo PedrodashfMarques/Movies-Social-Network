@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth-service/auth.service';
 import { UserActionsService } from '../user-actions/user-actions.service';
 
@@ -9,7 +10,7 @@ import { UserActionsService } from '../user-actions/user-actions.service';
   templateUrl: './user-settings.component.html',
   styleUrls: ['./user-settings.component.scss']
 })
-export class UserSettingsComponent implements OnInit {
+export class UserSettingsComponent implements OnInit, OnDestroy {
 
   userInformationForm: FormGroup;
   allCountriesArray: any;
@@ -39,6 +40,8 @@ export class UserSettingsComponent implements OnInit {
     errorMessage: boolean;
   // Messages
 
+  private allSubscriptions = new Subscription();
+
   constructor(
     private myFormBuilder: FormBuilder, 
     private myAuthService: AuthService,
@@ -51,10 +54,10 @@ export class UserSettingsComponent implements OnInit {
     this.myAuthService.autologin();
     this.updateUserForm();
 
-    this.myAuthService.userSubject.subscribe(data => {
+    this.allSubscriptions.add(this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
       // this.accountCreatedOn = data[0].userData.created_at;
-    })
+    }))
     this.reloadUserData();
 
   
@@ -63,7 +66,7 @@ export class UserSettingsComponent implements OnInit {
   }
 
   reloadUserData(){
-    this.myUserActions.getUserData(this.connectedUserId).subscribe(data => {
+    this.allSubscriptions.add(this.myUserActions.getUserData(this.connectedUserId).subscribe(data => {
 
       this.userLocation = data[0].userData.location;
       this.userInformationForm.controls.smallBio.setValue(data[0].userData.small_bio);
@@ -72,20 +75,19 @@ export class UserSettingsComponent implements OnInit {
       this.userInformationForm.controls.category.setValue(data[0].userData.category);
       this.userProfileImage = data[0].userData.user_image;
       this.userBackgroundImage = data[0].userData.background_image;
-    })
+    }))
   }
 
   getCountries(){
-    this.myUserActions.getAllCountries().subscribe(data => {
+    this.allSubscriptions.add(this.myUserActions.getAllCountries().subscribe(data => {
       this.allCountriesArray = data;
-
-    })
+    }))
   }
 
   getUserCategories(){
-    this.myUserActions.getAllUserCategories().subscribe(data => {
+    this.allSubscriptions.add(this.myUserActions.getAllUserCategories().subscribe(data => {
       this.allCategoriesArray = data;
-    })
+    }))
   }
 
 
@@ -141,7 +143,7 @@ export class UserSettingsComponent implements OnInit {
     formData.append('bgUser_image', this.backgroundFileToUpload);
 
 
-    this.myUserActions.updateUserData(formData, this.connectedUserId).subscribe(response => {
+    this.allSubscriptions.add(this.myUserActions.updateUserData(formData, this.connectedUserId).subscribe(response => {
       console.log(response["message"]);
       this.reloadUserData();
       this.successMessage = true;
@@ -150,7 +152,7 @@ export class UserSettingsComponent implements OnInit {
     }, error => {
       this.errorMessage = true;
       this.successMessage = false;
-    });
+    }));
 
   }
 
@@ -198,6 +200,10 @@ export class UserSettingsComponent implements OnInit {
 
     this.backgroundFileToUpload = btoa(binaryString);
 
+  }
+
+  ngOnDestroy(): void {
+      this.allSubscriptions.unsubscribe();
   }
 
 }

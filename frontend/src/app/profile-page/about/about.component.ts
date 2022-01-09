@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth-service/auth.service';
 import { UserActionsService } from 'src/app/user-actions/user-actions.service';
 
@@ -7,9 +8,11 @@ import { UserActionsService } from 'src/app/user-actions/user-actions.service';
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent implements OnInit, OnDestroy {
 
   userBio: string;
+
+  mySubscription: Subscription;
 
   constructor( 
     private myUserActions: UserActionsService, 
@@ -18,7 +21,7 @@ export class AboutComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.myUserActions.allUserData.subscribe(data => {
+    this.mySubscription = this.myUserActions.allUserData.subscribe(data => {
       let resultadoBigBio = data[0].userData.big_bio
 
       if(resultadoBigBio.length <= 0){
@@ -29,8 +32,10 @@ export class AboutComponent implements OnInit {
       
     })
 
-
   }
-  // Neste ficheiro ts vou ter que ter um método que chama um e vai buscar a informação do user.bigBio por exemplo
+
+  ngOnDestroy(): void {
+      this.mySubscription.unsubscribe();
+  }
 
 }

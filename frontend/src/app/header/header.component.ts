@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth-service/auth.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { AuthService } from '../auth-service/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   menuAberto: boolean = false;
 
@@ -20,6 +21,9 @@ export class HeaderComponent implements OnInit {
 
   isAdmin;
 
+  
+  mySubscription: Subscription;
+
 
   constructor(
     private myFormBuilder: FormBuilder, 
@@ -28,7 +32,7 @@ export class HeaderComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.myAuthService.userSubject.subscribe(data => {
+    this.mySubscription = this.myAuthService.userSubject.subscribe(data => {
       this.connectedUserId = data.userId;
       this.isAdmin = data.isAdmin;
     })
@@ -54,6 +58,10 @@ export class HeaderComponent implements OnInit {
     .then(()=>{
         this.myRouter.navigate(['/profile/',this.connectedUserId, 'timeline']);
     })
+  }
+
+  ngOnDestroy(): void {
+      this.mySubscription.unsubscribe();
   }
 
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth-service/auth.service';
 import { User } from '../shared/user.model';
 import { UserActionsService } from '../user-actions/user-actions.service';
@@ -10,7 +11,7 @@ import { UserActionsService } from '../user-actions/user-actions.service';
   templateUrl: './newsfeed.component.html',
   styleUrls: ['./newsfeed.component.scss']
 })
-export class NewsfeedComponent implements OnInit {
+export class NewsfeedComponent implements OnInit, OnDestroy {
 
   postForm : FormGroup;
 
@@ -56,6 +57,10 @@ export class NewsfeedComponent implements OnInit {
   userWantsToComment: boolean = false;
   // Post Modal
 
+  // Unsubscribe 
+  private allSubscritions = new Subscription();
+  // Unsubscribe 
+
   constructor(
     private myFormBuilder: FormBuilder, 
     private myAuthService: AuthService,
@@ -64,15 +69,14 @@ export class NewsfeedComponent implements OnInit {
   ) {}
   
   ngOnInit(): void {
-    // this.myAuthService.autologin();
-    this.myAuthService.userSubject.subscribe((data: User) => {
+    this.allSubscritions.add(this.myAuthService.userSubject.subscribe((data: User) => {
       this.connectedUserId = data.userId;
       this.isAdmin = data.isAdmin;
-    })
+    }));
 
     this.createPostForm();
 
-    this.myUserActions.getUserData(this.connectedUserId).subscribe(data => {
+    this.allSubscritions.add(this.myUserActions.getUserData(this.connectedUserId).subscribe(data => {
       this.firstName = data[0].userData.first_name;
       this.username = data[0].userData.username;
       this.lastName = data[0].userData.last_name;
@@ -88,11 +92,11 @@ export class NewsfeedComponent implements OnInit {
       } else {
         this.userVerification = false
       }
-    })
+    }));
 
-    this.myUserActions.getAllPosts().subscribe(data => {
+    this.allSubscritions.add(this.myUserActions.getAllPosts().subscribe(data => {
       this.allPostsArray = data;
-    });
+    }));
 
   }
 
@@ -111,22 +115,22 @@ export class NewsfeedComponent implements OnInit {
     formData.append('user_id', String(this.connectedUserId));
     formData.append('content', values.post_content);
 
-    this.myUserActions.createPost(formData).subscribe(response => {
+    this.allSubscritions.add(this.myUserActions.createPost(formData).subscribe(response => {
       // console.log(response);
-    })
+    }));
 
     setTimeout(() => {
-      this.myUserActions.getAllPosts().subscribe(postsData => { 
+      this.allSubscritions.add(this.myUserActions.getAllPosts().subscribe(postsData => { 
         // Talvez aplicar aqui um loading spinner
         this.allPostsArray = postsData;
-      })
-    }, 500)  
+      }))
+    }, 200)
 
   }
 
 
   likePost(postId:number){
-    this.myUserActions.likeDislikePost(postId, this.connectedUserId).subscribe(responseData => {
+    this.allSubscritions.add(this.myUserActions.likeDislikePost(postId, this.connectedUserId).subscribe(responseData => {
 
       for (let index = 0; index < this.allPostsArray.length; index++) {
 
@@ -142,9 +146,7 @@ export class NewsfeedComponent implements OnInit {
         }
       }
     
-    }, errorRes => {
-      console.log(errorRes)
-    })
+    }));
 
   }
 
@@ -160,20 +162,23 @@ export class NewsfeedComponent implements OnInit {
 
     formData.append('content', values.post_content);
 
-    this.myUserActions.editPost(this.postIdToEdit, formData).subscribe(response => {
+    this.allSubscritions.add(this.myUserActions.editPost(this.postIdToEdit, formData).subscribe(response => {
       console.log(response);
-    })
+    }))
 
   }
   
 
   deletePost(postId: number){
     this.userWantsToEdit = false;
-    // console.log(postId)
 
-    this.myUserActions.deletePost(postId).subscribe(response => {
-      console.log(response);
-    });
+    this.allSubscritions.add(this.myUserActions.deletePost(postId).subscribe(response => {
+      setTimeout(() => {
+        this.allSubscritions.add(this.myUserActions.getAllPosts().subscribe(data => {
+          this.allPostsArray = data;
+        }))
+      }, 100)
+    }));
 
   }
 
@@ -203,5 +208,10 @@ export class NewsfeedComponent implements OnInit {
         this.myRouter.navigate(['/profile/',this.connectedUserId, 'timeline']);
     })
   }
+
+  ngOnDestroy(): void {
+      this.allSubscritions.unsubscribe();
+  }
+
 
 }
