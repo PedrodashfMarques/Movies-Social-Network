@@ -22,8 +22,6 @@ use ReallySimpleJWT\Token;
             
             $secret = CONFIG["SECRET_KEY"];
 
-          
-
             $tokenIsValid = Token::validate($tokenKey, $secret);
 
             // JWT Decode
@@ -54,8 +52,7 @@ use ReallySimpleJWT\Token;
             $secret = CONFIG["SECRET_KEY"];
 
             $tokenIsValid = Token::validate($tokenKey, $secret);
-
-            
+   
             // JWT Decode
             if($tokenIsValid){
                 $user = Token::getPayload($tokenKey, $secret);

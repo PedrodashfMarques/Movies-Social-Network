@@ -16,7 +16,6 @@ export class FollowersComponent implements OnInit, OnDestroy {
   imagesPath = "http://localhost/backend/";
   imagemDefault = "https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png";
 
-
   // Follower Id
     followerId: any;
   // Follower Id
@@ -25,7 +24,6 @@ export class FollowersComponent implements OnInit, OnDestroy {
 
   mySubscription: Subscription;
 
-  
   constructor(
     private myUserActions: UserActionsService, 
     private myRouter: Router) { }
