@@ -31,7 +31,6 @@ export class AdminAuthGuard implements CanActivate{
                 }
                 return this.myRouter.createUrlTree(["newsfeed"]);
 
-
             }))
         }
         
